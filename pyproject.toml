@@ -1,0 +1,10 @@
+[project]
+name = "ai-content-agent"
+version = "0.1.0"
+description = "Autonomous AI Content Agent skeleton for researching trends, generating Instagram content, posting, and analytics."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+ai-content-agent = "ai_content_agent.cli:main"

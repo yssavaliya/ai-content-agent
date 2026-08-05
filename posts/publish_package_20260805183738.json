@@ -1,0 +1,89 @@
+{
+  "research": {
+    "trends": [
+      {
+        "provider": "static",
+        "title": "AI content personalization for creators",
+        "source": "industry-report",
+        "summary": "Creators are increasingly using personalized AI-driven content strategies to boost engagement.",
+        "category": "content",
+        "url": "https://example.com/ai-content-personalization",
+        "retrieved_at": "2026-08-05T18:37:38.565910Z",
+        "raw_payload": {
+          "note": "static sample"
+        }
+      },
+      {
+        "provider": "static",
+        "title": "Short-form video trends in 2026",
+        "source": "social-insights",
+        "summary": "Short-form videos remain the dominant format for discovery and audience growth.",
+        "category": "video",
+        "url": "https://example.com/short-form-video-2026",
+        "retrieved_at": "2026-08-05T18:37:38.565910Z",
+        "raw_payload": {
+          "note": "static sample"
+        }
+      }
+    ],
+    "selected_topic": "AI content personalization for creators",
+    "primary_research_id": 1
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Create a post about trend-a",
+        "score": 0.8
+      },
+      {
+        "idea": "Share insights on trend-b",
+        "score": 0.6
+      }
+    ],
+    "selected_idea": {
+      "idea": "Create a post about trend-a",
+      "score": 0.8
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: Trend introduction",
+      "Slide 2: Why it matters",
+      "Slide 3: Actionable tip"
+    ],
+    "caption": "A placeholder caption for the selected idea.",
+    "cta": "Tell us what you think in the comments.",
+    "hashtags": [
+      "#content",
+      "#strategy",
+      "#socialmedia"
+    ],
+    "image_prompt": "A clean social media carousel image with bold typography."
+  },
+  "review": {
+    "status": "PASS",
+    "reasons": [
+      "Placeholder review indicates the draft meets the basic structure."
+    ],
+    "timestamp": "2026-08-05T00:00:00Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A clean social media carousel image with bold typography.",
+    "file_path": "images/2026/08/05/local_image_183738.json",
+    "metadata": {
+      "created_at": "2026-08-05T18:37:38.566427Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "dry-run",
+    "status": "dry-run",
+    "published_id": "dry-20260805183738",
+    "metadata": {
+      "package_path": "posts/publish_package_20260805183738.json",
+      "simulated": true,
+      "created_at": "2026-08-05T18:37:38.567609Z"
+    }
+  }
+}
