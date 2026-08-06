@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime
 from pathlib import Path
 
+from ...timestamps import format_utc, utc_now
 from .base import BaseImageProvider, ImageRequest, ImageResult
 from .registry import ImageProviderRegistry
 
@@ -20,20 +20,21 @@ class MockImageProvider(BaseImageProvider):
 
     def generate(self, request: ImageRequest) -> ImageResult:
         self.validate(request)
-        now = datetime.utcnow()
+        now = utc_now()
         output_dir = Path("images") / now.strftime("%Y") / now.strftime("%m") / now.strftime("%d")
         output_dir.mkdir(parents=True, exist_ok=True)
         file_path = output_dir / f"mock_image_{now.strftime('%H%M%S')}.json"
+        created_at = format_utc(now)
         payload = {
             "prompt": request.prompt,
             "brand_style": request.brand_style,
             "aspect_ratio": request.aspect_ratio,
-            "created_at": now.isoformat() + "Z",
+            "created_at": created_at,
         }
         file_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         return ImageResult(
             provider=self.name,
             prompt=request.prompt,
             file_path=str(file_path),
-            metadata={"created_at": now.isoformat() + "Z", "provider": self.name},
+            metadata={"created_at": created_at, "provider": self.name},
         )

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import ClassVar, Dict, Type
 
 from .base import BaseImageProvider

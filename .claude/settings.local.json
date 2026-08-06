@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where python *)",
+      "Bash(python -m pip show pytest)",
+      "Bash(PYTHONPATH=src python -m pytest --collect-only -q)",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(list\\(d.keys\\(\\)\\)\\); print\\(d['research']\\)\")"
+    ]
+  }
+}

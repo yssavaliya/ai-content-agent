@@ -52,6 +52,8 @@ class ResearchAgentTests(unittest.TestCase):
         self.assertEqual(result["recommended_topic"], "Micro-content trends for creators")
         self.assertIsInstance(result["supporting_points"], list)
         self.assertEqual(result["confidence"], 92)
+        self.assertIn("research_id", result)
+        self.assertIsInstance(result["research_id"], int)
 
     def test_execute_raises_on_malformed_json(self):
         client = MagicMock(spec=OpenCodeClient)

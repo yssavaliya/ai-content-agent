@@ -46,10 +46,24 @@ class DatabaseConnectionTests(unittest.TestCase):
             finally:
                 db.close()
 
-    def test_run_migrations_preserves_schema_version(self):
+    def test_run_migrations_applies_and_preserves_schema_version(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             db_path = Path(temp_dir) / "agent.db"
             initialize_database(db_path)
+
+            connection = sqlite3.connect(db_path)
+            try:
+                cursor = connection.cursor()
+                cursor.execute(f"SELECT MAX(version) FROM {MIGRATIONS_TABLE}")
+                row = cursor.fetchone()
+                self.assertEqual(row[0], 1)
+
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('post_metrics', 'observations', 'experiment_posts', 'strategy_history')")
+                tables = {row[0] for row in cursor.fetchall()}
+                self.assertEqual(tables, {"post_metrics", "observations", "experiment_posts", "strategy_history"})
+            finally:
+                connection.close()
+
             run_migrations(db_path)
 
             connection = sqlite3.connect(db_path)
@@ -57,7 +71,7 @@ class DatabaseConnectionTests(unittest.TestCase):
                 cursor = connection.cursor()
                 cursor.execute(f"SELECT MAX(version) FROM {MIGRATIONS_TABLE}")
                 row = cursor.fetchone()
-                self.assertEqual(row[0], 0)
+                self.assertEqual(row[0], 1)
             finally:
                 connection.close()
 

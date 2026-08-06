@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime
+import logging
 from pathlib import Path
 from typing import Any
 
@@ -9,6 +9,9 @@ from ..agents.base import BaseAgent
 from ..database.connection import DatabaseConnection
 from ..opencode.client import OpenCodeClient, OpenCodeError
 from ..prompts.manager import PromptManager
+from ..timestamps import utc_now_iso
+
+logger = logging.getLogger(__name__)
 
 
 class ResearchAgent(BaseAgent):
@@ -39,6 +42,7 @@ class ResearchAgent(BaseAgent):
             "confidence": "Confidence score from 0 to 100",
             "reasoning": "Explanation of the chosen topic and recommendation",
             "timestamp": "ISO-formatted timestamp",
+            "research_id": "ID of the persisted research record",
         }
 
     def __init__(
@@ -78,12 +82,16 @@ class ResearchAgent(BaseAgent):
                 response = self.opencode_client.run([], input_text=prompt_text)
                 payload = json.loads(response.stdout)
                 validated = self._validate_payload(payload)
-                self._persist_research(validated)
+                research_id = self._persist_research(validated)
+                validated["research_id"] = research_id
+                logger.info("ResearchAgent recommended topic=%r (research_id=%s)", validated["recommended_topic"], research_id)
                 return validated
             except (OpenCodeError, ValueError) as exc:
                 last_error = exc
                 if attempt == self.max_attempts:
+                    logger.error("ResearchAgent failed after %s attempts: %s", attempt, exc)
                     raise RuntimeError(f"ResearchAgent failed after {attempt} attempts: {exc}") from exc
+                logger.warning("ResearchAgent attempt %s/%s failed (%s); retrying", attempt, self.max_attempts, exc)
         raise RuntimeError("ResearchAgent encountered an unknown failure") from last_error
 
     def _validate_payload(self, payload: Any) -> dict[str, Any]:
@@ -124,12 +132,12 @@ class ResearchAgent(BaseAgent):
 
         return payload
 
-    def _persist_research(self, payload: dict[str, Any]) -> None:
+    def _persist_research(self, payload: dict[str, Any]) -> int:
         database = self.database or DatabaseConnection()
         own_database = self.database is None
 
         try:
-            database.execute(
+            cursor = database.execute(
                 "INSERT INTO research_raw(provider, title, source, summary, category, url, retrieved_at, normalized_at, raw_payload) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
                     self.name,
@@ -139,10 +147,11 @@ class ResearchAgent(BaseAgent):
                     "research",
                     None,
                     payload["timestamp"],
-                    datetime.utcnow().isoformat() + "Z",
+                    utc_now_iso(),
                     json.dumps(payload),
                 ),
             )
+            return cursor.lastrowid
         finally:
             if own_database:
                 database.close()

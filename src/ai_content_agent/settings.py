@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
 
 REQUIRED_SETTINGS = [
     "LOG_LEVEL",
@@ -22,14 +21,80 @@ class Settings:
     instagram_enabled: bool
     image_provider: str
 
+    # Optional integrations
+    openai_api_key: str | None = None
+    opencode_timeout_seconds: int = 60
+    openai_model: str = "gpt-image-1"
+    openai_max_retries: int = 3
+    openai_request_timeout_seconds: int = 60
 
-def _parse_bool(value: str) -> bool:
+    # Instagram publishing
+    instagram_access_token: str | None = None
+    instagram_account_id: str | None = None
+    instagram_api_version: str = "21.0"
+    instagram_publish_enabled: bool = False
+    instagram_analytics_enabled: bool = False
+
+    # Media hosting (public URL required by the Instagram Graph API)
+    media_host: str = "none"
+    media_host_repo: str | None = None
+    media_host_token: str | None = None
+    media_host_branch: str = "main"
+    media_host_path: str = "images"
+
+    # Notifications
+    notify_channels: tuple[str, ...] = ("dryrun",)
+    discord_webhook_url: str | None = None
+    telegram_bot_token: str | None = None
+    telegram_chat_id: str | None = None
+    slack_webhook_url: str | None = None
+    smtp_host: str | None = None
+    smtp_port: int = 587
+    smtp_user: str | None = None
+    smtp_password: str | None = None
+    smtp_from: str | None = None
+    smtp_to: str | None = None
+    notify_smtp_tls: bool = True
+
+    # Scientist / learning
+    scientist_min_sample_size: int = 10
+    scientist_min_effect: float = 0.15
+    scientist_apply_threshold: float = 0.6
+    scientist_max_recommendations: int = 5
+
+
+def _parse_bool(value: str, name: str = "INSTAGRAM_ENABLED") -> bool:
     normalized = value.strip().lower()
     if normalized in {"1", "true", "yes", "on"}:
         return True
     if normalized in {"0", "false", "no", "off"}:
         return False
-    raise ValueError(f"Invalid boolean value for INSTAGRAM_ENABLED: '{value}'")
+    raise ValueError(f"Invalid boolean value for {name}: '{value}'")
+
+
+def _parse_csv(value: str | None) -> tuple[str, ...]:
+    if not value:
+        return ("dryrun",)
+    items = (item.strip().strip("\"'") for item in value.split(",") if item.strip())
+    return tuple(item.lower() for item in items if item)
+
+
+def _parse_int(value: str | None, default: int, name: str) -> int:
+    if not value:
+        return default
+    try:
+        return int(value)
+    except ValueError:
+        raise ValueError(f"Invalid integer value for {name}: '{value}'") from None
+
+
+def _parse_float(value: str | None, default: float, name: str) -> float:
+    if not value:
+        return default
+    try:
+        return float(value)
+    except ValueError:
+        raise ValueError(f"Invalid numeric value for {name}: '{value}'") from None
 
 
 def _load_env_file(env_path: Path) -> dict[str, str]:
@@ -68,12 +133,58 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
     if missing:
         raise ValueError(f"Missing required configuration values: {', '.join(missing)}")
 
+    def get(name: str) -> str | None:
+        return env.get(name, "").strip() or None
+
     return Settings(
         log_level=env["LOG_LEVEL"].strip(),
         database_path=env["DATABASE_PATH"].strip(),
         opencode_command=env["OPENCODE_COMMAND"].strip(),
         instagram_enabled=_parse_bool(env["INSTAGRAM_ENABLED"]),
         image_provider=env["IMAGE_PROVIDER"].strip(),
+        openai_api_key=get("OPENAI_API_KEY"),
+        opencode_timeout_seconds=_parse_int(get("OPENCODE_TIMEOUT_SECONDS"), 60, "OPENCODE_TIMEOUT_SECONDS"),
+        openai_model=get("OPENAI_MODEL") or "gpt-image-1",
+        openai_max_retries=_parse_int(get("OPENAI_MAX_RETRIES"), 3, "OPENAI_MAX_RETRIES"),
+        openai_request_timeout_seconds=_parse_int(
+            get("OPENAI_REQUEST_TIMEOUT_SECONDS"), 60, "OPENAI_REQUEST_TIMEOUT_SECONDS"
+        ),
+        instagram_access_token=get("INSTAGRAM_ACCESS_TOKEN"),
+        instagram_account_id=get("INSTAGRAM_ACCOUNT_ID"),
+        instagram_api_version=get("INSTAGRAM_API_VERSION") or "21.0",
+        instagram_publish_enabled=_parse_bool(
+            get("INSTAGRAM_PUBLISH_ENABLED") or "false", "INSTAGRAM_PUBLISH_ENABLED"
+        ),
+        instagram_analytics_enabled=_parse_bool(
+            get("INSTAGRAM_ANALYTICS_ENABLED") or "false", "INSTAGRAM_ANALYTICS_ENABLED"
+        ),
+        media_host=(get("MEDIA_HOST") or "none").strip().lower(),
+        media_host_repo=get("MEDIA_HOST_REPO"),
+        media_host_token=get("MEDIA_HOST_TOKEN"),
+        media_host_branch=get("MEDIA_HOST_BRANCH") or "main",
+        media_host_path=get("MEDIA_HOST_PATH") or "images",
+        notify_channels=_parse_csv(get("NOTIFY_CHANNELS")),
+        discord_webhook_url=get("DISCORD_WEBHOOK_URL"),
+        telegram_bot_token=get("TELEGRAM_BOT_TOKEN"),
+        telegram_chat_id=get("TELEGRAM_CHAT_ID"),
+        slack_webhook_url=get("SLACK_WEBHOOK_URL"),
+        smtp_host=get("SMTP_HOST"),
+        smtp_port=_parse_int(get("SMTP_PORT"), 587, "SMTP_PORT"),
+        smtp_user=get("SMTP_USER"),
+        smtp_password=get("SMTP_PASSWORD"),
+        smtp_from=get("SMTP_FROM"),
+        smtp_to=get("SMTP_TO"),
+        notify_smtp_tls=_parse_bool(get("NOTIFY_SMTP_TLS") or "true", "NOTIFY_SMTP_TLS"),
+        scientist_min_sample_size=_parse_int(
+            get("SCIENTIST_MIN_SAMPLE_SIZE"), 10, "SCIENTIST_MIN_SAMPLE_SIZE"
+        ),
+        scientist_min_effect=_parse_float(get("SCIENTIST_MIN_EFFECT"), 0.15, "SCIENTIST_MIN_EFFECT"),
+        scientist_apply_threshold=_parse_float(
+            get("SCIENTIST_APPLY_THRESHOLD"), 0.6, "SCIENTIST_APPLY_THRESHOLD"
+        ),
+        scientist_max_recommendations=_parse_int(
+            get("SCIENTIST_MAX_RECOMMENDATIONS"), 5, "SCIENTIST_MAX_RECOMMENDATIONS"
+        ),
     )
 
 

@@ -1,5 +1,5 @@
 """Application services for the AI Content Agent."""
 
-from .agent import ContentAgent
+from .pipeline import ContentPipeline
 
-__all__ = ["ContentAgent"]
+__all__ = ["ContentPipeline"]

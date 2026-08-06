@@ -1,0 +1,26 @@
+# Environment & secrets — never commit
+.env
+*.env
+!*.env.example
+
+# Runtime data (persisted to git by CI workflows via `git add -f`)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.lock
+posts/
+images/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/

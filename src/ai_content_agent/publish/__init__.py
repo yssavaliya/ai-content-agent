@@ -1,4 +1,4 @@
-"""Publishing abstractions."""
+"""Publishing abstractions and providers."""
 
 from .provider import Publisher, PublishResult
 

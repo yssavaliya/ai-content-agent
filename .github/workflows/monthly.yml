@@ -1,0 +1,41 @@
+name: Monthly report
+
+on:
+  schedule:
+    - cron: "0 7 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monthly:
+    runs-on: ubuntu-latest
+    env:
+      LOG_LEVEL: INFO
+      DATABASE_PATH: agent.db
+      OPENCODE_COMMAND: opencode
+      INSTAGRAM_ENABLED: "true"
+      IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
+      NOTIFY_CHANNELS: ${{ secrets.NOTIFY_CHANNELS }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      SMTP_TO: ${{ secrets.SMTP_TO }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      - name: Run monthly report
+        run: python -m ai_content_agent.cli monthly

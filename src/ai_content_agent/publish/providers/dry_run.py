@@ -1,10 +1,6 @@
 from __future__ import annotations
 
-import json
-from datetime import datetime
-from pathlib import Path
-from typing import Any
-
+from ...timestamps import format_utc, utc_now
 from ..provider import PublishResult, Publisher
 
 
@@ -14,11 +10,11 @@ class DryRunPublisher(Publisher):
         return "dry-run"
 
     def publish(self, package_path: str) -> PublishResult:
-        now = datetime.utcnow()
+        now = utc_now()
         metadata = {
             "package_path": package_path,
             "simulated": True,
-            "created_at": now.isoformat() + "Z",
+            "created_at": format_utc(now),
         }
         return PublishResult(
             provider=self.name,

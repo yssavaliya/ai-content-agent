@@ -1,0 +1,64 @@
+name: Daily content run
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    env:
+      LOG_LEVEL: INFO
+      DATABASE_PATH: agent.db
+      OPENCODE_COMMAND: opencode
+      OPENCODE_TIMEOUT_SECONDS: "180"
+      INSTAGRAM_ENABLED: "true"
+      IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
+      INSTAGRAM_API_VERSION: ${{ secrets.INSTAGRAM_API_VERSION }}
+      INSTAGRAM_PUBLISH_ENABLED: ${{ secrets.INSTAGRAM_PUBLISH_ENABLED }}
+      INSTAGRAM_ANALYTICS_ENABLED: ${{ secrets.INSTAGRAM_ANALYTICS_ENABLED }}
+      MEDIA_HOST: ${{ secrets.MEDIA_HOST }}
+      MEDIA_HOST_REPO: ${{ secrets.MEDIA_HOST_REPO }}
+      MEDIA_HOST_TOKEN: ${{ secrets.MEDIA_HOST_TOKEN }}
+      MEDIA_HOST_BRANCH: ${{ secrets.MEDIA_HOST_BRANCH }}
+      MEDIA_HOST_PATH: ${{ secrets.MEDIA_HOST_PATH }}
+      NOTIFY_CHANNELS: ${{ secrets.NOTIFY_CHANNELS }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      SMTP_TO: ${{ secrets.SMTP_TO }}
+      NOTIFY_SMTP_TLS: ${{ secrets.NOTIFY_SMTP_TLS }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install opencode
+        run: npm install -g opencode-ai
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      - name: Run daily pipeline
+        run: python -m ai_content_agent.cli daily
+      - name: Persist artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f agent.db brain/strategy.md posts images
+          git commit -m "chore: daily run artifacts" || echo "No changes to commit"
+          git push
