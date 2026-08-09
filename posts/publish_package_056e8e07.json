@@ -1,0 +1,117 @@
+{
+  "run_id": "056e8e07",
+  "research": {
+    "recommended_topic": "3 Operational Systems to Reclaim 10 Hours Weekly Without Hiring",
+    "audience_problem": "Founders and creators are trapped working in their business rather than on it, suffering from operational bottlenecks and imminent burnout.",
+    "why_now": "Mid-week productivity slumps peak on Wednesdays, creating optimal audience resonance for actionable, high-efficiency time management strategies.",
+    "hook": "Stop working 60-hour weeks just to keep your business floating. Here are 3 simple systems to steal today.",
+    "supporting_points": [
+      "Audit and eliminate low-value tasks using a simple 7-day time tracking framework.",
+      "Standardize workflow handoffs with short, asynchronous video SOPs.",
+      "Automate repetitive client onboarding steps using simple low-code triggers."
+    ],
+    "confidence": 0.95,
+    "reasoning": "Directly targets high-intent audience pain points regarding scalability and workflow efficiency, delivering immediate value while establishing brand authority.",
+    "timestamp": "2026-03-28T12:00:00Z",
+    "research_id": 2
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "The 3-Second Rule Carousel: 5 Visual Hooks That Stop the Scroll (With Copy-Paste Templates)",
+        "educational_score": 0.9,
+        "originality_score": 0.75,
+        "engagement_score": 0.85,
+        "relevance_score": 0.95,
+        "reasoning": "Provides highly actionable, plug-and-play visual hooks directly addressing short viewer attention spans, though hook template carousels are somewhat common."
+      },
+      {
+        "idea": "Reels Myth-Busting Video: 'Why Posting 3x A Day Is Ruining Your Reach (And What To Do Instead)'",
+        "educational_score": 0.85,
+        "originality_score": 0.8,
+        "engagement_score": 0.9,
+        "relevance_score": 0.9,
+        "reasoning": "A contrarian, bold hook that sparks strong debate in comments while dispelling burn-out inducing myths about algorithm behavior."
+      },
+      {
+        "idea": "Interactive Workflow Reel & Carousel: 'The 15-Minute Content Batching Framework for Busy Founders'",
+        "educational_score": 0.95,
+        "originality_score": 0.85,
+        "engagement_score": 0.95,
+        "relevance_score": 0.95,
+        "reasoning": "Solves the core audience problem of time constraints with a clear, step-by-step process that naturally drives saves and bookmarking."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Interactive Workflow Reel & Carousel: 'The 15-Minute Content Batching Framework for Busy Founders'",
+      "educational_score": 0.95,
+      "originality_score": 0.85,
+      "engagement_score": 0.95,
+      "relevance_score": 0.95,
+      "total_score": 3.7,
+      "reasoning": "Combines high actionable utility with a distinct step-by-step framework that directly targets the audience's biggest bottleneck\u2014time efficiency\u2014resulting in maximum save potential and overall impact."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: Title - 5 Daily Habits That Silently Drain Your Creative Energy (And how to fix them today).",
+      "Slide 2: Habit 1 - Context Switching. Jumping between unchunked tasks costs up to 40% of productive focus time. Fix: Time-block 90-minute deep work sessions.",
+      "Slide 3: Habit 2 - Reactive Mornings. Checking messages or news first thing puts your brain in defense mode. Fix: Reserve the first 60 minutes for your top priority.",
+      "Slide 4: Habit 4 - Decision Fatigue. Overthinking micro-choices depletes cognitive reserves. Fix: Automate routine decisions like meals and daily startup sequences.",
+      "Slide 5: Habit 4 - High-Friction Breaks. Scrolling social media during breaks deprives your brain of genuine rest. Fix: Take a 10-minute walk without screens.",
+      "Slide 6: Habit 5 - Open Loop Overload. Keeping to-do items in your head creates constant background friction. Fix: End every workday with a 5-minute brain dump.",
+      "Slide 7: Quick reference checklist & summary. Save this guide to audit your daily workflow."
+    ],
+    "caption": "Your creative energy isn\u2019t disappearing\u2014it\u2019s being leaked in micro-doses throughout the day.\n\nMost high performers don't struggle from a lack of vision or effort; they burn out because of small, invisible daily habits that drain their cognitive battery long before deep work even happens.\n\nContext switching, reactive mornings, and screen-filled breaks keep your focus fractured and prevent high-impact output.\n\nSwipe through the carousel to identify which of these 5 friction points is affecting your energy most, and start implementing the quick resets today.",
+    "cta": "Save this post to audit your workflow this weekend, and comment below with the habit you are committing to eliminate first!",
+    "hashtags": [
+      "#ProductivityTips",
+      "#DeepWork",
+      "#CreativeWorkflow",
+      "#TimeManagement",
+      "#MentalClarity",
+      "#FocusStrategy",
+      "#MindfulProductivity"
+    ],
+    "image_prompt": "A minimal, high-end editorial photograph of a modern, uncluttered wooden desk flooded with warm morning window light. On the desk sits a clean ceramic mug, a sleek open paper planner showing a structured daily schedule, and a minimalist fountain pen. Soft geometric shadows cast across the surface. Shot on 35mm lens, neutral warm tone palette, cozy aesthetic, shallow depth of field.",
+    "alt_text": "An uncluttered wooden desk in soft morning sunlight featuring an open planner with a structured schedule, a pen, and a ceramic mug."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output was not provided for review.",
+      "Brand identity document was not provided.",
+      "Brand constitution document was not provided."
+    ],
+    "timestamp": "2026-08-09T18:58:50.845875Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A minimal, high-end editorial photograph of a modern, uncluttered wooden desk flooded with warm morning window light. On the desk sits a clean ceramic mug, a sleek open paper planner showing a structured daily schedule, and a minimalist fountain pen. Soft geometric shadows cast across the surface. Shot on 35mm lens, neutral warm tone palette, cozy aesthetic, shallow depth of field.",
+    "file_path": "images/2026/08/09/image_prompt_185850.txt",
+    "metadata": {
+      "created_at": "2026-08-09T18:58:50Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "056e8e07",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: 3 Operational Systems to Reclaim 10 Hours Weekly W"
+    }
+  },
+  "package_path": "posts/publish_package_056e8e07.json",
+  "timing": {
+    "research_ms": 7160,
+    "planner_ms": 11630,
+    "creator_ms": 12493,
+    "reviewer_ms": 8935,
+    "image_ms": 1,
+    "publish_ms": 1925,
+    "total_ms": 42144
+  }
+}

@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A minimal, high-end editorial photograph of a modern, uncluttered wooden desk flooded with warm morning window light. On the desk sits a clean ceramic mug, a sleek open paper planner showing a structured daily schedule, and a minimalist fountain pen. Soft geometric shadows cast across the surface. Shot on 35mm lens, neutral warm tone palette, cozy aesthetic, shallow depth of field.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-09T18:58:50Z
