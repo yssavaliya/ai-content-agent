@@ -159,6 +159,101 @@ class OpenCodeClientOpenAIPrimaryTests(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(json.loads(result.stdout), {"topic": "AI"})
 
+    def test_openai_primary_falls_back_to_gemini_when_api_down(self):
+        os.environ["GEMINI_API_KEY"] = "gemini-test"
+        fake_openai = MagicMock()
+        fake_openai.chat.completions.create.side_effect = RuntimeError("api down")
+        fake_gemini = MagicMock()
+        fake_gemini.chat.completions.create.return_value = SimpleNamespace(
+            choices=[SimpleNamespace(message=SimpleNamespace(content='{"topic": "Gemini"}' ))]
+        )
+        client = OpenCodeClient(
+            recorder=PromptRecorder(logs_dir=self.logs_dir),
+            openai_client=fake_openai,
+            gemini_client=fake_gemini,
+        )
+        with patch(
+            "ai_content_agent.opencode.client.subprocess.Popen",
+            side_effect=AssertionError("opencode should not be invoked"),
+        ):
+            result = client.run([], input_text="prompt", label="ResearchAgent")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(json.loads(result.stdout), {"topic": "Gemini"})
+        fake_gemini.chat.completions.create.assert_called_once()
+
+
+class OpenCodeClientGeminiPrimaryTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self._old_env = dict(os.environ)
+        self._tmp = tempfile.TemporaryDirectory()
+        self.logs_dir = Path(self._tmp.name) / "logs" / "prompts"
+        os.environ.update(REQUIRED_ENV)
+        os.environ["LLM_PROVIDER"] = "gemini"
+        os.environ["GEMINI_API_KEY"] = "gemini-test"
+
+    def tearDown(self) -> None:
+        os.environ.clear()
+        os.environ.update(self._old_env)
+        self._tmp.cleanup()
+
+    def _fake_process(self, stdout: str) -> MagicMock:
+        proc = MagicMock()
+        proc.communicate.return_value = (stdout, "")
+        proc.returncode = 0
+        return proc
+
+    def test_gemini_primary_skips_openai_and_opencode(self):
+        fake_gemini = MagicMock()
+        fake_gemini.chat.completions.create.return_value = SimpleNamespace(
+            choices=[SimpleNamespace(message=SimpleNamespace(content='{"topic": "AI"}'))]
+        )
+        client = OpenCodeClient(
+            recorder=PromptRecorder(logs_dir=self.logs_dir),
+            gemini_client=fake_gemini,
+        )
+        with patch(
+            "ai_content_agent.opencode.client.subprocess.Popen",
+            side_effect=AssertionError("opencode should not be invoked"),
+        ):
+            result = client.run([], input_text="prompt", label="ResearchAgent")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(json.loads(result.stdout), {"topic": "AI"})
+        fake_gemini.chat.completions.create.assert_called_once()
+
+    def test_gemini_primary_falls_back_to_openai_when_api_down(self):
+        os.environ["OPENAI_API_KEY"] = "sk-test"
+        fake_gemini = MagicMock()
+        fake_gemini.chat.completions.create.side_effect = RuntimeError("api down")
+        fake_openai = MagicMock()
+        fake_openai.chat.completions.create.return_value = SimpleNamespace(
+            choices=[SimpleNamespace(message=SimpleNamespace(content='{"topic": "OpenAI"}'))]
+        )
+        client = OpenCodeClient(
+            recorder=PromptRecorder(logs_dir=self.logs_dir),
+            openai_client=fake_openai,
+            gemini_client=fake_gemini,
+        )
+        with patch(
+            "ai_content_agent.opencode.client.subprocess.Popen",
+            side_effect=AssertionError("opencode should not be invoked"),
+        ):
+            result = client.run([], input_text="prompt", label="ResearchAgent")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(json.loads(result.stdout), {"topic": "OpenAI"})
+        fake_openai.chat.completions.create.assert_called_once()
+
+    def test_gemini_primary_falls_back_to_opencode_when_no_keys(self):
+        os.environ.pop("GEMINI_API_KEY", None)
+        os.environ.pop("OPENAI_API_KEY", None)
+        client = OpenCodeClient(recorder=PromptRecorder(logs_dir=self.logs_dir))
+        with patch(
+            "ai_content_agent.opencode.client.subprocess.Popen",
+            return_value=self._fake_process('{"topic": "AI"}'),
+        ):
+            result = client.run([], input_text="prompt", label="ResearchAgent")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(json.loads(result.stdout), {"topic": "AI"})
+
 
 if __name__ == "__main__":
     unittest.main()

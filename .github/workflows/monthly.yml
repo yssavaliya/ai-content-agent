@@ -17,6 +17,7 @@ jobs:
       OPENCODE_COMMAND: opencode
       INSTAGRAM_ENABLED: "true"
       IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       NOTIFY_CHANNELS: ${{ secrets.NOTIFY_CHANNELS }}
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

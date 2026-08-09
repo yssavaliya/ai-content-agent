@@ -81,6 +81,19 @@ class SettingsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             load_settings(env={**REQUIRED_ENV, "LLM_PROVIDER": "claude"})
 
+    def test_gemini_provider_and_defaults(self):
+        settings = load_settings(env={**REQUIRED_ENV, "LLM_PROVIDER": "gemini"})
+        self.assertEqual(settings.llm_provider, "gemini")
+        self.assertEqual(settings.gemini_model, "gemini-2.5-flash")
+        self.assertIsNone(settings.gemini_api_key)
+
+    def test_gemini_overrides(self):
+        settings = load_settings(
+            env={**REQUIRED_ENV, "LLM_PROVIDER": "gemini", "GEMINI_MODEL": "gemini-2.0-flash", "GEMINI_API_KEY": "k"}
+        )
+        self.assertEqual(settings.gemini_model, "gemini-2.0-flash")
+        self.assertEqual(settings.gemini_api_key, "k")
+
 
 if __name__ == "__main__":
     unittest.main()

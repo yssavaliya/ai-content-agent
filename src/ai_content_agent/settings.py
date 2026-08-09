@@ -28,13 +28,18 @@ class Settings:
     openai_max_retries: int = 3
     openai_request_timeout_seconds: int = 60
 
-    # Primary LLM engine for agents: "openai" (fast, via OPENAI_API_KEY) or "opencode".
-    # The other engine is used as a fallback when the primary is unavailable or fails.
+    # Primary LLM engine for agents: "openai", "gemini", or "opencode".
+    # The other API provider (openai <-> gemini) is tried next, then opencode.
     llm_provider: str = "openai"
 
-    # OpenAI text fallback (used when opencode is unavailable or fails)
+    # OpenAI text fallback (used when the primary LLM is unavailable or fails)
     openai_text_model: str = "gpt-4o-mini"
     openai_text_fallback_enabled: bool = True
+
+    # Google Gemini chat (via the OpenAI-compatible endpoint)
+    gemini_api_key: str | None = None
+    gemini_model: str = "gemini-2.5-flash"
+    gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
     # Instagram publishing
     instagram_access_token: str | None = None
@@ -146,9 +151,9 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
 
     def get_provider() -> str:
         provider = (get("LLM_PROVIDER") or "openai").strip().lower()
-        if provider not in {"openai", "opencode"}:
+        if provider not in {"openai", "gemini", "opencode"}:
             raise ValueError(
-                f"Invalid value for LLM_PROVIDER: '{provider}' (expected 'openai' or 'opencode')"
+                f"Invalid value for LLM_PROVIDER: '{provider}' (expected 'openai', 'gemini', or 'opencode')"
             )
         return provider
 
@@ -170,6 +175,9 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         openai_text_fallback_enabled=_parse_bool(
             get("OPENAI_TEXT_FALLBACK_ENABLED") or "true", "OPENAI_TEXT_FALLBACK_ENABLED"
         ),
+        gemini_api_key=get("GEMINI_API_KEY"),
+        gemini_model=get("GEMINI_MODEL") or "gemini-2.5-flash",
+        gemini_base_url=get("GEMINI_BASE_URL") or "https://generativelanguage.googleapis.com/v1beta/openai/",
         instagram_access_token=get("INSTAGRAM_ACCESS_TOKEN"),
         instagram_account_id=get("INSTAGRAM_ACCOUNT_ID"),
         instagram_api_version=get("INSTAGRAM_API_VERSION") or "21.0",
