@@ -15,7 +15,7 @@ jobs:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
       OPENCODE_COMMAND: opencode
-      INSTAGRAM_ENABLED: "true"
+      INSTAGRAM_ENABLED: "false"
       IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
