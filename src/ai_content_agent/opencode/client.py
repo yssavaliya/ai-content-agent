@@ -36,7 +36,12 @@ class OpenCodeClient:
         self.command = command or settings.opencode_command
 
     def run(self, args: Sequence[str], input_text: str | None = None) -> OpenCodeResult:
-        command_line = [self.command, *args]
+        # Use 'run' subcommand for non-interactive execution (much faster than TUI)
+        # If input_text provided, use it as the prompt; otherwise use args
+        if input_text is not None:
+            command_line = [self.command, "run", input_text]
+        else:
+            command_line = [self.command, *args]
         start = time.monotonic()
         logger.debug("Running opencode: %s", shlex.join(command_line))
         process = subprocess.Popen(
@@ -60,7 +65,7 @@ class OpenCodeClient:
         heartbeat_thread.start()
         
         try:
-            stdout, stderr = process.communicate(input=input_text, timeout=self.timeout_seconds)
+            stdout, stderr = process.communicate(input=None, timeout=self.timeout_seconds)
         except subprocess.TimeoutExpired:
             heartbeat_stop.set()
             heartbeat_thread.join(timeout=1)
