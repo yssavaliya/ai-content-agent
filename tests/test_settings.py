@@ -84,7 +84,7 @@ class SettingsTests(unittest.TestCase):
     def test_gemini_provider_and_defaults(self):
         settings = load_settings(env={**REQUIRED_ENV, "LLM_PROVIDER": "gemini"})
         self.assertEqual(settings.llm_provider, "gemini")
-        self.assertEqual(settings.gemini_model, "gemini-2.5-flash")
+        self.assertEqual(settings.gemini_model, "gemini-flash-latest")
         self.assertIsNone(settings.gemini_api_key)
 
     def test_gemini_overrides(self):

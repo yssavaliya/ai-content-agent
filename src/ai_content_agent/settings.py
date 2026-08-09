@@ -38,7 +38,7 @@ class Settings:
 
     # Google Gemini chat (via the OpenAI-compatible endpoint)
     gemini_api_key: str | None = None
-    gemini_model: str = "gemini-2.5-flash"
+    gemini_model: str = "gemini-flash-latest"
     gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
     # Instagram publishing
@@ -176,7 +176,7 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
             get("OPENAI_TEXT_FALLBACK_ENABLED") or "true", "OPENAI_TEXT_FALLBACK_ENABLED"
         ),
         gemini_api_key=get("GEMINI_API_KEY"),
-        gemini_model=get("GEMINI_MODEL") or "gemini-2.5-flash",
+        gemini_model=get("GEMINI_MODEL") or "gemini-flash-latest",
         gemini_base_url=get("GEMINI_BASE_URL") or "https://generativelanguage.googleapis.com/v1beta/openai/",
         instagram_access_token=get("INSTAGRAM_ACCESS_TOKEN"),
         instagram_account_id=get("INSTAGRAM_ACCOUNT_ID"),
