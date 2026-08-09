@@ -28,6 +28,7 @@ class ReviewerAgentTests(unittest.TestCase):
             "creator_output": CREATOR_OUTPUT,
             "identity": str(Path("brain/identity.md")),
             "constitution": str(Path("brain/constitution.md")),
+            "market": str(Path("brain/market.md")),
         }
 
     def test_execute_returns_valid_reviewer_output(self):

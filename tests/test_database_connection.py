@@ -56,11 +56,11 @@ class DatabaseConnectionTests(unittest.TestCase):
                 cursor = connection.cursor()
                 cursor.execute(f"SELECT MAX(version) FROM {MIGRATIONS_TABLE}")
                 row = cursor.fetchone()
-                self.assertEqual(row[0], 1)
+                self.assertEqual(row[0], 2)
 
-                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('post_metrics', 'observations', 'experiment_posts', 'strategy_history')")
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('post_metrics', 'observations', 'experiment_posts', 'strategy_history', 'virality_predictions')")
                 tables = {row[0] for row in cursor.fetchall()}
-                self.assertEqual(tables, {"post_metrics", "observations", "experiment_posts", "strategy_history"})
+                self.assertEqual(tables, {"post_metrics", "observations", "experiment_posts", "strategy_history", "virality_predictions"})
             finally:
                 connection.close()
 
@@ -71,7 +71,7 @@ class DatabaseConnectionTests(unittest.TestCase):
                 cursor = connection.cursor()
                 cursor.execute(f"SELECT MAX(version) FROM {MIGRATIONS_TABLE}")
                 row = cursor.fetchone()
-                self.assertEqual(row[0], 1)
+                self.assertEqual(row[0], 2)
             finally:
                 connection.close()
 

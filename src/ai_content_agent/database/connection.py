@@ -185,10 +185,29 @@ def _migration_v1(db: "DatabaseConnection") -> None:
     _ensure_column(db, "experiments", "ended_at", "TEXT")
 
 
+def _migration_v2(db: "DatabaseConnection") -> None:
+    db.execute(
+        "CREATE TABLE IF NOT EXISTS virality_predictions ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "creator_output_id INTEGER NOT NULL,"
+        "virality_score INTEGER NOT NULL,"
+        "virality_label TEXT NOT NULL,"
+        "virality_probability REAL NOT NULL,"
+        "key_factors TEXT NOT NULL,"
+        "risks TEXT NOT NULL,"
+        "reasoning TEXT NOT NULL,"
+        "timestamp TEXT NOT NULL,"
+        "raw_payload TEXT NOT NULL,"
+        "FOREIGN KEY(creator_output_id) REFERENCES creator_outputs(id)"
+        ")"
+    )
+
+
 Migration = str | Callable[["DatabaseConnection"], None]
 
 MIGRATIONS: list[Migration] = [
     _migration_v1,
+    _migration_v2,
 ]
 
 
@@ -230,6 +249,16 @@ class DatabaseConnection:
         if parameters is None:
             return self.connection.execute(sql)
         return self.connection.execute(sql, parameters)
+
+    def fetch_all(self, sql: str, parameters: tuple | None = None) -> list[dict]:
+        """Execute a SELECT and return rows as dicts keyed by column name."""
+        with self.cursor() as cursor:
+            if parameters is None:
+                cursor.execute(sql)
+            else:
+                cursor.execute(sql, parameters)
+            columns = [description[0] for description in cursor.description or []]
+            return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
     def executemany(self, sql: str, seq_of_parameters: Sequence[tuple]) -> sqlite3.Cursor:
         return self.connection.executemany(sql, seq_of_parameters)

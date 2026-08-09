@@ -55,8 +55,13 @@ class PlannerAgent(BaseAgent):
 
     def execute(self, inputs: dict[str, object]) -> dict[str, object]:
         research_output = inputs["research_output"]
+        market_path = Path(inputs["market"])
+        if not market_path.exists():
+            raise FileNotFoundError(f"Market document not found: {market_path}")
+        market = market_path.read_text(encoding="utf-8")
         prompt_text = self.prompt_manager.render("planner.md", {
             "research_json": json.dumps(research_output, indent=2, default=str),
+            "market": market,
         })
 
         last_error: Exception | None = None

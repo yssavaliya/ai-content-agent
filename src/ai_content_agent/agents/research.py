@@ -28,6 +28,7 @@ class ResearchAgent(BaseAgent):
         return {
             "identity": "Path to identity documentation",
             "strategy": "Path to strategy documentation",
+            "market": "Path to market documentation",
             "prompt": "Path to research prompt",
         }
 
@@ -59,18 +60,23 @@ class ResearchAgent(BaseAgent):
     def execute(self, inputs: dict[str, object]) -> dict[str, object]:
         identity_path = Path(inputs["identity"])
         strategy_path = Path(inputs["strategy"])
+        market_path = Path(inputs["market"])
         prompt_name = str(inputs["prompt"])
 
         if not identity_path.exists():
             raise FileNotFoundError(f"Identity document not found: {identity_path}")
         if not strategy_path.exists():
             raise FileNotFoundError(f"Strategy document not found: {strategy_path}")
+        if not market_path.exists():
+            raise FileNotFoundError(f"Market document not found: {market_path}")
 
         identity = identity_path.read_text(encoding="utf-8")
         strategy = strategy_path.read_text(encoding="utf-8")
+        market = market_path.read_text(encoding="utf-8")
         prompt_text = self.prompt_manager.render(prompt_name, {
             "identity": identity,
             "strategy": strategy,
+            "market": market,
         })
 
         last_error: Exception | None = None
@@ -123,6 +129,19 @@ class ResearchAgent(BaseAgent):
             raise ValueError("hook must be a non-empty string")
         if not isinstance(payload["supporting_points"], list) or not payload["supporting_points"]:
             raise ValueError("supporting_points must be a non-empty list")
+        for point in payload["supporting_points"]:
+            if not isinstance(point, str) or not point.strip():
+                raise ValueError("supporting_points must contain non-empty strings")
+        if not isinstance(payload["trend_signals"], list) or not payload["trend_signals"]:
+            raise ValueError("trend_signals must be a non-empty list")
+        for signal in payload["trend_signals"]:
+            if not isinstance(signal, str) or not signal.strip():
+                raise ValueError("trend_signals must contain non-empty strings")
+        if not isinstance(payload["candidate_topics"], list) or not payload["candidate_topics"]:
+            raise ValueError("candidate_topics must be a non-empty list")
+        for topic in payload["candidate_topics"]:
+            if not isinstance(topic, str) or not topic.strip():
+                raise ValueError("candidate_topics must contain non-empty strings")
         if not isinstance(payload["confidence"], (int, float)):
             raise ValueError("confidence must be numeric")
         if not isinstance(payload["reasoning"], str) or not payload["reasoning"].strip():

@@ -28,6 +28,8 @@ class ResearchAgentTests(unittest.TestCase):
                     "Audience attention is more valuable than follower count right now.",
                     "Instagram formats reward repeatable narrative structures."
                 ],
+                "trend_signals": ["Reels carousels trending for Indian creators", "Festival season approaching"],
+                "candidate_topics": ["Micro-content trends for creators", "Monetization tips for small creators"],
                 "confidence": 92,
                 "reasoning": "The brand is focused on research-driven content creation, so this topic aligns with strategy and audience needs.",
                 "timestamp": "2026-08-05T00:00:00Z",
@@ -44,6 +46,7 @@ class ResearchAgentTests(unittest.TestCase):
             result = agent.execute({
                 "identity": str(self.identity_path),
                 "strategy": str(self.strategy_path),
+                "market": str(Path("brain/market.md")),
                 "prompt": self.prompt_name,
             })
         finally:
@@ -71,6 +74,7 @@ class ResearchAgentTests(unittest.TestCase):
                 agent.execute({
                     "identity": str(self.identity_path),
                     "strategy": str(self.strategy_path),
+                    "market": str(Path("brain/market.md")),
                     "prompt": self.prompt_name,
                 })
         finally:
@@ -87,6 +91,8 @@ class ResearchAgentTests(unittest.TestCase):
                     "why_now": "Short-form video and carousel content are dominating discovery in 2026.",
                     "hook": "Turn trend intelligence into reliable Instagram momentum.",
                     "supporting_points": ["Point 1"],
+                    "trend_signals": ["Signal A"],
+                    "candidate_topics": ["Topic B"],
                     "confidence": 92,
                     "reasoning": "Reasoning.",
                     "timestamp": "2026-08-05T00:00:00Z",
@@ -104,6 +110,7 @@ class ResearchAgentTests(unittest.TestCase):
             result = agent.execute({
                 "identity": str(self.identity_path),
                 "strategy": str(self.strategy_path),
+                "market": str(Path("brain/market.md")),
                 "prompt": self.prompt_name,
             })
         finally:
@@ -138,6 +145,7 @@ class ResearchAgentTests(unittest.TestCase):
                 agent.execute({
                     "identity": str(self.identity_path),
                     "strategy": str(self.strategy_path),
+                    "market": str(Path("brain/market.md")),
                     "prompt": self.prompt_name,
                 })
         finally:

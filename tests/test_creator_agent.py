@@ -40,6 +40,7 @@ class CreatorAgentTests(unittest.TestCase):
                 "identity": str(Path("brain/identity.md")),
                 "constitution": str(Path("brain/constitution.md")),
                 "strategy": str(Path("brain/strategy.md")),
+                "market": str(Path("brain/market.md")),
             })
         finally:
             db.close()
@@ -65,6 +66,7 @@ class CreatorAgentTests(unittest.TestCase):
                     "identity": str(Path("brain/identity.md")),
                     "constitution": str(Path("brain/constitution.md")),
                     "strategy": str(Path("brain/strategy.md")),
+                    "market": str(Path("brain/market.md")),
                 })
         finally:
             db.close()
@@ -88,6 +90,7 @@ class CreatorAgentTests(unittest.TestCase):
                 "identity": str(Path("brain/identity.md")),
                 "constitution": str(Path("brain/constitution.md")),
                 "strategy": str(Path("brain/strategy.md")),
+                "market": str(Path("brain/market.md")),
             })
         finally:
             db.close()
@@ -120,6 +123,7 @@ class CreatorAgentTests(unittest.TestCase):
                     "identity": str(Path("brain/identity.md")),
                     "constitution": str(Path("brain/constitution.md")),
                     "strategy": str(Path("brain/strategy.md")),
+                    "market": str(Path("brain/market.md")),
                 })
         finally:
             db.close()

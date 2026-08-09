@@ -54,18 +54,23 @@ class ReviewerAgent(BaseAgent):
         creator_output = inputs["creator_output"]
         identity_path = Path(inputs["identity"])
         constitution_path = Path(inputs["constitution"])
+        market_path = Path(inputs["market"])
 
         if not identity_path.exists():
             raise FileNotFoundError(f"Identity document not found: {identity_path}")
         if not constitution_path.exists():
             raise FileNotFoundError(f"Constitution document not found: {constitution_path}")
+        if not market_path.exists():
+            raise FileNotFoundError(f"Market document not found: {market_path}")
 
         identity = identity_path.read_text(encoding="utf-8")
         constitution = constitution_path.read_text(encoding="utf-8")
+        market = market_path.read_text(encoding="utf-8")
         prompt_text = self.prompt_manager.render("reviewer.md", {
             "creator_output": json.dumps(creator_output, indent=2, default=str),
             "identity": identity,
             "constitution": constitution,
+            "market": market,
         })
 
         last_error: Exception | None = None

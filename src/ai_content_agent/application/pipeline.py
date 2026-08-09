@@ -9,6 +9,7 @@ from typing import Any
 
 from ..agents.creator import CreatorAgent
 from ..agents.planner import PlannerAgent
+from ..agents.predictor import PredictorAgent
 from ..agents.research import ResearchAgent
 from ..agents.reviewer import ReviewerAgent
 from ..database.connection import DatabaseConnection
@@ -53,6 +54,7 @@ class ContentPipeline:
         self.planner_agent: PlannerAgent | None = None
         self.creator_agent: CreatorAgent | None = None
         self.reviewer_agent: ReviewerAgent | None = None
+        self.predictor_agent: PredictorAgent | None = None
 
     def _ensure_agents(self) -> None:
         if self.research_agent is None:
@@ -72,6 +74,11 @@ class ContentPipeline:
             )
         if self.reviewer_agent is None:
             self.reviewer_agent = ReviewerAgent(
+                prompt_manager=self.prompt_manager,
+                database=self.database,
+            )
+        if self.predictor_agent is None:
+            self.predictor_agent = PredictorAgent(
                 prompt_manager=self.prompt_manager,
                 database=self.database,
             )
@@ -106,11 +113,11 @@ class ContentPipeline:
         timing = {}
         stage_start = time.perf_counter()
         
-        logger.info("::notice::[Pipeline %s] Stage 1/7: ResearchAgent started", run_id)
+        logger.info("::notice::[Pipeline %s] Stage 1/8: ResearchAgent started", run_id)
         stage_start = time.perf_counter()
         research_results = self._run_research()
         timing["research_ms"] = int((time.perf_counter() - stage_start) * 1000)
-        logger.info("::notice::[Pipeline %s] Stage 1/7: ResearchAgent completed in %dms", run_id, timing["research_ms"])
+        logger.info("::notice::[Pipeline %s] Stage 1/8: ResearchAgent completed in %dms", run_id, timing["research_ms"])
         
         research_id = research_results.get("research_id")
         if not isinstance(research_id, int) or research_id <= 0:
@@ -118,35 +125,43 @@ class ContentPipeline:
                 "ResearchAgent did not return a valid research_id; aborting to avoid orphan rows"
             )
 
-        logger.info("::notice::[Pipeline %s] Stage 2/7: PlannerAgent started", run_id)
+        logger.info("::notice::[Pipeline %s] Stage 2/8: PlannerAgent started", run_id)
         stage_start = time.perf_counter()
         planner_results = self._run_planner(research_results)
         timing["planner_ms"] = int((time.perf_counter() - stage_start) * 1000)
-        logger.info("::notice::[Pipeline %s] Stage 2/7: PlannerAgent completed in %dms", run_id, timing["planner_ms"])
+        logger.info("::notice::[Pipeline %s] Stage 2/8: PlannerAgent completed in %dms", run_id, timing["planner_ms"])
         
         planner_id = self._persist_planner_idea(planner_results, research_id)
 
-        logger.info("::notice::[Pipeline %s] Stage 3/7: CreatorAgent started", run_id)
+        logger.info("::notice::[Pipeline %s] Stage 3/8: CreatorAgent started", run_id)
         stage_start = time.perf_counter()
         creator_results = self._run_creator(planner_results)
         timing["creator_ms"] = int((time.perf_counter() - stage_start) * 1000)
-        logger.info("::notice::[Pipeline %s] Stage 3/7: CreatorAgent completed in %dms", run_id, timing["creator_ms"])
+        logger.info("::notice::[Pipeline %s] Stage 3/8: CreatorAgent completed in %dms", run_id, timing["creator_ms"])
         
         creator_output_id = self._persist_creator_output(planner_id, creator_results)
 
-        logger.info("::notice::[Pipeline %s] Stage 4/7: ReviewerAgent started", run_id)
+        logger.info("::notice::[Pipeline %s] Stage 4/8: ReviewerAgent started", run_id)
         stage_start = time.perf_counter()
         reviewer_results = self._run_reviewer(creator_results)
         timing["reviewer_ms"] = int((time.perf_counter() - stage_start) * 1000)
-        logger.info("::notice::[Pipeline %s] Stage 4/7: ReviewerAgent completed in %dms", run_id, timing["reviewer_ms"])
+        logger.info("::notice::[Pipeline %s] Stage 4/8: ReviewerAgent completed in %dms", run_id, timing["reviewer_ms"])
         
         self._persist_review(creator_output_id, reviewer_results)
 
-        logger.info("::notice::[Pipeline %s] Stage 5/7: Image generation started", run_id)
+        logger.info("::notice::[Pipeline %s] Stage 5/8: PredictorAgent started", run_id)
+        stage_start = time.perf_counter()
+        predictor_results = self._run_predictor(creator_results, research_results, reviewer_results)
+        timing["predictor_ms"] = int((time.perf_counter() - stage_start) * 1000)
+        logger.info("::notice::[Pipeline %s] Stage 5/8: PredictorAgent completed in %dms", run_id, timing["predictor_ms"])
+
+        self._persist_prediction(creator_output_id, predictor_results)
+
+        logger.info("::notice::[Pipeline %s] Stage 6/8: Image generation started", run_id)
         stage_start = time.perf_counter()
         image_result = self._run_image(creator_results, creator_output_id)
         timing["image_ms"] = int((time.perf_counter() - stage_start) * 1000)
-        logger.info("::notice::[Pipeline %s] Stage 5/7: Image generation completed in %dms", run_id, timing["image_ms"])
+        logger.info("::notice::[Pipeline %s] Stage 6/8: Image generation completed in %dms", run_id, timing["image_ms"])
 
         package = {
             "run_id": run_id,
@@ -154,32 +169,34 @@ class ContentPipeline:
             "planning": planner_results,
             "creation": creator_results,
             "review": reviewer_results,
+            "prediction": predictor_results,
             "image": image_result,
             "publish": None,
         }
         package_path = self._save_package(package)
         package["package_path"] = str(package_path)
 
-        logger.info("::notice::[Pipeline %s] Stage 6/7: Media upload started", run_id)
+        logger.info("::notice::[Pipeline %s] Stage 7/8: Media upload started", run_id)
         stage_start = time.perf_counter()
         publish_result = self._run_publish(creator_output_id, package_path, package, run_id)
         timing["publish_ms"] = int((time.perf_counter() - stage_start) * 1000)
-        logger.info("::notice::[Pipeline %s] Stage 6/7: Media upload + publish completed in %dms", run_id, timing["publish_ms"])
+        logger.info("::notice::[Pipeline %s] Stage 7/8: Media upload + publish completed in %dms", run_id, timing["publish_ms"])
         
         package["publish"] = publish_result
         self._save_package(package, package_path)
         
         timing["total_ms"] = sum(timing.values())
-        logger.info("::notice::[Pipeline %s] Stage 7/7: Complete. Total: %dms (research=%dms planner=%dms creator=%dms reviewer=%dms image=%dms publish=%dms)", 
+        logger.info("::notice::[Pipeline %s] Stage 8/8: Complete. Total: %dms (research=%dms planner=%dms creator=%dms reviewer=%dms predictor=%dms image=%dms publish=%dms)", 
                     run_id, timing["total_ms"], timing.get("research_ms", 0), timing.get("planner_ms", 0),
-                    timing.get("creator_ms", 0), timing.get("reviewer_ms", 0), timing.get("image_ms", 0), timing.get("publish_ms", 0))
+                    timing.get("creator_ms", 0), timing.get("reviewer_ms", 0), timing.get("predictor_ms", 0),
+                    timing.get("image_ms", 0), timing.get("publish_ms", 0))
         
         package["timing"] = timing
         return package
 
-    def _agents_setup(self) -> tuple[ResearchAgent, PlannerAgent, CreatorAgent, ReviewerAgent]:
+    def _agents_setup(self) -> tuple[ResearchAgent, PlannerAgent, CreatorAgent, ReviewerAgent, PredictorAgent]:
         self._ensure_agents()
-        return self.research_agent, self.planner_agent, self.creator_agent, self.reviewer_agent
+        return self.research_agent, self.planner_agent, self.creator_agent, self.reviewer_agent, self.predictor_agent
 
     def _run_research(self) -> dict[str, Any]:
         research_agent = self._agents_setup()[0]
@@ -187,13 +204,19 @@ class ContentPipeline:
             {
                 "identity": "brain/identity.md",
                 "strategy": "brain/strategy.md",
+                "market": "brain/market.md",
                 "prompt": "research.md",
             }
         )
 
     def _run_planner(self, research_output: dict[str, Any]) -> dict[str, Any]:
         planner_agent = self._agents_setup()[1]
-        return planner_agent.execute({"research_output": research_output})
+        return planner_agent.execute(
+            {
+                "research_output": research_output,
+                "market": "brain/market.md",
+            }
+        )
 
     def _run_creator(self, planner_output: dict[str, Any]) -> dict[str, Any]:
         creator_agent = self._agents_setup()[2]
@@ -203,6 +226,7 @@ class ContentPipeline:
                 "identity": "brain/identity.md",
                 "constitution": "brain/constitution.md",
                 "strategy": "brain/strategy.md",
+                "market": "brain/market.md",
             }
         )
 
@@ -213,8 +237,44 @@ class ContentPipeline:
                 "creator_output": creator_output,
                 "identity": "brain/identity.md",
                 "constitution": "brain/constitution.md",
+                "market": "brain/market.md",
             }
         )
+
+    def _run_predictor(
+        self,
+        creator_output: dict[str, Any],
+        research_output: dict[str, Any],
+        reviewer_output: dict[str, Any],
+    ) -> dict[str, Any]:
+        predictor_agent = self._agents_setup()[4]
+        recent_posts = predictor_agent.recent_posts_performance(limit=10)
+        return predictor_agent.execute(
+            {
+                "creator_output": creator_output,
+                "research_json": json.dumps(research_output, indent=2, default=str),
+                "review_json": json.dumps(reviewer_output, indent=2, default=str),
+                "market": "brain/market.md",
+                "recent_posts_json": recent_posts,
+            }
+        )
+
+    def _persist_prediction(self, creator_output_id: int, predictor_output: dict[str, Any]) -> int:
+        cursor = self.database.execute(
+            "INSERT INTO virality_predictions(creator_output_id, virality_score, virality_label, virality_probability, key_factors, risks, reasoning, timestamp, raw_payload) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                creator_output_id,
+                predictor_output["virality_score"],
+                predictor_output["virality_label"],
+                predictor_output["virality_probability"],
+                json.dumps(predictor_output["key_factors"]),
+                json.dumps(predictor_output["risks"]),
+                predictor_output["reasoning"],
+                predictor_output["timestamp"],
+                json.dumps(predictor_output),
+            ),
+        )
+        return cursor.lastrowid
 
     def _run_image(self, creator_output: dict[str, Any], creator_output_id: int) -> dict[str, Any]:
         request = ImageRequest(
@@ -412,6 +472,7 @@ class ContentPipeline:
         research = package["research"]
         creation = package["creation"]
         publish = package.get("publish") or {}
+        prediction = package.get("prediction") or {}
         lines = [
             f"Run: {run_id}",
             f"Topic: {research.get('recommended_topic')}",
@@ -420,6 +481,13 @@ class ContentPipeline:
             f"Published id: {publish.get('published_id')}",
             f"Media URL: {(package.get('image') or {}).get('media_url', 'n/a')}",
         ]
+        if prediction.get("virality_score") is not None:
+            lines.append("")
+            lines.append("VIRALITY PREDICTION")
+            lines.append(f"Score: {prediction.get('virality_score')}/100 ({prediction.get('virality_label')})")
+            lines.append(f"Probability: {prediction.get('virality_probability')}")
+            lines.append(f"Key factors: {'; '.join(prediction.get('key_factors') or [])}")
+            lines.append(f"Risks: {'; '.join(prediction.get('risks') or [])}")
         return "\n".join(lines)
 
     def _failure_body(self, error: Exception, run_id: str) -> str:

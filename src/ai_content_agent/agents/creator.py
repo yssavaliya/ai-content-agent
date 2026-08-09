@@ -58,6 +58,7 @@ class CreatorAgent(BaseAgent):
         identity_path = Path(inputs["identity"])
         constitution_path = Path(inputs["constitution"])
         strategy_path = Path(inputs["strategy"])
+        market_path = Path(inputs["market"])
 
         if not identity_path.exists():
             raise FileNotFoundError(f"Identity document not found: {identity_path}")
@@ -65,15 +66,19 @@ class CreatorAgent(BaseAgent):
             raise FileNotFoundError(f"Constitution document not found: {constitution_path}")
         if not strategy_path.exists():
             raise FileNotFoundError(f"Strategy document not found: {strategy_path}")
+        if not market_path.exists():
+            raise FileNotFoundError(f"Market document not found: {market_path}")
 
         identity = identity_path.read_text(encoding="utf-8")
         constitution = constitution_path.read_text(encoding="utf-8")
         strategy = strategy_path.read_text(encoding="utf-8")
+        market = market_path.read_text(encoding="utf-8")
         prompt_text = self.prompt_manager.render("creator.md", {
             "selected_idea": json.dumps(selected_idea, indent=2, default=str),
             "identity": identity,
             "constitution": constitution,
             "strategy": strategy,
+            "market": market,
         })
 
         last_error: Exception | None = None

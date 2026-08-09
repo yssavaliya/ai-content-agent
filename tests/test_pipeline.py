@@ -8,6 +8,7 @@ from unittest.mock import MagicMock
 
 from ai_content_agent.agents.creator import CreatorAgent
 from ai_content_agent.agents.planner import PlannerAgent
+from ai_content_agent.agents.predictor import PredictorAgent
 from ai_content_agent.agents.research import ResearchAgent
 from ai_content_agent.agents.reviewer import ReviewerAgent
 from ai_content_agent.application.pipeline import ContentPipeline
@@ -20,6 +21,8 @@ RESEARCH_OUTPUT = {
     "why_now": "Short-form video and carousel content are dominating discovery in 2026.",
     "hook": "Turn trend intelligence into reliable Instagram momentum.",
     "supporting_points": ["Creators need content that balances inspiration with practical next steps."],
+    "trend_signals": ["Reels carousels trending for Indian creators"],
+    "candidate_topics": ["Micro-content trends for creators", "Monetization tips for small creators"],
     "confidence": 92,
     "reasoning": "The brand is focused on research-driven content creation, so this topic aligns with strategy and audience needs.",
     "timestamp": "2026-08-05T00:00:00Z",
@@ -62,6 +65,16 @@ CREATOR_OUTPUT = {
 REVIEWER_OUTPUT = {
     "status": "PASS",
     "reasons": ["Grammar is correct.", "Tone matches the brand voice.", "All slides are present."],
+    "timestamp": "2026-08-05T00:00:00Z",
+}
+
+PREDICTION_OUTPUT = {
+    "virality_score": 82,
+    "virality_label": "HIGH",
+    "virality_probability": 0.7,
+    "key_factors": ["Strong hook", "Trend-aligned topic"],
+    "risks": ["Festival season competition"],
+    "reasoning": "High score because the topic is trend-aligned.",
     "timestamp": "2026-08-05T00:00:00Z",
 }
 
@@ -115,6 +128,11 @@ class PipelineTests(unittest.TestCase):
             opencode_client=self._mocked_client(REVIEWER_OUTPUT),
             database=database,
         )
+        pipeline.predictor_agent = PredictorAgent(
+            prompt_manager=prompt_manager,
+            opencode_client=self._mocked_client(PREDICTION_OUTPUT),
+            database=database,
+        )
         return pipeline
 
     def test_run_pipeline_generates_package(self):
@@ -125,6 +143,7 @@ class PipelineTests(unittest.TestCase):
         self.assertIn("planning", result)
         self.assertIn("creation", result)
         self.assertIn("review", result)
+        self.assertIn("prediction", result)
         self.assertIn("image", result)
         self.assertIn("publish", result)
         self.assertTrue(Path("posts").exists())
@@ -167,6 +186,13 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(review_row[1], REVIEWER_OUTPUT["status"])
             self.assertEqual(json.loads(review_row[2]), REVIEWER_OUTPUT["reasons"])
             self.assertTrue(review_row[3])
+
+            prediction_row = connection.execute(
+                "SELECT creator_output_id, virality_score, virality_label FROM virality_predictions"
+            ).fetchone()
+            self.assertIsNotNone(prediction_row)
+            self.assertEqual(prediction_row[1], PREDICTION_OUTPUT["virality_score"])
+            self.assertEqual(prediction_row[2], PREDICTION_OUTPUT["virality_label"])
 
             image_row = connection.execute(
                 "SELECT creator_output_id, provider, prompt, file_path FROM image_assets"

@@ -59,7 +59,7 @@ class PlannerAgentTests(unittest.TestCase):
                 prompt_manager=PromptManager(prompt_dir=Path("src/ai_content_agent/prompts")),
                 database=db,
             )
-            result = agent.execute({"research_output": {"recommended_topic": "Trend X"}})
+            result = agent.execute({"research_output": {"recommended_topic": "Trend X"}, "market": str(Path("brain/market.md"))})
         finally:
             db.close()
 
@@ -79,7 +79,7 @@ class PlannerAgentTests(unittest.TestCase):
                 database=db,
             )
             with self.assertRaises(RuntimeError):
-                agent.execute({"research_output": {"recommended_topic": "Trend X"}})
+                agent.execute({"research_output": {"recommended_topic": "Trend X"}, "market": str(Path("brain/market.md"))})
         finally:
             db.close()
 
@@ -97,7 +97,7 @@ class PlannerAgentTests(unittest.TestCase):
                 prompt_manager=PromptManager(prompt_dir=Path("src/ai_content_agent/prompts")),
                 database=db,
             )
-            result = agent.execute({"research_output": {"recommended_topic": "Trend X"}})
+            result = agent.execute({"research_output": {"recommended_topic": "Trend X"}, "market": str(Path("brain/market.md"))})
         finally:
             db.close()
 
@@ -128,7 +128,7 @@ class PlannerAgentTests(unittest.TestCase):
                 database=db,
             )
             with self.assertRaises(RuntimeError):
-                agent.execute({"research_output": {"recommended_topic": "Trend X"}})
+                agent.execute({"research_output": {"recommended_topic": "Trend X"}, "market": str(Path("brain/market.md"))})
         finally:
             db.close()
 
