@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   analytics:
-    runs-on: ubuntu-latest-4core
+    runs-on: ubuntu-latest
     env:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
