@@ -7,6 +7,7 @@ from unittest.mock import MagicMock
 
 from ai_content_agent.providers.image.base import ImageRequest
 from ai_content_agent.providers.image.exceptions import ImageProviderError
+from ai_content_agent.providers.image.local_provider import LocalImageProvider
 from ai_content_agent.providers.image.mock_provider import MockImageProvider
 from ai_content_agent.providers.image.openai_provider import OpenAIImageProvider
 from ai_content_agent.providers.image.registry import ImageProviderRegistry
@@ -34,6 +35,35 @@ class ImageProviderRegistryTests(unittest.TestCase):
 
     def test_mock_provider_validation_fails(self):
         provider = MockImageProvider()
+        request = ImageRequest(prompt="", brand_style="clean", aspect_ratio="1:1")
+
+        with self.assertRaises(ValueError):
+            provider.generate(request)
+
+
+class LocalImageProviderTests(unittest.TestCase):
+    def test_local_provider_registration(self):
+        self.assertIn("local", ImageProviderRegistry.list_providers())
+        provider_cls = ImageProviderRegistry.get_provider("local")
+        self.assertIs(provider_cls, LocalImageProvider)
+
+    def test_local_provider_writes_prompt_text_file(self):
+        provider = LocalImageProvider()
+        request = ImageRequest(prompt="A test prompt", brand_style="clean", aspect_ratio="1:1")
+        result = provider.generate(request)
+
+        self.assertEqual(result.provider, "local")
+        self.assertTrue(result.file_path.endswith(".txt"))
+        path = Path(result.file_path)
+        self.assertTrue(path.exists())
+        content = path.read_text(encoding="utf-8")
+        self.assertIn("A test prompt", content)
+        self.assertIn("clean", content)
+        self.assertIn("1:1", content)
+        self.assertEqual(result.prompt, request.prompt)
+
+    def test_local_provider_validation_fails(self):
+        provider = LocalImageProvider()
         request = ImageRequest(prompt="", brand_style="clean", aspect_ratio="1:1")
 
         with self.assertRaises(ValueError):

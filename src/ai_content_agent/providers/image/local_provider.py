@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 from ...timestamps import format_utc, utc_now
@@ -23,15 +22,19 @@ class LocalImageProvider(BaseImageProvider):
         now = utc_now()
         output_dir = Path("images") / now.strftime("%Y") / now.strftime("%m") / now.strftime("%d")
         output_dir.mkdir(parents=True, exist_ok=True)
-        file_path = output_dir / f"local_image_{now.strftime('%H%M%S')}.json"
+        file_path = output_dir / f"image_prompt_{now.strftime('%H%M%S')}.txt"
         created_at = format_utc(now)
-        payload = {
-            "prompt": request.prompt,
-            "brand_style": request.brand_style,
-            "aspect_ratio": request.aspect_ratio,
-            "created_at": created_at,
-        }
-        file_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        content = (
+            f"IMAGE PROMPT\n"
+            f"===========\n"
+            f"{request.prompt}\n\n"
+            f"BRAND STYLE\n"
+            f"===========\n"
+            f"{request.brand_style}\n\n"
+            f"ASPECT RATIO: {request.aspect_ratio}\n"
+            f"CREATED AT (UTC): {created_at}\n"
+        )
+        file_path.write_text(content, encoding="utf-8")
         return ImageResult(
             provider=self.name,
             prompt=request.prompt,
