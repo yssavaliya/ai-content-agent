@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   scientist:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-4core
     env:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
@@ -41,6 +41,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: opencode-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            opencode-${{ runner.os }}-
       - name: Install opencode
         run: npm install -g opencode-ai
       - name: Install dependencies
