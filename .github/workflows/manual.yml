@@ -33,7 +33,7 @@ jobs:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
       OPENCODE_COMMAND: opencode
-      OPENCODE_TIMEOUT_SECONDS: "180"
+      OPENCODE_TIMEOUT_SECONDS: "600"
       INSTAGRAM_ENABLED: ${{ github.event.inputs.instagram_enabled }}
       IMAGE_PROVIDER: ${{ github.event.inputs.image_provider }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
