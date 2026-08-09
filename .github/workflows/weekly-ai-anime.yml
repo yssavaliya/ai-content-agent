@@ -1,0 +1,95 @@
+name: Weekly AI/Anime scientist analysis
+
+on:
+  schedule:
+    - cron: "30 12 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scientist-ai-anime:
+    runs-on: ubuntu-latest
+    env:
+      LOG_LEVEL: INFO
+      DATABASE_PATH: agent.db
+      OPENCODE_COMMAND: opencode
+      OPENCODE_TIMEOUT_SECONDS: "1200"
+      INSTAGRAM_ENABLED: "true"
+      IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
+      INSTAGRAM_ANALYTICS_ENABLED: ${{ secrets.INSTAGRAM_ANALYTICS_ENABLED }}
+      SCIENTIST_MIN_SAMPLE_SIZE: ${{ secrets.SCIENTIST_MIN_SAMPLE_SIZE }}
+      SCIENTIST_MIN_EFFECT: ${{ secrets.SCIENTIST_MIN_EFFECT }}
+      SCIENTIST_APPLY_THRESHOLD: ${{ secrets.SCIENTIST_APPLY_THRESHOLD }}
+      NOTIFY_CHANNELS: ${{ secrets.NOTIFY_CHANNELS }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      SMTP_TO: ${{ secrets.SMTP_TO }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: opencode-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            opencode-${{ runner.os }}-
+      - name: Install opencode
+        run: npm install -g opencode-ai
+      - name: Install dependencies
+        working-directory: ai-anime-agent
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      - name: Run scientist analysis
+        working-directory: ai-anime-agent
+        run: |
+          python -m ai_content_agent.cli scientist 2>&1 | while IFS= read -r line; do
+            echo "::notice::$line"
+            echo "$line"
+          done
+      - name: Generate prompt viewer
+        working-directory: ai-anime-agent
+        run: python -m ai_content_agent.cli prompts
+      - name: Upload prompt logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-prompts-ai-anime-${{ github.run_id }}
+          path: ai-anime-agent/logs/prompts/
+          if-no-files-found: ignore
+      - name: Persist artifacts
+        working-directory: ai-anime-agent
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for path in agent.db brain/strategy.md; do
+            if [ -e "$path" ]; then git add -f "$path"; fi
+          done
+          git commit -m "chore: ai-anime scientist analysis artifacts" || echo "No changes to commit"
+          for attempt in 1 2 3 4 5; do
+            if git push origin main 2>/dev/null; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; pulling and retrying..."
+            git pull --rebase origin main
+          done
+          echo "Could not push artifacts after 5 attempts"
+          exit 1

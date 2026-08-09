@@ -1,0 +1,59 @@
+name: AI/Anime monthly report
+
+on:
+  schedule:
+    - cron: "0 13 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monthly-ai-anime:
+    runs-on: ubuntu-latest
+    env:
+      LOG_LEVEL: INFO
+      DATABASE_PATH: agent.db
+      OPENCODE_COMMAND: opencode
+      INSTAGRAM_ENABLED: "true"
+      IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
+      LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+      NOTIFY_CHANNELS: ${{ secrets.NOTIFY_CHANNELS }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      SMTP_TO: ${{ secrets.SMTP_TO }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: opencode-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            opencode-${{ runner.os }}-
+      - name: Install opencode
+        run: npm install -g opencode-ai
+      - name: Install dependencies
+        working-directory: ai-anime-agent
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      - name: Run monthly report
+        working-directory: ai-anime-agent
+        run: |
+          python -m ai_content_agent.cli monthly 2>&1 | while IFS= read -r line; do
+            echo "::notice::$line"
+            echo "$line"
+          done
