@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern graphic illustration for an Instagram carousel cover. A relatable young Indian professional sitting at a sleek desk, holding a smartphone showing a high bank balance on payday versus an empty wallet icon, split screen style. Vibrant contrast, warm studio lighting, minimal graphic layout with bold text backdrop reading 'Salary Day Money Traps', 4K quality, clean Indian aesthetic.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-09T19:18:54Z
