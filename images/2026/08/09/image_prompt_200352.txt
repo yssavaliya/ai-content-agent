@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic workspace setup in a cozy Indian apartment setting. Overhead flat-lay shot of a minimalist wooden desk with a clean open laptop, a stylish planner notebook with a pen, a modern ceramic cup of warm chai with light steam rising, and soft warm sunlight streaming from a side window creating subtle leaf shadows. High quality, crisp focus, vibrant and approachable visual style.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-09T20:03:52Z
