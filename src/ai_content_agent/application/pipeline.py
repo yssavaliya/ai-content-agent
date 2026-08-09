@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 import uuid
 from pathlib import Path
 from typing import Any
@@ -99,24 +100,50 @@ class ContentPipeline:
             self.close()
 
     def _produce_content(self, run_id: str) -> dict[str, Any]:
-        with self.database.transaction():
-            research_results = self._run_research()
-            research_id = research_results.get("research_id")
-            if not isinstance(research_id, int) or research_id <= 0:
-                raise PipelineError(
-                    "ResearchAgent did not return a valid research_id; aborting to avoid orphan rows"
-                )
+        timing = {}
+        stage_start = time.perf_counter()
+        
+        logger.info("::notice::[Pipeline %s] Stage 1/7: ResearchAgent started", run_id)
+        stage_start = time.perf_counter()
+        research_results = self._run_research()
+        timing["research_ms"] = int((time.perf_counter() - stage_start) * 1000)
+        logger.info("::notice::[Pipeline %s] Stage 1/7: ResearchAgent completed in %dms", run_id, timing["research_ms"])
+        
+        research_id = research_results.get("research_id")
+        if not isinstance(research_id, int) or research_id <= 0:
+            raise PipelineError(
+                "ResearchAgent did not return a valid research_id; aborting to avoid orphan rows"
+            )
 
-            planner_results = self._run_planner(research_results)
-            planner_id = self._persist_planner_idea(planner_results, research_id)
+        logger.info("::notice::[Pipeline %s] Stage 2/7: PlannerAgent started", run_id)
+        stage_start = time.perf_counter()
+        planner_results = self._run_planner(research_results)
+        timing["planner_ms"] = int((time.perf_counter() - stage_start) * 1000)
+        logger.info("::notice::[Pipeline %s] Stage 2/7: PlannerAgent completed in %dms", run_id, timing["planner_ms"])
+        
+        planner_id = self._persist_planner_idea(planner_results, research_id)
 
-            creator_results = self._run_creator(planner_results)
-            creator_output_id = self._persist_creator_output(planner_id, creator_results)
+        logger.info("::notice::[Pipeline %s] Stage 3/7: CreatorAgent started", run_id)
+        stage_start = time.perf_counter()
+        creator_results = self._run_creator(planner_results)
+        timing["creator_ms"] = int((time.perf_counter() - stage_start) * 1000)
+        logger.info("::notice::[Pipeline %s] Stage 3/7: CreatorAgent completed in %dms", run_id, timing["creator_ms"])
+        
+        creator_output_id = self._persist_creator_output(planner_id, creator_results)
 
-            reviewer_results = self._run_reviewer(creator_results)
-            self._persist_review(creator_output_id, reviewer_results)
+        logger.info("::notice::[Pipeline %s] Stage 4/7: ReviewerAgent started", run_id)
+        stage_start = time.perf_counter()
+        reviewer_results = self._run_reviewer(creator_results)
+        timing["reviewer_ms"] = int((time.perf_counter() - stage_start) * 1000)
+        logger.info("::notice::[Pipeline %s] Stage 4/7: ReviewerAgent completed in %dms", run_id, timing["reviewer_ms"])
+        
+        self._persist_review(creator_output_id, reviewer_results)
 
-            image_result = self._run_image(creator_results, creator_output_id)
+        logger.info("::notice::[Pipeline %s] Stage 5/7: Image generation started", run_id)
+        stage_start = time.perf_counter()
+        image_result = self._run_image(creator_results, creator_output_id)
+        timing["image_ms"] = int((time.perf_counter() - stage_start) * 1000)
+        logger.info("::notice::[Pipeline %s] Stage 5/7: Image generation completed in %dms", run_id, timing["image_ms"])
 
         package = {
             "run_id": run_id,
@@ -130,9 +157,21 @@ class ContentPipeline:
         package_path = self._save_package(package)
         package["package_path"] = str(package_path)
 
+        logger.info("::notice::[Pipeline %s] Stage 6/7: Media upload started", run_id)
+        stage_start = time.perf_counter()
         publish_result = self._run_publish(creator_output_id, package_path, package, run_id)
+        timing["publish_ms"] = int((time.perf_counter() - stage_start) * 1000)
+        logger.info("::notice::[Pipeline %s] Stage 6/7: Media upload + publish completed in %dms", run_id, timing["publish_ms"])
+        
         package["publish"] = publish_result
         self._save_package(package, package_path)
+        
+        timing["total_ms"] = sum(timing.values())
+        logger.info("::notice::[Pipeline %s] Stage 7/7: Complete. Total: %dms (research=%dms planner=%dms creator=%dms reviewer=%dms image=%dms publish=%dms)", 
+                    run_id, timing["total_ms"], timing.get("research_ms", 0), timing.get("planner_ms", 0),
+                    timing.get("creator_ms", 0), timing.get("reviewer_ms", 0), timing.get("image_ms", 0), timing.get("publish_ms", 0))
+        
+        package["timing"] = timing
         return package
 
     def _agents_setup(self) -> tuple[ResearchAgent, PlannerAgent, CreatorAgent, ReviewerAgent]:

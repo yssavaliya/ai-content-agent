@@ -42,7 +42,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e .
       - name: Collect analytics
-        run: python -m ai_content_agent.cli analytics
+        run: |
+          python -m ai_content_agent.cli analytics 2>&1 | while IFS= read -r line; do
+            echo "::notice::$line"
+            echo "$line"
+          done
       - name: Persist artifacts
         run: |
           git config user.name "github-actions[bot]"

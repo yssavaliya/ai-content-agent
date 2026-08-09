@@ -75,7 +75,11 @@ jobs:
           python -m pip install -e .
 
       - name: Run daily pipeline
-        run: python -m ai_content_agent.cli daily
+        run: |
+          python -m ai_content_agent.cli daily 2>&1 | while IFS= read -r line; do
+            echo "::notice::$line"
+            echo "$line"
+          done
 
       - name: Persist artifacts
         run: |

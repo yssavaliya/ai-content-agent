@@ -38,4 +38,8 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e .
       - name: Run monthly report
-        run: python -m ai_content_agent.cli monthly
+        run: |
+          python -m ai_content_agent.cli monthly 2>&1 | while IFS= read -r line; do
+            echo "::notice::$line"
+            echo "$line"
+          done

@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import shlex
 import subprocess
+import threading
 import time
 from dataclasses import dataclass
 from typing import Sequence
@@ -45,9 +46,24 @@ class OpenCodeClient:
             stdin=subprocess.PIPE,
             text=True,
         )
+        
+        heartbeat_stop = threading.Event()
+        
+        def heartbeat():
+            while not heartbeat_stop.is_set():
+                heartbeat_stop.wait(30)
+                if not heartbeat_stop.is_set():
+                    elapsed = time.monotonic() - start
+                    logger.info("::notice::[OpenCode] Still running... %.0fs elapsed (timeout=%ds)", elapsed, self.timeout_seconds)
+        
+        heartbeat_thread = threading.Thread(target=heartbeat, daemon=True)
+        heartbeat_thread.start()
+        
         try:
             stdout, stderr = process.communicate(input=input_text, timeout=self.timeout_seconds)
         except subprocess.TimeoutExpired:
+            heartbeat_stop.set()
+            heartbeat_thread.join(timeout=1)
             process.kill()
             stdout, stderr = process.communicate()
             elapsed = time.monotonic() - start
@@ -58,6 +74,10 @@ class OpenCodeClient:
                 stdout or "",
                 stderr or "",
             )
+        else:
+            heartbeat_stop.set()
+            heartbeat_thread.join(timeout=1)
+        
         elapsed = time.monotonic() - start
         if process.returncode != 0:
             logger.error(
