@@ -28,6 +28,10 @@ class Settings:
     openai_max_retries: int = 3
     openai_request_timeout_seconds: int = 60
 
+    # Primary LLM engine for agents: "openai" (fast, via OPENAI_API_KEY) or "opencode".
+    # The other engine is used as a fallback when the primary is unavailable or fails.
+    llm_provider: str = "openai"
+
     # OpenAI text fallback (used when opencode is unavailable or fails)
     openai_text_model: str = "gpt-4o-mini"
     openai_text_fallback_enabled: bool = True
@@ -140,6 +144,14 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
     def get(name: str) -> str | None:
         return env.get(name, "").strip() or None
 
+    def get_provider() -> str:
+        provider = (get("LLM_PROVIDER") or "openai").strip().lower()
+        if provider not in {"openai", "opencode"}:
+            raise ValueError(
+                f"Invalid value for LLM_PROVIDER: '{provider}' (expected 'openai' or 'opencode')"
+            )
+        return provider
+
     return Settings(
         log_level=env["LOG_LEVEL"].strip(),
         database_path=env["DATABASE_PATH"].strip(),
@@ -147,6 +159,7 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         instagram_enabled=_parse_bool(env["INSTAGRAM_ENABLED"]),
         image_provider=env["IMAGE_PROVIDER"].strip(),
         openai_api_key=get("OPENAI_API_KEY"),
+        llm_provider=get_provider(),
         opencode_timeout_seconds=_parse_int(get("OPENCODE_TIMEOUT_SECONDS"), 60, "OPENCODE_TIMEOUT_SECONDS"),
         openai_model=get("OPENAI_MODEL") or "gpt-image-1",
         openai_max_retries=_parse_int(get("OPENAI_MAX_RETRIES"), 3, "OPENAI_MAX_RETRIES"),

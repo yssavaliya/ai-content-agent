@@ -24,6 +24,7 @@ class OpenCodeClientFallbackTests(unittest.TestCase):
         self._tmp = tempfile.TemporaryDirectory()
         self.logs_dir = Path(self._tmp.name) / "logs" / "prompts"
         os.environ.update(REQUIRED_ENV)
+        os.environ["LLM_PROVIDER"] = "opencode"
 
     def tearDown(self) -> None:
         os.environ.clear()
@@ -92,6 +93,71 @@ class OpenCodeClientFallbackTests(unittest.TestCase):
         with patch("ai_content_agent.opencode.client.subprocess.Popen", side_effect=self._raise_file_not_found):
             with self.assertRaises(OpenCodeError):
                 client.run([], input_text="prompt", label="ResearchAgent")
+
+
+class OpenCodeClientOpenAIPrimaryTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self._old_env = dict(os.environ)
+        self._tmp = tempfile.TemporaryDirectory()
+        self.logs_dir = Path(self._tmp.name) / "logs" / "prompts"
+        os.environ.update(REQUIRED_ENV)
+        os.environ["LLM_PROVIDER"] = "openai"
+        os.environ["OPENAI_API_KEY"] = "sk-test"
+
+    def tearDown(self) -> None:
+        os.environ.clear()
+        os.environ.update(self._old_env)
+        self._tmp.cleanup()
+
+    def _fake_process(self, stdout: str) -> MagicMock:
+        proc = MagicMock()
+        proc.communicate.return_value = (stdout, "")
+        proc.returncode = 0
+        return proc
+
+    def test_openai_primary_skips_opencode(self):
+        fake_openai = MagicMock()
+        fake_openai.chat.completions.create.return_value = SimpleNamespace(
+            choices=[SimpleNamespace(message=SimpleNamespace(content='{"topic": "AI"}'))]
+        )
+        client = OpenCodeClient(
+            recorder=PromptRecorder(logs_dir=self.logs_dir),
+            openai_client=fake_openai,
+        )
+        with patch(
+            "ai_content_agent.opencode.client.subprocess.Popen",
+            side_effect=AssertionError("opencode should not be invoked when OpenAI is primary"),
+        ):
+            result = client.run([], input_text="prompt", label="ResearchAgent")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(json.loads(result.stdout), {"topic": "AI"})
+        fake_openai.chat.completions.create.assert_called_once()
+
+    def test_openai_primary_falls_back_to_opencode_when_no_key(self):
+        os.environ.pop("OPENAI_API_KEY", None)
+        client = OpenCodeClient(recorder=PromptRecorder(logs_dir=self.logs_dir))
+        with patch(
+            "ai_content_agent.opencode.client.subprocess.Popen",
+            return_value=self._fake_process('{"topic": "AI"}'),
+        ):
+            result = client.run([], input_text="prompt", label="ResearchAgent")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(json.loads(result.stdout), {"topic": "AI"})
+
+    def test_openai_primary_falls_back_to_opencode_when_api_down(self):
+        fake_openai = MagicMock()
+        fake_openai.chat.completions.create.side_effect = RuntimeError("api down")
+        client = OpenCodeClient(
+            recorder=PromptRecorder(logs_dir=self.logs_dir),
+            openai_client=fake_openai,
+        )
+        with patch(
+            "ai_content_agent.opencode.client.subprocess.Popen",
+            return_value=self._fake_process('{"topic": "AI"}'),
+        ):
+            result = client.run([], input_text="prompt", label="ResearchAgent")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(json.loads(result.stdout), {"topic": "AI"})
 
 
 if __name__ == "__main__":

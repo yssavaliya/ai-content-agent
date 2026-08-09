@@ -4,6 +4,14 @@ from pathlib import Path
 
 from ai_content_agent.settings import load_settings
 
+REQUIRED_ENV = {
+    "LOG_LEVEL": "DEBUG",
+    "DATABASE_PATH": "agent.db",
+    "OPENCODE_COMMAND": "opencode",
+    "INSTAGRAM_ENABLED": "false",
+    "IMAGE_PROVIDER": "local",
+}
+
 
 class SettingsTests(unittest.TestCase):
     def test_load_settings_from_environment(self):
@@ -64,6 +72,14 @@ class SettingsTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             load_settings(env=env)
+
+    def test_llm_provider_defaults_to_openai(self):
+        settings = load_settings(env=REQUIRED_ENV)
+        self.assertEqual(settings.llm_provider, "openai")
+
+    def test_llm_provider_rejects_unknown_value(self):
+        with self.assertRaises(ValueError):
+            load_settings(env={**REQUIRED_ENV, "LLM_PROVIDER": "claude"})
 
 
 if __name__ == "__main__":

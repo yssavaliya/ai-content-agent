@@ -82,9 +82,17 @@ class OpenCodeClient:
             prompt_path = self.recorder.start(input_text, label or "agent", run_id)
 
         try:
+            if input_text is not None:
+                provider = self._settings.llm_provider if self._settings else "opencode"
+                if provider == "openai":
+                    result = self._try_openai(input_text, label, start, prompt_path, primary=True)
+                    if result is not None:
+                        return result
+                    logger.warning("OpenAI chat unavailable; falling back to opencode")
+                    return self._run_opencode(args, input_text, start, prompt_path)
             return self._run_opencode(args, input_text, start, prompt_path)
         except OpenCodeError:
-            fallback = self._try_openai_fallback(input_text, label, start, prompt_path)
+            fallback = self._try_openai(input_text, label, start, prompt_path, primary=False)
             if fallback is not None:
                 return fallback
             raise
@@ -211,21 +219,22 @@ class OpenCodeClient:
             elapsed_seconds=elapsed,
         )
 
-    def _try_openai_fallback(
+    def _try_openai(
         self,
         input_text: str | None,
         label: str | None,
         start: float,
         prompt_path: Path | None,
+        primary: bool,
     ) -> OpenCodeResult | None:
         if input_text is None:
             return None
         settings = self._settings
         if settings is None or not settings.openai_text_fallback_enabled:
-            logger.warning("opencode failed and OpenAI text fallback is disabled")
+            logger.warning("OpenAI chat is disabled (OPENAI_TEXT_FALLBACK_ENABLED=false)")
             return None
         if not settings.openai_api_key:
-            logger.warning("opencode failed and OPENAI_API_KEY is unset; no fallback available")
+            logger.warning("OPENAI_API_KEY is unset; OpenAI chat unavailable")
             return None
 
         try:
@@ -245,22 +254,31 @@ class OpenCodeClient:
             )
             content = (response.choices[0].message.content or "").strip()
         except Exception as exc:
-            logger.error("OpenAI text fallback failed for %s: %s", label or "agent", exc)
+            logger.error("OpenAI chat failed for %s: %s", label or "agent", exc)
             return None
 
         elapsed = time.monotonic() - start
-        logger.info(
-            "::notice::[Fallback] opencode failed; used OpenAI %s for %s (%d chars)",
-            settings.openai_text_model,
-            label or "agent",
-            len(content),
-        )
+        if primary:
+            logger.info(
+                "::notice::[OpenAI] %s answered via %s (%d chars, %.1fs)",
+                label or "agent",
+                settings.openai_text_model,
+                len(content),
+                elapsed,
+            )
+        else:
+            logger.info(
+                "::notice::[Fallback] opencode failed; used OpenAI %s for %s (%d chars)",
+                settings.openai_text_model,
+                label or "agent",
+                len(content),
+            )
         if prompt_path is not None:
             self.recorder.finish(
                 prompt_path,
                 elapsed_seconds=elapsed,
                 exit_code=0,
-                error="fallback:openai",
+                error="openai" if primary else "fallback:openai",
                 stdout_chars=len(content),
             )
         return OpenCodeResult(
