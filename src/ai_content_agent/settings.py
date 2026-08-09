@@ -28,6 +28,10 @@ class Settings:
     openai_max_retries: int = 3
     openai_request_timeout_seconds: int = 60
 
+    # OpenAI text fallback (used when opencode is unavailable or fails)
+    openai_text_model: str = "gpt-4o-mini"
+    openai_text_fallback_enabled: bool = True
+
     # Instagram publishing
     instagram_access_token: str | None = None
     instagram_account_id: str | None = None
@@ -148,6 +152,10 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         openai_max_retries=_parse_int(get("OPENAI_MAX_RETRIES"), 3, "OPENAI_MAX_RETRIES"),
         openai_request_timeout_seconds=_parse_int(
             get("OPENAI_REQUEST_TIMEOUT_SECONDS"), 60, "OPENAI_REQUEST_TIMEOUT_SECONDS"
+        ),
+        openai_text_model=get("OPENAI_TEXT_MODEL") or "gpt-4o-mini",
+        openai_text_fallback_enabled=_parse_bool(
+            get("OPENAI_TEXT_FALLBACK_ENABLED") or "true", "OPENAI_TEXT_FALLBACK_ENABLED"
         ),
         instagram_access_token=get("INSTAGRAM_ACCESS_TOKEN"),
         instagram_account_id=get("INSTAGRAM_ACCOUNT_ID"),

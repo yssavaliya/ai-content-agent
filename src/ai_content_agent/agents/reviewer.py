@@ -74,7 +74,7 @@ class ReviewerAgent(BaseAgent):
 
         for attempt in range(1, self.max_attempts + 1):
             try:
-                response = self.opencode_client.run([], input_text=prompt_text)
+                response = self.opencode_client.run([], input_text=prompt_text, label=self.name)
                 payload = json.loads(response.stdout)
                 validated = self._validate_payload(payload)
                 logger.info("ReviewerAgent returned status=%s (attempt %s)", validated["status"], attempt)

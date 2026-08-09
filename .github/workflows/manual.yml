@@ -89,6 +89,17 @@ jobs:
             echo "$line"
           done
 
+      - name: Generate prompt viewer
+        run: python -m ai_content_agent.cli prompts
+
+      - name: Upload prompt logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-prompts-${{ github.run_id }}
+          path: logs/prompts/
+          if-no-files-found: ignore
+
       - name: Persist artifacts
         run: |
           git config user.name "github-actions[bot]"
