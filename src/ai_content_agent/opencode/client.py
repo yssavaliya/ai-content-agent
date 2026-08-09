@@ -52,6 +52,7 @@ class OpenCodeClient:
         command: str | None = None,
         recorder: PromptRecorder | None = None,
         openai_client: Any | None = None,
+        gemini_client: Any | None = None,
     ) -> None:
         try:
             self._settings: Settings | None = current_settings()
@@ -61,6 +62,7 @@ class OpenCodeClient:
         self.command = command or (self._settings.opencode_command if self._settings else "opencode")
         self.recorder = recorder or PromptRecorder()
         self._openai_client = openai_client
+        self._gemini_client = gemini_client
 
     def run(
         self,
@@ -74,7 +76,7 @@ class OpenCodeClient:
         if input_text is not None:
             prompt_preview = " ".join(input_text.split())[:300]
             logger.info(
-                "::notice::[OpenCode:%s] Prompt sent (%d chars): %s...",
+                "::notice::[LLM:%s] Prompt sent (%d chars): %s...",
                 label or "agent",
                 len(input_text),
                 prompt_preview,
@@ -82,9 +84,24 @@ class OpenCodeClient:
             prompt_path = self.recorder.start(input_text, label or "agent", run_id)
 
         try:
+            if input_text is not None:
+                provider = self._settings.llm_provider if self._settings else "opencode"
+                if provider in ("openai", "gemini"):
+                    result = self._try_chat_api(provider, input_text, label, start, prompt_path, primary=True)
+                    if result is not None:
+                        return result
+                    other = "gemini" if provider == "openai" else "openai"
+                    result = self._try_chat_api(other, input_text, label, start, prompt_path, primary=False)
+                    if result is not None:
+                        return result
+                    logger.warning("API LLM providers unavailable; falling back to opencode")
+                    return self._run_opencode(args, input_text, start, prompt_path)
             return self._run_opencode(args, input_text, start, prompt_path)
         except OpenCodeError:
-            fallback = self._try_openai_fallback(input_text, label, start, prompt_path)
+            fallback = self._try_chat_api("openai", input_text, label, start, prompt_path, primary=False)
+            if fallback is not None:
+                return fallback
+            fallback = self._try_chat_api("gemini", input_text, label, start, prompt_path, primary=False)
             if fallback is not None:
                 return fallback
             raise
@@ -211,56 +228,90 @@ class OpenCodeClient:
             elapsed_seconds=elapsed,
         )
 
-    def _try_openai_fallback(
+    def _chat_client_for(self, provider: str) -> Any:
+        settings = self._settings
+        if provider == "openai":
+            if self._openai_client is not None:
+                return self._openai_client
+            from openai import OpenAI
+
+            return OpenAI(
+                api_key=settings.openai_api_key,
+                timeout=settings.openai_request_timeout_seconds,
+                max_retries=settings.openai_max_retries,
+            )
+        if provider == "gemini":
+            if self._gemini_client is not None:
+                return self._gemini_client
+            from openai import OpenAI
+
+            return OpenAI(
+                api_key=settings.gemini_api_key,
+                base_url=settings.gemini_base_url,
+                timeout=settings.openai_request_timeout_seconds,
+                max_retries=settings.openai_max_retries,
+            )
+        raise ValueError(f"Unknown chat API provider: {provider!r}")
+
+    def _try_chat_api(
         self,
+        provider: str,
         input_text: str | None,
         label: str | None,
         start: float,
         prompt_path: Path | None,
+        primary: bool,
     ) -> OpenCodeResult | None:
         if input_text is None:
             return None
         settings = self._settings
         if settings is None or not settings.openai_text_fallback_enabled:
-            logger.warning("opencode failed and OpenAI text fallback is disabled")
+            logger.warning("LLM chat APIs are disabled (OPENAI_TEXT_FALLBACK_ENABLED=false)")
             return None
-        if not settings.openai_api_key:
-            logger.warning("opencode failed and OPENAI_API_KEY is unset; no fallback available")
+        if provider == "openai" and not settings.openai_api_key:
+            logger.warning("OPENAI_API_KEY is unset; OpenAI chat unavailable")
             return None
+        if provider == "gemini" and not settings.gemini_api_key:
+            logger.warning("GEMINI_API_KEY is unset; Gemini chat unavailable")
+            return None
+        model = settings.openai_text_model if provider == "openai" else settings.gemini_model
+        display = "OpenAI" if provider == "openai" else "Gemini"
 
         try:
-            if self._openai_client is not None:
-                client = self._openai_client
-            else:
-                from openai import OpenAI
-
-                client = OpenAI(
-                    api_key=settings.openai_api_key,
-                    timeout=settings.openai_request_timeout_seconds,
-                    max_retries=settings.openai_max_retries,
-                )
+            client = self._chat_client_for(provider)
             response = client.chat.completions.create(
-                model=settings.openai_text_model,
+                model=model,
                 messages=[{"role": "user", "content": input_text}],
             )
             content = (response.choices[0].message.content or "").strip()
         except Exception as exc:
-            logger.error("OpenAI text fallback failed for %s: %s", label or "agent", exc)
+            logger.error("%s chat failed for %s: %s", display, label or "agent", exc)
             return None
 
         elapsed = time.monotonic() - start
-        logger.info(
-            "::notice::[Fallback] opencode failed; used OpenAI %s for %s (%d chars)",
-            settings.openai_text_model,
-            label or "agent",
-            len(content),
-        )
+        if primary:
+            logger.info(
+                "::notice::[%s] %s answered via %s (%d chars, %.1fs)",
+                display,
+                label or "agent",
+                model,
+                len(content),
+                elapsed,
+            )
+        else:
+            logger.info(
+                "::notice::[Fallback] primary LLM failed; used %s %s for %s (%d chars)",
+                display,
+                model,
+                label or "agent",
+                len(content),
+            )
         if prompt_path is not None:
             self.recorder.finish(
                 prompt_path,
                 elapsed_seconds=elapsed,
                 exit_code=0,
-                error="fallback:openai",
+                error=provider if primary else f"fallback:{provider}",
                 stdout_chars=len(content),
             )
         return OpenCodeResult(

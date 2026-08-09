@@ -33,11 +33,14 @@ jobs:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
       OPENCODE_COMMAND: opencode
-      OPENCODE_TIMEOUT_SECONDS: "600"
+      OPENCODE_TIMEOUT_SECONDS: "1200"
       INSTAGRAM_ENABLED: ${{ github.event.inputs.instagram_enabled }}
       IMAGE_PROVIDER: ${{ github.event.inputs.image_provider }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+      LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
       NOTIFY_CHANNELS: ${{ github.event.inputs.notify_channels }}
       SMTP_HOST: ${{ secrets.SMTP_HOST }}
       SMTP_PORT: ${{ secrets.SMTP_PORT }}

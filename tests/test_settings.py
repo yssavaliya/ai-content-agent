@@ -4,6 +4,14 @@ from pathlib import Path
 
 from ai_content_agent.settings import load_settings
 
+REQUIRED_ENV = {
+    "LOG_LEVEL": "DEBUG",
+    "DATABASE_PATH": "agent.db",
+    "OPENCODE_COMMAND": "opencode",
+    "INSTAGRAM_ENABLED": "false",
+    "IMAGE_PROVIDER": "local",
+}
+
 
 class SettingsTests(unittest.TestCase):
     def test_load_settings_from_environment(self):
@@ -64,6 +72,27 @@ class SettingsTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             load_settings(env=env)
+
+    def test_llm_provider_defaults_to_openai(self):
+        settings = load_settings(env=REQUIRED_ENV)
+        self.assertEqual(settings.llm_provider, "openai")
+
+    def test_llm_provider_rejects_unknown_value(self):
+        with self.assertRaises(ValueError):
+            load_settings(env={**REQUIRED_ENV, "LLM_PROVIDER": "claude"})
+
+    def test_gemini_provider_and_defaults(self):
+        settings = load_settings(env={**REQUIRED_ENV, "LLM_PROVIDER": "gemini"})
+        self.assertEqual(settings.llm_provider, "gemini")
+        self.assertEqual(settings.gemini_model, "gemini-flash-latest")
+        self.assertIsNone(settings.gemini_api_key)
+
+    def test_gemini_overrides(self):
+        settings = load_settings(
+            env={**REQUIRED_ENV, "LLM_PROVIDER": "gemini", "GEMINI_MODEL": "gemini-2.0-flash", "GEMINI_API_KEY": "k"}
+        )
+        self.assertEqual(settings.gemini_model, "gemini-2.0-flash")
+        self.assertEqual(settings.gemini_api_key, "k")
 
 
 if __name__ == "__main__":
