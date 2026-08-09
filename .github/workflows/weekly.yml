@@ -41,6 +41,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: opencode-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            opencode-${{ runner.os }}-
       - name: Install opencode
         run: npm install -g opencode-ai
       - name: Install dependencies
@@ -53,10 +60,21 @@ jobs:
             echo "::notice::$line"
             echo "$line"
           done
+      - name: Generate prompt viewer
+        run: python -m ai_content_agent.cli prompts
+      - name: Upload prompt logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-prompts-${{ github.run_id }}
+          path: logs/prompts/
+          if-no-files-found: ignore
       - name: Persist artifacts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f agent.db brain/strategy.md
+          for path in agent.db brain/strategy.md; do
+            if [ -e "$path" ]; then git add -f "$path"; fi
+          done
           git commit -m "chore: scientist analysis artifacts" || echo "No changes to commit"
           git push

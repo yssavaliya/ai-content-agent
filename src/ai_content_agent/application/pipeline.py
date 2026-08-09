@@ -14,6 +14,7 @@ from ..agents.reviewer import ReviewerAgent
 from ..database.connection import DatabaseConnection
 from ..notifications.channels import DryRunChannel
 from ..notifications.notifier import Notifier
+from ..opencode.context import set_run_id
 from ..prompts.manager import PromptManager
 from ..providers.image import ImageProviderRegistry
 from ..providers.image.base import BaseImageProvider, ImageRequest
@@ -77,6 +78,7 @@ class ContentPipeline:
 
     def run(self, run_id: str | None = None) -> dict[str, Any]:
         run_id = run_id or uuid.uuid4().hex[:8]
+        set_run_id(run_id)
         logger.info("Pipeline run %s starting", run_id)
         try:
             package = self._produce_content(run_id)
@@ -97,6 +99,7 @@ class ContentPipeline:
             )
             raise
         finally:
+            set_run_id(None)
             self.close()
 
     def _produce_content(self, run_id: str) -> dict[str, Any]:

@@ -13,6 +13,7 @@ Commands:
   analytics   Collect Instagram insights for published posts.
   scientist   Run the Scientist learning loop (experiments, analysis, strategy updates).
   monthly     Generate a monthly performance digest.
+  prompts     Generate the HTML prompt viewer from recorded prompts (logs/prompts).
   help        Show this help.
 
 With no command, 'daily' is assumed.
@@ -112,6 +113,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif command == "monthly":
             result = scheduler.run_monthly()
             _print_monthly(result)
+        elif command == "prompts":
+            from .diagnostics.prompt_viewer import generate_html
+
+            output = generate_html()
+            print(f"Prompt viewer generated: {output}")
         else:
             print(f"Unknown command: {command}", file=sys.stderr)
             print(USAGE, file=sys.stderr)
