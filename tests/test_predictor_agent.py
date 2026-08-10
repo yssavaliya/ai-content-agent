@@ -76,7 +76,7 @@ class PredictorAgentTests(unittest.TestCase):
         finally:
             db.close()
 
-        self.assertEqual(client.run.call_count, 2)
+        self.assertEqual(client.run.call_count, 3)
 
     def test_execute_raises_on_malformed_json(self):
         client = MagicMock(spec=OpenCodeClient)
