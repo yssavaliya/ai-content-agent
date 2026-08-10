@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic flat-lay visual tailored for an Instagram carousel cover. Features a sleek smartphone displaying an intuitive savings goal screen, a cup of hot Indian filter coffee on a clean wooden desk, minimalist stationery, bright indirect daylight, a vibrant color palette of teal, warm orange, and gold accents, with clear negative space at the top for title text.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-10T13:23:29Z

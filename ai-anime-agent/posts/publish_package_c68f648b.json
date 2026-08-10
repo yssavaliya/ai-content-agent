@@ -1,0 +1,143 @@
+{
+  "run_id": "c68f648b",
+  "research": {
+    "recommended_topic": "5 Free AI Tools Every Indian Student Needs for the New Academic Year",
+    "audience_problem": "Indian students face heavy assignment loads, expensive paid tool paywalls, and struggle to manage time during the new college semester.",
+    "why_now": "August marks the start of the new academic year and college semester across major Indian universities, making student productivity and study hacks highly timely and shareable.",
+    "hook": "Padhai ka stress over? Yeh 5 free AI tools aapka 10 ghante ka kaam 10 minute mein kar denge! \ud83d\ude80",
+    "supporting_points": [
+      "NotebookLM: Convert lecture PDFs and college notes into podcast-style audio summaries and self-quizzes.",
+      "Gemini & ChatGPT Free: Break down tough engineering/commerce concepts into easy Hinglish explanations.",
+      "Gamma App: Generate complete presentation decks for college projects with simple prompts.",
+      "Consensus AI: Locate cited academic sources and research papers without paywalls.",
+      "Canva Magic Studio: Design professional report covers and project posters effortlessly."
+    ],
+    "trend_signals": [
+      "August academic semester kickoff across Indian Tier 1, 2, and 3 colleges",
+      "High viral engagement on Instagram India for #studenthacks and free AI tools carousels",
+      "Deterministic strategy rule: UTC date 2026-08-10 is an even date requiring AI topic focus"
+    ],
+    "candidate_topics": [
+      "5 Free AI Tools Every Indian Student Needs for the New Academic Year",
+      "ChatGPT Prompts to Build Placement-Ready Resumes for College Seniors",
+      "How Tier 2/3 Indian Freelancers Can Earn Using DeepSeek & ChatGPT",
+      "AI Deepfake & Voice Scam Warning: Practical Safety Tips for Indian Families"
+    ],
+    "confidence": 0.95,
+    "reasoning": "Today's UTC date (2026-08-10) is even, mandating an AI-focused topic per the parity strategy rule. Aligning AI tool recommendations with the August college reopening season in India directly targets the 16-34 core audience with high-utility, Hinglish-friendly content.",
+    "timestamp": "2026-08-10T00:00:00Z",
+    "research_id": 3
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Salary Aate Hi Kharcha! The 50-30-20 Rule adapted for Metro Rent & Zomato Spends",
+        "educational_score": 0.85,
+        "originality_score": 0.75,
+        "engagement_score": 0.88,
+        "relevance_score": 0.9,
+        "reasoning": "Uses a highly relatable month-end Hinglish hook around salary depletion, breaking down realistic budgeting tailored for young professionals in Indian metro cities."
+      },
+      {
+        "idea": "3 'Silent' Deductions on Your Salary Slip HR Won't Explain (And How to Save Tax Before March 31)",
+        "educational_score": 0.95,
+        "originality_score": 0.88,
+        "engagement_score": 0.92,
+        "relevance_score": 0.95,
+        "reasoning": "Taps into strong tax-saving urgency and workplace curiosity with high save and share potential among salaried employees."
+      },
+      {
+        "idea": "IPL Auction vs. Your Portfolio: Why Buying Hype Stocks is Like Spending \u20b915 Crore on a Bench Player",
+        "educational_score": 0.8,
+        "originality_score": 0.92,
+        "engagement_score": 0.9,
+        "relevance_score": 0.85,
+        "reasoning": "Rides the trending IPL cricket season format to explain complex valuation concepts using an intuitive, culturally native analogy."
+      }
+    ],
+    "selected_idea": {
+      "idea": "3 'Silent' Deductions on Your Salary Slip HR Won't Explain (And How to Save Tax Before March 31)",
+      "educational_score": 0.95,
+      "originality_score": 0.88,
+      "engagement_score": 0.92,
+      "relevance_score": 0.95,
+      "total_score": 3.7,
+      "reasoning": "Highest overall impact score due to maximum educational utility, strong urgency ahead of the Indian tax deadline, and extremely high propensity for saves and WhatsApp shares."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: Hook - 'Salary Aate Hi Account Zero? \ud83d\udcb8 Read this before your next payday.'",
+      "Slide 2: Rule 1 - Pay Yourself First (Auto-invest 20% on Day 1, zero excuses).",
+      "Slide 3: Rule 3 - The 48-Hour Wishlist Rule (Impulse shopping pe break lagao).",
+      "Slide 4: Rule 3 - Track 'Chota Kharcha' (Daily cab rides, coffee, and unused OTT subscriptions add up fast).",
+      "Slide 5: Rule 4 - Two-Account System (Keep bill money and spending money strictly separate).",
+      "Slide 6: Summary & Call to Action - 'Save this for your next payday and tag a friend who needs a budget check!'"
+    ],
+    "caption": "Salary account mein notification aata hai 'Credited' aur kuch hi din mein 'Debited' \ud83d\ude05\n\nSound familiar?\n\nMonth-end pe 'paisa kahan gaya' sochne se behtar hai month ke start mein yeh 4 simple rules try karo.\n\nSwipe left to fix your money game \u27a1\ufe0f\n\nKaunsa rule aap sabse pehle try karoge? Tell us in the comments \ud83d\udc47",
+    "cta": "Save this post before your next payday and share it with a friend who needs this!",
+    "hashtags": [
+      "#MoneyTipsIndia",
+      "#PersonalFinanceIndia",
+      "#BudgetingHacks",
+      "#DesiHacks",
+      "#ReelsIndia",
+      "#InstagramIndia"
+    ],
+    "image_prompt": "A modern, aesthetic flat-lay visual tailored for an Instagram carousel cover. Features a sleek smartphone displaying an intuitive savings goal screen, a cup of hot Indian filter coffee on a clean wooden desk, minimalist stationery, bright indirect daylight, a vibrant color palette of teal, warm orange, and gold accents, with clear negative space at the top for title text.",
+    "alt_text": "A stylish overhead view of a clean workspace with a smartphone showing financial growth graphics and a warm cup of coffee."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output provided for review.",
+      "Missing brand identity, constitution, and market context documents."
+    ],
+    "timestamp": "2026-08-10T13:23:19.979114Z"
+  },
+  "prediction": {
+    "virality_score": 0,
+    "virality_label": "LOW",
+    "virality_probability": 0.0,
+    "key_factors": [
+      "No post draft or creative content provided for analysis",
+      "Unable to evaluate hook strength, visual pacing, or media format"
+    ],
+    "risks": [
+      "Absence of Hinglish copy, trend alignment, or relatable Indian cultural hooks",
+      "Missing audio, CTA, and hashtag optimization required for Instagram discovery"
+    ],
+    "reasoning": "No creator draft, research data, or recent post context was provided in the input variables. Without actionable content, hooks, or format details to evaluate against Indian Instagram audience triggers, the post receives a 0 score and LOW virality prediction.",
+    "timestamp": "2026-08-10T13:23:29.084118Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, aesthetic flat-lay visual tailored for an Instagram carousel cover. Features a sleek smartphone displaying an intuitive savings goal screen, a cup of hot Indian filter coffee on a clean wooden desk, minimalist stationery, bright indirect daylight, a vibrant color palette of teal, warm orange, and gold accents, with clear negative space at the top for title text.",
+    "file_path": "images/2026/08/10/image_prompt_132329.txt",
+    "metadata": {
+      "created_at": "2026-08-10T13:23:29Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "c68f648b",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: 5 Free AI Tools Every Indian Student Needs for the"
+    }
+  },
+  "package_path": "posts/publish_package_c68f648b.json",
+  "timing": {
+    "research_ms": 10141,
+    "planner_ms": 10817,
+    "creator_ms": 11428,
+    "reviewer_ms": 4875,
+    "predictor_ms": 9103,
+    "image_ms": 1,
+    "publish_ms": 1615,
+    "total_ms": 47980
+  }
+}
