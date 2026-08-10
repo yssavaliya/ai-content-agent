@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern Indian young professional sitting in a vibrant, warm-lit urban apartment living room in Mumbai, looking thoughtfully at their smartphone displaying a clean digital wallet app visual. Cinematic lighting, soft shadows, 35mm photograph style, realistic Indian interior décor with houseplants, high resolution, aesthetic and relatable.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-10T13:08:05Z

@@ -1,0 +1,147 @@
+{
+  "run_id": "4366a0f1",
+  "research": {
+    "recommended_topic": "AI Prompt Hacks for Campus Placement & Resume Building",
+    "audience_problem": "Indian college students and freshers are entering campus placement season stressed about ATS-friendly resumes and technical/HR interview prep, but don't know how to use AI tools effectively to stand out.",
+    "why_now": "August marks the official kickoff of campus placement drives across Indian universities and engineering colleges, making resume optimization and interview prep an urgent, high-stakes daily priority for the 18-24 student demographic.",
+    "hook": "Placement season start ho gaya hai aur resume blank hai? 3 AI prompts jo shortlist ki guarantee badha denge! \ud83d\ude80",
+    "supporting_points": [
+      "Resume Polish Prompt: Feed your raw project details into ChatGPT to generate ATS-friendly, outcome-focused bullet points.",
+      "Mock HR Interviewer Prompt: Turn Gemini/ChatGPT into an intense interviewer that grills you on specific job descriptions and gives instant feedback.",
+      "Company Research Shortcut: Use DeepSeek / Gemini to summarize recent company news, tech stacks, and interview trends in 60 seconds before your round.",
+      "Kaam ki Baat tip: Never copy-paste AI responses directly\u2014customize numbers, project specs, and personal details to stay genuine."
+    ],
+    "trend_signals": [
+      "Even UTC date (2026-08-10) strictly requires an AI content pillar based on brand strategy parity rules.",
+      "August is peak campus recruitment season across Tier 1, 2, and 3 Indian colleges.",
+      "High Instagram engagement on Indian student feeds for carousel posts offering actionable, career-saving prompts and hacks."
+    ],
+    "candidate_topics": [
+      "AI Prompt Hacks for Campus Placement & Resume Building",
+      "Top 4 Free AI Tools Every Indian Student & Freelancer Needs in August 2026",
+      "How to Protect Your Family WhatsApp Groups from AI Voice Cloning Scams",
+      "DeepSeek vs ChatGPT: Which Free AI Tool Wins for Indian Coders & Students?"
+    ],
+    "confidence": 0.95,
+    "reasoning": "Today's date (2026-08-10) is an even UTC date, calling for AI content. Aligning AI prompts with August campus placements addresses an immediate, real-world pain point for Indian college students (18-24), yielding high save-and-share metrics on Instagram.",
+    "timestamp": "2026-08-10T00:00:00Z",
+    "research_id": 2
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "POV Reel: 'Salary Day vs 5 Days Later' - A relatable Hinglish breakdown comparing realistic metro city expenses (rent, swiggy, hidden subsciptions) with an actionable '3-Bucket Automation System' to save 20% automatically on salary day.",
+        "educational_score": 0.85,
+        "originality_score": 0.8,
+        "engagement_score": 0.95,
+        "relevance_score": 0.9,
+        "reasoning": "Rides on the viral relatable humor format around salary depletion, using native Hinglish cues that trigger high shares among young Indian professionals facing high metro cost of living."
+      },
+      {
+        "idea": "Carousel: 'Festival Shopping Hacks Banks Don't Tell You' - Step-by-step visual guide on optimizing credit card reward points, zero-cost EMIs, and cashback stack strategies ahead of major sale seasons.",
+        "educational_score": 0.92,
+        "originality_score": 0.88,
+        "engagement_score": 0.94,
+        "relevance_score": 0.96,
+        "reasoning": "Capitalizes on high seasonal purchase intent in India by offering immediate utility and actionable financial hacks, driving high save and share rates."
+      },
+      {
+        "idea": "Skit / Audio Trend Reel: 'Sharma Ji Ka Beta vs You' on SIPs - Busting common Indian household financial myths about Fixed Deposits vs Index Funds using popular pop-culture commentary.",
+        "educational_score": 0.8,
+        "originality_score": 0.75,
+        "engagement_score": 0.88,
+        "relevance_score": 0.85,
+        "reasoning": "Uses a culturally ubiquitous trope ('Sharma Ji Ka Beta') to lower the barrier to complex financial topics like inflation-adjusted returns."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Carousel: 'Festival Shopping Hacks Banks Don't Tell You' - Step-by-step visual guide on optimizing credit card reward points, zero-cost EMIs, and cashback stack strategies ahead of major sale seasons.",
+      "educational_score": 0.92,
+      "originality_score": 0.88,
+      "engagement_score": 0.94,
+      "relevance_score": 0.96,
+      "total_score": 3.7,
+      "reasoning": "Achieves the highest overall balance of deep educational value and high engagement potential. It directly solves a high-intent financial problem for the target Indian audience right when festive spending peaks, driving high bookmarking and sharing."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: [Hook] Salary credit hui nahi ki 5 din mein wallet khali? The real reason your bank balance resets every month.",
+      "Slide 2: [The Trap] Small UPI payments feel like zero spending, but 100-rupee chai-snack breaks are silently draining your account.",
+      "Slide 3: [Rule 1] The 50-30-20 Desi Rule: 50% Needs, 30% Wants (Swiggy/Weekend plans), 20% Auto-SIP on Day 1.",
+      "Slide 4: [Rule 2] The 48-Hour Wishlist Trick: See something online? Wait 2 days. 80% of the time, you won't even want it.",
+      "Slide 5: [Rule 3] Separate your spending account from your main savings account. Never keep all your money in your UPI-linked app.",
+      "Slide 6: [Summary] Stop letting lifestyle creep win. Swipe back and save this for payday!"
+    ],
+    "caption": "Month end aate hi zero balance tension?\n\nWe've all been there\u2014salary credits on the 1st, and by the 10th you're wondering pessa gaya kahan! \ud83d\ude05\n\nNo boring finance lectures here. Just 3 practical hacks built for our daily Indian lifestyle.\n\nSwipe through to block your monthly money leaks once and for all. \ud83d\udca1\n\nWhich slide called you out the most? Tell us in the comments! \ud83d\udc47",
+    "cta": "\ud83d\udccc Save this post right now so you can set up your accounts before your next salary hits!",
+    "hashtags": [
+      "#reelsindia",
+      "#instagramindia",
+      "#moneyhacks",
+      "#personalfinanceindia",
+      "#hinglish",
+      "#desitips",
+      "#financialfreedom"
+    ],
+    "image_prompt": "A modern Indian young professional sitting in a vibrant, warm-lit urban apartment living room in Mumbai, looking thoughtfully at their smartphone displaying a clean digital wallet app visual. Cinematic lighting, soft shadows, 35mm photograph style, realistic Indian interior d\u00e9cor with houseplants, high resolution, aesthetic and relatable.",
+    "alt_text": "A young Indian adult sitting on a cozy couch looking at a financial app on their smartphone in a warm, modern living room."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output draft is missing.",
+      "Brand identity document is missing.",
+      "Brand constitution document is missing.",
+      "Market context document is missing."
+    ],
+    "timestamp": "2026-08-10T13:07:58.256921Z"
+  },
+  "prediction": {
+    "virality_score": 45,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.45,
+    "key_factors": [
+      "Relatable Indian daily life context",
+      "Utility-driven content with good save potential",
+      "Structured format suitable for carousels or short reels"
+    ],
+    "risks": [
+      "Crowded topic niche with high competition",
+      "Weak initial hook strength reduces immediate scroll-stop",
+      "Missing live trend or cultural moment connection"
+    ],
+    "reasoning": "The post addresses a practical topic relevant to the Indian audience, but lacks a compelling scroll-stopping hook, emotional trigger, or active trend tie-in needed to achieve high shareability and explosive viral reach.",
+    "timestamp": "2026-08-10T13:08:05.935246Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern Indian young professional sitting in a vibrant, warm-lit urban apartment living room in Mumbai, looking thoughtfully at their smartphone displaying a clean digital wallet app visual. Cinematic lighting, soft shadows, 35mm photograph style, realistic Indian interior d\u00e9cor with houseplants, high resolution, aesthetic and relatable.",
+    "file_path": "images/2026/08/10/image_prompt_130805.txt",
+    "metadata": {
+      "created_at": "2026-08-10T13:08:05Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "4366a0f1",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: AI Prompt Hacks for Campus Placement & Resume Buil"
+    }
+  },
+  "package_path": "posts/publish_package_4366a0f1.json",
+  "timing": {
+    "research_ms": 12104,
+    "planner_ms": 9331,
+    "creator_ms": 12837,
+    "reviewer_ms": 6089,
+    "predictor_ms": 7674,
+    "image_ms": 2,
+    "publish_ms": 2250,
+    "total_ms": 50287
+  }
+}
