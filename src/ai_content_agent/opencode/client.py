@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import json
 import logging
+import re
 import shlex
+import shutil
 import subprocess
+import sys
 import threading
 import time
 from dataclasses import dataclass
@@ -43,6 +47,26 @@ def strip_markdown_fences(text: str) -> str:
             lines = lines[:-1]
         return "\n".join(lines).strip()
     return stripped
+
+
+def extract_json_text(text: str) -> str:
+    """Parse leniently: strip fences, then fall back to the first {...} block."""
+    text = strip_markdown_fences(text)
+    try:
+        json.loads(text)
+        return text
+    except (json.JSONDecodeError, ValueError):
+        pass
+    start = text.find("{")
+    end = text.rfind("}")
+    if start != -1 and end > start:
+        candidate = text[start : end + 1]
+        try:
+            json.loads(candidate)
+            return candidate
+        except (json.JSONDecodeError, ValueError):
+            pass
+    return text
 
 
 class OpenCodeClient:
@@ -114,20 +138,26 @@ class OpenCodeClient:
         prompt_path: Path | None,
     ) -> OpenCodeResult:
         # Use 'run' subcommand for non-interactive execution (much faster than TUI)
-        # If input_text provided, use it as the prompt; otherwise use args
+        # If input_text provided, use it as the prompt; otherwise use args.
+        # On Windows the prompt is piped via stdin because cmd.exe shims mangle
+        # long or quoted prompt arguments.
+        use_stdin = input_text is not None and sys.platform == "win32"
         if input_text is not None:
-            command_line = [self.command, "run", input_text]
+            command_line = [self.command, "run"] if use_stdin else [self.command, "run", input_text]
         else:
             command_line = [self.command, *args]
         logger.debug("Running opencode: %s", shlex.join(command_line))
+        command_line = self._resolve_windows_command(command_line)
+        popen_command = command_line if isinstance(command_line, str) else [str(part) for part in command_line]
 
         try:
             process = subprocess.Popen(
-                [str(part) for part in command_line],
+                popen_command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=subprocess.PIPE,
                 text=True,
+                encoding="utf-8",
             )
         except FileNotFoundError as exc:
             logger.error("opencode binary not found at %r", self.command)
@@ -162,7 +192,10 @@ class OpenCodeClient:
         heartbeat_thread.start()
 
         try:
-            stdout, stderr = process.communicate(input=None, timeout=self.timeout_seconds)
+            stdout, stderr = process.communicate(
+                input=input_text if use_stdin else None,
+                timeout=self.timeout_seconds,
+            )
         except subprocess.TimeoutExpired:
             heartbeat_stop.set()
             heartbeat_thread.join(timeout=1)
@@ -227,6 +260,18 @@ class OpenCodeClient:
             exit_code=process.returncode,
             elapsed_seconds=elapsed,
         )
+
+    def _resolve_windows_command(self, command_line: list[str]) -> list[str] | str:
+        """Resolve npm-style .cmd/.bat shims so they launch on Windows."""
+        if sys.platform != "win32":
+            return command_line
+        resolved = shutil.which(self.command)
+        if resolved is None:
+            return command_line
+        if resolved.lower().endswith((".cmd", ".bat")):
+            rest = subprocess.list2cmdline(command_line[1:]) if len(command_line) > 1 else ""
+            return f'cmd.exe /d /c call "{resolved}"' + (f" {rest}" if rest else "")
+        return [resolved, *command_line[1:]]
 
     def _chat_client_for(self, provider: str) -> Any:
         settings = self._settings

@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any
+
+RETRY_BACKOFF_SECONDS = float(os.environ.get("AGENT_RETRY_BACKOFF_SECONDS", "15"))
 
 
 @dataclass(frozen=True)

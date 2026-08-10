@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from ..agents.base import BaseAgent
+from ..agents.base import BaseAgent, RETRY_BACKOFF_SECONDS
 from ..database.connection import DatabaseConnection
-from ..opencode.client import OpenCodeClient, OpenCodeError
+from ..opencode.client import OpenCodeClient, OpenCodeError, extract_json_text
 from ..prompts.manager import PromptManager
 from ..timestamps import utc_now_iso
 
@@ -56,7 +57,7 @@ class ResearchAgent(BaseAgent):
         self.prompt_manager = prompt_manager or PromptManager(prompt_dir=Path("src/ai_content_agent/prompts"))
         self.opencode_client = opencode_client
         self.database = database
-        self.max_attempts = 2
+        self.max_attempts = 3
 
     def execute(self, inputs: dict[str, object]) -> dict[str, object]:
         identity_path = Path(inputs["identity"])
@@ -87,9 +88,11 @@ class ResearchAgent(BaseAgent):
             self.opencode_client = OpenCodeClient()
 
         for attempt in range(1, self.max_attempts + 1):
+            raw = ""
             try:
                 response = self.opencode_client.run([], input_text=prompt_text, label=self.name)
-                payload = json.loads(response.stdout)
+                raw = response.stdout or ""
+                payload = json.loads(extract_json_text(raw))
                 validated = self._validate_payload(payload)
                 research_id = self._persist_research(validated)
                 validated["research_id"] = research_id
@@ -97,10 +100,12 @@ class ResearchAgent(BaseAgent):
                 return validated
             except (OpenCodeError, ValueError) as exc:
                 last_error = exc
+                raw_preview = (getattr(exc, "stdout", None) or raw or "")[:300]
                 if attempt == self.max_attempts:
-                    logger.error("ResearchAgent failed after %s attempts: %s", attempt, exc)
+                    logger.error("ResearchAgent failed after %s attempts: %s (raw=%r)", attempt, exc, raw_preview)
                     raise RuntimeError(f"ResearchAgent failed after {attempt} attempts: {exc}") from exc
-                logger.warning("ResearchAgent attempt %s/%s failed (%s); retrying", attempt, self.max_attempts, exc)
+                logger.warning("ResearchAgent attempt %s/%s failed (%s) raw=%r; retrying", attempt, self.max_attempts, exc, raw_preview)
+                time.sleep(RETRY_BACKOFF_SECONDS)
         raise RuntimeError("ResearchAgent encountered an unknown failure") from last_error
 
     def _validate_payload(self, payload: Any) -> dict[str, Any]:

@@ -80,6 +80,9 @@ jobs:
       - name: Install opencode
         run: npm install -g opencode-ai
 
+      - name: Add npm global bin to PATH
+        run: echo "$(npm config get prefix)/bin" >> "$GITHUB_PATH"
+
       - name: Install dependencies
         working-directory: ai-anime-agent
         run: |

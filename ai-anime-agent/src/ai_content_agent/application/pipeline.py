@@ -4,7 +4,6 @@ import json
 import logging
 import time
 import uuid
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -207,7 +206,6 @@ class ContentPipeline:
                 "strategy": "brain/strategy.md",
                 "market": "brain/market.md",
                 "prompt": "research.md",
-                "run_date": datetime.now(timezone.utc).date().isoformat(),
             }
         )
 
@@ -479,6 +477,7 @@ class ContentPipeline:
             f"Run: {run_id}",
             f"Topic: {research.get('recommended_topic')}",
             f"Caption: {creation.get('caption', '')[:120]}",
+            f"Image Prompt: {creation.get('image_prompt', 'n/a')}",
             f"Publish status: {publish.get('status')}",
             f"Published id: {publish.get('published_id')}",
             f"Media URL: {(package.get('image') or {}).get('media_url', 'n/a')}",

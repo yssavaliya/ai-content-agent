@@ -477,6 +477,7 @@ class ContentPipeline:
             f"Run: {run_id}",
             f"Topic: {research.get('recommended_topic')}",
             f"Caption: {creation.get('caption', '')[:120]}",
+            f"Image Prompt: {creation.get('image_prompt', 'n/a')}",
             f"Publish status: {publish.get('status')}",
             f"Published id: {publish.get('published_id')}",
             f"Media URL: {(package.get('image') or {}).get('media_url', 'n/a')}",
