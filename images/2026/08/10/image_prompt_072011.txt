@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, vibrant carousel cover featuring a young Indian professional sitting at a clean minimalist wooden desk next to a sunny window, holding a coffee mug with a calm and focused expression, stylized vector graphics overlay with high contrast bold typography reading 'Fix Your Morning Routine', warm cinematic morning sunlight, clean 3D aesthetic, vibrant colors, 4k resolution.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-10T07:20:11Z

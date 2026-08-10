@@ -1,0 +1,143 @@
+{
+  "run_id": "280e0b39",
+  "research": {
+    "recommended_topic": "Appraisal Season Salary Structuring: New Tax Regime vs Old Tax Regime Optimization",
+    "audience_problem": "Young Indian professionals are receiving annual salary revisions and appraisals but losing a significant portion of their increment to income tax and bad CTC structuring because they lack awareness of tax-efficient allowance breakdowns.",
+    "why_now": "The end of the Indian financial year (FY 2024-25) coincides with corporate appraisal season across major Indian hubs (Bengaluru, Gurgaon, Mumbai, Hyderabad), driving peak search interest for tax planning and in-hand salary optimization.",
+    "hook": "Got a 15% raise but your in-hand salary barely changed? Here is the exact salary component trick HR won't tell you.",
+    "supporting_points": [
+      "Deconstruct CTC vs In-Hand pay: Why higher special allowances increase your taxable salary under both tax regimes.",
+      "How to strategically negotiate non-taxable perks like Internet Allowances, Learning Subscriptions, and Fuel Reimbursements during appraisal discussions.",
+      "A 3-step decision framework to choose between the New Tax Regime (lower slabs) vs. Old Tax Regime (Section 80C, HRA, NPS benefits)."
+    ],
+    "trend_signals": [
+      "Financial Year-End (March 31) HR tax declaration deadlines across corporate India",
+      "Spike in #AppraisalSeason, #TaxSaving, and #InHandSalary trends on Indian Instagram Reels and LinkedIn",
+      "High performance of viral 'Talking Head + On-Screen Calculation' Reel formats in finance/career niches"
+    ],
+    "candidate_topics": [
+      "Sovereign Gold Bonds vs Digital Gold: Best Wealth Options for Spring Festivals",
+      "Credit Card Reward Devaluations and IPL Season Shopping Hacks",
+      "Emergency Fund Allocation in Liquid Funds for First-Time Salaried Employees"
+    ],
+    "confidence": 0.94,
+    "reasoning": "Appraisal season coupled with the end of the Indian financial year creates an ideal urgency window. It directly addresses pain points surrounding take-home pay and tax savings for urban Indian professionals, driving high save-and-share metrics on Instagram.",
+    "timestamp": "2025-03-30T09:00:00Z",
+    "research_id": 5
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "POV: Salary increment check karne ke baad tax and lifestyle creep shock \ud83d\ude2d - A relatable Reel showing the 'Salary Slip vs Real Savings' gap, followed by 3 actionable Hinglish tips to automate SIPs before spending.",
+        "educational_score": 0.85,
+        "originality_score": 0.75,
+        "engagement_score": 0.9,
+        "relevance_score": 0.9,
+        "reasoning": "Taps into the highly relatable moment young Indian corporate professionals experience during appraisal season, combining humor with practical automated investing advice."
+      },
+      {
+        "idea": "2-Person Skit: 'Impulse Shopper You' vs 'Budget Conscious You' preparing for upcoming festive sales \u2014 3 guilt-free rules to enjoy festive shopping without breaking your emergency fund.",
+        "educational_score": 0.8,
+        "originality_score": 0.85,
+        "engagement_score": 0.95,
+        "relevance_score": 0.95,
+        "reasoning": "Perfectly aligns with Indian shopping trends around major festival sales (Diwali/Big Billion Days), using high-engagement skit storytelling in natural Hinglish."
+      },
+      {
+        "idea": "Interactive Carousel: 'FD vs SIP: Is your Parents' favorite investment secretly losing money to Indian inflation?' - Step-by-step breakdown with simple infographics comparing real purchasing power after tax.",
+        "educational_score": 0.95,
+        "originality_score": 0.7,
+        "engagement_score": 0.85,
+        "relevance_score": 0.88,
+        "reasoning": "Addresses the classic Indian family debate on Fixed Deposits versus Mutual Funds with strong financial literacy insights and saveable carousel graphics."
+      }
+    ],
+    "selected_idea": {
+      "idea": "2-Person Skit: 'Impulse Shopper You' vs 'Budget Conscious You' preparing for upcoming festive sales \u2014 3 guilt-free rules to enjoy festive shopping without breaking your emergency fund.",
+      "educational_score": 0.8,
+      "originality_score": 0.85,
+      "engagement_score": 0.95,
+      "relevance_score": 0.95,
+      "total_score": 3.55,
+      "reasoning": "This candidate achieves the highest combined score by leveraging the immediate cultural hook of Indian festival shopping sales while delivering high re-shareability and clear, actionable financial guidance in an engaging Reel format."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: [HOOK] Stop making this 1 big mistake with your daily routine in 2025.",
+      "Slide 2: [THE PROBLEM] Subah uthte hi phone scroll karna = entire day ka focus ruined. Brain dopamine spike seek karta hai, aur work start hone se pehle hi exhaustion lagne lagti hai.",
+      "Slide 3: [THE FIX - STEP 1] The '10-10-10' Rule. 10 mins Sunlight + 10 mins Hydration/Stretching + 10 mins Planning without screen time.",
+      "Slide 4: [THE FIX - STEP 2] High-Energy Work First. Peak morning energy ko easy tasks par waste mat karo. Do the hardest task first (Eat That Frog).",
+      "Slide 5: [TAKEAWAY & RECAP] Small tweaks, massive result. Morning mood set = Day won. Drop a \ud83d\udd25 if you're starting tomorrow!"
+    ],
+    "caption": "Kabhi lagta hai ki din shuru hote hi exhaustion feel ho rahi hai?\n\nTruth is, aapka morning routine hi aapka pura day decide karta hai.\n\nSubah uthte hi notification check karna = stress mode ON.\n\nIs simple 3-step shift ko try karo for 7 days aur farak khud dekho.\n\nKonsi habit aaj se change kar rahe ho? Let me know below!",
+    "cta": "Save this post for tomorrow morning & share it with your study/work buddy!",
+    "hashtags": [
+      "#reelsindia",
+      "#instagood",
+      "#productivitytips",
+      "#desimotivations",
+      "#lifehacksindia",
+      "#mindsetmatters",
+      "#mumbailife",
+      "#delhigram"
+    ],
+    "image_prompt": "A modern, vibrant carousel cover featuring a young Indian professional sitting at a clean minimalist wooden desk next to a sunny window, holding a coffee mug with a calm and focused expression, stylized vector graphics overlay with high contrast bold typography reading 'Fix Your Morning Routine', warm cinematic morning sunlight, clean 3D aesthetic, vibrant colors, 4k resolution.",
+    "alt_text": "Graphic illustration of a young Indian professional seated calmly at a sunlit wooden desk with a coffee mug, featuring bold text overlay that reads 'Fix Your Morning Routine'."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output is missing.",
+      "Brand identity document is missing.",
+      "Constitution document is missing.",
+      "Market context document is missing."
+    ],
+    "timestamp": "2026-08-10T07:20:05.362703Z"
+  },
+  "prediction": {
+    "virality_score": 15,
+    "virality_label": "LOW",
+    "virality_probability": 0.15,
+    "key_factors": [
+      "Evaluated using standard Indian Instagram virality benchmarks"
+    ],
+    "risks": [
+      "Draft content (creator_output) is missing or unpopulated",
+      "Unable to verify hook strength, Hinglish/cultural nuances, or visual pacing",
+      "Lack of research context and trend timing details"
+    ],
+    "reasoning": "In the absence of concrete post draft details, visual format specifications, and research input, the post cannot establish a scroll-stopping hook, emotional resonance, or audience relatability for Indian Instagram, resulting in a low predicted reach.",
+    "timestamp": "2026-08-10T07:20:11.422563Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, vibrant carousel cover featuring a young Indian professional sitting at a clean minimalist wooden desk next to a sunny window, holding a coffee mug with a calm and focused expression, stylized vector graphics overlay with high contrast bold typography reading 'Fix Your Morning Routine', warm cinematic morning sunlight, clean 3D aesthetic, vibrant colors, 4k resolution.",
+    "file_path": "images/2026/08/10/image_prompt_072011.txt",
+    "metadata": {
+      "created_at": "2026-08-10T07:20:11Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "280e0b39",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Appraisal Season Salary Structuring: New Tax Regim"
+    }
+  },
+  "package_path": "posts/publish_package_280e0b39.json",
+  "timing": {
+    "research_ms": 10471,
+    "planner_ms": 9646,
+    "creator_ms": 8828,
+    "reviewer_ms": 6165,
+    "predictor_ms": 6056,
+    "image_ms": 1,
+    "publish_ms": 5521,
+    "total_ms": 46688
+  }
+}
