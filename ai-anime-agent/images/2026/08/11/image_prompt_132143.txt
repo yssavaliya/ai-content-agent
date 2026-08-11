@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic Instagram carousel cover visual featuring a young urban Indian professional looking thoughtfully at a smartphone. Floating 3D minimalist icons around the phone represent daily spending: a coffee cup, a food delivery box, and Indian Rupee symbols with negative trend graphs. Bright pastel studio background, high contrast editorial lighting, clean D2C brand vibe, photorealistic 8k render.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-11T13:21:43Z
