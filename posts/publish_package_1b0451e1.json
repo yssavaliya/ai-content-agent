@@ -1,0 +1,143 @@
+{
+  "run_id": "1b0451e1",
+  "research": {
+    "recommended_topic": "Last-Minute FY25 Tax-Saving & Money Mistakes Salaried Professionals Must Avoid Before March 31",
+    "audience_problem": "Salaried Indian millennials and Gen Z professionals often rush into low-yield, illiquid financial products in late March purely to claim Section 80C/80D tax deductions, destroying long-term wealth compounding.",
+    "why_now": "The March 31 financial year deadline creates a time-sensitive urgency spike in search and social conversations around tax saving, Form 16, and salary investment proof submissions.",
+    "hook": "Stop locking your money in 5% returns just to save tax before March 31st! Avoid these 3 costly mistakes.",
+    "supporting_points": [
+      "Compare New vs. Old Tax Regime dynamically to ensure tax deductions actually benefit your specific income slab.",
+      "Prioritize high-efficiency instruments like ELSS mutual funds (3-year lock-in, equity exposure) over long-term low-yield endowment plans.",
+      "Leverage health insurance (Section 80D) and NPS (Section 80CCD(1B)) for extra tax deductions beyond the standard 80C limit.",
+      "Actionable step-by-step checklist to submit proof documents on HR payroll portals before deadline cutoff."
+    ],
+    "trend_signals": [
+      "March 31 India Financial Year-End Deadline",
+      "Spike in Google India & Instagram search queries for 'Tax Saving ELSS', 'Old vs New Tax Regime', and 'Section 80C investments'",
+      "High engagement on educational carousel slides and 60-second talking-head Reel breakdowns with downloadable checklist CTAs"
+    ],
+    "candidate_topics": [
+      "IPL 2025 Budgeting & Mindful Spending Traps",
+      "How to Prepare Your Financial Portfolio for April Appraisal & Salary Increments",
+      "Spring/Summer Travel Hacks for Budget-Conscious Indian Consumers"
+    ],
+    "confidence": 0.95,
+    "reasoning": "Financial year-end generates an immediate, high-intent audience problem with high save and share potential on Instagram India. Tapping into timely financial urgency drives stronger performance metrics than standard evergreen or non-seasonal content.",
+    "timestamp": "2025-03-10T09:00:00Z",
+    "research_id": 6
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "POV: Salary credited on 1st, Broke by 10th? \ud83d\udcb8 The '3-Account Rule' every Indian millennial needs to survive Swiggy, Rent & SIPs",
+        "educational_score": 0.85,
+        "originality_score": 0.8,
+        "engagement_score": 0.95,
+        "relevance_score": 0.9,
+        "reasoning": "Uses a highly relatable Indian corporate lifestyle scenario (UPI impulse spends vs monthly fixed bills) with popular Hinglish phrasing and actionable money management tips."
+      },
+      {
+        "idea": "Flat vs Equity SIP: The \u20b950 Lakh Dilemma Indian Parents Won't Tell You About",
+        "educational_score": 0.9,
+        "originality_score": 0.85,
+        "engagement_score": 0.92,
+        "relevance_score": 0.95,
+        "reasoning": "Taps into the deeply ingrained cultural tension between traditional Indian real estate investment mindset and modern index fund/SIP wealth creation with clear, visual math comparison."
+      },
+      {
+        "idea": "March 31st HR Email Panic: Old vs New Tax Regime explained in 60 seconds (Save up to \u20b946,800)",
+        "educational_score": 0.95,
+        "originality_score": 0.75,
+        "engagement_score": 0.88,
+        "relevance_score": 0.92,
+        "reasoning": "Solves an urgent seasonal pain point for salaried professionals in India with extreme clarity, driving high saves and shares among young working professionals."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Flat vs Equity SIP: The \u20b950 Lakh Dilemma Indian Parents Won't Tell You About",
+      "educational_score": 0.9,
+      "originality_score": 0.85,
+      "engagement_score": 0.92,
+      "relevance_score": 0.95,
+      "total_score": 3.62,
+      "reasoning": "This idea balances high engagement (generational conflict hook around real estate vs mutual funds in India) with strong educational breakdown and optimal relevance for young Indian investors navigating modern wealth building."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): Salary credit hone ke baad account empty? 3 Money habits to build in your 20s.",
+      "Slide 2: Mistake #1 - Keeping everything in a basic savings account. Smart Move: Enable auto-sweep or move emergency funds to liquid funds for better returns.",
+      "Slide 3: Mistake #2 - Buying trend items on 'No-Cost EMI' without a budget. Smart Move: Follow the 24-hour rule before pressing 'Buy Now'.",
+      "Slide 4: Mistake #3 - Waiting to 'save bigger amounts' before investing. Smart Move: Start an automated SIP with as little as \u20b9500 on salary day.",
+      "Slide 5 (Summary): Future self hidden flex: Financial peace of mind. Save this checklist for your next payday!"
+    ],
+    "caption": "Salary credit hone ka notification aate hi dopamine rush hits different \ud83d\ude05\n\nBut impulse buying se pehle, small financial tweaks in your 20s can build huge peace of mind later.\n\nCarousel check karo aur dekho kaunsi mistake aap aaj hi fix kar sakte ho! \ud83d\ude80",
+    "cta": "Save this post for your next payday and tag a friend who needs a budget check! \ud83d\udccc",
+    "hashtags": [
+      "#PersonalFinanceIndia",
+      "#MoneyTips",
+      "#Adulting101",
+      "#SmartInvesting",
+      "#ReelsIndia",
+      "#IndianMillennials"
+    ],
+    "image_prompt": "A stylish, high-quality flat vector visual featuring a young urban Indian professional holding a smartphone displaying a glowing green growth graph. Clean contemporary graphic design, vibrant aesthetic colors (deep navy and warm gold), clean typography layout suitable for an Instagram carousel cover slide.",
+    "alt_text": "Modern vector illustration of a young Indian professional reviewing financial growth on a smartphone."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output draft is missing and could not be evaluated.",
+      "Brand identity documentation was not provided.",
+      "Brand constitution guidelines were not provided.",
+      "Market context details were not provided."
+    ],
+    "timestamp": "2026-08-11T06:56:47.583261Z"
+  },
+  "prediction": {
+    "virality_score": 75,
+    "virality_label": "HIGH",
+    "virality_probability": 0.75,
+    "key_factors": [
+      "Strong, immediate visual hook tapping into everyday Indian price sensitivity and lifestyle hacks",
+      "High utility and saveability factor driving Instagram algorithm recommendation signals",
+      "Natural Hinglish dialogue tailored specifically to urban young Indian audience"
+    ],
+    "risks": [
+      "Crowded niche with high competition among Indian finance and lifestyle creators",
+      "Risk of audience drop-off if visual pacing loses momentum midway through the reel"
+    ],
+    "reasoning": "The post effectively combines relatable cultural context, price sensitivity, and practical utility in a fast-paced Hinglish format. High save-to-like and share-to-like potential makes it a strong candidate for viral reach on Indian Instagram Reels.",
+    "timestamp": "2026-08-11T06:56:53.610074Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A stylish, high-quality flat vector visual featuring a young urban Indian professional holding a smartphone displaying a glowing green growth graph. Clean contemporary graphic design, vibrant aesthetic colors (deep navy and warm gold), clean typography layout suitable for an Instagram carousel cover slide.",
+    "file_path": "images/2026/08/11/image_prompt_065653.txt",
+    "metadata": {
+      "created_at": "2026-08-11T06:56:53Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "1b0451e1",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Last-Minute FY25 Tax-Saving & Money Mistakes Salar"
+    }
+  },
+  "package_path": "posts/publish_package_1b0451e1.json",
+  "timing": {
+    "research_ms": 11591,
+    "planner_ms": 10993,
+    "creator_ms": 11678,
+    "reviewer_ms": 5649,
+    "predictor_ms": 6024,
+    "image_ms": 1,
+    "publish_ms": 1940,
+    "total_ms": 47876
+  }
+}
