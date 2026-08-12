@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic flat-lay vector illustration tailored for Indian young professionals. Features a modern desk setup with a smartphone displaying a sleek finance dashboard, a warm mug of Indian filter coffee, a neatly styled notebook titled 'Smart Savings', and Indian Rupee symbol icons subtly floating around. Bright, pastel teal and warm yellow palette, clean minimalism, ultra-sharp detail, high contrast.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-12T13:25:21Z
