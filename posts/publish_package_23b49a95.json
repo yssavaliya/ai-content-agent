@@ -1,0 +1,145 @@
+{
+  "run_id": "23b49a95",
+  "research": {
+    "recommended_topic": "Optimizing CTC Restructuring & Appraisal Negotiation for Indian Corporate Professionals",
+    "audience_problem": "Young urban professionals in Indian metros face rising living costs (rent, quick-commerce, dining out) but struggle to effectively negotiate salary hikes or optimize CTC components (HRA, Flexi-benefits, Special Allowance) for maximum monthly take-home pay.",
+    "why_now": "The Q1/Q2 corporate appraisal cycle is currently active across Indian IT, GCC, startup, and corporate sectors, making CTC optimization, tax regime selection, and appraisal prep a top-of-mind urgency.",
+    "hook": "Stop accepting your CTC offer at face value\u2014here are 3 simple tweaks to boost your monthly take-home salary by up to \u20b915,000 this appraisal season.",
+    "supporting_points": [
+      "Reallocate taxable 'Special Allowance' into tax-exempt flexi-benefits (Internet allowance, learning stipends, food coupons).",
+      "Calculate whether the New Tax Regime or Old Tax Regime (with maxed HRA + 80C) yields a higher net monthly payout post-budget updates.",
+      "Use data-backed market benchmarks from AmbitionBox and Glassdoor to frame appraisal negotiations around business ROI rather than tenure."
+    ],
+    "trend_signals": [
+      "Q1 Corporate Appraisal & Salary Revision Cycle across tech and corporate hubs (Bengaluru, Gurgaon, Hyderabad, Mumbai)",
+      "Viral engagement on Instagram Reels featuring 'CTC vs. In-Hand Salary' breakdowns and financial transparency templates",
+      "Seasonal shift toward financial literacy reels helping millennials adjust tax planning after recent tax slab updates"
+    ],
+    "candidate_topics": [
+      "Optimizing CTC Restructuring & Appraisal Negotiation for Indian Corporate Professionals",
+      "How Metro Rent Spikes Ruined the standard 50-30-20 Budget (And the New Ratio for Indian Cities)",
+      "The Quick-Commerce Audit: How \u20b9199 Blinkit & Zepto Orders Silent-Bleed Monthly Savings",
+      "Using AI Prompts to Build a Performance Review Document in Under 20 Minutes"
+    ],
+    "confidence": 0.94,
+    "reasoning": "Appraisal season presents an immediate, emotional, and financial inflection point for urban Indian professionals. By pairing salary negotiation with actionable CTC restructuring hacks, this topic addresses high-intent financial pain points, fits high-engagement Reel/Carousel formats, and delivers immediate ROI for the audience.",
+    "timestamp": "2025-05-20T09:30:00Z",
+    "research_id": 7
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel Skit: 'March 31st Tax Panic vs April 1st Automation' - A comedic side-by-side comparison of an IT employee scrambling for tax-saving investments at midnight versus setting up automated ELSS SIPs at the start of the financial year. Uses trending audio and Hinglish text overlays ('Salary aate hi 80C sorting').",
+        "educational_score": 0.85,
+        "originality_score": 0.8,
+        "engagement_score": 0.9,
+        "relevance_score": 0.95,
+        "reasoning": "Capitalizes on a highly relatable seasonal pain point for salaried professionals in India. Uses humor and native Instagram Reel comedy format to drive high shareability while delivering practical advice on automated SIPs."
+      },
+      {
+        "idea": "Carousel Breakdown: 'The Silent Salary Leaks: Swiggy, Cab Surge & Midnight Add-to-Carts' - A visual breakdown showing how small daily lifestyle inflation expenses (\u20b9250/day) convert into \u20b930 Lakhs over 10 years if redirected to a Nifty 50 Index Fund. Uses popular Indian consumer brands and relatable daily scenarios.",
+        "educational_score": 0.88,
+        "originality_score": 0.75,
+        "engagement_score": 0.85,
+        "relevance_score": 0.92,
+        "reasoning": "High educational value that reframes daily micro-spending into long-term wealth creation. Carousels perform well for saveable/bookmarkable content among Gen Z and young millennial audiences."
+      },
+      {
+        "idea": "Masterclass Reel & Visual Blueprint: 'Credit Card Points Se Goa Flight Free?' - A step-by-step hack breakdown on optimizing entry-level Indian credit card reward systems (HDFC/Axis/SBI) for travel vouchers without falling into high-interest debt traps. Script features Hinglish narration and clear screen recordings.",
+        "educational_score": 0.95,
+        "originality_score": 0.85,
+        "engagement_score": 0.92,
+        "relevance_score": 0.95,
+        "reasoning": " Combines high aspirational intent (free travel/Goa trip) with actionable financial literacy. Riding the current wave of credit card rewards optimization trending heavily across Indian finance creators."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Masterclass Reel & Visual Blueprint: 'Credit Card Points Se Goa Flight Free?' - A step-by-step hack breakdown on optimizing entry-level Indian credit card reward systems (HDFC/Axis/SBI) for travel vouchers without falling into high-interest debt traps. Script features Hinglish narration and clear screen recordings.",
+      "educational_score": 0.95,
+      "originality_score": 0.85,
+      "engagement_score": 0.92,
+      "relevance_score": 0.95,
+      "total_score": 3.67,
+      "reasoning": "This idea achieves the highest combined score by balancing strong utility, viral hook potential ('free flight'), and deep target audience relevance for young Indian corporate professionals looking to maximize credit rewards responsibly."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: Salary aate hi account balance zero? 5 simple money habits to break the month-end struggle.",
+      "Slide 2: 1. The 50-30-20 Rule (Desi Edition) - Day 1 par salary split: Needs (50%), Wants (30%), Savings (20%).",
+      "Slide 3: 2. Automate Your SIPs - Salary day + 2 days = Auto-debit set karo. Invest pehle, kharcha baad mein.",
+      "Slide 4: 3. The 48-Hour Impulse Rule - Shopping cart mein item daal kar 2 din wait karo. Most impulse buys fade away!",
+      "Slide 5: 4. Track 'Chhota Kharcha' - Daily \u20b9150 ki chai/cab = \u20b94,500 every month. Small leaks sink big ships.",
+      "Slide 6: 5. Emergency Safety Net - 3 months ka basic expense alag liquid account mein lock karke rakho.",
+      "Slide 7: Final Checklist - Save this post for your next payday & tag your broke squad!"
+    ],
+    "caption": "Month-end aate hi bank balance dekh ke heart attack aata hai? \ud83d\ude05\n\nSalary day par king-size lifestyle, aur 20th tak 'bro \u20b9500 GPay kar de' mode...\n\nSlide through to unlock 5 practical money habits that will keep your wallet happy all month long. Zero jargon, pure relatable logic.\n\nKaunsa rule aap iss month se start kar rahe ho?",
+    "cta": "Save this post for your next payday & tag that one friend jo month end mein hamesha broke hota hai! \ud83d\udc47",
+    "hashtags": [
+      "#PersonalFinanceIndia",
+      "#MoneyMindset",
+      "#Adulting101",
+      "#SmartSavings",
+      "#Hinglish",
+      "#ReelsIndia",
+      "#BangaloreTech",
+      "#MumbaiDiaries"
+    ],
+    "image_prompt": "A vibrant 3D vector-style illustration of a young Indian professional smiling while looking at a smartphone displaying a glowing green financial growth chart. Modern aesthetic with rich orange and deep teal colors, cozy modern workspace in the background, clean composition, soft studio lighting.",
+    "alt_text": "A vibrant 3D illustration of a young Indian professional smiling as they look at financial growth graphics on a smartphone at a clean workspace."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output was not provided for review.",
+      "Brand identity document was missing.",
+      "Brand constitution document was missing.",
+      "Market context document was missing."
+    ],
+    "timestamp": "2026-08-12T07:16:26.071525Z"
+  },
+  "prediction": {
+    "virality_score": 10,
+    "virality_label": "LOW",
+    "virality_probability": 0.05,
+    "key_factors": [
+      "No post content provided for evaluation"
+    ],
+    "risks": [
+      "Incomplete draft post inputs",
+      "Missing hook and visual formatting details"
+    ],
+    "reasoning": "Due to missing creator output and research context, the post lacks a hook, emotional trigger, and formatting details necessary for engagement, resulting in a low virality score.",
+    "timestamp": "2026-08-12T07:16:32.634936Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A vibrant 3D vector-style illustration of a young Indian professional smiling while looking at a smartphone displaying a glowing green financial growth chart. Modern aesthetic with rich orange and deep teal colors, cozy modern workspace in the background, clean composition, soft studio lighting.",
+    "file_path": "images/2026/08/12/image_prompt_071632.txt",
+    "metadata": {
+      "created_at": "2026-08-12T07:16:32Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "23b49a95",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Optimizing CTC Restructuring & Appraisal Negotiati"
+    }
+  },
+  "package_path": "posts/publish_package_23b49a95.json",
+  "timing": {
+    "research_ms": 12191,
+    "planner_ms": 11763,
+    "creator_ms": 15417,
+    "reviewer_ms": 7574,
+    "predictor_ms": 6559,
+    "image_ms": 1,
+    "publish_ms": 1771,
+    "total_ms": 55276
+  }
+}

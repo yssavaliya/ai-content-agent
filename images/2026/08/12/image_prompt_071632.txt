@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A vibrant 3D vector-style illustration of a young Indian professional smiling while looking at a smartphone displaying a glowing green financial growth chart. Modern aesthetic with rich orange and deep teal colors, cozy modern workspace in the background, clean composition, soft studio lighting.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-12T07:16:32Z
