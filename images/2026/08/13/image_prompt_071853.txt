@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, high-quality studio-style visual designed for an Instagram carousel cover (4:5 vertical aspect ratio). Features a relatable young Indian professional sitting at a tidy, aesthetic workspace in a cozy cafe, looking relaxed and confident in front of a modern laptop. Soft ambient warm lighting, sleek minimal desk accessories, a ceramic coffee mug, and subtle gradient background tones of deep indigo and warm warm amber. Vibrant, crisp detail, professional portrait photography style.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-13T07:18:53Z
