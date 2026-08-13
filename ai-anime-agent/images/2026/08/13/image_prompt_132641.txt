@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, vibrant digital illustration designed for an Instagram carousel cover. Split-screen layout: on the left side, a cheerful young Indian professional holding a smartphone displaying glowing gold Rupee symbols and green upward graphs; on the right side, the same character looking comically bewildered at a flying empty wallet with receipt streams. Punchy color palette featuring vibrant teal, rich navy blue, and warm yellow highlights. Clean composition with bold visual hierarchy.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-13T13:26:41Z

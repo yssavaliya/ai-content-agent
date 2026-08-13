@@ -1,0 +1,148 @@
+{
+  "run_id": "9a71b0ff",
+  "research": {
+    "recommended_topic": "Top 5 Binge-Worthy Anime to Watch Over the August Long Weekend",
+    "audience_problem": "Indian anime fans and beginners struggle to find short, high-quality anime series to binge during upcoming holidays without committing to 100+ episode series.",
+    "why_now": "Today is August 13 (an odd UTC date, specifying Anime content per strategy). August 15 (Independence Day) is two days away, creating a long weekend in India. Thursday is the peak day for weekend watchlist recommendations on Indian social media.",
+    "hook": "Long weekend aane wala hai aur decide nahi kar pa rahe kya dekhein? \ud83c\udf7f Save these 5 short anime you can finish in 3 days!",
+    "supporting_points": [
+      "Curated short series (12 to 24 episodes) so viewers can complete them over the 3-day holiday.",
+      "Balanced genre mix: suspense thriller, hype sports, cozy slice-of-life, and supernatural action.",
+      "Directly accessible on popular Indian streaming platforms (Netflix India and Crunchyroll India).",
+      "Beginner-friendly recommendations suitable for sharing with college friends or siblings."
+    ],
+    "trend_signals": [
+      "Upcoming August 15 Independence Day long weekend driving high search interest for binge watchlists.",
+      "Weekly peak engagement pattern for carousel watchlists on Indian Instagram on Thursdays and Fridays.",
+      "Rapidly growing popularity of anime content and streaming subscriptions across Tier 1 and Tier 2 Indian cities."
+    ],
+    "candidate_topics": [
+      "Best Hindi-Dubbed Anime Series Streaming on Crunchyroll India Right Now",
+      "AI Anime Crossover: What Indian Metro Cities Would Look Like in Studio Ghibli Style",
+      "Top 5 Single-Manga Volume Anime Movies for a Quick Movie Night"
+    ],
+    "confidence": 0.95,
+    "reasoning": "Determined strictly by the UTC date rule (2026-08-13 is odd = Anime day). Capitalizes on the immediate Indian market momentum around the August 15 Independence Day long weekend watchlist trend.",
+    "timestamp": "2026-08-13T06:00:00Z",
+    "research_id": 6
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "POV Reel: You got your annual salary increment, but Sharma Ji's FD advice is fighting your wealth creation goals. A relatable, Hinglish breakdown of how to split your raise using the 50/30/20 rule without hurting Indian middle-class sentiments.",
+        "educational_score": 0.85,
+        "originality_score": 0.88,
+        "engagement_score": 0.92,
+        "relevance_score": 0.95,
+        "reasoning": "Taps into classic Indian socio-cultural dynamics (Sharma Ji, middle-class FD preference) while delivering clear financial guidance on increment allocation using a trending POV format."
+      },
+      {
+        "idea": "Old Regime vs New Tax Regime: The ultimate 3-step salary slip checklist before March 31. Visual infographic carousel using relatable urban Indian expenses (Rent, Metro passes, Weekend Chai/Boba runs) to explain deductions.",
+        "educational_score": 0.95,
+        "originality_score": 0.75,
+        "engagement_score": 0.88,
+        "relevance_score": 0.96,
+        "reasoning": "Provides immense practical value and urgency aligned with the tax-saving season in India, addressing a major pain point for young salaried professionals."
+      },
+      {
+        "idea": "3 Sneaky 'Paisa Leak' Habits in Indian Corporate Life (Late night Swiggy binges, unnecessary No-Cost EMIs, and unused gym memberships) + How to turn them into daily micro-SIPs.",
+        "educational_score": 0.8,
+        "originality_score": 0.85,
+        "engagement_score": 0.94,
+        "relevance_score": 0.9,
+        "reasoning": "Extremely high shareability and comment potential due to self-deprecating corporate lifestyle humor and actionable micro-investing solutions."
+      }
+    ],
+    "selected_idea": {
+      "idea": "POV Reel: You got your annual salary increment, but Sharma Ji's FD advice is fighting your wealth creation goals. A relatable, Hinglish breakdown of how to split your raise using the 50/30/20 rule without hurting Indian middle-class sentiments.",
+      "educational_score": 0.85,
+      "originality_score": 0.88,
+      "engagement_score": 0.92,
+      "relevance_score": 0.95,
+      "total_score": 3.6,
+      "reasoning": "This idea balances high educational value with native Instagram reel trends and deeply relatable Indian cultural hooks, making it the most likely candidate for viral reach and high audience retention."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary aate hi khatam?' Why your bank balance vanishes by the 5th of every month.",
+      "Slide 2 (The Trap): The Silent UPI Leak \u2014 How \u20b940 chai + \u20b9150 quick bites add up to \u20b96,000+ without you noticing.",
+      "Slide 3 (The Mistake): Spending first, saving later. Why 'jo bachega wo invest karenge' never works.",
+      "Slide 4 (Fix #1): The 24-Hour Wishlist Rule \u2014 Pause before hitting 'Buy Now' on Myntra or Amazon.",
+      "Slide 5 (Fix #2): Auto-pay SIPs on Payday \u2014 Treat your savings like a non-negotiable bill on the 1st of every month.",
+      "Slide 6 (Fix #3): The 2-Account Strategy \u2014 One main salary account, one separate UPI account with a strict fun budget.",
+      "Slide 7 (Summary/CTA): Save this guide before your next salary credit notification hits!"
+    ],
+    "caption": "Salary credited ka notification light up hota hai, aur 5 din baad status: 'Bhai, budget tight hai!' \ud83d\udcb8\n\nSound familiar?\n\nChote-chote UPI scans micro-spend lagte hain, par month-end tak account blank kar dete hain.\n\nYou don't need to give up your weekend plans or cold coffee to save money\u2014you just need a system that works automatically.\n\nSwipe through for 3 simple fixes to keep your savings intact this month. \ud83d\udc47",
+    "cta": "Which habit are you fixing first this month? Drop a 'PAYDAY' in the comments and we\u2019ll DM you our free automated budget planner!",
+    "hashtags": [
+      "#reelsindia",
+      "#personalfinanceindia",
+      "#moneytips",
+      "#desifinance",
+      "#smartinvesting",
+      "#upipayments",
+      "#savingsgoals",
+      "#bengaluru",
+      "#mumbai",
+      "#delhigram"
+    ],
+    "image_prompt": "A modern, vibrant digital illustration designed for an Instagram carousel cover. Split-screen layout: on the left side, a cheerful young Indian professional holding a smartphone displaying glowing gold Rupee symbols and green upward graphs; on the right side, the same character looking comically bewildered at a flying empty wallet with receipt streams. Punchy color palette featuring vibrant teal, rich navy blue, and warm yellow highlights. Clean composition with bold visual hierarchy.",
+    "alt_text": "A split digital visual showing a happy young Indian professional receiving salary on his phone on one side, and looking shocked at an empty wallet on the other side."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output provided to review.",
+      "Missing brand identity, constitution, and market context documents required to complete the evaluation."
+    ],
+    "timestamp": "2026-08-13T13:26:33.123722Z"
+  },
+  "prediction": {
+    "virality_score": 45,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.45,
+    "key_factors": [
+      "Relatable everyday concept tailored for Indian metro audience",
+      "Use of conversational Hinglish and accessible framing",
+      "Decent alignment with standard Reel formatting"
+    ],
+    "risks": [
+      "Hook lacks immediate text/visual visual punch within the critical first 1.5 seconds",
+      "Topic suffers from high market saturation and low differentiation",
+      "Weak call-to-action that fails to incentivize high save and share velocity"
+    ],
+    "reasoning": "The drafted post addresses an inherently relatable theme for Indian Instagram users, providing steady organic engagement potential. However, without an exceptionally strong scroll-stopping visual hook or a high-utility trigger to drive save/share ratios, its likelihood of breaking out into explosive viral reach remains limited.",
+    "timestamp": "2026-08-13T13:26:41.573030Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, vibrant digital illustration designed for an Instagram carousel cover. Split-screen layout: on the left side, a cheerful young Indian professional holding a smartphone displaying glowing gold Rupee symbols and green upward graphs; on the right side, the same character looking comically bewildered at a flying empty wallet with receipt streams. Punchy color palette featuring vibrant teal, rich navy blue, and warm yellow highlights. Clean composition with bold visual hierarchy.",
+    "file_path": "images/2026/08/13/image_prompt_132641.txt",
+    "metadata": {
+      "created_at": "2026-08-13T13:26:41Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "9a71b0ff",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Top 5 Binge-Worthy Anime to Watch Over the August "
+    }
+  },
+  "package_path": "posts/publish_package_9a71b0ff.json",
+  "timing": {
+    "research_ms": 14884,
+    "planner_ms": 47277,
+    "creator_ms": 13502,
+    "reviewer_ms": 7407,
+    "predictor_ms": 8447,
+    "image_ms": 1,
+    "publish_ms": 1224,
+    "total_ms": 92742
+  }
+}
