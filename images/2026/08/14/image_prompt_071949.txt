@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Instagram carousel cover, 4:5 vertical. A relatable young Indian office worker (early 20s, smart casual shirt) sitting at a messy desk, staring at a phone with a panicked expression, a small desk calendar torn at '31 MAR' and scattered payslip/investment-policy papers around a laptop. Half the frame shows the phone screen with a chat bubble reading 'HR: Investment proof kahan hai?' in Hinglish. Vibrant, warm office lighting, shallow depth of field, bold white headline text overlay: 'POV: HR ne investment proof maanga hai'. Clean, modern, mobile-first fintech illustration-photo hybrid style with deep indigo and amber accents.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-14T07:19:49Z

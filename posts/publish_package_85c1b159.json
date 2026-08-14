@@ -1,0 +1,156 @@
+{
+  "run_id": "85c1b159",
+  "research": {
+    "recommended_topic": "Last-Minute Tax Optimization and Salary Restructuring Before March 31",
+    "audience_problem": "Salaried Indian millennials and Gen Z professionals are overwhelmed by HR proof submission deadlines and are risking money on poor financial products due to confusion between the Old and New Tax Regimes.",
+    "why_now": "The Indian Financial Year-end (March 31) deadline creates urgent anxiety across salaried workers as HR payroll departments lock tax deductions, making financial clarity a high-intent, high-share topic.",
+    "hook": "Stop panic-buying random policies before March 31! Here is the 3-step checklist to save maximum tax on a \u20b910L\u2013\u20b915L salary.",
+    "supporting_points": [
+      "Break down the break-even math between the Old and New Tax Regimes with a clear visual slide/table.",
+      "Highlight high-value exemptions that most employees forget to claim (HRA, Section 80D medical insurance for parents, Section 80CCD for NPS).",
+      "Warn against high-commission endowment and ULIP traps pushed during Q4 tax season vs. liquid, transparent options like ELSS.",
+      "Provide a downloadable/saveable decision matrix checklist to submit to corporate payroll portals before the cutoff."
+    ],
+    "trend_signals": [
+      "March 31 Financial Year-End deadline driving surge in Google and Instagram search volume for tax calculators",
+      "High engagement on 'POV: HR asking for investment proof' relatable meme and reel formats across Indian corporate creators",
+      "Increased algorithmic reach for visual carousel comparison cards and snappy 45-second split-screen breakdown Reels",
+      "Recent budget updates creating ongoing debate on standard deduction vs. old regime exemptions"
+    ],
+    "candidate_topics": [
+      "Navigating Q1 career appraisals and salary hike negotiation scripts in Indian IT/tech",
+      "Summer burnout and work-life boundaries for remote Indian corporate workers",
+      "Freelancer and creator tax rules under Section 44ADA for presumptive taxation"
+    ],
+    "confidence": 0.94,
+    "reasoning": "Financial Year-end panic is one of the highest organic reach triggers on Indian Instagram in Q1. High utility and immediate urgency drive heavy save-and-share metrics, which maximize Instagram explore distribution.",
+    "timestamp": "2025-03-01T10:00:00Z",
+    "research_id": 9
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel (POV format): 'POV: HR ne investment proof maanga hai' - Hinglish split-screen showing the March 31 panic, then a 30-second 3-step checklist: Old vs New regime break-even, claim HRA/80D-for-parents/80CCD NPS exemptions, and skip high-commission ULIPs in favor of transparent ELSS. Ends with a saveable 'salary slip tax plan' card.",
+        "educational_score": 0.92,
+        "originality_score": 0.85,
+        "engagement_score": 0.95,
+        "relevance_score": 0.95,
+        "reasoning": "Directly rides the top trend signal (viral 'POV: HR asking for investment proof' format) and the March 31 deadline panic. Native Hinglish script and split-screen reel format feel authentically Indian, while the checklist delivers high save-and-share utility for salaried millennials."
+      },
+      {
+        "idea": "Carousel: 'Old vs New Tax Regime in 3 Minutes' - 8-card visual decision matrix for a \u20b910L-\u20b915L salary with a break-even slide, exemption cheat-sheet (HRA, Section 80D for parents, 80CCD NPS), and a warning card on endowment/ULIP traps. CTA: save for HR payroll submission.",
+        "educational_score": 0.95,
+        "originality_score": 0.6,
+        "engagement_score": 0.7,
+        "relevance_score": 0.9,
+        "reasoning": "Carousels are the market's recommended format for value content and comparison tables fit Indian finance feeds well. Highly educational but the old-vs-new-regime angle is common, so originality and raw engagement are moderate."
+      },
+      {
+        "idea": "Reel: 'Agent ko bhul jao, ELSS is your saathi' - myth-busting reel contrasting a pushy high-commission ULIP agent vs a transparent ELSS with 3-year lock-in, showing projected returns vs surrender-loss trap. Hinglish narration with a fake-agent dramatic POV.",
+        "educational_score": 0.9,
+        "originality_score": 0.8,
+        "engagement_score": 0.85,
+        "relevance_score": 0.85,
+        "reasoning": "Capitalizes on the Q4 'insurance agents pushing policies' pain point and the relatable Indian family-finance scenario. High emotional trigger (being cheated) drives comments and shares, though slightly narrower in appeal than the HR-proof POV."
+      },
+      {
+        "idea": "Reel + carousel hybrid: 'Parents ka insurance, aapka tax saving' - explains Section 80D deduction for parents' medical insurance before March 31, with a \u20b950k/\u20b91L slab table and a family WhatsApp group skit hook to drive relatability.",
+        "educational_score": 0.85,
+        "originality_score": 0.75,
+        "engagement_score": 0.8,
+        "relevance_score": 0.9,
+        "reasoning": "Uses the family WhatsApp group hook that is native to Indian Instagram and taps a forgotten exemption, giving fresh utility. Slightly lower urgency than the broader HR-proof checklist and less directly tied to the top trend signal."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel (POV format): 'POV: HR ne investment proof maanga hai' - Hinglish split-screen showing the March 31 panic, then a 30-second 3-step checklist: Old vs New regime break-even, claim HRA/80D-for-parents/80CCD NPS exemptions, and skip high-commission ULIPs in favor of transparent ELSS. Ends with a saveable 'salary slip tax plan' card.",
+      "educational_score": 0.92,
+      "originality_score": 0.85,
+      "engagement_score": 0.95,
+      "relevance_score": 0.95,
+      "total_score": 3.67,
+      "reasoning": "This is the single strongest idea because it fuses the research's #1 trend signal (viral 'POV: HR asking for investment proof' meme format) with the exact audience problem (HR deadline anxiety, regime confusion, policy panic). The Hinglish POV script is native to Indian Instagram, the split-screen Reel matches the trending 45-second breakdown format, and the saveable checklist maximizes save-and-share metrics that drive Explore reach for a \u20b910L-\u20b915L salaried audience."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): POV: HR ne investment proof maanga hai \ud83d\ude05 March 31 aane wala hai aur form abhi bhi blank. Stop panic-buying policies. Here is the 3-step checklist to save maximum tax on a \u20b910L\u2013\u20b915L salary.",
+      "Slide 2 (Step 1): Old vs New Tax Regime \u2014 Break-even karo. Agar deductions (HRA + 80C + NPS) \u20b93.5L+ touch karte hain, Old regime jeet-ta hai. \u20b910L\u2013\u20b912L salary? Usually Old zyada bachata hai. Ek simple table mein dono ka math dikhaya hai.",
+      "Slide 3 (Step 2): Claim the forgotten exemptions \u2014 HRA (agr metro mein rent le rahe ho), Section 80D medical insurance for parents (up to \u20b925K/\u20b950K), aur Section 80CCD NPS (extra \u20b950K). Ye 3 cheezein log aksar bhool jate hain.",
+      "Slide 4 (Step 3): ULIP/endowment traps se bacho. High commission, low transparency. Prefer transparent ELSS for 80C \u2014 3-year lock-in, market-linked, ek hi form mein tax + wealth.",
+      "Slide 5 (Outro/CTA): Saveable 'Salary Slip Tax Plan' card \u2014 screenshot karo aur payroll portal par submit karne se pehle ek baar check karo. Deadline: 31 March. Share with your office bestie who is still panicking!"
+    ],
+    "caption": "HR ne 'investment proof' maanga aur aapko yaad aaya form blank hai? \ud83d\ude05\n\nMarch 31 door nahi hai. Aur haan, panic-buying koi plan nahi hai.\n\nSlide karo \u2014 3 steps mein apni \u20b910\u201315L salary ka tax plan sorted:\n1. Old vs New regime ka break-even math\n2. Woh 3 exemptions jo log bhool jate hain (HRA, 80D parents, 80CCD NPS)\n3. ULIP trap vs transparent ELSS\n\nYe post save karo, kyuki ye wahi kaam ki baat hai jo payroll portal se pehle chahiye. \ud83d\udccc",
+    "cta": "Save this post for March 31 & tag a friend jo abhi bhi 'proof nahi hai' ke panic mein hai. \ud83d\udc47",
+    "hashtags": [
+      "#reelsindia",
+      "#instagood",
+      "#taxsavingtips",
+      "#personalfinanceindia",
+      "#salarystruggle",
+      "#taxindia",
+      "#oldvsnewregime",
+      "#kaamkibaatein",
+      "#indianfinance",
+      "#mumbailife",
+      "#bangaloreprofessionals"
+    ],
+    "image_prompt": "Instagram carousel cover, 4:5 vertical. A relatable young Indian office worker (early 20s, smart casual shirt) sitting at a messy desk, staring at a phone with a panicked expression, a small desk calendar torn at '31 MAR' and scattered payslip/investment-policy papers around a laptop. Half the frame shows the phone screen with a chat bubble reading 'HR: Investment proof kahan hai?' in Hinglish. Vibrant, warm office lighting, shallow depth of field, bold white headline text overlay: 'POV: HR ne investment proof maanga hai'. Clean, modern, mobile-first fintech illustration-photo hybrid style with deep indigo and amber accents.",
+    "alt_text": "A young Indian office worker panicking at a desk in front of a laptop and payslips, looking at a phone that shows an HR message asking for investment proof, with a big 'POV: HR ne investment proof maanga hai' text overlay on a 31 March calendar-themed background."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No content provided for creator_output, identity, constitution, or market context."
+    ],
+    "timestamp": "2026-08-14T07:19:43.909677Z"
+  },
+  "prediction": {
+    "virality_score": 65,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.65,
+    "key_factors": [
+      "Relatable everyday hook tailored to Indian metro audience",
+      "Balanced use of conversational Hinglish driving comments and engagement",
+      "Clear save/share utility addressing price sensitivity and practical life hacks",
+      "Format optimized for quick-cut Reels pacing with a clear visual call-to-action"
+    ],
+    "risks": [
+      "High niche competition on trending audio and formats",
+      "Initial 2-second visual hook needs sharper contrast to prevent quick scroll-past",
+      "Algorithm dependence on early save-to-reach velocity in the first 30 minutes"
+    ],
+    "reasoning": "The drafted content demonstrates a strong emotional trigger and clear cultural relatability for Indian Instagram users. While the hook and CTA are well-aligned with high-share utility content, competitive saturation in this vertical tempers extreme viral probability, placing it in the upper MEDIUM performance bracket with strong organic discovery potential.",
+    "timestamp": "2026-08-14T07:19:49.777446Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "Instagram carousel cover, 4:5 vertical. A relatable young Indian office worker (early 20s, smart casual shirt) sitting at a messy desk, staring at a phone with a panicked expression, a small desk calendar torn at '31 MAR' and scattered payslip/investment-policy papers around a laptop. Half the frame shows the phone screen with a chat bubble reading 'HR: Investment proof kahan hai?' in Hinglish. Vibrant, warm office lighting, shallow depth of field, bold white headline text overlay: 'POV: HR ne investment proof maanga hai'. Clean, modern, mobile-first fintech illustration-photo hybrid style with deep indigo and amber accents.",
+    "file_path": "images/2026/08/14/image_prompt_071949.txt",
+    "metadata": {
+      "created_at": "2026-08-14T07:19:49Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "85c1b159",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Last-Minute Tax Optimization and Salary Restructur"
+    }
+  },
+  "package_path": "posts/publish_package_85c1b159.json",
+  "timing": {
+    "research_ms": 51682,
+    "planner_ms": 73052,
+    "creator_ms": 87652,
+    "reviewer_ms": 8641,
+    "predictor_ms": 5866,
+    "image_ms": 1,
+    "publish_ms": 2119,
+    "total_ms": 229013
+  }
+}
