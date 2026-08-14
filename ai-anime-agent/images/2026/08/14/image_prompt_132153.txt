@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, vibrant 3D minimalist graphic illustration showing a stylish young Indian professional sitting at a tidy wooden desk with a laptop, looking humorously puzzled at a smartphone screen showing an empty wallet icon. Floating around are small, pastel-colored translucent bubbles with icons of coffee cups, delivery bags, and subscription badges. Warm ambient lighting, contemporary Indian urban aesthetic, clean matte finish, pastel teal and warm ochre color palette, highly detailed, 8k resolution, cinematic composition.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-14T13:21:53Z
