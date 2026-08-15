@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Editorial style flat-lay photo of a modern Indian professional's workspace. A handcrafted clay cutting chai glass next to a sleek smartphone displaying a minimalist green budgeting chart, an open pocket notebook with handwritten notes in blue ink, a metallic pen, and pair of wireless earbuds on a warm teak wood desk bathed in soft natural morning sunlight.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-15T12:51:12Z
