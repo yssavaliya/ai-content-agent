@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Instagram carousel cover, 4:5 vertical, POV skit style. Left half: a friendly Indian dukaan (kirana) owner in a simple shirt standing behind a wooden counter with sacks of grains and a hanging scale, smiling and relaxed. Right half: a young Indian professional on a smartphone showing a delivery app order screen with a visible '₹1,000' final bill and angry-face emoji reactions, surrounded by rising fee icons (surge lightning bolt, hand charges, convenience tag). Between them a large transparent wallet graphic leaking coins downward with a bold Hinglish headline overlay: 'Aapka 15% budget leak ho raha hai'. Warm dukaan lighting on the left, cool app-blue lighting on the right, clean modern illustration-photo hybrid fintech style, vibrant, mobile-first, readable text.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-15T06:31:48Z
