@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, vibrant 3D isometric illustration featuring a young Indian professional looking thoughtfully at a smartphone screen that displays glowing rupee currency symbols and budget charts. Warm ambient lighting, aesthetic desk setup with a cup of chai and a sleek laptop, minimalist pastel color palette with teal and warm coral accents, high quality, digital art style.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-16T12:53:33Z
