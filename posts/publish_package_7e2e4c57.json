@@ -1,0 +1,149 @@
+{
+  "run_id": "7e2e4c57",
+  "research": {
+    "recommended_topic": "The Hidden Cost of 10-Minute Deliveries: Auditing UPI Micro-Leaks",
+    "audience_problem": "Urban Indian Gen Z and millennials are struggling with lifestyle inflation and unmonitored cash-flow drain caused by frictionless quick-commerce micro-transactions (Blinkit, Zepto, Swiggy Instamart).",
+    "why_now": "Rapid adoption of quick-commerce across Indian Tier-1 and Tier-2 cities has peaked alongside rising platform convenience fees and surge charges, driving high engagement on relatable personal finance breakdowns.",
+    "hook": "You aren't broke because of your rent. You're broke because of 10-minute convenience. Here is the math.",
+    "supporting_points": [
+      "Audit your last 30 days of UPI transactions under \u20b9300 to reveal the true monthly quick-commerce spend.",
+      "Calculate the compounding impact of recurring delivery, surge, and platform handling fees.",
+      "Implement the '20-Minute Delay' rule before clicking checkout on non-essential instant orders.",
+      "Transition non-perishable pantry and household essentials to scheduled weekly bulk orders."
+    ],
+    "trend_signals": [
+      "Viral engagement on Indian tech/finance Reels dissecting platform fee increases and quick-commerce cart breakdowns.",
+      "Growing sentiment on Indian social communities (Reddit India, X) regarding impulse spending on 10-minute grocery apps.",
+      "High visual retention for 'POV/Calculator breakdown' formats paired with conversational Hinglish delivery."
+    ],
+    "candidate_topics": [
+      "Managing the wedding season gifting budget without social guilt",
+      "Tax-saving checklist: Old vs. New Tax Regime for salaried employees",
+      "How to negotiate a salary bump in the current Indian tech hiring market",
+      "Why your SIP portfolio needs an annual rebalancing"
+    ],
+    "confidence": 0.93,
+    "reasoning": "This topic targets an acute, relatable pain point for urban Indian professionals. It leverages the widespread cultural shift toward quick-commerce, combines practical financial utility with shareable shock-value math, and excels in short-form video and carousel formats.",
+    "timestamp": "2025-02-23T12:00:00Z",
+    "research_id": 11
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel/Skit: 'The No-Cost EMI Scam Nobody Talks About' \u2014 A relatable Hinglish POV skit showing an eager shopper during the festive sale discovering hidden processing fees, GST on interest, and lost upfront cash discounts.",
+        "educational_score": 0.92,
+        "originality_score": 0.85,
+        "engagement_score": 0.95,
+        "relevance_score": 0.94,
+        "reasoning": "Rides on festive sale momentum and consumer anxiety around impulsive buying; Hinglish dialogue and relatable shopping humor drive virality and high save/share rates."
+      },
+      {
+        "idea": "Carousel: 'The 50-30-20 Rule Doesn't Work in Indian Metro Cities' \u2014 A realistic salary breakdown adjusting the standard budgeting model for high rent, auto-rickshaws, and weekend dining in Mumbai/Bengaluru/Delhi.",
+        "educational_score": 0.88,
+        "originality_score": 0.8,
+        "engagement_score": 0.89,
+        "relevance_score": 0.91,
+        "reasoning": "Directly tackles a localized pain point for Gen Z and millennial corporate workers who feel generic Western personal finance advice fails in Indian metros."
+      },
+      {
+        "idea": "Comparison Graphic: 'Festive Gold Buying: Physical Jewellery vs SGB vs Digital Gold' \u2014 A quick cheat sheet analyzing making charges, capital gains tax, and liquidity before Dhanteras/Diwali.",
+        "educational_score": 0.94,
+        "originality_score": 0.78,
+        "engagement_score": 0.86,
+        "relevance_score": 0.93,
+        "reasoning": "Taps into deep-rooted cultural buying traditions by offering immediate clarity on ROI and hidden costs without dismissing traditional sentiments."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel/Skit: 'The No-Cost EMI Scam Nobody Talks About' \u2014 A relatable Hinglish POV skit showing an eager shopper during the festive sale discovering hidden processing fees, GST on interest, and lost upfront cash discounts.",
+      "educational_score": 0.92,
+      "originality_score": 0.85,
+      "engagement_score": 0.95,
+      "relevance_score": 0.94,
+      "total_score": 3.66,
+      "reasoning": "Combines maximum engagement potential through high-retention Hinglish skit storytelling with timely, actionable financial education that protects Indian consumers during peak shopping seasons."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): Salary aate hi 5 din mein account balance zero? Relatable lag raha hai? Let's fix this cycle.",
+      "Slide 2 (The Trap): Day 1 Trap - 'Treat yourself' mode activates. 3 Swiggy orders, 1 impulsive Zara cart checkout, and boom: 30% gone.",
+      "Slide 3 (The Silent Killer): Forgotten Subscriptions - That 4th OTT platform, gym membership you used twice, and apps on auto-renewal.",
+      "Slide 4 (The Fix - Rule 1): Pay Yourself First - Salary credit hote hi minimum 20% direct investment/savings account mein auto-transfer karo.",
+      "Slide 5 (The Fix - Rule 2): 48-Hour Wishlist Rule - Non-essential purchase karne se pehle 48 hours wait karo. 80% impulse urges disappear.",
+      "Slide 6 (Action Plan): The 50-30-20 Desi Formula: 50% Rent/Bills/Groceries | 30% Chill & Wants | 20% Wealth Building (SIPs/Emergency Fund).",
+      "Slide 7 (CTA): Save this post for your next payday and share with that one dost whose salary vanishes in 48 hours."
+    ],
+    "caption": "Month-end mein Maggi, month-start mein gourmet dining? \ud83c\udf5c\n\nWe\u2019ve all been there. Salary aate hi celebration mode on, and 10 days later: 'Bhai paise kab aayenge next?'\n\nBreaking this paycheck-to-paycheck loop doesn't mean cutting out cutting chai or weekend outings.\n\nIt\u2019s simply about setting smart boundaries before the FOMO kicks in. \ud83d\udca1\n\nCheck out the simple framework in this carousel to keep your bank balance smiling till Day 30.",
+    "cta": "Save this post for your next salary day, and drop a '\ud83d\ude4b\u200d\u2642\ufe0f' in the comments if you need to fix your spending cycle this month!",
+    "hashtags": [
+      "#PersonalFinanceIndia",
+      "#MoneyMatters",
+      "#SalaryLife",
+      "#IndianMillennials",
+      "#Adulting101",
+      "#BudgetingTips",
+      "#DesiFinance",
+      "#FinancialFreedomIndia",
+      "#ReelsIndia",
+      "#InstaIndia"
+    ],
+    "image_prompt": "A modern, vibrant flat-lay digital graphic illustration featuring a young Indian professional's organized workspace. On a clean wooden desk sits a cup of Indian masala chai, a smartphone displaying a budget tracking app with green growth charts, a neat bullet journal with handwritten expense notes in English and Hindi, and warm natural morning sunlight casting soft shadows. Aesthetic color palette with warm teal, terracotta, and minimal gold accents. High resolution, professional graphic design style for an Instagram carousel cover.",
+    "alt_text": "Illustration of an organized modern workspace with a smartphone showing a finance app, a steaming cup of tea, and a budget planner notebook on a sunlit wooden desk."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output was provided for review.",
+      "Brand identity, constitution, and market context inputs are missing."
+    ],
+    "timestamp": "2026-08-16T06:29:24.150939Z"
+  },
+  "prediction": {
+    "virality_score": 55,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.55,
+    "key_factors": [
+      "Culturally resonant themes tailored to everyday Indian audience experiences",
+      "Clear visual hook structure intended to capture attention within the first 2 seconds",
+      "Balanced mix of utility and relatable humor driving potential shares and saves"
+    ],
+    "risks": [
+      "High content saturation in the targeted niche on Indian Instagram",
+      "CTA may not generate sufficient comments to trigger algorithmic push",
+      "Lack of immediate trending audio or breakout viral format pairing"
+    ],
+    "reasoning": "The post exhibits solid baseline engagement mechanics for Indian Instagram, balancing relatability with visual appeal. While it has good organic potential, breaking out into hyper-virality requires stronger emotional triggers or tighter alignment with a live viral moment.",
+    "timestamp": "2026-08-16T06:32:32.419445Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, vibrant flat-lay digital graphic illustration featuring a young Indian professional's organized workspace. On a clean wooden desk sits a cup of Indian masala chai, a smartphone displaying a budget tracking app with green growth charts, a neat bullet journal with handwritten expense notes in English and Hindi, and warm natural morning sunlight casting soft shadows. Aesthetic color palette with warm teal, terracotta, and minimal gold accents. High resolution, professional graphic design style for an Instagram carousel cover.",
+    "file_path": "images/2026/08/16/image_prompt_063232.txt",
+    "metadata": {
+      "created_at": "2026-08-16T06:32:32Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "7e2e4c57",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: The Hidden Cost of 10-Minute Deliveries: Auditing "
+    }
+  },
+  "package_path": "posts/publish_package_7e2e4c57.json",
+  "timing": {
+    "research_ms": 9054,
+    "planner_ms": 11076,
+    "creator_ms": 13601,
+    "reviewer_ms": 3521,
+    "predictor_ms": 188265,
+    "image_ms": 1,
+    "publish_ms": 1322,
+    "total_ms": 226840
+  }
+}

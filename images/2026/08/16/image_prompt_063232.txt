@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, vibrant flat-lay digital graphic illustration featuring a young Indian professional's organized workspace. On a clean wooden desk sits a cup of Indian masala chai, a smartphone displaying a budget tracking app with green growth charts, a neat bullet journal with handwritten expense notes in English and Hindi, and warm natural morning sunlight casting soft shadows. Aesthetic color palette with warm teal, terracotta, and minimal gold accents. High resolution, professional graphic design style for an Instagram carousel cover.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-16T06:32:32Z
