@@ -1,0 +1,166 @@
+{
+  "run_id": "55d666e2",
+  "research": {
+    "recommended_topic": "India's biggest anime convention is here \u2014 Anime India Mumbai 2026 (Aug 28-30): a complete first-timer's guide and what it signals for Indian anime",
+    "audience_problem": "Indian anime fans \u2014 especially first-timers and Tier 2/3 viewers who can't easily reach Mumbai \u2014 don't know if a convention is worth it, what happens on the floor, or how to plan (tickets, budget, cosplay, what to expect). They still want to be part of India's biggest national anime moment instead of missing the conversation.",
+    "why_now": "run_date 2026-08-17 is an odd date, so today is an Anime day per the strategy. Anime India Mumbai 2026 \u2014 India's largest anime convention and anison concert \u2014 runs Aug 28-30 at NESCO Goregaon, exactly 11 days away, and the Naruto director Hayato Date's India visit was announced on Aug 15, generating fresh national hype for the community. This is the strongest 'why now' moment in Indian anime this month.",
+    "hook": "Naruto ka director India aa raha hai \u2014 aur India ka sabse bada anime festival sirf 11 din door hai \ud83c\udf65",
+    "supporting_points": [
+      "Anime India Mumbai 2026: 28-30 Aug at NESCO Bombay Exhibition Centre, Goregaon \u2014 India's biggest anime convention + live anison concert, tickets from ~\u20b9499 on District/Zomato platform.",
+      "Confirmed highlight: Naruto director Hayato Date lands in India (announced Aug 15) \u2014 proof India's anime scene has gone global.",
+      "What's on the floor: cosplay competitions, Artists' Alley, maid & butler cafe, Japan Pavilion, merch stalls, anime quiz, singing contest, panels and gaming zones.",
+      "First-timer checklist: pick a ticket tier, plan your day around panels/cosplay, carry water, budget for merch, and start with a simple cosplay or none at all.",
+      "Can't go? That's okay \u2014 the real story is how fast Indian anime is growing; here's how to catch the community energy online and join watch parties instead."
+    ],
+    "trend_signals": [
+      "Anime India Mumbai 2026 confirmed 28-30 Aug at NESCO Goregaon, Mumbai \u2014 India's largest anime convention, tickets live now (\u20b9499+).",
+      "Naruto director Hayato Date's India visit announced 15 Aug 2026 \u2014 two days before this post, currently trending in the Indian anime community.",
+      "India anime market projected to cross \u20b9500 crore in 2026, with Hindi/Tamil/Telugu dubs and legal streaming (Crunchyroll, Netflix, Muse India, JioHotstar) expanding fast.",
+      "Summer 2026 anime season (Jul-Sep) is at its mid-season peak \u2014 Re:ZERO S4, Bleach TYBW The Calamity, Mushoku Tensei S3 airing; The Ribbon Hero and Banana Fish English dub just landed on Netflix.",
+      "Independence Day (Aug 15) just passed and monsoon season is ongoing \u2014 a strong cultural window for national anime-community sentiment."
+    ],
+    "candidate_topics": [
+      "Summer 2026 mid-season anime watchlist \u2014 what's actually worth streaming right now on Netflix/Crunchyroll",
+      "New on Netflix: The Ribbon Hero (Tezuka's Princess Knight reimagining) + Banana Fish English dub \u2014 beginner-friendly picks",
+      "Independence Day tie-in: how anime grew in India from TV dubs to a \u20b9500 crore market",
+      "How to watch anime legally in India in 2026 \u2014 Hindi/Tamil/Telugu dubs, free Muse Asia, budget plans",
+      "Dub vs sub + 'first anime for beginners' value carousel"
+    ],
+    "confidence": 0.85,
+    "reasoning": "Aug 17 is odd, so the anime day rule applies. Among anime directions, the Anime India Mumbai 2026 convention (28-30 Aug) is the most urgent and most Indian-native topic: it is 11 days out, ticket sales are live, and the Naruto director announcement dropped only two days ago \u2014 a concrete, verifiable news hook that Indian anime pages are buzzing about. It fits the 'anime culture' pillar, gives carousel-friendly step-by-step value (first-timer guide), and is shareable even for Tier 2/3 fans who can't attend, matching the brand mission to make anime feel shareable. Seasonal watchlists and Netflix drops are solid evergreen backups but lack this week's 'why now' punch. Confidence is high but not 1.0 because convention-attendance content skews urban and the strongest long-term pull may still come from seasonal recommendations.",
+    "timestamp": "2026-08-17T00:00:00Z",
+    "research_id": 10
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Carousel: 'Naruto ka director India aa raha hai' \u2014 Anime India Mumbai 2026 (28-30 Aug) complete first-timer's guide in Hinglish. Slides: what the convention is, \u20b9499+ tickets on District/Zomato, what's on the floor (cosplay comps, Artists' Alley, maid/butler cafe, Japan Pavilion, panels, gaming zones), a day-plan checklist, budget tips, and a 'can't go?' slide redirecting to online watch-party culture.",
+        "educational_score": 0.9,
+        "originality_score": 0.8,
+        "engagement_score": 0.85,
+        "relevance_score": 0.9,
+        "reasoning": "Directly executes the research-recommended topic with a strong Hinglish news hook (Hayato Date announced Aug 15). Carousel format suits the step-by-step checklist value that Indian feeds reward; the 'can't go?' slide widens reach beyond Mumbai. Rides live trend signals (tickets live, 11 days out) and festival-adjacent national pride window right after Independence Day."
+      },
+      {
+        "idea": "Reel/post: 'Dekho, Japan ka legend humara India aa raha hai' \u2014 a proud-moment angle explaining what the Naruto director's India visit means, and how anime grew from Sunday-morning TV dubs to a \u20b9500 crore Indian market, with Hindi/Tamil/Telugu dubs now official.",
+        "educational_score": 0.7,
+        "originality_score": 0.8,
+        "engagement_score": 0.9,
+        "relevance_score": 0.85,
+        "reasoning": "Taps the freshest news (Aug 15 announcement) and converts it into shareable national-pride sentiment \u2014 a proven engagement driver on Indian Instagram. Educational about market growth, though lighter on practical value than a guide. Risk: pure-news posts age fast."
+      },
+      {
+        "idea": "Carousel: 'Mumbai nahi ja sakte? Koi baat nahi' \u2014 a home-bird's guide to not missing India's biggest anime moment: follow official pages and artists, join community watch parties, catch clips/highlights, and stream the summer 2026 season (Re:ZERO S4, Bleach TYBW, Mushoku Tensei S3) legally via free Muse Asia, Crunchyroll, Netflix and JioHotstar.",
+        "educational_score": 0.85,
+        "originality_score": 0.85,
+        "engagement_score": 0.8,
+        "relevance_score": 0.9,
+        "reasoning": "Solves the Tier 2/3 inclusion problem the research flagged explicitly \u2014 most of the audience can't reach Mumbai, so it inverts the hook into an accessible, original angle. Adds genuine utility (legal streaming options, free tier) and feels community-first. Slightly lower mass-hook energy than a news post."
+      },
+      {
+        "idea": "Carousel: 'Convention jaana? Pehle budget bana lo' \u2014 a price-sensitivity breakdown: \u20b9499 ticket, travel, food, merch, cosplay budget tiers (\u20b9500 / \u20b91500 / \u20b93000), and 'value for money' verdict on each ticket tier, in relatable Hinglish.",
+        "educational_score": 0.8,
+        "originality_score": 0.85,
+        "engagement_score": 0.85,
+        "relevance_score": 0.8,
+        "reasoning": "Rides the price-sensitive, value-first instinct of Indian scrolling culture and the practical first-timer problem. Distinct angle from the main guide, save-worthy carousel content. Slightly narrower emotional hook and less news-driven."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Carousel: 'Naruto ka director India aa raha hai' \u2014 Anime India Mumbai 2026 (28-30 Aug) complete first-timer's guide in Hinglish. Slides: what the convention is, \u20b9499+ tickets on District/Zomato, what's on the floor (cosplay comps, Artists' Alley, maid/butler cafe, Japan Pavilion, panels, gaming zones), a day-plan checklist, budget tips, and a 'can't go?' slide redirecting to online watch-party culture.",
+      "educational_score": 0.9,
+      "originality_score": 0.8,
+      "engagement_score": 0.85,
+      "relevance_score": 0.9,
+      "total_score": 3.45,
+      "reasoning": "This is the strongest blend of every requirement: it is the research-recommended topic, rides the freshest verifiable trend (Hayato Date's Aug 15 announcement plus live ticket sales 11 days out), delivers the highest practical educational value via a checklist carousel, and its Hinglish hook + 'can't go?' slide keep it shareable for the full 16-34 Indian audience including Tier 2/3 viewers. It nails the brand's anime-culture pillar and the market's carousel-for-value and Hinglish rules, making it the highest total-score choice at 3.45."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Naruto ka director India aa raha hai!' \u2014 Bold cover visual of a caped anime-style director facing a giant convention hall, with 'Anime India Mumbai 2026 \u2022 28-30 Aug' text and a 'First-timer? Swipe \u2192' prompt.",
+      "Slide 2 (What is it): 'Wahi convention jiske reels tumne save kiye the.' \u2014 What Anime India Mumbai 2026 is: India's biggest anime & pop culture con, 3 days, 28-30 August, Mumbai. Perfect for beginners, no prior con experience needed.",
+      "Slide 3 (Tickets & Details): 'Tickets \u20b9499+ se shuru, live on District & Zomato.' \u2014 Show ticket price range, booking platforms, dates, and venue hint. One line: 'Pehle book karo, baad mein FOMO mat karna.'",
+      "Slide 4 (On the Floor): 'Inside the con \u2014 yeh sab milta hai.' \u2014 Cosplay competitions, Artists' Alley, maid/butler cafe, Japan Pavilion, anime panels, gaming zones. Skimmable bullet list of what's worth your time.",
+      "Slide 5 (First-Timer Day Plan): 'Naya hai? Yeh raha your day-1 checklist.' \u2014 Arrive early, carry ID + water, book panels first, budget merch money, keep phone charged, wear comfy shoes.",
+      "Slide 6 (Budget Tips): 'Kitna kharcha hoga \u2014 real talk.' \u2014 Ticket + food + merch + travel breakdown in \u20b9, with one saving tip (carry snacks, set a merch cap).",
+      "Slide 7 (Can't Go?): 'Con miss ho rahi hai? No tension.' \u2014 Online watch-party culture: follow the con's live streams, join anime discords/WhatsApp groups, catch highlights reels. Ending slide: 'Save this guide for your squad.'"
+    ],
+    "caption": "Naruto ka director India aa raha hai! \ud83d\udd25\n\nAnime India Mumbai 2026 \u2014 28-30 August.\nWahi Mumbai, tumhari city. \ud83c\udf8c\n\nTickets \u20b9499+ se shuru, District aur Zomato pe live.\n\nPehli baar jaa rahe ho? No problem.\nSwipe karo \u2014 full first-timer guide:\nkaise jao, kya karo, kitna kharcha hoga.\n\nCosplay comps, Artists' Alley, Japan Pavilion,\nmaid/butler cafe, panels, gaming zones \u2014 sab ek post mein.\n\nBudget plan ke liye last slide save karna.",
+    "cta": "Save this guide for your squad, aur comments mein batao \u2014 tum pehli baar anime convention kab jaa rahe ho? \ud83d\udc47",
+    "hashtags": [
+      "#AnimeIndia",
+      "#AnimeIndiaMumbai",
+      "#AnimeConvention2026",
+      "#NarutoFans",
+      "#IndianAnimeCommunity",
+      "#MumbaiEvents",
+      "#AnimeWeekend",
+      "#Hinglish",
+      "#OtakuIndia",
+      "#Mumbai"
+    ],
+    "image_prompt": "Bold, high-contrast anime-inspired digital illustration for an Instagram carousel cover (4:5 vertical). An original anime-style convention host character in a long flowing hero cape, seen from behind, standing heroically before a massive, brightly lit anime convention hall filled with silhouettes of cosplayers and fans. Background shows a dramatic Mumbai skyline with the Bandra-Worli Sea Link silhouette. Vibrant electric blues, neon purples and warm oranges, cinematic rim lighting, clean modern anime art style. Original character design only \u2014 must not reproduce or copy any actual anime characters, frames or copyrighted artwork. Leave clean space at the top for the title text 'ANIME INDIA MUMBAI 2026'. No watermarks, no text elsewhere.",
+    "alt_text": "Anime-style digital illustration of an original caped anime character seen from behind facing a huge colorful anime convention hall with cosplay crowds, with the Mumbai skyline and Bandra-Worli Sea Link glowing in the background, in bold neon blue, purple and orange tones."
+  },
+  "review": {
+    "status": "PASS",
+    "reasons": [
+      "Grammar and spelling are correct throughout the caption and carousel slides.",
+      "Caption is specific and skimmable: names the event (Anime India Mumbai 2026), dates (28-30 August), ticket price (Rs.499+), and booking platform (District/Zomato).",
+      "Tone is on-brand: enthusiastic, Hinglish-first, and relatable, matching the anime pillar of the brand identity.",
+      "All 7 carousel slides are present (hook, what it is, tickets, on-the-floor, first-timer plan, budget, can't-go), and a clear save + comment CTA is included.",
+      "Facts are verified and accurate: Hayato Date (Naruto/Naruto Shippuden director) is confirmed for Anime India Mumbai 2026 on 28-30 Aug at NESCO/Bombay Exhibition Centre, Mumbai, with Phase 1 day passes at Rs.499 booked via District by Zomato.",
+      "Constitution-compliant: image prompt and alt_text restrict art to original character design and never present AI-generated art as official or copyrighted anime artwork.",
+      "Indian market fit: native Hinglish caption, 3 emojis (within the 2-5 limit), and relevant niche plus location hashtags (#OtakuIndia, #IndianAnimeCommunity, #NarutoFans, #Mumbai).",
+      "Minor note: the hashtag set lacks a broad reach tag such as #reelsindia or #instagood that the market doc recommends; hashtags remain relevant so this does not block approval."
+    ],
+    "timestamp": "2026-08-17T13:03:52.730636Z"
+  },
+  "prediction": {
+    "virality_score": 62,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.62,
+    "key_factors": [
+      "Relatable cultural hook with strong Hinglish conversational tone",
+      "High save-and-share utility targeting daily Indian metro challenges",
+      "Clear visual format suited for quick-pacing Reels/carousels"
+    ],
+    "risks": [
+      "Crowded niche competition with similar content already circulating",
+      "Potential drop-off after first 3 seconds if visual transition lags"
+    ],
+    "reasoning": "The drafted post leverages strong Indian cultural touchpoints and high utility, which reliably drives saves and DMs. However, high topic saturation prevents an immediate HIGH virality rating without live algorithmic momentum or trending audio support.",
+    "timestamp": "2026-08-17T13:03:59.770488Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "Bold, high-contrast anime-inspired digital illustration for an Instagram carousel cover (4:5 vertical). An original anime-style convention host character in a long flowing hero cape, seen from behind, standing heroically before a massive, brightly lit anime convention hall filled with silhouettes of cosplayers and fans. Background shows a dramatic Mumbai skyline with the Bandra-Worli Sea Link silhouette. Vibrant electric blues, neon purples and warm oranges, cinematic rim lighting, clean modern anime art style. Original character design only \u2014 must not reproduce or copy any actual anime characters, frames or copyrighted artwork. Leave clean space at the top for the title text 'ANIME INDIA MUMBAI 2026'. No watermarks, no text elsewhere.",
+    "file_path": "images/2026/08/17/image_prompt_130359.txt",
+    "metadata": {
+      "created_at": "2026-08-17T13:03:59Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "55d666e2",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: India's biggest anime convention is here \u2014 Anime I"
+    }
+  },
+  "package_path": "posts/publish_package_55d666e2.json",
+  "timing": {
+    "research_ms": 133506,
+    "planner_ms": 74448,
+    "creator_ms": 131726,
+    "reviewer_ms": 147051,
+    "predictor_ms": 7037,
+    "image_ms": 1,
+    "publish_ms": 1534,
+    "total_ms": 495303
+  }
+}

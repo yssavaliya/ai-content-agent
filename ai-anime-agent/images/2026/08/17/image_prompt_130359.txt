@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Bold, high-contrast anime-inspired digital illustration for an Instagram carousel cover (4:5 vertical). An original anime-style convention host character in a long flowing hero cape, seen from behind, standing heroically before a massive, brightly lit anime convention hall filled with silhouettes of cosplayers and fans. Background shows a dramatic Mumbai skyline with the Bandra-Worli Sea Link silhouette. Vibrant electric blues, neon purples and warm oranges, cinematic rim lighting, clean modern anime art style. Original character design only — must not reproduce or copy any actual anime characters, frames or copyrighted artwork. Leave clean space at the top for the title text 'ANIME INDIA MUMBAI 2026'. No watermarks, no text elsewhere.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-17T13:03:59Z
