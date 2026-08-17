@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Instagram carousel cover, 4:5 vertical, modern fintech illustration-photo hybrid style. A close-up of a young Indian hand holding a smartphone showing a UPI payment app with a long scrolling list of small transaction notifications (₹50 chai, ₹150 snack, ₹20 round-up) with chai cup and snack icons. Around the phone, cascading floating coins and small rupee notes trickle down into a leaking transparent wallet graphic at the bottom, beside a large calculator screen showing '₹10,000'. Bold Hinglish headline overlay at top: 'The ₹50 UPI Reality Check' with sub-line 'Har scan chhota hai, total bada hai.' Warm tapri-chai amber tones with teal and gold accents, vibrant, mobile-first, highly readable text, clean minimal background.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-17T06:45:43Z
