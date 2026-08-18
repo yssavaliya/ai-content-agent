@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A vibrant, top-down flat lay photograph of an Indian creator's desk celebrating Independence Day. At the center, a smartphone displaying a tricolour-themed Instagram carousel mockup with saffron, white, and green slide cards. Around it: a small Indian flag, an open diary with a handwritten content checklist titled '15 Aug', a glass of chai, marigold flowers, and a subtle rangoli pattern on a saffron-and-green backdrop. Warm golden window light, crisp editorial product-photography style, shallow depth of field, high detail, celebratory yet clean composition.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-18T06:53:06Z
