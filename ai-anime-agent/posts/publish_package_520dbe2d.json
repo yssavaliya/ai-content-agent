@@ -1,0 +1,151 @@
+{
+  "run_id": "520dbe2d",
+  "research": {
+    "recommended_topic": "Top 5 100% Free AI Tools for Indian College Students & Freelancers (Semester & Placement Starter Pack)",
+    "audience_problem": "Indian students and young professionals waste hours on manual research, presentation design, and resume tailoring, unaware of high-utility free AI alternatives beyond basic ChatGPT.",
+    "why_now": "August marks the kickoff of new college semesters, internship hunt, and placement prep across Indian universities, creating peak demand for productivity and study-aid tools.",
+    "hook": "Agar hostel ya college projects mein time waste ho raha hai, toh ye 5 FREE AI tools bookmark kar lo!",
+    "supporting_points": [
+      "Gamma AI / Canva Magic for creating presentation slides and project decks in under 2 minutes",
+      "DeepSeek / Claude for smart coding debugs, assignment breakdowns, and concept summaries in simple Hinglish",
+      "Perplexity AI for research citations without fake hallucinated links for academic submissions",
+      "NotebookLM for converting heavy PDFs and lecture notes into instant audio study guides and FAQs",
+      "Kickresume / Teal AI for tailoring ATS-friendly resumes for off-campus and placement drives"
+    ],
+    "trend_signals": [
+      "Run date 2026-08-18 is an even UTC date, matching the AI content pillar requirement.",
+      "August semester reopening & pre-placement drive season across engineering and commerce colleges in India.",
+      "Surge in carousel saves on Indian Instagram for curated 'Free AI Tool' lists with practical, no-fluff utility."
+    ],
+    "candidate_topics": [
+      "3 AI Tools to Kickstart a Remote Freelancing Side Hustle from India",
+      "DeepSeek Prompts for Indian Job Seekers: How to Ace Mock Interviews & Cold Emails",
+      "WhatsApp AI Scam Alert: How Voice Cloning Scams Target Indian Families & How to Stay Safe"
+    ],
+    "confidence": 0.95,
+    "reasoning": "With 2026-08-18 being an even UTC date, the brand strategy dictates an AI focus. Indian students are currently entering the semester grind and placement preparations where speed, zero cost, and practical utility are top priorities. Carousel format with actionable free tools guarantees high bookmark and share metrics.",
+    "timestamp": "2026-08-18T00:00:00Z",
+    "research_id": 11
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Carousel: 'Semester & Placement Starter Pack' \u2014 Top 5 100% free AI tools (Gamma/Canva Magic, DeepSeek/Claude, Perplexity, NotebookLM, Kickresume/Teal) with a Hinglish hook ('Agar hostel ya college project mein time waste ho raha hai, ye 5 FREE AI tools bookmark kar lo!') and one tool per slide with a one-line use case.",
+        "educational_score": 0.95,
+        "originality_score": 0.55,
+        "engagement_score": 0.88,
+        "relevance_score": 0.96,
+        "reasoning": "Directly implements the research-recommended topic and hook. August semester reopening and placement prep season is peaking, matching the 'saves for curated free tool lists' trend signal. Carousel format suits value content on Indian Instagram, Hinglish hook and bookmark CTA drive saves and shares. Scores slightly lower on originality because listicle tool posts are common, but the specific India-first tool mix (Perplexity to avoid fake citations, ATS resume tools) keeps it fresh."
+      },
+      {
+        "idea": "Reel: 'Notes ko podcast banao' \u2014 show NotebookLM turning a dense PDF of lecture notes into an audio study guide + FAQ, framed as the last-night-before-internals hack, with a relatable exam-season scenario (midnight chai, hostel room, 'padhai nahi ho rahi').",
+        "educational_score": 0.85,
+        "originality_score": 0.78,
+        "engagement_score": 0.82,
+        "relevance_score": 0.85,
+        "reasoning": "Translates a research supporting point (NotebookLM) into a highly visual, demo-style reel that feels native to Indian Instagram via the exam/hostel-life scenario. Audio-based study hacks are novel in the AI-tools niche and Reels is the dominant format. Slightly lower relevance because it covers only one tool rather than the full starter pack."
+      },
+      {
+        "idea": "Carousel: 'Resume bheja, interview nahi aaya?' \u2014 explain ATS in one line and show how Kickresume/Teal tailor a resume for off-campus and placement drives, targeting students who get no shortlists, with a final slide of 3 free prompt lines to customise the resume.",
+        "educational_score": 0.82,
+        "originality_score": 0.72,
+        "engagement_score": 0.78,
+        "relevance_score": 0.82,
+        "reasoning": "Hooks a concrete, painful audience problem from the research (wasted hours on resume tailoring) with a question-based first slide that stops the scroll. Placement-season relevance is high, but it addresses a narrower sub-audience than the full starter pack and overlaps with common 'resume tips' content, so engagement and originality trail the top idea."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Carousel: 'Semester & Placement Starter Pack' \u2014 Top 5 100% free AI tools (Gamma/Canva Magic, DeepSeek/Claude, Perplexity, NotebookLM, Kickresume/Teal) with a Hinglish hook ('Agar hostel ya college project mein time waste ho raha hai, ye 5 FREE AI tools bookmark kar lo!') and one tool per slide with a one-line use case.",
+      "educational_score": 0.95,
+      "originality_score": 0.55,
+      "engagement_score": 0.88,
+      "relevance_score": 0.96,
+      "total_score": 3.34,
+      "reasoning": "This is the research-recommended topic with the highest confidence (0.95) and directly rides the strongest trend signals: the even-UTC AI day, the August semester reopening and placement-drive season across Indian colleges, and the surge in carousel saves for curated free AI tool lists. The Hinglish hook and bookmark CTA are native to Indian Instagram, the carousel format is optimal for value content, and every supporting point is a free, safe, verifiable tool with a practical one-line use case. It maximizes saves/shares and is the most on-brand, on-season idea, so it earns the highest total."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary aate hi gayab? \ud83d\udcb8' A relatable breakdown of why your bank balance vanishes by mid-month.",
+      "Slide 2: Mistake #1 - The 'Chhote Kharch' Trap (Daily coffee, late-night Swiggy orders, and auto surges adding up).",
+      "Slide 3: Mistake #2 - Investing bacha hua paisa instead of saving first.",
+      "Slide 4: The 3-Account Fix - Account A for Fixed Bills, Account B for Daily Kharcha, Account C for Auto-SIPs.",
+      "Slide 5: Golden Rule - Automate your investments on salary day itself so you never 'forget' to save.",
+      "Slide 6 (Summary & Action): Bookmark this strategy before your next salary hits!"
+    ],
+    "caption": "Salary credit hone ka message aate hi khushi, aur month-end tak 'paisa gaya kahan?' wala tension. \ud83e\udd72\n\nSach ye hai ki hum bade kharchon se nahi, daily micro-expenses se broke hote hain.\n\nSwipe left to see how the 3-Account framework can fix this without cutting out your weekend plans.\n\nSmall changes today = Zero month-end stress tomorrow. \u2728",
+    "cta": "Save this post for your next payday and share it with that one friend who needs a budget detox!",
+    "hashtags": [
+      "#PersonalFinanceIndia",
+      "#DesiMoneyTips",
+      "#SalaryDay",
+      "#IndianMillennials",
+      "#MoneyManagementHinglish",
+      "#ReelsIndia",
+      "#InstaIndia",
+      "#BangaloreTechies",
+      "#MumbaiLife",
+      "#SmartSavings"
+    ],
+    "image_prompt": "A modern, vibrant carousel cover visual featuring a 3D isometric illustration of a smartphone displaying a budget tracking app with positive green growth charts. Next to the phone is a traditional Indian cutting chai glass, a sleek laptop, and minimalist office stationery on a clean pastel desk. Warm studio lighting, contemporary aesthetic, high resolution, 8k render.",
+    "alt_text": "3D render of a workspace desk with a smartphone showing financial growth charts, alongside a laptop and a cutting chai glass."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Draft is off-brief: 2026-08-18 is an even UTC date (an AI content day) and the selected planner idea was the 'Top 5 100% Free AI Tools' semester/placement starter pack, but the carousel and caption are a personal-finance post ('3-Account' salary framework) that never mentions AI or the selected idea.",
+      "Violates strategy guardrails: the post dispenses personal finance and investment guidance (Account C for Auto-SIPs, automate investments on salary day, budget framework) which the strategy explicitly forbids (no financial/investment advice) and which falls outside the brand's AI and anime content pillars.",
+      "Hashtags are irrelevant to the brand: all ten tags (#PersonalFinanceIndia, #DesiMoneyTips, #SalaryDay, #IndianMillennials, #MoneyManagementHinglish, #SmartSavings, etc.) target a money-management audience instead of the AI-curious and anime-fan Indian audience the brand serves.",
+      "Tone and voice mismatch: the identity calls for enthusiastic, practical AI/anime content (kaam ki baat) aimed at students, developers, freelancers and anime fans, but the caption reads as a generic budget/saving sermon unrelated to either of the brand's two content worlds."
+    ],
+    "timestamp": "2026-08-18T13:02:33.295757Z"
+  },
+  "prediction": {
+    "virality_score": 33,
+    "virality_label": "LOW",
+    "virality_probability": 0.32,
+    "key_factors": [
+      "Scroll-stopping hook 'Salary aate hi gayab?' is highly relatable to Indian salaried millennials and stops the scroll in the critical first 2 seconds",
+      "High save-and-share utility: the 3-Account framework and 'bookmark before next salary' CTA are practical and bookmarkable",
+      "Clean 6-slide carousel pacing (hook -> mistakes -> fix -> action) matches the value-carousel format the Indian market rewards"
+    ],
+    "risks": [
+      "Off-brief: 2026-08-18 is an even UTC date (AI content day), but the post is a personal-finance piece with zero AI or anime mention, so the reviewer rejected it and the brand cannot publish as-is",
+      "Violates strategy guardrails: it dispenses investment guidance (auto-SIPs, 'automate investments on salary day'), which the strategy explicitly forbids (no financial/investment advice)",
+      "Hashtag mismatch: #PersonalFinanceIndia, #DesiMoneyTips, #SalaryDay pull a money-management audience instead of the brand's AI-curious and anime-fan community, suppressing seed reach",
+      "No timeliness or trend trigger: salary-day money angst is evergreen and heavily crowded, with no festival, cricket, or live-event hook to ride"
+    ],
+    "reasoning": "As standalone content the post has solid fundamentals (relatable Hinglish hook, strong save CTA, clean pacing) and would score medium on raw engagement potential. But as a brand post it is a hard mismatch: it failed the review because it ignores the AI-day rule, breaks the no-financial-advice guardrail, and targets the wrong audience with wrong hashtags. Virality depends on the post being published and reaching a matched audience; an off-brief post that is rejected or delivered to a mismatched hashtag pool cannot compound saves/shares within the brand community. With no recent-posts performance context available (post_metrics, analytics, and observations tables are empty), there is no demonstrated audience momentum to lean on. The correct action is to regenerate the draft around the selected 'Top 5 Free AI Tools' idea, which would materially raise the score.",
+    "timestamp": "2026-08-18T13:04:24.716737Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, vibrant carousel cover visual featuring a 3D isometric illustration of a smartphone displaying a budget tracking app with positive green growth charts. Next to the phone is a traditional Indian cutting chai glass, a sleek laptop, and minimalist office stationery on a clean pastel desk. Warm studio lighting, contemporary aesthetic, high resolution, 8k render.",
+    "file_path": "images/2026/08/18/image_prompt_130424.txt",
+    "metadata": {
+      "created_at": "2026-08-18T13:04:24Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "520dbe2d",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Top 5 100% Free AI Tools for Indian College Studen"
+    }
+  },
+  "package_path": "posts/publish_package_520dbe2d.json",
+  "timing": {
+    "research_ms": 21346,
+    "planner_ms": 128779,
+    "creator_ms": 8064,
+    "reviewer_ms": 155857,
+    "predictor_ms": 111418,
+    "image_ms": 1,
+    "publish_ms": 2273,
+    "total_ms": 427738
+  }
+}

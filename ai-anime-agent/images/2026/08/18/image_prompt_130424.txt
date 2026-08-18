@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, vibrant carousel cover visual featuring a 3D isometric illustration of a smartphone displaying a budget tracking app with positive green growth charts. Next to the phone is a traditional Indian cutting chai glass, a sleek laptop, and minimalist office stationery on a clean pastel desk. Warm studio lighting, contemporary aesthetic, high resolution, 8k render.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-18T13:04:24Z
