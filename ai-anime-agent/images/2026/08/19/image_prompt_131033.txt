@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Original anime-style illustration (no real anime characters or frames): a cozy Indian room during heavy monsoon rain, window with raindrops and lightning in the background, a steaming cutting chai glass on a small desk beside a laptop screen showing a colorful streaming app, a comfy blanket and cushions arranged for a binge-watch evening. Bold, high-contrast, vibrant colors, clean minimal composition with strong negative space on the left for text overlay, 4k, cinematic lighting.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-19T13:10:33Z
