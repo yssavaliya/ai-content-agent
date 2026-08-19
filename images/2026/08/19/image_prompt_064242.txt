@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Photorealistic, editorial-style Instagram carousel cover, vertical 4:5. A young Indian professional (mid-20s, casual office shirt) sits at a clean, minimal desk in a bright modern Indian startup office, staring at a laptop screen showing an email notification titled 'Tax Proof Reminder — Last Date 31 March'. In one hand they clutch a stack of glossy insurance policy brochures, forehead slightly furrowed in panic. Warm natural window light, soft depth of field, neutral warm palette, minimal visual clutter, clean and modern, 35mm lens aesthetic, subtle geometric shadows, negative space at the top for headline text overlay.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-19T06:42:42Z
