@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Clean modern aesthetic carousel cover illustration showing a young modern Indian professional sitting in a contemporary cafe with a warm chai cup, viewing a glowing green financial growth chart on a sleek smartphone screen. Minimalist editorial style, warm lighting, vibrant accents of emerald green, deep indigo, and warm marigold yellow, high-resolution vector and 3D blended style, 8k render.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-20T13:13:09Z
