@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Bold, scroll-stopping Instagram carousel cover, vertical 4:5, high-contrast festive editorial style. A flat-lay composition on a deep maroon-and-saffron festive backdrop: a smartphone propped at the center showing an Instagram Reels creation screen with a bold countdown sticker reading '8 days to Rakhi', surrounded by a beautifully crafted rakhi, a small wrapped gift box, a glass of masala chai, marigold petals, and a phone card mockup of a family WhatsApp group chat with laughing emojis. Clean modern typography, generous negative space at the top for the Hinglish headline 'Rakhi sirf 8 din door' and subline 'Ye 5 reel ideas abhi banao'. Warm golden lighting, subtle confetti accents, minimal clutter, mobile-first readability, one strong focal point.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-20T06:43:46Z
