@@ -1,0 +1,146 @@
+{
+  "run_id": "edf38478",
+  "research": {
+    "recommended_topic": "Free AI Workflow for College Placements & Job Interviews (ATS Resume, Mock HR Round, Cold Email)",
+    "audience_problem": "Indian college students and freshers are entering campus placement and hiring season, struggling with ATS rejections, lack of interview practice, and generic applications without budget for paid AI tools.",
+    "why_now": "Late August marks the peak start of campus placement drives and off-campus fresher recruitment cycles in Indian universities. Students are actively searching for high-utility, free productivity hacks.",
+    "hook": "Campus placements ya job hunt shuru ho gaya hai? Stop sending generic resumes \u2014 use this 10-minute Free AI placement workflow.",
+    "supporting_points": [
+      "Step 1: Use DeepSeek or ChatGPT to extract top ATS keywords from Indian job descriptions and adapt your bullet points.",
+      "Step 2: Voice Mode mock interviews \u2014 prompt AI to act as a strict Indian tech/business HR manager asking situational & behavioral questions.",
+      "Step 3: Draft personalized LinkedIn outreach messages to Indian tech recruiters without sounding like a robotic bot.",
+      "Kaam ki baat: Don't fake skills using AI; use it to articulate your genuine college projects clearly."
+    ],
+    "trend_signals": [
+      "August-September campus placement drive kickoff across Indian engineering and management colleges",
+      "High engagement on Indian Instagram carousels around career hacks, resume optimization, and free student tech tools",
+      "Rising popularity of DeepSeek and ChatGPT Voice mode among Tier 1-3 Indian college students"
+    ],
+    "candidate_topics": [
+      "How Indian Freelancers Can Use AI to Pitch International Clients in 2026",
+      "Digital Arrest & Voice Clone Scams: How to Protect Your Family WhatsApp Groups with AI Awareness",
+      "Best Free AI Tools for Indian College Students to Summarize Bulky Semester Syllabus"
+    ],
+    "confidence": 0.94,
+    "reasoning": "Date 2026-08-22 is an even UTC day, which strictly mandates AI content under strategy guidelines. August aligns with the high-stakes college placement and fresher job application window in India, making placement-focused AI utility content guaranteed to drive high saves and shares among the core 18-24 demographic.",
+    "timestamp": "2026-08-22T00:00:00Z",
+    "research_id": 15
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "POV Reel: 'Salary aate hi 5 minute mein gayab?' - A relatable Indian corporate skit contrasting impulse UPI payments with a 3-step automated SIP allocation formula.",
+        "educational_score": 0.85,
+        "originality_score": 0.8,
+        "engagement_score": 0.95,
+        "relevance_score": 0.9,
+        "reasoning": "Taps heavily into relatable payday humor, high shareability among Indian salaried millennials/Gen Z, and effectively bridges into practical financial discipline."
+      },
+      {
+        "idea": "Carousel Breakdown: 'The Hidden Festive Budget Drain' - Practical breakdown of No-Cost EMIs, credit card reward traps during festival sales, and smarter alternative saving hacks in Hinglish.",
+        "educational_score": 0.95,
+        "originality_score": 0.85,
+        "engagement_score": 0.85,
+        "relevance_score": 0.95,
+        "reasoning": "High educational utility and bookmark-worthy content that deconstructs fine print traps common during Indian e-commerce festive sales."
+      },
+      {
+        "idea": "Interactive Story & Reel Series: 'Cricket Strategy vs Portfolio Building' - Comparing MS Dhoni's match-finishing pacing with index fund compounding strategies for young earners.",
+        "educational_score": 0.8,
+        "originality_score": 0.9,
+        "engagement_score": 0.9,
+        "relevance_score": 0.85,
+        "reasoning": "Leverages India's obsession with cricket to explain dry financial principles through vivid, easy-to-grasp sports analogies."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Carousel Breakdown: 'The Hidden Festive Budget Drain' - Practical breakdown of No-Cost EMIs, credit card reward traps during festival sales, and smarter alternative saving hacks in Hinglish.",
+      "educational_score": 0.95,
+      "originality_score": 0.85,
+      "engagement_score": 0.85,
+      "relevance_score": 0.95,
+      "total_score": 3.6,
+      "reasoning": "Offers the highest actionable value with strong save/share metrics, directly addressing a critical consumer pain point while perfectly aligning with seasonal market timing and cultural financial habits."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: 'Salary aate hi gayab?' 4 realistic money rules for young Indians (without giving up your daily chai). Swipe ->",
+      "Slide 2: Rule 1: The 50-30-20 Rule (Desi Edit) - 50% Needs (Rent, Ration), 30% Wants (Swiggy, Outings), 20% Direct Savings on Day 1.",
+      "Slide 3: Rule 2: The 48-Hour Cart Test - Before checking out that late-night impulse buy on Blinkit or Myntra, wait 48 hours.",
+      "Slide 4: Rule 3: Automate SIPs for Salary Day + 1 - Treat investing like a mandatory electricity bill, not leftover pocket change.",
+      "Slide 5: Rule 4: Separate 'Party Fund' Account - Keep one zero-balance UPI account strictly for weekend fun so you never overspend.",
+      "Slide 6: Quick Summary & Action Plan: Save first, spend guilt-free later. Save this post before your next salary credit!"
+    ],
+    "caption": "Salary aayi nahi ki notification sound: 'Amount debited' \ud83e\udd72\n\nRelatable? Most of us struggle with savings not because we spend too much, but because we save whatever is left over at the end of the month (which is usually \u20b90).\n\nReal talk: Smart budgeting doesn't mean skipping weekend chill scenes or sacrificing your favorite cold coffee.\n\nIt's about having a simple system so your money works for you on autopilot.\n\nSwipe through the carousel for 4 no-stress money rules you can set up in under 10 minutes \ud83d\ude80",
+    "cta": "Bookmark this for payday and share it with that friend who is always 'broke' by the 15th of the month! \ud83d\udc47",
+    "hashtags": [
+      "#personalfinanceindia",
+      "#moneytipsindia",
+      "#desimillennial",
+      "#smartinvesting",
+      "#savinghacks",
+      "#mumbai",
+      "#bangalore",
+      "#delhincr",
+      "#reelsindia",
+      "#instagood"
+    ],
+    "image_prompt": "A modern, vibrant 3D minimalist illustration of an organized Indian workstation desk. On the desk sits an iPhone displaying a green growth investment graph, a traditional Indian cutting chai glass, a stylish leather wallet, and soft glowing pastel Rupee symbol coins floating neatly. Clean aesthetic, soft daylight studio lighting, warm tones with teal and amber accents, Behance trending 3D render.",
+    "alt_text": "3D render of a modern minimalist desk featuring a smartphone showing a financial investment chart, a cup of cutting chai, and a wallet with soft rupee icon graphics."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output was provided for evaluation.",
+      "Missing required brand identity, constitution, and market context inputs."
+    ],
+    "timestamp": "2026-08-22T12:52:22.774278Z"
+  },
+  "prediction": {
+    "virality_score": 55,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.55,
+    "key_factors": [
+      "Contextual relatability to target Indian audience demographics",
+      "Clear visual hook structure designed for high initial retention",
+      "Optimized shareable and saveable format alignment"
+    ],
+    "risks": [
+      "Audience fatigue in high-competition content niches",
+      "Pacing drop-off in later segments reducing complete watch time"
+    ],
+    "reasoning": "The post exhibits baseline structural components for engagement on Indian Instagram, including strong hook mechanics and relatable themes. However, without extreme novelty, high-emotion polarization, or hyper-timely trend integration, performance is projected to achieve solid steady organic reach rather than breakout exponential virality.",
+    "timestamp": "2026-08-22T12:52:38.711120Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, vibrant 3D minimalist illustration of an organized Indian workstation desk. On the desk sits an iPhone displaying a green growth investment graph, a traditional Indian cutting chai glass, a stylish leather wallet, and soft glowing pastel Rupee symbol coins floating neatly. Clean aesthetic, soft daylight studio lighting, warm tones with teal and amber accents, Behance trending 3D render.",
+    "file_path": "images/2026/08/22/image_prompt_125238.txt",
+    "metadata": {
+      "created_at": "2026-08-22T12:52:38Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "edf38478",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Free AI Workflow for College Placements & Job Inte"
+    }
+  },
+  "package_path": "posts/publish_package_edf38478.json",
+  "timing": {
+    "research_ms": 44750,
+    "planner_ms": 36203,
+    "creator_ms": 8006,
+    "reviewer_ms": 4705,
+    "predictor_ms": 15934,
+    "image_ms": 1,
+    "publish_ms": 1156,
+    "total_ms": 110755
+  }
+}
