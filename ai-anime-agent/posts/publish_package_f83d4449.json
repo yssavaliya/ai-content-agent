@@ -1,0 +1,147 @@
+{
+  "run_id": "f83d4449",
+  "research": {
+    "recommended_topic": "5 Short 12-Episode Anime to Binge Watch This Monsoon Weekend",
+    "audience_problem": "Indian anime fans and beginners often struggle to find short, high-impact anime series they can finish in a single weekend without committing to hundreds of episodes.",
+    "why_now": "August is peak monsoon season across India with college semesters underway and rainy weekends keeping youth indoors; 12-episode binge lists consistently drive high saves and shares on Indian Instagram during weekend scrolls.",
+    "hook": "Barish ho rahi hai aur boring lag raha hai? Here are 5 short anime that you can finish in just one weekend.",
+    "supporting_points": [
+      "Erased (Boku dake ga Inai Machi) - 12 episodes of edge-of-the-seat time travel murder mystery, perfect for rainy night thrills.",
+      "Barakamon - 12 episodes of wholesome comedy and self-discovery in a seaside village, instant mood lifter during gloomy monsoon days.",
+      "The Promised Neverland (Season 1) - 12 episodes of high-stakes psychological mind games.",
+      "Death Parade - 12 episodes exploring deep human nature and morals over intense pub games.",
+      "Where to stream in India: highlight official streaming availability (Crunchyroll India, Netflix) for low-friction viewing."
+    ],
+    "trend_signals": [
+      "Peak monsoon season in India (August rain and indoor binge-watching habits)",
+      "Rising engagement on Indian Instagram carousels featuring 'short bingeable' entertainment watchlists",
+      "August weekend lunch & late-night leisure scrolling windows (12-2 PM & 10-11 PM IST)"
+    ],
+    "candidate_topics": [
+      "Makoto Shinkai movies ranked for rainy day vibes (Garden of Words, Weathering with You)",
+      "Top 4 emotional anime sibling duos to watch ahead of festive season",
+      "Beginner's guide to legal anime streaming in India (Crunchyroll vs Netflix India comparison)"
+    ],
+    "confidence": 0.94,
+    "reasoning": "Today's UTC date is 2026-08-23 (odd date), which strictly requires Anime content per the strategy. The monsoon indoor binge angle tailored to 12-episode completions directly solves the overwhelming-episode barrier for Indian students and young professionals while maximizing Instagram save/share metrics.",
+    "timestamp": "2026-08-23T06:00:00Z",
+    "research_id": 16
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Carousel Post: '3 Tax-Saving Hacks Your Relatives Swear By (That Are Actually Costing You Lakhs)' - A relatable Hinglish breakdown comparing traditional LIC/FD lock-ins against modern diversified investing like ELSS and index funds for young salaried professionals in Indian metros.",
+        "educational_score": 0.92,
+        "originality_score": 0.84,
+        "engagement_score": 0.89,
+        "relevance_score": 0.95,
+        "reasoning": "Directly tackles the seasonal tax-filing anxiety among young Indian corporate workers. Uses the culturally relatable trope of well-meaning family advice while providing concrete, actionable financial education."
+      },
+      {
+        "idea": "Reel Skit: 'Splitting the Goa Trip Bill vs Splitting Your Monthly Salary' - A high-energy POV reel contrasting the intense scrutiny given to a \u20b9500 cafe split on UPI with the casual leak of \u20b915,000 on impulsive quick-commerce/late-night food deliveries, ending with a 3-step budget fix.",
+        "educational_score": 0.78,
+        "originality_score": 0.88,
+        "engagement_score": 0.94,
+        "relevance_score": 0.87,
+        "reasoning": "Rides viral Indian relatable comedy formats around friend group dynamics and quick-commerce spending habits, driving high saves and shares among Gen Z and millennial audiences."
+      },
+      {
+        "idea": "Infographic Carousel: 'The 50-30-20 Rule: Indian Metro Edition' - Adapting standard global personal finance budgeting to realistic tier-1 Indian living realities (high rent in Bengaluru/Mumbai, family commitments, festive emergency funds, and SIP automation).",
+        "educational_score": 0.95,
+        "originality_score": 0.8,
+        "engagement_score": 0.86,
+        "relevance_score": 0.93,
+        "reasoning": "Solves a common frustration where Western budgeting frameworks fail to fit Indian joint-family dynamics and high metropolitan living costs, generating massive bookmark/save intent."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Carousel Post: '3 Tax-Saving Hacks Your Relatives Swear By (That Are Actually Costing You Lakhs)' - A relatable Hinglish breakdown comparing traditional LIC/FD lock-ins against modern diversified investing like ELSS and index funds for young salaried professionals in Indian metros.",
+      "educational_score": 0.92,
+      "originality_score": 0.84,
+      "engagement_score": 0.89,
+      "relevance_score": 0.95,
+      "total_score": 3.6,
+      "reasoning": "Combines maximum practical value with high cultural resonance and organic shareability across Indian professional peer groups, striking the ideal balance between authority building and audience engagement."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary aayi nahi ki gayab?' 3 simple money rules jo college mein nahi sikhaye.",
+      "Slide 2: Rule 1 - The 50-30-20 Desi Edition (50% Zarurat, 30% Mauj-masti, 20% Future Proofing).",
+      "Slide 3: Rule 2 - The '3-Day Wait' Rule for impulse buys on quick-commerce and late-night shopping apps.",
+      "Slide 4: Rule 3 - Emergency Fund first, fancy investments later (Keep minimum 3 months' expenses in a high-yield liquid bucket).",
+      "Slide 5 (Summary): Quick checklist to audit your monthly subscriptions & sneaky auto-debits.",
+      "Slide 6 (Action): Save this post for the 1st of next month and share it with your 'hamesha broke' dost."
+    ],
+    "caption": "Salary aayi nahi ki gayab ho gayi? \ud83d\udcb8\n\nWe\u2019ve all been there\u2014month-end struggles starting from the 10th itself.\n\nAdulting is hard, but your finances don't have to be.\n\nSwipe through for 3 zero-jargon, practical money rules that actually work in real life.\n\nSmall tweaks today = peace of mind tomorrow. \ud83d\udcc8\u2728",
+    "cta": "Save this post for salary day and tag a friend who needs a mid-month budget reset!",
+    "hashtags": [
+      "#PersonalFinanceIndia",
+      "#Adulting101",
+      "#MoneyHacks",
+      "#DesiMillennial",
+      "#BudgetingTips",
+      "#FinanceKaFunda",
+      "#ReelsIndia",
+      "#InstaIndia"
+    ],
+    "image_prompt": "A modern, minimalist Instagram carousel cover graphic featuring an aesthetically styled Indian work desk with a steaming glass cup of cutting chai, a smartphone displaying a budget tracker app with green positive growth charts, a sleek laptop, and a stylish notebook. Soft warm ambient morning lighting, clean typography overlay space at the top, vibrant yet warm contemporary color palette with shades of saffron, teal, and beige. High-resolution editorial lifestyle photography style.",
+    "alt_text": "A modern desk setup with a cup of tea, a smartphone displaying finance graphs, and a notebook, designed as an educational cover for budgeting tips."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output provided for review.",
+      "Brand identity, constitution, and market context parameters are empty."
+    ],
+    "timestamp": "2026-08-23T12:53:49.484869Z"
+  },
+  "prediction": {
+    "virality_score": 74,
+    "virality_label": "HIGH",
+    "virality_probability": 0.74,
+    "key_factors": [
+      "High emotional resonance and relatability for the target Indian metro audience",
+      "Strong initial visual and textual hook engineered to stop scrolling within 2 seconds",
+      "High save-and-share utility driven by actionable insights and cultural nuance",
+      "Optimized format pacing suitable for Instagram Reels and Carousel distribution"
+    ],
+    "risks": [
+      "High topic competition in the current niche requiring sharp execution differentiation",
+      "Algorithm drop-off if the mid-post pacing lags before the primary call-to-action",
+      "Potential audience fatigue if similar trend formats have been oversaturated this week"
+    ],
+    "reasoning": "The drafted post exhibits strong alignment with Indian Instagram engagement patterns, combining cultural relevance, a sharp hook, and clear shareable triggers. Provided the visual pacing holds watch time above benchmark levels, the post possesses strong potential to trigger algorithm distribution via high share and save velocity.",
+    "timestamp": "2026-08-23T12:54:23.352500Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, minimalist Instagram carousel cover graphic featuring an aesthetically styled Indian work desk with a steaming glass cup of cutting chai, a smartphone displaying a budget tracker app with green positive growth charts, a sleek laptop, and a stylish notebook. Soft warm ambient morning lighting, clean typography overlay space at the top, vibrant yet warm contemporary color palette with shades of saffron, teal, and beige. High-resolution editorial lifestyle photography style.",
+    "file_path": "images/2026/08/23/image_prompt_125423.txt",
+    "metadata": {
+      "created_at": "2026-08-23T12:54:23Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "f83d4449",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: 5 Short 12-Episode Anime to Binge Watch This Monso"
+    }
+  },
+  "package_path": "posts/publish_package_f83d4449.json",
+  "timing": {
+    "research_ms": 42190,
+    "planner_ms": 49264,
+    "creator_ms": 11520,
+    "reviewer_ms": 5345,
+    "predictor_ms": 33863,
+    "image_ms": 1,
+    "publish_ms": 3451,
+    "total_ms": 145634
+  }
+}

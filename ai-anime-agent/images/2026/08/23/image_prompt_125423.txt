@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, minimalist Instagram carousel cover graphic featuring an aesthetically styled Indian work desk with a steaming glass cup of cutting chai, a smartphone displaying a budget tracker app with green positive growth charts, a sleek laptop, and a stylish notebook. Soft warm ambient morning lighting, clean typography overlay space at the top, vibrant yet warm contemporary color palette with shades of saffron, teal, and beige. High-resolution editorial lifestyle photography style.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-08-23T12:54:23Z
