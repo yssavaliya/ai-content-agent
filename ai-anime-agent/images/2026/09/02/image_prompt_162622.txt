@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic lifestyle photograph of a 26-year-old urban Indian professional sitting inside a chic Indiranagar cafe in Bengaluru. Warm natural daylight streaming through a large glass window, soft indoor plants in the background. She is looking at her smartphone with a subtle, confident smile, holding a ceramic coffee cup. Modern minimalist aesthetics, clean desk with an open matte-finish notebook and sleek laptop nearby, cinematic depth of field, authentic candid feel, shot on 35mm lens, photorealistic 8k.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-02T16:26:22Z
