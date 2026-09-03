@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic top-down flat lay photograph of an urban Indian young professional's workspace. A warm cutting chai in an authentic grooved tapri glass sits beside a sleek matte black smartphone displaying a minimalist finance app screen. Next to it lies a textured kraft paper notebook with handwritten notes in blue ink, a minimalist brass ballpoint pen, and a laptop corner. Warm morning sunlight filters through a window creating soft geometric shadows. Editorial lifestyle photography, muted tones, authentic Indian urban aesthetic, clean composition, 35mm lens effect.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-03T10:37:26Z
