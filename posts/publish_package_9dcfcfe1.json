@@ -1,0 +1,146 @@
+{
+  "run_id": "9dcfcfe1",
+  "research": {
+    "recommended_topic": "The 'Hidden IPL Tax': How Match-Night Quick-Commerce Spends Are Silently Derailing 20-Somethings' Monthly Savings",
+    "audience_problem": "Young salaried professionals underestimate the cumulative impact of friction-free micro-transactions (late-night snacks, match-night quick-commerce delivery fees, fantasy league buy-ins) that surge during evening match streams.",
+    "why_now": "IPL is at peak viewership and intensity; Blinkit, Zepto, and Swiggy Instamart report massive order surges between 7:30 PM and 11 PM daily, right as middle-of-the-month salary checks begin to tighten.",
+    "hook": "Did you actually spend \u20b96,800 just watching your team lose in the last over this week?",
+    "supporting_points": [
+      "Breakdown of match-night friction: average \u20b9450-\u20b9700 per evening order on chips, sodas, and convenience fees adds up to over \u20b915,000 across a 2-month IPL calendar.",
+      "The 'One-Click Dopamine Trap': How quick-commerce UX gamifies delivery tracking and discounts during boundary timeouts to trigger impulse buys.",
+      "A practical 3-step rule: Setting a dedicated UPI-linked wallet limit exclusively for match nights, redirecting impulse spends into a high-yield recurring deposit or index SIP."
+    ],
+    "trend_signals": [
+      "IPL prime-time viewership peak driving surge pricing on food and grocery delivery apps between 7 PM and 11 PM",
+      "Viral 'Credit Card Statement Breakdown' and 'Blinkit Cart Reveal' formats generating high retention on Indian financial and lifestyle Reels",
+      "Rising consumer discourse on Tier-1/2 burnout over subscription, delivery, and micro-platform fatigue"
+    ],
+    "candidate_topics": [
+      "New Tax Regime vs Old Tax Regime: Real salary slip breakdown post-appraisal season",
+      "Akshaya Tritiya & Sovereign Gold Bonds: Why Gen Z is ditching physical jewellery for paper gold",
+      "The Heatwave Work-From-Home Surge: How your summer electricity and cold-brew bills quietly doubled"
+    ],
+    "confidence": 0.92,
+    "reasoning": "IPL season provides an unavoidable cultural shared moment across urban Indian demographics. Combining relatable match-day behavior with high-utility personal finance hacks delivers immediate emotional resonance, high shareability to peer WhatsApp groups, and strong save rates.",
+    "timestamp": "2024-05-18T08:30:00Z",
+    "research_id": 23
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel: 'Salary aate hi gayab?' \u2014 An Indianised 50-30-20 budget breakdown featuring typical desi expenses like shaadi envelopes (shagun), festival shopping, and festive EMI traps.",
+        "educational_score": 0.88,
+        "originality_score": 0.81,
+        "engagement_score": 0.91,
+        "relevance_score": 0.93,
+        "reasoning": "Taps into the universal month-beginning salary excitement vs. immediate depletion reality, offering practical budgeting adapted to Indian cultural obligations."
+      },
+      {
+        "idea": "Carousel: 'Credit Card ka Minimum Due Trap' \u2014 Visual breakdown in Hinglish explaining how paying just the minimum balance triggers 40%+ APR and tanks CIBIL scores, plus a 3-step repayment blueprint.",
+        "educational_score": 0.95,
+        "originality_score": 0.79,
+        "engagement_score": 0.86,
+        "relevance_score": 0.92,
+        "reasoning": "Delivers high save-and-share utility for first-time credit card users navigating festive sales and lifestyle inflation."
+      },
+      {
+        "idea": "Reel: 'Cricket Strategy vs. Portfolio Strategy' \u2014 Why index fund SIPs are like Rahul Dravid while speculative meme stocks are risky pinch-hitters during high-volatility market phases.",
+        "educational_score": 0.9,
+        "originality_score": 0.92,
+        "engagement_score": 0.95,
+        "relevance_score": 0.96,
+        "reasoning": "Leverages peak Indian cricket obsession to simplify asset allocation, creating a natural viral hook with high retention and relatable humor."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel: 'Cricket Strategy vs. Portfolio Strategy' \u2014 Why index fund SIPs are like Rahul Dravid while speculative meme stocks are risky pinch-hitters during high-volatility market phases.",
+      "educational_score": 0.9,
+      "originality_score": 0.92,
+      "engagement_score": 0.95,
+      "relevance_score": 0.96,
+      "total_score": 3.73,
+      "reasoning": "Achieves the highest overall score by combining strong educational substance with a culturally iconic cricket metaphor, maximizing reach, retention, and brand resonance among young Indian retail investors."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: Hook - 'Salary aate hi Treat Yourself mode ON? \ud83d\udcb8 Here's how to stop going broke by the 10th.' Minimalist bold typography with high-contrast split layout.",
+      "Slide 2: Rule 1 - The 24-Hour Cooling Period. Before buying anything over \u20b91,500 that isn't groceries or rent, wait a full day. 70% of impulse desires vanish overnight.",
+      "Slide 3: Rule 2 - The Invisible Tax. Set up auto-debits for your SIPs and emergency fund for the 2nd of every month. Jo paisa account mein dikhega hi nahi, woh kharch nahi hoga.",
+      "Slide 4: Rule 3 - The 'Chai-Sutta-Snack' Audit. \u20b940 UPI payments feel invisible, but 4 micro-transactions a day = \u20b94,800 a month. Track your micro-spends for 7 days.",
+      "Slide 5: Rule 4 - Guilt-Free Pocket Money. Allocate a fixed 15% directly into a separate zero-balance account or wallet. Spend it on whatever you want, zero guilt attached.",
+      "Slide 6: Action Checklist - 1. Set auto-SIPs today | 2. Move fun budget to wallet | 3. Keep 1 UPI app only for daily essentials. Save this for next payday!"
+    ],
+    "caption": "Salary account mein credit notification aate hi dimag bolta hai: 'Zindagi ek baar milti hai.'\n\nCut to the 12th of the month: Swiggy order karne se pehle bank balance check karna padta hai.\n\nAdulting in India means balancing FOMO with mutual funds, weekend cafe plans with long-term security.\n\nPaisa save karne ke chakkar mein jeena mat chhodo\u2014just set up these 4 guardrails and let the systems do the heavy lifting.\n\nSwipe left to save your bank balance this month. \ud83d\udc46",
+    "cta": "Save this post for payday and share it on your story to save a friend's wallet this month!",
+    "hashtags": [
+      "#reelsindia",
+      "#personalfinanceindia",
+      "#moneytipsindia",
+      "#adulting101",
+      "#savingmoney",
+      "#sipinvestment",
+      "#bangalorelife",
+      "#delhidaily",
+      "#fintechindia",
+      "#paisa"
+    ],
+    "image_prompt": "A modern, aesthetic flat lay photograph featuring a sleek smartphone showing a minimalist budget dashboard on screen, placed on an Indian warm teakwood desk. Next to it is a stainless steel tumbler of filter coffee, a brass pen, and a pocket-sized Moleskine notebook open with neat handwriting. Soft morning sunlight streaming through a window, subtle shadows, clean editorial lifestyle photography, 8k resolution.",
+    "alt_text": "A flat lay photograph of a smartphone displaying a finance app next to a cup of filter coffee and an open notebook on a wooden table."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output was provided for review.",
+      "Brand identity, constitution, and market context documents are missing."
+    ],
+    "timestamp": "2026-09-06T10:07:38.294039Z"
+  },
+  "prediction": {
+    "virality_score": 45,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.45,
+    "key_factors": [
+      "Baseline relatable theme for Indian demographic",
+      "Adaptable format for standard carousel or short reel pacing",
+      "Broad appeal across metro and tier-2 audience segments"
+    ],
+    "risks": [
+      "Lack of immediate high-impact scroll-stopping visual hook",
+      "Topic saturation across Indian content creator landscape",
+      "Absence of timely tie-in to current trending audio or live cultural events"
+    ],
+    "reasoning": "The content demonstrates standard organic appeal and structural fit for Indian social media consumption patterns. However, without a distinct counter-intuitive hook, hyper-local Hinglish nuance, or strong share-triggering utility, the post is expected to perform solidly among existing followers while having a modest likelihood of breakthrough virality.",
+    "timestamp": "2026-09-06T10:08:17.143358Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, aesthetic flat lay photograph featuring a sleek smartphone showing a minimalist budget dashboard on screen, placed on an Indian warm teakwood desk. Next to it is a stainless steel tumbler of filter coffee, a brass pen, and a pocket-sized Moleskine notebook open with neat handwriting. Soft morning sunlight streaming through a window, subtle shadows, clean editorial lifestyle photography, 8k resolution.",
+    "file_path": "images/2026/09/06/image_prompt_100817.txt",
+    "metadata": {
+      "created_at": "2026-09-06T10:08:17Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "9dcfcfe1",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: The 'Hidden IPL Tax': How Match-Night Quick-Commer"
+    }
+  },
+  "package_path": "posts/publish_package_9dcfcfe1.json",
+  "timing": {
+    "research_ms": 25486,
+    "planner_ms": 6029,
+    "creator_ms": 105385,
+    "reviewer_ms": 15990,
+    "predictor_ms": 38847,
+    "image_ms": 1,
+    "publish_ms": 1855,
+    "total_ms": 193593
+  }
+}

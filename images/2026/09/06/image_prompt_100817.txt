@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic flat lay photograph featuring a sleek smartphone showing a minimalist budget dashboard on screen, placed on an Indian warm teakwood desk. Next to it is a stainless steel tumbler of filter coffee, a brass pen, and a pocket-sized Moleskine notebook open with neat handwriting. Soft morning sunlight streaming through a window, subtle shadows, clean editorial lifestyle photography, 8k resolution.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-06T10:08:17Z
