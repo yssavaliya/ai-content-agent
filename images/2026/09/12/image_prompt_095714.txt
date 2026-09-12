@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, stylish Instagram carousel cover visual featuring a vibrant split-composition: on one side, a young Indian professional in smart casuals at a cozy urban cafe in Bengaluru sipping coffee and looking thoughtfully at a smartphone; on the other side, subtle minimalist 3D financial icons like coins and growth arrows floating against a warm pastel terracotta and ivory background. Clean aesthetic, soft studio lighting, ultra-high detail, perfectly framed for 4:5 vertical format with open negative space on top for headline text.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-12T09:57:14Z

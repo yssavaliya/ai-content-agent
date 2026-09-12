@@ -1,0 +1,146 @@
+{
+  "run_id": "f911421f",
+  "research": {
+    "recommended_topic": "The March 31 Tax & Wealth Checklist: 4 Costly Mistakes to Avoid Before FY Closes",
+    "audience_problem": "Salaried Indian Gen Z and millennials face panic-induced March tax deadlines, often locking liquidity into predatory insurance plans or missing easy tax-loss harvesting and credit point expiries.",
+    "why_now": "The March 31 Indian fiscal year-end creates peak urgency; HR portals are closing final investment proof submissions, fourth-quarter advance tax deadlines are live, and unredeemed rewards/deductions expire permanently.",
+    "hook": "Stop buying random ULIPs just to save tax before March 31. Do these 4 clean financial moves instead.",
+    "supporting_points": [
+      "Verify New vs. Old Tax Regime math: If choosing the default New Regime, rushing into last-minute 80C locking is completely unnecessary.",
+      "Execute Tax-Loss Harvesting: Offset short-term capital gains against unrealized losses in your equity portfolio before March 31.",
+      "Maximize Section 80D for parents' health insurance premiums via direct digital payments rather than bundled investment plans.",
+      "Audit expiring credit card reward points and annual spend milestone fee waivers before the billing cycle flips on April 1."
+    ],
+    "trend_signals": [
+      "March 31st financial year-end cutoff driving 180%+ surge in Indian search traffic for 'Tax Saving Investments' and 'Section 80C'",
+      "High algorithmic save-rate on Indian Instagram for carousel-based 'Actionable Financial Checklists' and myth-busting reels on LIC/ULIP agents",
+      "Corporate HR deadlines closing across Indian IT/Fintech corridors for final TDS tax proof submissions"
+    ],
+    "candidate_topics": [
+      "IPL Fantasy Sports & 28% GST: Why your gaming winnings are shrinking this season",
+      "Credit Card Devaluation Wave 2025: Cards you should actually keep vs. discard",
+      "Smart summer travel budgeting: Managing international forex markups and TCS rules"
+    ],
+    "confidence": 0.94,
+    "reasoning": "The topic hits immediate situational relevance with an unmovable calendar deadline (March 31). In the Indian market context, money topics during fiscal close generate peak 'save' and 'share' utility on Instagram, directly solving high-friction financial anxieties for salaried urban audiences.",
+    "timestamp": "2025-03-24T08:30:00Z",
+    "research_id": 26
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel: 'CTC 12 LPA vs In-Hand Salary Ka Sach' - A split-screen skit breaking down why a \u20b91,00,000 monthly CTC turns into \u20b974,000 in hand (EPF, TDS, Gratuity, Standard Deduction) using relatable Indian workplace banter and a 3-step tax saving checklist.",
+        "educational_score": 0.94,
+        "originality_score": 0.82,
+        "engagement_score": 0.93,
+        "relevance_score": 0.96,
+        "reasoning": "Directly tackles the classic shock young Indian professionals face on salary day. High save-and-share appeal among corporate employees, utilizing clear Hinglish terminology and actionable salary-slip breakdown."
+      },
+      {
+        "idea": "Carousel: 'The Shaadi Season Survival Playbook' - How to budget for attending 4 close friends' weddings in 60 days without wiping out your emergency fund. Breaks down sinking funds, rental outfit hacks, and shagun envelope allocations.",
+        "educational_score": 0.88,
+        "originality_score": 0.91,
+        "engagement_score": 0.9,
+        "relevance_score": 0.94,
+        "reasoning": "Taps deeply into Indian cultural pressures and seasonal financial strain. Highly relatable for 24-32 year olds balancing social expectations with long-term savings goals."
+      },
+      {
+        "idea": "Reel & Infographic: 'IPL Mega-Auction Strategy For Your Personal Finances' - Framing salary allocation like an IPL squad: captain/anchor (Emergency Fund + Term Insurance), reliable finishers (Index Mutual Funds), and high-risk impact players (crypto/direct equities).",
+        "educational_score": 0.86,
+        "originality_score": 0.95,
+        "engagement_score": 0.92,
+        "relevance_score": 0.89,
+        "reasoning": "Leverages India's biggest shared cultural passion (cricket/IPL) as an intuitive mental model to simplify asset allocation and portfolio balancing for beginners."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel: 'CTC 12 LPA vs In-Hand Salary Ka Sach' - A split-screen skit breaking down why a \u20b91,00,000 monthly CTC turns into \u20b974,000 in hand (EPF, TDS, Gratuity, Standard Deduction) using relatable Indian workplace banter and a 3-step tax saving checklist.",
+      "educational_score": 0.94,
+      "originality_score": 0.82,
+      "engagement_score": 0.93,
+      "relevance_score": 0.96,
+      "total_score": 3.65,
+      "reasoning": "Has the highest combined score due to broad everyday relevance, high viral sharing potential across corporate circles, and immediate practical utility for young Indian earners navigating tax structures."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary aate hi vanished? \ud83d\udcb8 4 practical money rules your 20s desperately need.'",
+      "Slide 2: 'Rule 1: The 50-30-20 rule with a desi twist (Needs, Wants, aur unexpected wedding shagun budget).'",
+      "Slide 3: 'Rule 2: Emergency fund is not Papa's FD. Keep 3-6 months of essentials liquid and accessible.'",
+      "Slide 4: 'Rule 3: Avoid lifestyle inflation. Har appraisal ke sath naya phone upgrade karna mandatory nahi hai.'",
+      "Slide 5: 'Rule 4: SIP before Goa trip planning. Automate your investments on day 1 of salary.'",
+      "Slide 6 (Outro): 'Month-end stress doesn't have to be your default setting. Start small this month.'"
+    ],
+    "caption": "Salary day: King feeling.\n10 din baad: Checking balance before ordering chai.\n\nRelatable? Most of us were never taught personal finance in school. Result? First week mein weekend splurging, aur month-end pe strict survival mode.\n\nReal wealth creation fancy hacks se nahi, boring consistency se shuru hoti hai.\n\nSwipe through for 4 simple money shifts that can fix your month-end anxiety. \ud83d\udcca\n\nKaunsi habit pehle implement kar rahe ho? Drop a comment below! \ud83d\udc47",
+    "cta": "Save this post for your next payday and share it with your work bestie who needs a budget detox!",
+    "hashtags": [
+      "#PersonalFinanceIndia",
+      "#DesiAdulting",
+      "#MoneyTipsIndia",
+      "#SalaryDiaries",
+      "#BudgetingHacks",
+      "#IndianMillennials",
+      "#SIPInvesting",
+      "#WealthBuildingIndia",
+      "#InstagramIndia",
+      "#reelsindia"
+    ],
+    "image_prompt": "A modern, stylish Instagram carousel cover visual featuring a vibrant split-composition: on one side, a young Indian professional in smart casuals at a cozy urban cafe in Bengaluru sipping coffee and looking thoughtfully at a smartphone; on the other side, subtle minimalist 3D financial icons like coins and growth arrows floating against a warm pastel terracotta and ivory background. Clean aesthetic, soft studio lighting, ultra-high detail, perfectly framed for 4:5 vertical format with open negative space on top for headline text.",
+    "alt_text": "A modern digital illustration of a young Indian professional sitting in a contemporary cafe with a cup of coffee, looking at a smartphone displaying a clean finance interface with subtle floating icons in warm pastel colors."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output was provided to review.",
+      "Brand identity guidelines were not provided.",
+      "Constitution guidelines were not provided.",
+      "Market context was not provided."
+    ],
+    "timestamp": "2026-09-12T09:57:10.334572Z"
+  },
+  "prediction": {
+    "virality_score": 0,
+    "virality_label": "LOW",
+    "virality_probability": 0.0,
+    "key_factors": [
+      "No creator draft provided for evaluation"
+    ],
+    "risks": [
+      "Missing post content, media, hook, and caption data",
+      "Cannot evaluate hook strength, relatability, format fit, or audience emotional triggers without draft input"
+    ],
+    "reasoning": "No content was provided in creator_output or supporting contextual variables to perform an analysis. As a result, virality likelihood cannot be established and defaults to zero.",
+    "timestamp": "2026-09-12T09:57:14.883192Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, stylish Instagram carousel cover visual featuring a vibrant split-composition: on one side, a young Indian professional in smart casuals at a cozy urban cafe in Bengaluru sipping coffee and looking thoughtfully at a smartphone; on the other side, subtle minimalist 3D financial icons like coins and growth arrows floating against a warm pastel terracotta and ivory background. Clean aesthetic, soft studio lighting, ultra-high detail, perfectly framed for 4:5 vertical format with open negative space on top for headline text.",
+    "file_path": "images/2026/09/12/image_prompt_095714.txt",
+    "metadata": {
+      "created_at": "2026-09-12T09:57:14Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "f911421f",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: The March 31 Tax & Wealth Checklist: 4 Costly Mist"
+    }
+  },
+  "package_path": "posts/publish_package_f911421f.json",
+  "timing": {
+    "research_ms": 8602,
+    "planner_ms": 22606,
+    "creator_ms": 77815,
+    "reviewer_ms": 7024,
+    "predictor_ms": 4546,
+    "image_ms": 1,
+    "publish_ms": 2000,
+    "total_ms": 122594
+  }
+}
