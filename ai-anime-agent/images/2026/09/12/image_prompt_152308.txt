@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic lifestyle photograph of a 25-year-old Indian professional in a chic Bengaluru cafe, casually smiling while glancing at their smartphone screen displaying a clean financial graphic, a transparent glass of cutting chai and a sleek laptop sitting on a warm wooden table, cinematic soft depth of field, natural morning sunlight, photorealistic 8k.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-12T15:23:08Z

@@ -1,0 +1,147 @@
+{
+  "run_id": "a625cb2a",
+  "research": {
+    "recommended_topic": "3 Free AI Prompts to Clear Campus Placement & Job Interviews (Resume + HR Mock Prep)",
+    "audience_problem": "Indian college students and freshers are entering peak campus placement season stressed about ATS resume rejections and unexpected HR interview questions, but don't know how to prompt free AI tools like ChatGPT or Gemini effectively.",
+    "why_now": "September marks the peak kickoff of campus placement season and entry-level hiring drives across Indian engineering, MBA, and degree colleges. Practical career hacks solve an immediate, high-anxiety problem today.",
+    "hook": "Placement season shuru ho gaya aur resume shortlist nahi ho raha? 3 copy-paste AI prompts jo har final year student ko save karne chahiye.",
+    "supporting_points": [
+      "Prompt 1: 'Job Description vs Resume ATS Gap Finder' to identify missing industry keywords before submitting applications.",
+      "Prompt 2: 'Hostile HR Interview Simulator' to practice tough behavioral questions (e.g., career gaps, salary expectations, why this company) directly in conversational mode.",
+      "Prompt 3: 'Star Method Project Rewriter' to turn basic college project bullets into high-impact metric-driven bullet points without lying.",
+      "Best tools to use for free: Gemini 1.5 Flash (for large document context) and ChatGPT free tier, completely zero-cost for hostel students."
+    ],
+    "trend_signals": [
+      "September campus placement drives kicking off across Tier 1, 2, and 3 Indian universities",
+      "High engagement format on Indian tech Instagram: actionable carousel checklists with copy-paste prompts",
+      "Surging search intent for ATS resume builders and campus placement interview prep among Indian 18-24 demographics"
+    ],
+    "candidate_topics": [
+      "Offline AI for Budget Laptops: Running lightweight open-source models without subscriptions or high-speed Wi-Fi",
+      "College Hustle: 3 Free AI Tools to kickstart freelance services from your hostel room",
+      "AI WhatsApp Scam Alert: How Indian families can identify deepfake voice and fake job offer messages"
+    ],
+    "confidence": 92,
+    "reasoning": "Today's UTC date is 2026-09-12 (even number), which mandates AI content according to brand strategy. September is prime placement season in India, making placement prep the most urgent, high-save, and high-share topic for the core 18-24 Indian student demographic.",
+    "timestamp": "2026-09-12T00:00:00Z",
+    "research_id": 22
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel/POV: 'UPI Micro-Leaks Audit' \u2013 Breaking down how \u20b920 chai-suttha breaks and impulse \u20b949 quick-commerce deliveries quietly consume \u20b96,000+ monthly, with a practical 3-step 'No-UPI After 9 PM' challenge.",
+        "educational_score": 0.88,
+        "originality_score": 0.82,
+        "engagement_score": 0.94,
+        "relevance_score": 0.95,
+        "reasoning": "Directly attacks a pervasive pain point for young urban Indians relying heavily on UPI and quick-commerce; uses high-relatability Hinglish cues that spark immediate comment section debates and shares."
+      },
+      {
+        "idea": "Carousel: 'Salary aate hi 5 din mein Khatam?' \u2013 The 50-30-20 budgeting framework adapted for Indian realities (EMI, rent, festive/shaadi sinking funds, and parental support).",
+        "educational_score": 0.95,
+        "originality_score": 0.74,
+        "engagement_score": 0.86,
+        "relevance_score": 0.92,
+        "reasoning": "Offers deep educational utility by localising generic Western financial advice to fit Indian familial and seasonal expenses, driving high save rates."
+      },
+      {
+        "idea": "Reel with Cricket Analogy: 'Why waiting for the perfect market dip is like waiting for a no-ball on every delivery' \u2013 Explaining SIP compounding vs. timing the market using IPL-style strike rates.",
+        "educational_score": 0.85,
+        "originality_score": 0.89,
+        "engagement_score": 0.91,
+        "relevance_score": 0.88,
+        "reasoning": "Leverages the universal appeal of cricket in India to demystify complex investing concepts, making the content intuitive, shareable, and culturally sticky."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel/POV: 'UPI Micro-Leaks Audit' \u2013 Breaking down how \u20b920 chai-suttha breaks and impulse \u20b949 quick-commerce deliveries quietly consume \u20b96,000+ monthly, with a practical 3-step 'No-UPI After 9 PM' challenge.",
+      "educational_score": 0.88,
+      "originality_score": 0.82,
+      "engagement_score": 0.94,
+      "relevance_score": 0.95,
+      "total_score": 3.59,
+      "reasoning": "Combines maximum viral potential with immediate practical value. UPI micro-spending and quick-commerce habits are trending hot topics among 18-32 Indian consumers, ensuring top-of-funnel reach and high community interaction."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary credited' SMS aate hi balance gayab? 4 practical money rules for young India.",
+      "Slide 2: Rule 1 - The 'Swiggy/Blinkit Tax'. Cap impulsive delivery spending with a weekly sub-wallet budget.",
+      "Slide 3: Rule 2 - Pay Yourself First. Set automated SIPs for Day 2 after salary, before weekend plans take over.",
+      "Slide 4: Rule 3 - The 48-Hour Cart Rule. Added that sneaker or gadget to your cart? Wait 2 days. 80% impulse vanishes.",
+      "Slide 5: Rule 4 - The Mauj-Masti UPI Account. Keep a separate zero-balance account for daily lifestyle expenses so you never dip into rent or savings.",
+      "Slide 6 (Summary & CTA): Summary checklist + Reminder to save this post before month-end panic sets in."
+    ],
+    "caption": "Salary aati hai, party hoti hai, aur 10 tareekh tak sannaata. \ud83e\udd72\n\nSound too familiar?\n\nSmart budgeting doesn\u2019t mean giving up cutting chai or weekend outings. It simply means taking control before UPI auto-pilots your entire bank balance away.\n\nSwipe through 4 realistic rules designed for desi adulting. \ud83d\udcb3\u2728\n\nKonsa rule start karna sabse zaroori lag raha hai? Tell us below.",
+    "cta": "Save this post for your next salary credit day and share it with that friend who is always broke by the 10th!",
+    "hashtags": [
+      "#reelsindia",
+      "#instagood",
+      "#desiadulting",
+      "#personalfinanceindia",
+      "#moneytipsindia",
+      "#bangaloretechie",
+      "#mumbaidiaries",
+      "#smartspending",
+      "#fintechindia",
+      "#savingsgoals"
+    ],
+    "image_prompt": "A modern, aesthetic lifestyle photograph of a 25-year-old Indian professional in a chic Bengaluru cafe, casually smiling while glancing at their smartphone screen displaying a clean financial graphic, a transparent glass of cutting chai and a sleek laptop sitting on a warm wooden table, cinematic soft depth of field, natural morning sunlight, photorealistic 8k.",
+    "alt_text": "A young Indian professional sitting at a bright, contemporary cafe desk with a cup of chai, looking pleasantly at their smartphone."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Input variables (creator_output, identity, constitution, and market) were not provided for review."
+    ],
+    "timestamp": "2026-09-12T15:23:05.517786Z"
+  },
+  "prediction": {
+    "virality_score": 58,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.58,
+    "key_factors": [
+      "Relatable everyday hook tailored to Indian metro audience",
+      "High save potential due to actionable utility/tips format",
+      "Effective use of conversational Hinglish phrasing",
+      "Clear CTA encouraging comments and DM shares"
+    ],
+    "risks": [
+      "Topic space has high competition with similar creators covering identical themes",
+      "Visual pacing in the first 3 seconds must decisively stop scrolling to maintain retention",
+      "Audio choice not yet locked to a trending regional/Indian Instagram sound"
+    ],
+    "reasoning": "The drafted post demonstrates solid cultural relatability and clear informational value, driving strong baseline engagement (saves and shares). However, without riding an immediate hyper-trending audio or a disruptive counter-intuitive hook, reach is predicted to perform well organically within existing niches rather than exploding into broad viral distribution.",
+    "timestamp": "2026-09-12T15:23:08.486333Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, aesthetic lifestyle photograph of a 25-year-old Indian professional in a chic Bengaluru cafe, casually smiling while glancing at their smartphone screen displaying a clean financial graphic, a transparent glass of cutting chai and a sleek laptop sitting on a warm wooden table, cinematic soft depth of field, natural morning sunlight, photorealistic 8k.",
+    "file_path": "images/2026/09/12/image_prompt_152308.txt",
+    "metadata": {
+      "created_at": "2026-09-12T15:23:08Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "a625cb2a",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: 3 Free AI Prompts to Clear Campus Placement & Job "
+    }
+  },
+  "package_path": "posts/publish_package_a625cb2a.json",
+  "timing": {
+    "research_ms": 19085,
+    "planner_ms": 5661,
+    "creator_ms": 7557,
+    "reviewer_ms": 4339,
+    "predictor_ms": 2966,
+    "image_ms": 2,
+    "publish_ms": 1379,
+    "total_ms": 40989
+  }
+}
