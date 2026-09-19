@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic editorial-style Instagram carousel cover photo. A relatable 26-year-old Indian woman in casual smart clothing sitting at an aesthetic wooden table in a contemporary Bengaluru cafe, looking thoughtfully at her smartphone with a subtle, relatable expression. On the table is a ceramic coffee cup, a sleek minimalist notebook with a pen, and natural indoor plants. Warm natural morning sunlight, clean minimal composition, soft depth of field, 35mm photography, shot on Sony A7IV, rich authentic Indian urban lifestyle aesthetic.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-19T10:09:25Z
