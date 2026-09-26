@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern Indian young adult sitting on a comfortable couch in a stylish urban apartment living room, holding a smartphone showing an online shopping cart, looking directly at the camera with an amused, knowing smile. Soft indoor ambient lighting with festive fairy lights bokeh in the background, a warm cup of chai on the wooden coffee table beside them. Editorial lifestyle photography, natural warm tones, cinematic depth of field, 35mm lens style.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-26T10:41:14Z
