@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, high-contrast editorial graphic for an Instagram carousel cover with warm terracotta and sage green color blocking. Split composition: on the left side, a stylized yellow-and-green Indian auto-rickshaw meter showing ₹20, and on the right side, an aesthetic cold brew takeaway cup with a subtle floating UPI phone screen notification. Bold clean modern typography across the top reading 'The Indian Middle-Class Money Paradox', clean vector styling combined with subtle paper grain texture, photorealistic studio lighting, trending Indian graphic design aesthetic.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-27T11:12:46Z
