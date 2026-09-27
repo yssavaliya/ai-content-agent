@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Editorial style Instagram carousel cover. A relatable young urban Indian professional in their mid-20s sitting at a modern café in Bengaluru, looking playfully shocked at their smartphone screen displaying a UPI notification. In front of them sits an aesthetic iced latte and a half-eaten croissant. Bold typographic overlay in contemporary Devanagari-inspired English fonts with warm saffron, electric blue, and crisp white tones: 'Salary Aate Hi Gayab?'. Clean lighting, 3D hyper-realistic aesthetic, photorealistic texture, 4k.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-27T16:49:57Z
