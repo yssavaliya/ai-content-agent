@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Clean editorial lifestyle photograph of a young urban Indian professional sitting in a contemporary minimalist cafe in Indiranagar, glancing down at a smartphone displaying a clean banking notification screen. Warm cinematic sunlight streaming through large glass windows, aesthetic wooden table, ceramic mug of filter coffee nearby, shallow depth of field, photorealistic, shot on 50mm f/1.4 lens.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-09-28T12:40:26Z

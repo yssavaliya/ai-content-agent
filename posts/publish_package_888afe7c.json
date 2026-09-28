@@ -1,0 +1,146 @@
+{
+  "run_id": "888afe7c",
+  "research": {
+    "recommended_topic": "March 31 Financial Year-End: Avoiding the Last-Minute 80C Panic and Regret",
+    "audience_problem": "Young Indian professionals are facing last-minute HR investment proof deadlines and rushing into lock-in financial products (like low-yield ULIPs or traditional endowment plans) out of fear of tax deductions, without evaluating if the New Tax Regime makes it obsolete.",
+    "why_now": "The March 31 deadline marks the hard close of Financial Year 2024-25. Salaried millennials and Gen Z in corporate hubs (Bengaluru, Mumbai, Delhi-NCR, Hyderabad) are receiving payroll alerts for final deduction reconciliation, making tax planning and liquidity anxiety peak across social feeds this week.",
+    "hook": "Stop buying random insurance policies before March 31 just to save \u20b915,000 in tax.",
+    "supporting_points": [
+      "Most salaried earners under \u20b97.5 LPA\u2013\u20b910 LPA save more effortlessly under the default New Tax Regime without locking money for 3 to 5 years.",
+      "Rushing into ELSS or 5-year FDs without emergency liquidity locks capital right before appraisal season and summer expenditure spikes.",
+      "A 3-step audit to check whether Old vs New Regime actually yields a net benefit before payroll closes for March."
+    ],
+    "trend_signals": [
+      "Financial Year ending on March 31st with heavy surge in search queries for '80C investment options' and 'old vs new tax regime calculator'.",
+      "Spike in carousel saves and share ratios on Indian FinTech creator handles (e.g., breakdown carousels on LinkedIn and Instagram comparing net in-hand salary).",
+      "Corporate payroll deadlines closing between March 20-27 across Indian IT and banking sectors."
+    ],
+    "candidate_topics": [
+      "Appraisal Season 101: How to document high-impact wins before manager ratings lock",
+      "IPL 2025 Fan Economy: The subtle psychology behind micro-transactions and fantasy sports apps",
+      "Summer travel surge: Tier-2 hidden destination alternatives to beat peak season flight prices"
+    ],
+    "confidence": 0.94,
+    "reasoning": "The March 31 tax deadline is an urgent, non-negotiable temporal trigger that drives acute anxiety, high save rates, and rapid shares among working Indian adults. It perfectly balances utility, relatable workplace culture, and actionable decision-making for high-engagement Instagram content.",
+    "timestamp": "2025-03-24T09:30:00Z",
+    "research_id": 40
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel Breakdown: 'The Dark Reality of No-Cost EMI' \u2013 A relatable split-screen skit comparing the excitement of buying an iPhone on 'No-Cost EMI' during festive sales versus the actual credit card statement showing hidden 18% GST on interest and bank processing charges.",
+        "educational_score": 0.94,
+        "originality_score": 0.86,
+        "engagement_score": 0.92,
+        "relevance_score": 0.96,
+        "reasoning": "Directly addresses a massive blind spot for young Indian shoppers during major e-commerce sales. Blends a humorous Hinglish hook with concrete mathematical proof, creating high save-and-share value for young working professionals navigating consumer debt traps."
+      },
+      {
+        "idea": "Interactive Carousel: 'Salary Aate Hi Khali? The Blinkit & Swiggy Budget Audit' \u2013 A step-by-step swipe guide showing how daily micro-convenience orders drain Indian 20-somethings' paychecks, with a practical 3-step automation hack to invest before ordering.",
+        "educational_score": 0.85,
+        "originality_score": 0.8,
+        "engagement_score": 0.9,
+        "relevance_score": 0.93,
+        "reasoning": "Extremely relatable to metro-based Indian Gen-Z and millennials addicted to quick-commerce apps. Leverages the monthly 'salary day' cultural conversation with actionable advice tailored to local lifestyle patterns."
+      },
+      {
+        "idea": "Meme Skit Reel: 'POV: Explaining Index Funds to an Indian Papa who only believes in FD and Sona (Gold)' \u2013 A comedic dinner-table debate using cricket metaphors to explain risk-adjusted returns and inflation without disrespecting traditional Indian financial caution.",
+        "educational_score": 0.88,
+        "originality_score": 0.88,
+        "engagement_score": 0.94,
+        "relevance_score": 0.89,
+        "reasoning": "Taps into a universal Indian household conflict between traditional savings habits and modern retail investing. Cricket analogies make complex equity concepts instantly digestible and highly shareable across family WhatsApp groups."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel Breakdown: 'The Dark Reality of No-Cost EMI' \u2013 A relatable split-screen skit comparing the excitement of buying an iPhone on 'No-Cost EMI' during festive sales versus the actual credit card statement showing hidden 18% GST on interest and bank processing charges.",
+      "educational_score": 0.94,
+      "originality_score": 0.86,
+      "engagement_score": 0.92,
+      "relevance_score": 0.96,
+      "total_score": 3.68,
+      "reasoning": "This idea delivers the strongest balance of acute consumer pain point, timing relevance around festive and sale cycles, and high viral retention. Revealing hidden financial charges creates strong emotional resonance ('fomo' + feeling informed), driving maximum bookmarks and peer sharing across Indian Instagram."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Cover): 'Salary credit hui nahi ki \u20b9432 bache hain?' \ud83e\udd72 5 micro-rules to stop your paycheck from disappearing.",
+      "Slide 2: Rule 1 - The 48-Hour Cart Freeze. Quick dopamine purchases ko cart me chhod do. 70% time, you won't even want it after two days.",
+      "Slide 3: Rule 2 - Two-Account Separation. Ek account rent, bills aur EMIs ke liye. Doosra daily chai-coffee aur UPI kharche ke liye. Never mix both.",
+      "Slide 4: Rule 3 - The 'Chai-Sutta' Auto-Divert. Har subah \u20b9100 auto-debit set karo into a liquid fund. Small daily cuts hurt less than big monthly targets.",
+      "Slide 5: Rule 4 - One Alternate No-Swiggy Weekend. Monthly food delivery bill cuts down by 40% with just 2 cooked weekend meals.",
+      "Slide 6: Rule 5 - The 24-Hour Regret Audit. Check your UPI history once a week. Identify that one transaction jo bina soche kiya tha and drop that trigger.",
+      "Slide 7 (Outro): Small shifts > aggressive budgeting. Save this before your next salary notification hits."
+    ],
+    "caption": "Salary aayi: 'Main toh ameer hoon.' \ud83d\udcb8\nWeek 2: 'Bhai Splitwise settle kar de please.'\n\nRelatable? You\u2019re not alone.\n\nSavings salary badhne se nahi, systems build karne se hoti hai.\n\nSwipe through for 5 realistic micro-habits jo pocket pe heavy nahi padte.\n\nKaunsi habit aap iss month se start kar rahe ho? Drop a comment below! \ud83d\udc47",
+    "cta": "Save this carousel for the next 1st of the month and share it with that one friend who needs this reminder!",
+    "hashtags": [
+      "#reelsindia",
+      "#instagood",
+      "#moneyhabits",
+      "#desiadulting",
+      "#personalfinanceindia",
+      "#smartspending",
+      "#mumbaidiaries",
+      "#bangalorelife",
+      "#budgetingtips"
+    ],
+    "image_prompt": "Clean editorial lifestyle photograph of a young urban Indian professional sitting in a contemporary minimalist cafe in Indiranagar, glancing down at a smartphone displaying a clean banking notification screen. Warm cinematic sunlight streaming through large glass windows, aesthetic wooden table, ceramic mug of filter coffee nearby, shallow depth of field, photorealistic, shot on 50mm f/1.4 lens.",
+    "alt_text": "A young Indian professional sitting in a sunlit modern cafe looking thoughtfully at their smartphone screen next to a cup of coffee."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output is missing and could not be evaluated.",
+      "Brand identity, constitution, and market context documents were not provided."
+    ],
+    "timestamp": "2026-09-28T12:40:19.033207Z"
+  },
+  "prediction": {
+    "virality_score": 45,
+    "virality_label": "MEDIUM",
+    "virality_probability": 0.45,
+    "key_factors": [
+      "Baseline engagement appeal across Indian demographic segments",
+      "Moderate format alignment for Instagram Reels and carousel consumption",
+      "Use of culturally relatable themes and accessible tone"
+    ],
+    "risks": [
+      "Absence of specific high-retention hook in the opening 2 seconds",
+      "High niche saturation requiring stronger differentiation to trigger algorithm boost",
+      "Underutilized share/save triggers needed for non-follower distribution"
+    ],
+    "reasoning": "Without specific input variables provided, the draft is evaluated at a baseline standard. To achieve high virality (70+), the content requires an aggressive visual or textual pattern interrupt in the opening frame, sharper emotional resonance (humor, shock, or high-utility value), and a frictionless share trigger tailored to Indian pop-culture or daily relatability.",
+    "timestamp": "2026-09-28T12:40:26.768616Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "Clean editorial lifestyle photograph of a young urban Indian professional sitting in a contemporary minimalist cafe in Indiranagar, glancing down at a smartphone displaying a clean banking notification screen. Warm cinematic sunlight streaming through large glass windows, aesthetic wooden table, ceramic mug of filter coffee nearby, shallow depth of field, photorealistic, shot on 50mm f/1.4 lens.",
+    "file_path": "images/2026/09/28/image_prompt_124026.txt",
+    "metadata": {
+      "created_at": "2026-09-28T12:40:26Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "888afe7c",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: March 31 Financial Year-End: Avoiding the Last-Min"
+    }
+  },
+  "package_path": "posts/publish_package_888afe7c.json",
+  "timing": {
+    "research_ms": 8297,
+    "planner_ms": 40629,
+    "creator_ms": 16480,
+    "reviewer_ms": 66077,
+    "predictor_ms": 7734,
+    "image_ms": 1,
+    "publish_ms": 1726,
+    "total_ms": 140944
+  }
+}
