@@ -1,0 +1,148 @@
+{
+  "run_id": "0c12963a",
+  "research": {
+    "recommended_topic": "Year-End Financial Checklist: 5 Money Moves Indians Must Make Before March 31",
+    "audience_problem": "Young Indian professionals are overwhelmed by last-minute tax compliance, unutilized 80C limits, looming capital gains harvesting deadlines, and opaque investment rules under the New vs. Old Tax Regime.",
+    "why_now": "March marks the closing of the Indian financial year (FY 2023-24 / FY 2024-25). Search queries and social conversations around tax saving, PPF minimum deposits, and advance tax hit their annual peak during this 2-week window.",
+    "hook": "If you don't do these 5 things before March 31st, you will literally lose hard-earned money to penalty and taxes\u2014and point #3 takes less than 60 seconds.",
+    "supporting_points": [
+      "Deposit minimum Rs 500 in active PPF, Sukanya Samriddhi, or NPS accounts to prevent them from becoming inactive and incurring revival penalties.",
+      "Harvest up to Rs 1 Lakh in Long-Term Capital Gains (LTCG) tax-free on equity mutual funds/stocks before the financial year ends.",
+      "Submit rent receipts, home loan certificates, and health insurance proof to HR before the internal payroll freeze to prevent excessive March TDS cuts.",
+      "Pay the 4th installment of Advance Tax by March 15 to avoid penal interest under Sections 234B and 234C.",
+      "Verify Form 26AS and AIS (Annual Information Statement) on the e-filing portal to spot mismatched TDS or high-value transactions early."
+    ],
+    "trend_signals": [
+      "Financial Year-End deadline on March 31 creating high organic search velocity on Google and Instagram Explore.",
+      "Viral performance of carousel checklists and high-retention 'Save this for later' fast-paced talking head Reels on Indian FinTech/Creator feeds.",
+      "Corporate salary slip discussions and sudden TDS deductions triggering frustration across LinkedIn, Reddit (r/IndiaInvestments), and Instagram."
+    ],
+    "candidate_topics": [
+      "IPL Kick-off: How Brand Sponsorships and Fantasy Gaming Apps Hook Gen-Z Consumers",
+      "Summer Skin & Hydration Budgeting: High-Street vs. Pharmacy Sunscreens in India",
+      "Gold Price All-Time Highs: Should You Buy SGBs or Wait for the Akshaya Tritiya Dip?"
+    ],
+    "confidence": 0.95,
+    "reasoning": "The topic directly capitalizes on a hard regulatory calendar deadline affecting every salaried and self-employed Indian. High shareability and save-rate metrics are guaranteed because the actionable steps carry immediate financial utility with high urgency.",
+    "timestamp": "2025-03-24T00:00:00Z",
+    "research_id": 44
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel: 'Bhaiya QR code kidhar hai?' \u2014 The Silent UPI Leak Breakdown. A relatable POV sketch opening with scanning a QR code for chai and snacks, cutting to a month-end bank statement revealing how \u20b930\u2013\u20b950 daily micro-transactions silently drain \u20b93,500+ every month. Ends with a practical 3-step 'UPI wallet allocation' rule to curb impulse spending without sacrificing social life.",
+        "educational_score": 0.88,
+        "originality_score": 0.84,
+        "engagement_score": 0.95,
+        "relevance_score": 0.96,
+        "reasoning": "Directly tackles ubiquitous Indian millennial/Gen-Z financial pain points using hyper-relatable Hinglish everyday vernacular ('Bhaiya QR code'). Highly saveable and shareable in group chats."
+      },
+      {
+        "idea": "Carousel: 'Shaadi Season Survival Guide: How to Attend 5 Weddings Without Burning Your Savings.' A visually rich 6-slide breakdown showing outfit renting vs. buying maths, shagun/gifting credit-card reward hacks, and splitting group travel without BNPL debt.",
+        "educational_score": 0.92,
+        "originality_score": 0.82,
+        "engagement_score": 0.88,
+        "relevance_score": 0.91,
+        "reasoning": "Taps into seasonal Indian calendar pressure where peer pressure leads to high discretionary spends. Provides tangible, screenshot-worthy financial advice."
+      },
+      {
+        "idea": "Split-Screen Reel: 'Match Day Screening Bill Shock.' One side shows the emotional excitement of ordering food delivery and drinks during a nail-biting cricket chase, while the other side calculates hidden platform fees, surge pricing, and split-bill oversights in real-time, finishing with 2 smart money-saving swaps.",
+        "educational_score": 0.81,
+        "originality_score": 0.87,
+        "engagement_score": 0.91,
+        "relevance_score": 0.89,
+        "reasoning": "Leverages India's obsession with cricket culture and weekend social dining while organically demonstrating everyday financial awareness."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel: 'Bhaiya QR code kidhar hai?' \u2014 The Silent UPI Leak Breakdown. A relatable POV sketch opening with scanning a QR code for chai and snacks, cutting to a month-end bank statement revealing how \u20b930\u2013\u20b950 daily micro-transactions silently drain \u20b93,500+ every month. Ends with a practical 3-step 'UPI wallet allocation' rule to curb impulse spending without sacrificing social life.",
+      "educational_score": 0.88,
+      "originality_score": 0.84,
+      "engagement_score": 0.95,
+      "relevance_score": 0.96,
+      "total_score": 3.63,
+      "reasoning": "Combines maximum relatability for Indian Instagram audiences with high retention mechanics (humorous hook + tangible financial breakdown). The blend of everyday cultural nuance and high save-rate utility gives it the strongest viral and brand-building potential."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Bhai, budget nahi hai' bolne mein sharam kaisi? A realistic guide to setting money boundaries with friends without killing the vibe.",
+      "Slide 2: Scenario 1 - The impromptu \u20b92,500 cafe plan. What to text: 'Yaar, is hafte ka dining out budget wrap ho gaya. Let's do chai & roll at our regular spot instead?'",
+      "Slide 3: Scenario 2 - The unplanned Goa trip in peak season. What to text: 'FOMO real hai, but I'm locking funds for my emergency pool right now. Count me in for the next one post-monsoon!'",
+      "Slide 4: Scenario 3 - Uneven bill splitting when you ordered light. What to say: 'Hey, let's split individual items today so no one pays extra. Mera share \u20b9320 hai, scanning the QR now.'",
+      "Slide 5: The Mindset Shift: Real dost your financial discipline will respect, not judge. People pleasing is the most expensive hobby in your 20s.",
+      "Slide 6 (Summary & Action): 3 golden rules: 1. Be direct, no fake excuses. 2. Offer a low-cost alternative. 3. Track your spends. Save this for Friday night group chats."
+    ],
+    "caption": "Normalize saying 'mera budget allow nahi karta' without cooking up elaborate excuses. \ud83d\udcb8\n\nYour 20s are meant for building financial runway, not funding weekend peer pressure.\n\nFOMO lasts one night. Debt lasts months.\n\nSwipe through for ready-to-use scripts for your WhatsApp groups this weekend.",
+    "cta": "Save this post for your weekend plans, and share it with that one friend who needs to see this!",
+    "hashtags": [
+      "#reelsindia",
+      "#adultingindia",
+      "#personalfinancetips",
+      "#desimillennial",
+      "#moneyhabits",
+      "#bangalorelife",
+      "#delhidaily",
+      "#mumbaicreators",
+      "#hinglishcontent",
+      "#financialfreedomindia"
+    ],
+    "image_prompt": "A modern, bold editorial carousel cover for Instagram with an Indian pop-culture flair. Centered typography displaying 'Bhai, Budget Nahi Hai' in bold bilingual font against a warm terracotta and sage green textured backdrop. Subtle flat vector elements include a classic cutting chai glass, a minimalist smartphone with a UPI QR code scanner frame, and soft golden light highlights. Minimalist, clean, and optimized for high-contrast mobile browsing.",
+    "alt_text": "An illustrated Instagram cover graphic with the headline 'Bhai, Budget Nahi Hai' set against a warm terracotta background with subtle Indian elements like a cutting chai glass and a smartphone UPI icon."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output was not provided for review.",
+      "Brand identity, constitution, and market context documents are missing."
+    ],
+    "timestamp": "2026-10-02T11:50:04.129208Z"
+  },
+  "prediction": {
+    "virality_score": 35,
+    "virality_label": "LOW",
+    "virality_probability": 0.2,
+    "key_factors": [
+      "Template lacks substantive draft content for hook and pacing evaluation",
+      "Requires audience-specific cultural nuances and strong Hinglish anchors to drive engagement",
+      "Potential high shareability depends on clear visual framing and immediate value delivery"
+    ],
+    "risks": [
+      "Missing creator copy and research payload prevents validation of scroll-stopping hook",
+      "Absence of timely cultural hooks, regional humor, or trending audio alignment",
+      "Low save and share probability without specific actionable utility or strong emotional trigger"
+    ],
+    "reasoning": "No specific creator draft or market research payload was supplied for analysis. Based on baseline parameters without verified hook strength, relatable Indian cultural context, or trending audio alignment, the post is assessed at low virality potential until concrete creative assets are evaluated.",
+    "timestamp": "2026-10-02T11:50:48.796043Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, bold editorial carousel cover for Instagram with an Indian pop-culture flair. Centered typography displaying 'Bhai, Budget Nahi Hai' in bold bilingual font against a warm terracotta and sage green textured backdrop. Subtle flat vector elements include a classic cutting chai glass, a minimalist smartphone with a UPI QR code scanner frame, and soft golden light highlights. Minimalist, clean, and optimized for high-contrast mobile browsing.",
+    "file_path": "images/2026/10/02/image_prompt_115048.txt",
+    "metadata": {
+      "created_at": "2026-10-02T11:50:48Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "0c12963a",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Year-End Financial Checklist: 5 Money Moves Indian"
+    }
+  },
+  "package_path": "posts/publish_package_0c12963a.json",
+  "timing": {
+    "research_ms": 135391,
+    "planner_ms": 45796,
+    "creator_ms": 118666,
+    "reviewer_ms": 82629,
+    "predictor_ms": 44665,
+    "image_ms": 1,
+    "publish_ms": 3524,
+    "total_ms": 430672
+  }
+}

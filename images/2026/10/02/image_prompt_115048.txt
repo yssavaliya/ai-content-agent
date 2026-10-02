@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, bold editorial carousel cover for Instagram with an Indian pop-culture flair. Centered typography displaying 'Bhai, Budget Nahi Hai' in bold bilingual font against a warm terracotta and sage green textured backdrop. Subtle flat vector elements include a classic cutting chai glass, a minimalist smartphone with a UPI QR code scanner frame, and soft golden light highlights. Minimalist, clean, and optimized for high-contrast mobile browsing.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-02T11:50:48Z
