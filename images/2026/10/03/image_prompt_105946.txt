@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic Instagram carousel cover visual on a soft sage green and cream background. A relatable young Indian professional sitting at a desk with a laptop, looking with a mildly shocked, humorous expression at their smartphone screen glowing with UPI payment alerts. Floating minimalist graphic elements representing small rupee coins sprouting tiny wings and flying away. Clean editorial design, stylish typography space, warm studio lighting, contemporary graphic design style with Indian urban apartment interior details in soft focus.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-03T10:59:46Z
