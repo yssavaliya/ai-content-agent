@@ -1,0 +1,142 @@
+{
+  "run_id": "9c731583",
+  "research": {
+    "recommended_topic": "The 10-Minute Delivery Trap: How Quick-Commerce Lifestyle Inflation is Silently Draining Urban Wallets",
+    "audience_problem": "Urban Indian millennials and Gen Z are facing invisible budget leaks caused by friction-free micro-transactions on quick-commerce apps (Blinkit, Zepto, Instamart) disguised as everyday convenience.",
+    "why_now": "Quick-commerce platforms have expanded beyond groceries into electronics, beauty, and fashion, colliding with mid-month salary crunches and scorching heatwaves/monsoon indoors behavior where convenience ordering peaks.",
+    "hook": "You didn't overspend on rent or travel this month. You overspent in \u20b9149 increments at 11:30 PM.",
+    "supporting_points": [
+      "Break down the 'convenience fee + packaging + surge' tax that adds 20-30% unseen cost to basic essentials.",
+      "Explain the psychological shift from planned weekly bazaar trips to impulse 'need it in 10 mins' dopamine hits.",
+      "Share a concrete 3-step friction rule: delete saved UPI autopay, bundle orders under a minimum \u20b9500 threshold, and implement a mandatory 15-minute cooling-off cart period."
+    ],
+    "trend_signals": [
+      "Surge in 'Blinkit monthly spend breakdown' screenshots trending on X (Twitter) and Reddit India communities.",
+      "High engagement on relatable 'POV: Checking bank statement mid-month' Reels using dry, deadpan delivery.",
+      "Recent Q4 earnings reports highlighting explosive quick-commerce average order frequency across Tier 1 and Tier 2 Indian cities."
+    ],
+    "candidate_topics": [
+      "The Zero-Cost EMI Illusion: Why 'No Cost' Actually Costs Your Credit Health",
+      "Heatwave Burnout vs Hustle Culture: How Young Professionals Are Redefining Productivity",
+      "Gold vs Index Funds: The Generational Wealth Debate Happening at Indian Dinner Tables"
+    ],
+    "confidence": 0.93,
+    "reasoning": "This topic sits at the exact intersection of cultural relatability, financial anxiety, and daily habit disruption. Quick-commerce usage is at an all-time high in India, making this format prime for high saves, shares to friend group chats, and passionate comment-section debates.",
+    "timestamp": "2024-06-01T08:30:00Z",
+    "research_id": 46
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel Skit: 'The Dark Reality of No-Cost EMI During Festive Sales' \u2013 Sharma ji ka beta flaunts a flagship phone bought on '0% interest', but the narrator breaks down the hidden processing fees, GST on interest, and lost upfront cash discounts using quick on-screen graphics and Hinglish dialogue.",
+        "educational_score": 0.92,
+        "originality_score": 0.86,
+        "engagement_score": 0.95,
+        "relevance_score": 0.94,
+        "reasoning": "Directly taps into the high-impulse festive/IPL sale culture in India where young professionals overuse BNPL and credit card EMIs, delivering high shock-value education with relatable humor."
+      },
+      {
+        "idea": "Carousel: 'Why the Western 50-30-20 Budget Rule Fails in India (And the Desi Fix)' \u2013 Contrasts rigid Western budgeting against Indian realities (supporting parents, shaadi season funds, gold accumulation) and introduces the 40-30-20-10 desi allocation model.",
+        "educational_score": 0.94,
+        "originality_score": 0.82,
+        "engagement_score": 0.88,
+        "relevance_score": 0.91,
+        "reasoning": "Strong save-and-share appeal targeting urban Gen Z and millennials struggling to balance independent financial goals with collective family expectations."
+      },
+      {
+        "idea": "POV Video: 'Your Friend Trying to Explain FnO & Crypto at Chai Tapri vs Starting an Index Fund SIP' \u2013 A humorous tea-stall conversation highlighting retail investor FOMO, contrasting dangerous quick-rich schemes with the quiet compounding of low-cost broad index investing.",
+        "educational_score": 0.85,
+        "originality_score": 0.84,
+        "engagement_score": 0.91,
+        "relevance_score": 0.89,
+        "reasoning": "Leverages the hyper-relatable Indian 'tapri' setting to de-stigmatize boring, consistent investing while calling out speculative social traps."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel Skit: 'The Dark Reality of No-Cost EMI During Festive Sales' \u2013 Sharma ji ka beta flaunts a flagship phone bought on '0% interest', but the narrator breaks down the hidden processing fees, GST on interest, and lost upfront cash discounts using quick on-screen graphics and Hinglish dialogue.",
+      "educational_score": 0.92,
+      "originality_score": 0.86,
+      "engagement_score": 0.95,
+      "relevance_score": 0.94,
+      "total_score": 3.67,
+      "reasoning": "Offers the highest viral engagement potential on Indian Instagram by pairing a culturally ingrained trope ('Sharma ji ka beta') with acute consumer pain points around festive discounts, resulting in maximum comment debates, saves, and immediate utility."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary aate hi gayab? \ud83d\udcb8 4 realistic money rules for your 20s (zero gyaan, pure actionable hacks).'",
+      "Slide 2: 'Rule 1: Auto-Debit Before Swiggy. Schedule your SIPs and recurring deposits for Day 2 of salary credit\u2014invest before you even see the money.'",
+      "Slide 3: 'Rule 2: The 48-Hour Cart Rule. That trendy jacket or gadget on sale? Leave it in the cart for 2 days. 70% of the time, the urge fades away.'",
+      "Slide 4: 'Rule 3: UPI Chillar Control. Daily QR scanning drains accounts fast. Load a fixed budget into a secondary wallet/account specifically for daily chai, auto, and quick bites.'",
+      "Slide 5: 'Rule 4: Emergency Fund > FOMO Plans. Keep 3 months of rent and basic bills locked in a liquid fund before booking that spontaneous Goa trip.'",
+      "Slide 6 (Outro/Action): 'Adulting is hard, but your bank account doesn\u2019t have to suffer. Save this guide for your next salary day!'"
+    ],
+    "caption": "Salary credit hui nahi ki 'Low Balance' alert pehle aa jata hai? \ud83e\udd72\n\nWe've all been through the classic cycle: 1st ko King, 25th ko Maggi.\n\nBreaking that loop doesn't require living like a monk. It just needs a few low-effort systems:\n\n\u2022 Pay yourself first via Day-1 automated investments\n\u2022 Put a 48-hour pause on impulse checkouts\n\u2022 Cap daily UPI micro-spending with a separate daily wallet\n\u2022 Build a modest safety cushion before funding lifestyle FOMO\n\nSmall adjustments today, zero month-end anxiety tomorrow. \ud83d\udcc8",
+    "cta": "Which of these 4 rules are you testing this month? Drop your pick in the comments, or share this with your friend whose salary vanishes by the 10th!",
+    "hashtags": [
+      "#reelsindia",
+      "#instagood",
+      "#personalfinanceindia",
+      "#moneytips",
+      "#adultingindia",
+      "#indianmillennials",
+      "#smartspending",
+      "#bangalorelife",
+      "#delhidairies",
+      "#mumbaicorporate"
+    ],
+    "image_prompt": "Editorial lifestyle flat lay photograph on a warm teak wood desk inside a bright contemporary Indian apartment. An iPhone displays a clean, minimalist personal finance dashboard illustration with subtle pastel green accents. Beside the phone sits a traditional cutting chai glass filled with steaming spiced milk tea, a slim tan leather wallet with Indian rupee notes peeking out, and a modern planner notebook with handwritten bullet points. Soft golden morning light streams from an open balcony window with green potted plants in soft-focus bokeh background. Professional commercial photography, shot on 50mm f/1.8, warm tones, high dynamic range.",
+    "alt_text": "Top-down view of a wooden work desk with a smartphone displaying a finance app, beside a cutting chai glass, a leather wallet, and an open notebook under warm morning sunlight."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output was not provided for review.",
+      "Brand identity, constitution, and market context were not supplied."
+    ],
+    "timestamp": "2026-10-04T11:40:37.522097Z"
+  },
+  "prediction": {
+    "virality_score": 0,
+    "virality_label": "LOW",
+    "virality_probability": 0.0,
+    "key_factors": [
+      "No content draft or creator output provided for evaluation"
+    ],
+    "risks": [
+      "Missing creator output, research data, and review context prevent audience engagement analysis"
+    ],
+    "reasoning": "No post draft, creative assets, or research context were provided in the input variables. Without a measurable hook, format pacing, or emotional trigger relevant to the Indian Instagram audience, virality cannot be established.",
+    "timestamp": "2026-10-04T11:40:47.402187Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "Editorial lifestyle flat lay photograph on a warm teak wood desk inside a bright contemporary Indian apartment. An iPhone displays a clean, minimalist personal finance dashboard illustration with subtle pastel green accents. Beside the phone sits a traditional cutting chai glass filled with steaming spiced milk tea, a slim tan leather wallet with Indian rupee notes peeking out, and a modern planner notebook with handwritten bullet points. Soft golden morning light streams from an open balcony window with green potted plants in soft-focus bokeh background. Professional commercial photography, shot on 50mm f/1.8, warm tones, high dynamic range.",
+    "file_path": "images/2026/10/04/image_prompt_114047.txt",
+    "metadata": {
+      "created_at": "2026-10-04T11:40:47Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "9c731583",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: The 10-Minute Delivery Trap: How Quick-Commerce Li"
+    }
+  },
+  "package_path": "posts/publish_package_9c731583.json",
+  "timing": {
+    "research_ms": 7142,
+    "planner_ms": 9567,
+    "creator_ms": 19910,
+    "reviewer_ms": 33959,
+    "predictor_ms": 9878,
+    "image_ms": 1,
+    "publish_ms": 1987,
+    "total_ms": 82444
+  }
+}

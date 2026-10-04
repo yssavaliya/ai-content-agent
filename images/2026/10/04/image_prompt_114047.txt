@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Editorial lifestyle flat lay photograph on a warm teak wood desk inside a bright contemporary Indian apartment. An iPhone displays a clean, minimalist personal finance dashboard illustration with subtle pastel green accents. Beside the phone sits a traditional cutting chai glass filled with steaming spiced milk tea, a slim tan leather wallet with Indian rupee notes peeking out, and a modern planner notebook with handwritten bullet points. Soft golden morning light streams from an open balcony window with green potted plants in soft-focus bokeh background. Professional commercial photography, shot on 50mm f/1.8, warm tones, high dynamic range.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-04T11:40:47Z
