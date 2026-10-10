@@ -1,0 +1,146 @@
+{
+  "run_id": "1b79e2b3",
+  "research": {
+    "recommended_topic": "Free AI Tools to Optimize Your Resume and Crack Campus Placement Interviews",
+    "audience_problem": "Indian college students and freshers face brutal ATS rejection rates during campus placement season and cannot afford paid career coaching or premium AI tools.",
+    "why_now": "October marks the peak of campus recruitment drives and off-campus internship hiring across Indian colleges, making placement prep and resume optimization the most urgent concern for young audiences.",
+    "hook": "Placement drive mein resume shortlist nahi ho raha? Stop sending generic templates \u2014 use these 3 free AI hacks to beat ATS filters.",
+    "supporting_points": [
+      "ATS Keyword Matching: How to prompt DeepSeek or Gemini to analyze job descriptions against your CV and reveal missing keywords in seconds.",
+      "Metric-Driven Bullets: The exact prompt formula to turn ordinary college projects into high-impact, measurable achievement bullet points.",
+      "Free AI Mock Interviewer: Using free voice-enabled AI to practice HR and technical rounds with instant feedback on confidence and articulation.",
+      "Zero Rupees Spent: Step-by-step workflow using 100% free web tiers without needing paid subscriptions or credit cards."
+    ],
+    "trend_signals": [
+      "Peak October campus placement and hiring drive timeline across Indian engineering and commerce colleges",
+      "High-performing 'placement hacks' and 'resume review' save-and-share carousel format on Indian student Instagram",
+      "Rising search volume for free ATS-friendly resume builders and AI interview prep in Tier 2 and Tier 3 student hubs"
+    ],
+    "candidate_topics": [
+      "Free AI tools for festive marketing: Helping local D2C brands and freelancers create Diwali creatives",
+      "Family WhatsApp scam protection: Practical guide to spotting AI voice clones during festive UPI transactions",
+      "Top 5 free AI workflow extensions every Indian freelance coder and designer needs this month"
+    ],
+    "confidence": 0.94,
+    "reasoning": "The run_date is 2026-10-10 (an even date), strictly requiring AI content per the strategy parity rule. In October, placement anxiety among Indian college students and freshers is at its annual peak. Positioning free AI tools as an actionable, zero-cost placement survival kit directly addresses the audience's urgent pain point ('kaam ki baat') and drives high bookmark and share metrics.",
+    "timestamp": "2026-10-10T00:00:00Z",
+    "research_id": 34
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel: 'Salary aayi nahi ki gayab?' \u2013 The 50-30-20 budgeting rule customized for Indian metro living (Rent, UPI micropayments, and Swiggy reality check).",
+        "educational_score": 0.82,
+        "originality_score": 0.74,
+        "engagement_score": 0.89,
+        "relevance_score": 0.91,
+        "reasoning": "Taps into the universal 1st-of-the-month salary excitement vs 5th-of-the-month bank balance shock, offering an actionable UPI-automation framework tailored for young corporate earners in Tier-1 Indian cities."
+      },
+      {
+        "idea": "Carousel: 'Mummy's Physical Gold vs SGB / Gold ETF' \u2013 The ultimate Shaadi season and Akshaya Tritiya wealth breakdown.",
+        "educational_score": 0.94,
+        "originality_score": 0.88,
+        "engagement_score": 0.93,
+        "relevance_score": 0.96,
+        "reasoning": "Directly bridges traditional Indian emotional investing with modern tax-efficient wealth creation. Comparing 20% making charges + GST with zero capital gains tax on Sovereign Gold Bonds triggers high saves and family WhatsApp shares."
+      },
+      {
+        "idea": "Reel: 'No Cost EMI is NOT Free' \u2013 Deconstructing the hidden processing fees, GST on interest, and upfront merchant discount tricks during festival sales.",
+        "educational_score": 0.89,
+        "originality_score": 0.82,
+        "engagement_score": 0.91,
+        "relevance_score": 0.93,
+        "reasoning": "Demystifies a deceptive e-commerce marketing tactic that traps young credit-card users, generating instant 'I didn't know this' comments and high repost value."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Carousel: 'Mummy's Physical Gold vs SGB / Gold ETF' \u2013 The ultimate Shaadi season and Akshaya Tritiya wealth breakdown.",
+      "educational_score": 0.94,
+      "originality_score": 0.88,
+      "engagement_score": 0.93,
+      "relevance_score": 0.96,
+      "total_score": 3.71,
+      "reasoning": "Highest scoring concept because it taps into deep Indian cultural context (gold buying rituals and parental advice) while delivering clear, high-retention financial literacy on making charges, 2.5% semi-annual interest, and tax exemptions, maximizing saves and community debate."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary credited' text on Day 1 vs 'Account balance: \u20b9412' on Day 20. Kahan gaya saara paisa?",
+      "Slide 2: The 'Silent Leaks' reality check: Hum sochte hain bada kharcha hua, but it's actually small daily autopilot spends.",
+      "Slide 3: The Tapri Math: \u20b930 daily chai + sutta break = \u20b9900/month. Innocuous alone, but wait.",
+      "Slide 4: The 11 PM Swiggy Habit: \u20b9350 late-night snack x 8 orders = \u20b92,800/month on cravings you forget by morning.",
+      "Slide 5: The Subscriptions Graveyard: 3 OTT apps + 1 gym membership you haven't visited since Jan = \u20b91,500/month vanished.",
+      "Slide 6: The Real Damage: That's \u20b95,200/month leaking out. Invested in an index fund for 5 years, that's nearly \u20b94 Lakhs.",
+      "Slide 7: The Solution: Don't stop living. Apply the '72-Hour Rule' on impulse buys and cap daily fun spending to one UPI wallet limit."
+    ],
+    "caption": "Salary aayi nahi ki gayab ho gayi? \ud83e\udd72\n\nTruth is, big expenses don't drain your account\u2014the silent autopilot spends do.\n\nThat \u20b930 tapri chai, the midnight quick-commerce cart, and the gym membership you forgot existed quietly steal \u20b95,000+ every month.\n\nYou don\u2019t need to cut out the joy. You just need to stop the unconscious swiping.\n\nSwipe through to see the exact breakdown and how to plug the leak.",
+    "cta": "Save this post for your month-end self, and tag that friend whose salary disappears by the 15th.",
+    "hashtags": [
+      "#reelsindia",
+      "#personalfinanceindia",
+      "#moneytalksindia",
+      "#adultingindia",
+      "#bangalorediaries",
+      "#mumbaiclickers",
+      "#desimemes",
+      "#financetips"
+    ],
+    "image_prompt": "A modern, aesthetic flat-lay composition on a textured oak table in a contemporary Indian apartment. An artisanal clay kulhad cup filled with steaming masala chai, a smartphone displaying a sleek personal finance expense dashboard with colorful graphs, a folded \u20b9500 Indian Rupee note peeking out of a slim leather wallet, and a ceramic saucer with two Parle-G biscuits. Natural morning window sunlight casting soft shadows, minimalist Mumbai aesthetic, photorealistic, 8k resolution, cinematic color grading.",
+    "alt_text": "Top-down aesthetic desk setup featuring a clay cup of hot masala chai, a smartphone displaying a budget tracking app, a leather wallet with an Indian rupee note, and biscuits on a wooden table."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output was provided to review.",
+      "Brand identity, constitution, and market context variables are empty.",
+      "Carousel slides, caption, and hashtags are completely missing."
+    ],
+    "timestamp": "2026-10-10T17:14:29.151793Z"
+  },
+  "prediction": {
+    "virality_score": 35,
+    "virality_label": "LOW",
+    "virality_probability": 0.35,
+    "key_factors": [
+      "Alignment with Indian audience cultural nuances and emotional triggers",
+      "Format potential for Reels/Carousel discovery and save-ability"
+    ],
+    "risks": [
+      "Lack of distinctive hook in the first 2 seconds to arrest scrolling",
+      "High competition and saturation within the targeted niche",
+      "Insufficient actionable call-to-action to stimulate share and save velocity"
+    ],
+    "reasoning": "Without distinctive hooks, strong Hinglish/cultural relatability, and timely trend integration, the content risks blending into standard feed volume. Virality requires high save-to-reach and share-to-reach ratios, which require sharper emotional hooks or utility.",
+    "timestamp": "2026-10-10T17:14:40.304974Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, aesthetic flat-lay composition on a textured oak table in a contemporary Indian apartment. An artisanal clay kulhad cup filled with steaming masala chai, a smartphone displaying a sleek personal finance expense dashboard with colorful graphs, a folded \u20b9500 Indian Rupee note peeking out of a slim leather wallet, and a ceramic saucer with two Parle-G biscuits. Natural morning window sunlight casting soft shadows, minimalist Mumbai aesthetic, photorealistic, 8k resolution, cinematic color grading.",
+    "file_path": "images/2026/10/10/image_prompt_171440.txt",
+    "metadata": {
+      "created_at": "2026-10-10T17:14:40Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "1b79e2b3",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Free AI Tools to Optimize Your Resume and Crack Ca"
+    }
+  },
+  "package_path": "posts/publish_package_1b79e2b3.json",
+  "timing": {
+    "research_ms": 15130,
+    "planner_ms": 19232,
+    "creator_ms": 15515,
+    "reviewer_ms": 9154,
+    "predictor_ms": 11151,
+    "image_ms": 1,
+    "publish_ms": 2022,
+    "total_ms": 72205
+  }
+}

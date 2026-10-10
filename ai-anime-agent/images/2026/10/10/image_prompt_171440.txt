@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic flat-lay composition on a textured oak table in a contemporary Indian apartment. An artisanal clay kulhad cup filled with steaming masala chai, a smartphone displaying a sleek personal finance expense dashboard with colorful graphs, a folded ₹500 Indian Rupee note peeking out of a slim leather wallet, and a ceramic saucer with two Parle-G biscuits. Natural morning window sunlight casting soft shadows, minimalist Mumbai aesthetic, photorealistic, 8k resolution, cinematic color grading.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-10T17:14:40Z
