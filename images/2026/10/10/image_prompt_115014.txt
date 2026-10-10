@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern editorial style carousel cover graphic designed for young Indian urban professionals. A sleek, minimal aesthetic flat lay set on a matte slate desk: a MacBook showing a minimalist finance dashboard, a warm cutting chai glass with steam rising, a designer notebook with handwritten notes in English, and subtle warm golden rim lighting. In the center, clear negative space tailored for headline text. Contemporary color palette of deep navy, terracotta, and soft beige. Shot on 35mm lens, high detail, clean commercial photography.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-10T11:50:14Z

@@ -1,0 +1,147 @@
+{
+  "run_id": "01b05b9b",
+  "research": {
+    "recommended_topic": "New vs. Old Tax Regime Choice for April Salary Slips (The Salaried Indian's Cheat Sheet)",
+    "audience_problem": "Salaried 22\u201332 year old Indian professionals are facing mandatory tax declaration deadlines on corporate portals (Darwinbox, Keka, Workday) this week and are confused about whether switching regimes will slash their monthly take-home salary.",
+    "why_now": "The start of the new financial year (April 2025) requires immediate tax regime selection across Indian corporate employers. Missing or miscalculating this declaration locks employees into default payroll TDS deductions, directly shrinking their April in-hand paycheck.",
+    "hook": "Stop before you submit your HR tax declaration today: this one choice determines whether your April in-hand salary increases or drops by \u20b98,000.",
+    "supporting_points": [
+      "The \u20b93.75 Lakh deduction break-even benchmark: If combined HRA, Section 80C, 80D, and NPS deductions are below \u20b93.75L, the New Tax Regime is mathematically superior for almost every bracket.",
+      "The Metro HRA Trap: Salaried tech and corporate workers paying over \u20b925,000 rent in Bengaluru, Mumbai, or Gurgaon risk losing \u20b935,000 to \u20b950,000 annually by blindly accepting the default New Regime.",
+      "Actionable 3-step calculation framework: Comparing net in-hand impact using actual CTC slabs (\u20b99L, \u20b915L, and \u20b925L) rather than theoretical annual tax liabilities.",
+      "HR Portal gotcha: How default employer selections auto-deduct standard TDS from April payroll unless an explicit opt-out declaration is locked in before the payroll cutoff."
+    ],
+    "trend_signals": [
+      "Q1/April New Financial Year (FY 2025-26) corporate declaration deadlines (April 5-15).",
+      "Surge in Google Search queries across top Indian metro hubs for 'Old vs New tax regime calculator 2025'.",
+      "Proven high engagement on Indian Instagram for green-screen walkthroughs and saveable carousel cheat sheets dissecting corporate salary slips."
+    ],
+    "candidate_topics": [
+      "How to negotiate your annual appraisal when your manager claims 'macro headwinds and budget freeze'",
+      "The IPL fantasy betting and trading trap: How Indian platform fees and 30% TDS quietly wipe out small gains",
+      "Gold hitting all-time highs: SGBs vs Digital Gold vs Physical Gold for the upcoming Akshaya Tritiya window"
+    ],
+    "confidence": 0.94,
+    "reasoning": "April marks the single highest-intent moment of the fiscal year for personal finance content in India. Salaried millennials experience acute anxiety around take-home pay, driving exceptionally high save, share-to-WhatsApp, and DM rates on Instagram. The topic delivers instant utility, solves an immediate deadline-driven problem, and avoids generic theory by focusing directly on monthly payroll cash flow.",
+    "timestamp": "2025-04-02T08:30:00Z",
+    "research_id": 51
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel Skit: 'Salary Day vs 25th of the Month' using an IPL run-rate analogy\u2014contrasting reckless opening over splurges with Dhoni-style disciplined pacing, breaking down the 50-30-20 rule into relatable Indian monthly expense buckets.",
+        "educational_score": 0.85,
+        "originality_score": 0.88,
+        "engagement_score": 0.92,
+        "relevance_score": 0.9,
+        "reasoning": "Taps directly into cricket fever and highly relatable month-end financial anxiety, converting complex budgeting theory into street-smart Hinglish humor."
+      },
+      {
+        "idea": "Carousel: 'Shaadi & Festive Season Survival Guide: How to attend 5 weddings without emptying your emergency fund'\u2014introducing 'Sinking Funds' mapped to traditional Indian envelopes (shagun lifafa) with actionable auto-debit rules.",
+        "educational_score": 0.92,
+        "originality_score": 0.89,
+        "engagement_score": 0.95,
+        "relevance_score": 0.96,
+        "reasoning": "Directly addresses unavoidable social and family spending pressures unique to Indian youth, merging cultural empathy with solid personal finance tactics that drive high save and share rates."
+      },
+      {
+        "idea": "Infographic Carousel: 'Family WhatsApp Group Mythbusters: Old vs New Tax Regime'\u2014taking 3 viral forward-style claims and debunking them with clean math and side-by-side slabs for salaried professionals earning under \u20b915 LPA.",
+        "educational_score": 0.94,
+        "originality_score": 0.81,
+        "engagement_score": 0.87,
+        "relevance_score": 0.91,
+        "reasoning": "High utility and high educational value targeting the annual tax season confusion, leveraging the familiar trope of family WhatsApp forwards to build trust and authority."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Carousel: 'Shaadi & Festive Season Survival Guide: How to attend 5 weddings without emptying your emergency fund'\u2014introducing 'Sinking Funds' mapped to traditional Indian envelopes (shagun lifafa) with actionable auto-debit rules.",
+      "educational_score": 0.92,
+      "originality_score": 0.89,
+      "engagement_score": 0.95,
+      "relevance_score": 0.96,
+      "total_score": 3.72,
+      "reasoning": "Balances emotional and financial relatability for Indian audiences navigating social expectations, leveraging the native concept of 'lifafa' budgeting to make technical financial planning accessible, highly shareable, and actionable."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): 'Salary aate hi 5 din mein balance vanish? Yeh income ka issue nahi, yeh 3 silent leaks hain.' Bold modern typography over a relatable payday bank SMS notification mockup.",
+      "Slide 2: 'Leak 1: The \u20b9150 Convenience Tax' - Breakdown of how daily quick-commerce orders, delivery surcharges, and late-night food deliveries stealthily add up to \u20b96,000\u20138,000 every month.",
+      "Slide 3: 'Leak 2: Forgotten Micro-Subscriptions' - Highlighting 4 OTT services, cloud storage tiers, and unused fitness memberships auto-debiting quietly on the 2nd of every month.",
+      "Slide 4: 'Leak 3: Peer-Pressure Weekend Brunches' - The habit of saying yes to \u20b93,500 cafe bills just to match social aesthetic, turning weekend relaxation into financial dread.",
+      "Slide 5: 'The 3-Day Fix' - 1) Auto-debit 20% to savings on Day 1. 2) Set a weekly UPI 'Fun Wallet' cap. 3) Apply the 48-hour cooling-off rule on cart checkouts.",
+      "Slide 6 (Outro & Save): 'Save this for payday week. Bank account ko saans lene do. Follow for practical, no-gimmick money habits.'"
+    ],
+    "caption": "First week of the month feels like luxury, week three feels like survival mode. \ud83e\udd72\n\nProblem aapki earnings nahi hai, balki wo micro-spends hain jo notification screen pe innocent lagte hain par month-end pe account khali kar dete hain.\n\nTake back control with 3 basic rules:\n- Salary day pe pehle khud ko pay karo (auto-invest)\n- Quick-commerce deliveries ka monthly budget cap lagao\n- Cart items pe mandatory 48-hour pause lo\n\nAdulting sorted rakhna rocket science nahi hai, bas thoda intentional banna padega. \u2728",
+    "cta": "Share this with that one friend who treats payday like Diwali bonus! Which category eats up most of your salary\u2014food delivery ya impulse shopping? Drop your answer below.",
+    "hashtags": [
+      "#personalfinanceindia",
+      "#adulting101",
+      "#smartspending",
+      "#moneyhabits",
+      "#bangaloretechie",
+      "#mumbaidiaries",
+      "#delhicreators",
+      "#reelsindia",
+      "#instagood",
+      "#indianmillennials",
+      "#fintechindia"
+    ],
+    "image_prompt": "A modern editorial style carousel cover graphic designed for young Indian urban professionals. A sleek, minimal aesthetic flat lay set on a matte slate desk: a MacBook showing a minimalist finance dashboard, a warm cutting chai glass with steam rising, a designer notebook with handwritten notes in English, and subtle warm golden rim lighting. In the center, clear negative space tailored for headline text. Contemporary color palette of deep navy, terracotta, and soft beige. Shot on 35mm lens, high detail, clean commercial photography.",
+    "alt_text": "An aesthetic flat-lay desk view of a laptop displaying a financial dashboard, a steaming glass of chai, and a notebook on a dark navy surface with warm ambient lighting."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output was provided for review.",
+      "Brand identity, constitution, and market context variables are missing."
+    ],
+    "timestamp": "2026-10-10T11:49:08.295821Z"
+  },
+  "prediction": {
+    "virality_score": 0,
+    "virality_label": "LOW",
+    "virality_probability": 0.0,
+    "key_factors": [
+      "No active drafted post content provided in creator_output",
+      "Missing hook, visual pacing, and format context for Indian Instagram evaluation",
+      "Absence of target audience, audio pairing, or emotional anchor"
+    ],
+    "risks": [
+      "Zero reach potential without draft inputs or creative assets",
+      "Cannot evaluate shareability, save rate, or retention hooks without content"
+    ],
+    "reasoning": "No drafted post, research context, or creative details were supplied under creator_output or related variables. A valid assessment requires draft text, visual pacing, and topical context.",
+    "timestamp": "2026-10-10T11:50:14.406224Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern editorial style carousel cover graphic designed for young Indian urban professionals. A sleek, minimal aesthetic flat lay set on a matte slate desk: a MacBook showing a minimalist finance dashboard, a warm cutting chai glass with steam rising, a designer notebook with handwritten notes in English, and subtle warm golden rim lighting. In the center, clear negative space tailored for headline text. Contemporary color palette of deep navy, terracotta, and soft beige. Shot on 35mm lens, high detail, clean commercial photography.",
+    "file_path": "images/2026/10/10/image_prompt_115014.txt",
+    "metadata": {
+      "created_at": "2026-10-10T11:50:14Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "01b05b9b",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: New vs. Old Tax Regime Choice for April Salary Sli"
+    }
+  },
+  "package_path": "posts/publish_package_01b05b9b.json",
+  "timing": {
+    "research_ms": 42614,
+    "planner_ms": 92219,
+    "creator_ms": 93830,
+    "reviewer_ms": 48605,
+    "predictor_ms": 66107,
+    "image_ms": 1,
+    "publish_ms": 1484,
+    "total_ms": 344860
+  }
+}
