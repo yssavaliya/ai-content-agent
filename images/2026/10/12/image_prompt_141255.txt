@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, highly detailed split-screen editorial visual for an Indian social media post. Left side: bright morning golden hour light showing an aesthetic wooden desk in a Mumbai apartment, an iPhone displaying a green salary credit notification, an artisanal ceramic chai cup, and fresh vibes. Right side: moody late-night overhead desk view with scattered food delivery boxes, receipts, an empty leather wallet, and calculator showing zero, styled in trendy minimal aesthetic with Indian pop-culture nuances, cinematic lighting, 8k resolution.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-12T14:12:55Z
