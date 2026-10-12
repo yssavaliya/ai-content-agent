@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic flat illustration with subtle 3D clay-morphism textures showing a young Indian corporate professional sitting at a tidy wooden desk, looking humorously shocked at their glowing smartphone displaying a bank notification. The setting is a cozy urban Indian apartment room featuring a potted monstera plant, a steel glass of cutting chai, and warm ambient sunlight. Clean graphic design style with high contrast, vibrant yet muted pastel tones, and bold, readable typography on the slide reading 'Salary Aate Hi Gayab?'.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-12T21:11:09Z
