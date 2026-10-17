@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A warm, aesthetic flat-lay and lifestyle visual of a contemporary Indian workspace in an urban apartment. Golden morning sunlight streams across a clean light-wood table holding a traditional ceramic chai kulhad with warm steaming tea, an open minimal paper planner with neat handwritten notes, a sleek fountain pen, and a small potted indoor succulent. In the blurred background, a cozy reading chair with a textured handloom cotton throw blanket. Photorealistic, warm tones, quiet luxury lifestyle, 35mm editorial photography.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-17T10:02:48Z
