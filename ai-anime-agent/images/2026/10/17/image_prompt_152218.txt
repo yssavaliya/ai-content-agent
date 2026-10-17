@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic flat-lay photograph on a warm oak wooden desk. An Indian young professional's hands holding a sleek smartphone displaying a minimalist finance tracking dashboard with green growth charts. Beside the phone sits a half-emptied ceramic chai cup, a structured leather notebook with handwritten monthly budget columns, and a clean ballpoint pen. Soft morning sunlight filtering through blinds, warm tones, high-resolution lifestyle photography, shallow depth of field, authentic modern Indian urban aesthetic.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-17T15:22:18Z
