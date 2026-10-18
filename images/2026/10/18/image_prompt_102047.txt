@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Editorial lifestyle photography of a modern young South Asian professional sitting by a window in a cozy, minimalist cafe in Bengaluru or Mumbai, writing calmly in a leather-bound notebook with an iced coffee beside them, warm morning sunlight, natural candid expression, shot on 35mm film, shallow depth of field, aesthetic neutral tones.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-18T10:20:47Z

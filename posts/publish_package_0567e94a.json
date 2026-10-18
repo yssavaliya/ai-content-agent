@@ -1,0 +1,149 @@
+{
+  "run_id": "0567e94a",
+  "research": {
+    "recommended_topic": "Corporate Appraisal Season Blueprint: How to Allocate Your Annual Hike Before Lifestyle Inflation Hits",
+    "audience_problem": "Young Indian salaried professionals frequently see their salary increments absorbed instantly by rent increases, upgraded lifestyle subscriptions, and impulse festive or vacation spending, leaving zero incremental wealth despite career growth.",
+    "why_now": "April and May mark the appraisal rollout, bonus payout, and revised salary cycles across IT, BFSI, and startup hubs in India (Bengaluru, Mumbai, Gurugram, Hyderabad). Conversations around salary hikes, switching jobs, and managing new tax brackets peak on Indian social media right now.",
+    "hook": "Got an 8% to 15% hike this appraisal cycle? Here is why 90% of Indians will feel poorer by October\u2014and the exact 50-30-20 tweak to prevent it.",
+    "supporting_points": [
+      "Automate the 'Hike Split': Transfer 60% of the net incremental hike directly into SIPs or debt pre-payment on Day 1 before upgrading everyday living expenses.",
+      "Evaluate New Tax Regime deductions: Match your revised CTC against slabs to ensure higher gross does not lead to an unexpectedly lower take-home pay.",
+      "Audit recurring lifestyle creeps: Beware of silent tier-upgrades in rent, dining out, and premium EMIs that normalize faster than your savings rate.",
+      "Create a dedicated 'guilt-free celebration fund' with a portion of the bonus rather than funding spontaneous high-ticket splurges on credit card EMIs."
+    ],
+    "trend_signals": [
+      "Q1/Q2 corporate appraisal letters and bonus disbursements across corporate India",
+      "High engagement on Indian FinTech/Creator Instagram Reels featuring 'Salary Slip Breakdown' and 'CTC vs In-Hand Reality'",
+      "Rising credit card revolving balances reported by RBI post-festive and summer vacation bookings",
+      "Surge in search queries for 'New vs Old Tax Regime FY 2024-25 calculator'"
+    ],
+    "candidate_topics": [
+      "Credit Card Rewards Devaluation in India: Which cards to retain vs cancel in 2025",
+      "Summer Travel Budgeting: How to fund domestic and Southeast Asia trips without breaking emergency reserves",
+      "Gold vs Sovereign Gold Bonds (SGB) vs Digital Gold: Decoding what actually beats Indian inflation",
+      "Side-Hustle Taxation in India: What salaried professionals need to disclose before filing returns"
+    ],
+    "confidence": 0.93,
+    "reasoning": "The appraisal/bonus window creates an acute emotional moment combining validation, financial optimism, and anxiety over lifestyle inflation. Indian Instagram audiences heavily share actionable financial breakdown carousels and relatable talking-head Reels during this transition, driving superior save rates and organic shares among 22-38 year-old working professionals.",
+    "timestamp": "2025-05-18T08:30:00Z",
+    "research_id": 56
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel: 'Chai, Sutta, aur UPI': A breakdown of the silent \u20b96,000 monthly leak caused by sub-\u20b9100 QR scan payments, featuring a relatable daily routine POV and introducing the 'Weekly UPI Pocket Money' wallet rule.",
+        "educational_score": 0.88,
+        "originality_score": 0.82,
+        "engagement_score": 0.94,
+        "relevance_score": 0.95,
+        "reasoning": "Hits a universal pain point among young Indian salaried professionals and college students who wonder where their salary goes by mid-month. Highly shareable in peer WhatsApp groups and DMs."
+      },
+      {
+        "idea": "Carousel Breakdown: 'Zero-Cost EMI Ka Asli Sach' (The True Cost of No-Cost EMI) timed ahead of festive flash sales, decoding processing fees, pre-closure penalties, and GST on interest subvention.",
+        "educational_score": 0.96,
+        "originality_score": 0.85,
+        "engagement_score": 0.91,
+        "relevance_score": 0.93,
+        "reasoning": "Demystifies fine-print financial marketing that deceives Indian shoppers during festive e-commerce sales. Strong save rate potential as users bookmark it for reference before purchases."
+      },
+      {
+        "idea": "Split-Screen Skit: 'Sharma Ji's Fixed Deposit vs Index Fund in 2024' during festive Muhurat trading / wedding season conversations, comparing post-tax inflation returns using crisp Hinglish dialogue.",
+        "educational_score": 0.85,
+        "originality_score": 0.78,
+        "engagement_score": 0.89,
+        "relevance_score": 0.88,
+        "reasoning": "Taps into the quintessential Indian family dinner table tension between traditional safety assets (FDs/Gold) and modern equities, driving high comment-section debate."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Reel: 'Chai, Sutta, aur UPI': A breakdown of the silent \u20b96,000 monthly leak caused by sub-\u20b9100 QR scan payments, featuring a relatable daily routine POV and introducing the 'Weekly UPI Pocket Money' wallet rule.",
+      "educational_score": 0.88,
+      "originality_score": 0.82,
+      "engagement_score": 0.94,
+      "relevance_score": 0.95,
+      "total_score": 3.59,
+      "reasoning": "Captures the highest viral engagement due to cultural relatability across Tier 1 and Tier 2 metro youth, balancing immediate behavioral change (educational value) with share-worthy relatable humor."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1: Hook - 'The invisible tax of Log Kya Kahenge on your 20s \ud83d\udcc9 (Swipe to break the cycle)'",
+      "Slide 2: Boundary 1 - Stop financing FOMO. Politely bowing out of weekend outings or wedding gifts that derail your monthly savings budget.",
+      "Slide 3: Boundary 2 - The Career Filter. Refusing to defend your nontraditional career moves or pivots to extended family WhatsApp groups.",
+      "Slide 4: Boundary 3 - Post-8 PM Work Silence. Setting clear boundaries with late-evening Slack pings without the guilt of looking 'uncommitted'.",
+      "Slide 5: Boundary 4 - Normalizing Mental Health Days. Prioritizing rest and therapy over buying lifestyle status symbols just to look put-together.",
+      "Slide 6: Summary & takeaway - Your timeline belongs to you. Sab theek ho jayega, bas prioritize your peace."
+    ],
+    "caption": "Ever noticed how much mental bandwidth goes into managing everyone else\u2019s opinions?\n\nHum sab ne kabhi na kabhi socha hai: 'Sharma ji kya bolenge?' ya 'If I say no to overtime, manager kya sochega?'\n\nReal talk: Boundaries aren't rude. They are your mental peace ka insurance policy.\n\nSwipe through 4 realistic boundaries you can start setting this week without feeling guilty.\n\nTell us in the comments: Which one is the hardest for you to set? \ud83d\udc47",
+    "cta": "Save this post for your Sunday reset, and share it with that one friend who needs permission to say 'no' this week.",
+    "hashtags": [
+      "#desiadulting",
+      "#indianmillennials",
+      "#worklifebalanceindia",
+      "#mentalhealthindia",
+      "#bangalorelife",
+      "#mumbailife",
+      "#reelsindia",
+      "#adulting101"
+    ],
+    "image_prompt": "Editorial lifestyle photography of a modern young South Asian professional sitting by a window in a cozy, minimalist cafe in Bengaluru or Mumbai, writing calmly in a leather-bound notebook with an iced coffee beside them, warm morning sunlight, natural candid expression, shot on 35mm film, shallow depth of field, aesthetic neutral tones.",
+    "alt_text": "A young South Asian adult sitting by a cafe window in soft sunlight, thoughtfully writing notes in a journal beside an iced coffee."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output was not provided for review.",
+      "Brand identity documentation was not provided.",
+      "Constitution guidelines were not provided.",
+      "Market context was not provided."
+    ],
+    "timestamp": "2026-10-18T10:20:29.964676Z"
+  },
+  "prediction": {
+    "virality_score": 35,
+    "virality_label": "LOW",
+    "virality_probability": 0.35,
+    "key_factors": [
+      "Baseline assessment framework established for Indian Instagram audience dynamics",
+      "Hook structure and emotional trigger alignment pending specific creative input",
+      "Format considerations prioritized for short-form Reels and high-share carousels"
+    ],
+    "risks": [
+      "Absence of specific creative copy, visual hooks, or audio pairing limits immediate viral spread",
+      "High market saturation in generic content formats without distinct cultural or Hinglish anchors",
+      "Unoptimized CTA and save-to-share ratio without verified creator assets"
+    ],
+    "reasoning": "Without specific content provided in the creator output variable, the draft cannot be evaluated for scroll-stopping hook velocity, relatability, or cultural resonance in the Indian market. Consequently, virality is scored at a baseline low probability pending full draft submission.",
+    "timestamp": "2026-10-18T10:20:47.523536Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "Editorial lifestyle photography of a modern young South Asian professional sitting by a window in a cozy, minimalist cafe in Bengaluru or Mumbai, writing calmly in a leather-bound notebook with an iced coffee beside them, warm morning sunlight, natural candid expression, shot on 35mm film, shallow depth of field, aesthetic neutral tones.",
+    "file_path": "images/2026/10/18/image_prompt_102047.txt",
+    "metadata": {
+      "created_at": "2026-10-18T10:20:47Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "0567e94a",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: Corporate Appraisal Season Blueprint: How to Alloc"
+    }
+  },
+  "package_path": "posts/publish_package_0567e94a.json",
+  "timing": {
+    "research_ms": 26659,
+    "planner_ms": 116615,
+    "creator_ms": 292568,
+    "reviewer_ms": 18639,
+    "predictor_ms": 17557,
+    "image_ms": 1,
+    "publish_ms": 1652,
+    "total_ms": 473691
+  }
+}
