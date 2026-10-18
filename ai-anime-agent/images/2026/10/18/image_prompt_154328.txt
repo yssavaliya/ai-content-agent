@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+A modern, aesthetic flat-lay illustration with Indian urban lifestyle vibes. In the center, a sleek smartphone displays a clean digital banking app notification with soft green accents. Next to it, a warm ceramic kulhad cup of steaming masala chai, a stylish minimalist leather wallet, a vintage brass house key, and small handwritten sticky notes on a warm textured pastel beige background. Clean Scandinavian-meets-Indian contemporary design, soft morning light, hyper-detailed, studio shot, pastel tones, zero cluttered text.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-18T15:43:28Z

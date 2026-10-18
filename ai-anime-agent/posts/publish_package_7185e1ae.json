@@ -1,0 +1,147 @@
+{
+  "run_id": "7185e1ae",
+  "research": {
+    "recommended_topic": "4 Free AI Tools Every Indian Student Needs to Crack Campus Placements & Interviews",
+    "audience_problem": "College students and freshers across Tier 1-3 Indian cities are struggling with resume tailoring, mock interview anxiety, and aptitude test prep, but cannot afford paid subscriptions like ChatGPT Plus.",
+    "why_now": "Mid-October represents peak campus placement and pre-placement interview season across Indian universities; students are actively seeking free, practical AI workflows to stand out without spending money.",
+    "hook": "Placement drives shuru hone wali hain aur abhi bhi generic resume bhej rahe ho? Ye 4 free AI tools use karo.",
+    "supporting_points": [
+      "Use DeepSeek / Claude (free tier) with specific prompt frameworks to tailor your resume bullets to exact job descriptions in 30 seconds.",
+      "Practice real-time technical and HR mock interviews using free AI voice mode tools like Gemini Live or ChatGPT Voice without stage fright.",
+      "Generate structured company-specific case study solutions and aptitude practice sets tailored to Indian tech and IT service recruiters.",
+      "One practical caution: Never copy-paste raw AI text directly into your resume; humanize your project bullet points with real metrics."
+    ],
+    "trend_signals": [
+      "October 18 UTC parity rule mandates AI content (even date).",
+      "October is prime placement and internship hiring season for Indian engineering and degree colleges.",
+      "Rising engagement on Indian Instagram reels/carousels around free alternatives to expensive subscription tools.",
+      "High search demand among Tier 1-3 students for campus interview preparation tips and Hinglish prompt guides."
+    ],
+    "candidate_topics": [
+      "Festive client rush: How Indian freelancers can use Canva AI and DeepSeek to deliver designs faster",
+      "Diwali WhatsApp audio and video deepfake scams: 3 simple rules to safeguard your family",
+      "Gemini vs ChatGPT: Which free AI tool is better for college notes and exam prep?"
+    ],
+    "confidence": 0.94,
+    "reasoning": "With 2026-10-18 being an even date, the deterministic strategy calls strictly for AI content. October is the exact inflection point for Indian campus placements and hiring drives. The Indian student demographic (aged 18-24) on Instagram has exceptionally high save and share rates for actionable, zero-cost upskilling carousels that solve real placement anxiety.",
+    "timestamp": "2026-10-18T00:00:00Z",
+    "research_id": 38
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "POV: Your \u20b945 UPI habit is why your account balance is \u20b9450 by month-end ('UPI Micro-Leak' Reel breakdown)",
+        "educational_score": 0.88,
+        "originality_score": 0.84,
+        "engagement_score": 0.94,
+        "relevance_score": 0.95,
+        "reasoning": "Directly targets urban Indian Gen Z and millennials who feel financially stretched despite decent salaries. Using everyday micro-expenses like chai-sutta and Zepto/Blinkit top-ups creates instant relatability and high save/share triggers."
+      },
+      {
+        "idea": "The Western '50-30-20' Budget Fails in Mumbai & Bengaluru: Here's the Realistic Indian Metro Split (Carousel)",
+        "educational_score": 0.94,
+        "originality_score": 0.91,
+        "engagement_score": 0.95,
+        "relevance_score": 0.98,
+        "reasoning": "Addresses the reality that 40-50% of take-home pay goes toward rent and deposits in major Indian tech hubs. Deconstructing standard Western finance advice with localized adjustments builds high authority and viral save rates."
+      },
+      {
+        "idea": "'Zero-Cost EMI' is a scam? Decoding the hidden GST & processing fees before your next gadget upgrade (Skits & breakdown)",
+        "educational_score": 0.86,
+        "originality_score": 0.78,
+        "engagement_score": 0.87,
+        "relevance_score": 0.89,
+        "reasoning": "High consumer relevance during sale seasons and tech launch cycles. Hinglish conversational style simplifies financial fine print, though the topic has slight competition on financial Instagram."
+      }
+    ],
+    "selected_idea": {
+      "idea": "The Western '50-30-20' Budget Fails in Mumbai & Bengaluru: Here's the Realistic Indian Metro Split (Carousel)",
+      "educational_score": 0.94,
+      "originality_score": 0.91,
+      "engagement_score": 0.95,
+      "relevance_score": 0.98,
+      "total_score": 3.78,
+      "reasoning": "Highest combined value: it directly challenges conventional generic advice with sharp, localized Indian reality (high rents, family remittances, Tier-1 living costs). It positions the brand as empathetic, culturally attuned, and practical, driving substantial saves and peer shares."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Cover): Bold typography - 'Salary aate hi gayab? \ud83d\udcb8' Subtext: 4 realistic money rules jo actually kaam karte hain (without ruining your weekend plans). Minimalist graphic with an aesthetic coffee cup and an empty wallet.",
+      "Slide 2: Rule 01 - The 48-Hour Cart Rule. Har impulse buy ko cart mein 48 hours chhod do. 80% time you won't even remember why you wanted it.",
+      "Slide 3: Rule 02 - Pay Yourself First, Swiggy Later. Salary aate hi 15-20% auto-invest karo SIP ya emergency fund mein, before lifestyle inflation kicks in.",
+      "Slide 4: Rule 03 - The 'Guilt-Free Chai & Catchup' Fund. Stop cutting out weekend chai or brunch with friends. Budget an exact fixed cash amount for fun\u2014spend it without any guilt.",
+      "Slide 5: Rule 04 - Audit Your Silent Subscriptions. Gym, OTT, cloud storage you haven't opened in 3 months. Cancel now, buy that extra plate of momos instead.",
+      "Slide 6 (Summary & CTA): Summary checklist + 'Save this post for your next month-end salary day. Share it with that friend who says \"bhai treats on me\" on day 1!'"
+    ],
+    "caption": "Salary aayi nahi ki 'Account debited' ke notifications shuru? \ud83e\udd72\n\nHum sabka wahi scene hai\u2014day 1 pe treats, day 25 pe maggi.\n\nBudgeting doesn't mean giving up on weekend chai or catching up with friends.\n\nIt just means having a system so your money works as hard as you do.\n\nSwipe through for 4 simple money habits you can start right now.\n\nKonsa rule sabse zyada relatable laga? Drop your thoughts below! \ud83d\udc47",
+    "cta": "Save this post for salary day and tag a friend who needs this reminder! \ud83d\udcac",
+    "hashtags": [
+      "#Adulting101",
+      "#PersonalFinanceIndia",
+      "#MoneyMatters",
+      "#HinglishContent",
+      "#IndianMillennials",
+      "#GenZIndia",
+      "#ReelsIndia",
+      "#BangaloreDiaries",
+      "#DelhiLife",
+      "#FintechIndia"
+    ],
+    "image_prompt": "A modern, aesthetic flat-lay illustration with Indian urban lifestyle vibes. In the center, a sleek smartphone displays a clean digital banking app notification with soft green accents. Next to it, a warm ceramic kulhad cup of steaming masala chai, a stylish minimalist leather wallet, a vintage brass house key, and small handwritten sticky notes on a warm textured pastel beige background. Clean Scandinavian-meets-Indian contemporary design, soft morning light, hyper-detailed, studio shot, pastel tones, zero cluttered text.",
+    "alt_text": "An aesthetic flat-lay photograph featuring a modern smartphone displaying a banking notification, placed beside a warm terracotta cup of chai, a minimalist leather wallet, and handwritten sticky notes on a neutral pastel background."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "No creator output was provided to review.",
+      "Brand identity documentation is missing.",
+      "Constitution guidelines are missing.",
+      "Market context data is missing."
+    ],
+    "timestamp": "2026-10-18T15:43:19.265881Z"
+  },
+  "prediction": {
+    "virality_score": 0,
+    "virality_label": "LOW",
+    "virality_probability": 0.0,
+    "key_factors": [
+      "No drafted post content or media provided for evaluation"
+    ],
+    "risks": [
+      "Missing creator output, visual format, and hook",
+      "Lack of audience targeting, cultural relevance, and audio/hashtag strategy"
+    ],
+    "reasoning": "Evaluation cannot be completed because the input variables (creator_output, research_json, review_json, market, and recent_posts_json) were not supplied.",
+    "timestamp": "2026-10-18T15:43:28.007185Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "A modern, aesthetic flat-lay illustration with Indian urban lifestyle vibes. In the center, a sleek smartphone displays a clean digital banking app notification with soft green accents. Next to it, a warm ceramic kulhad cup of steaming masala chai, a stylish minimalist leather wallet, a vintage brass house key, and small handwritten sticky notes on a warm textured pastel beige background. Clean Scandinavian-meets-Indian contemporary design, soft morning light, hyper-detailed, studio shot, pastel tones, zero cluttered text.",
+    "file_path": "images/2026/10/18/image_prompt_154328.txt",
+    "metadata": {
+      "created_at": "2026-10-18T15:43:28Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "7185e1ae",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: 4 Free AI Tools Every Indian Student Needs to Crac"
+    }
+  },
+  "package_path": "posts/publish_package_7185e1ae.json",
+  "timing": {
+    "research_ms": 14711,
+    "planner_ms": 15678,
+    "creator_ms": 14118,
+    "reviewer_ms": 17907,
+    "predictor_ms": 8738,
+    "image_ms": 1,
+    "publish_ms": 1331,
+    "total_ms": 72484
+  }
+}
