@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Editorial lifestyle photography of a young South Asian professional in their mid-20s seated at a stylish cafe table in urban Bangalore. They are smiling thoughtfully while checking their phone screen. On the wooden table is a cold brew coffee, a minimalist planner with a sleek pen, and warm natural sunlight casting soft shadows. Contemporary aesthetics, cinematic lighting, 35mm photography style, authentic modern Indian urban lifestyle.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-19T11:51:44Z
