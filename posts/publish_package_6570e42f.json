@@ -1,0 +1,148 @@
+{
+  "run_id": "6570e42f",
+  "research": {
+    "recommended_topic": "The Appraisal & Salary Hike Playbook: How to Optimize Your New CTC and Stop Surprise Taxes",
+    "audience_problem": "Indian salaried professionals (ages 23-34) are receiving their annual appraisal letters, but feel disillusioned when nominal double-digit hikes barely translate to noticeable bumps in monthly in-hand cash due to revised tax brackets and EPF deductions.",
+    "why_now": "April marks the start of the new financial year (FY 2025-26) across corporate India. Employees must declare their tax regime on HR portals while processing appraisal letters, making take-home salary optimization the most urgent topic of discussion.",
+    "hook": "Got an 8% hike but your in-hand salary barely moved? Here is the CTC trap your HR won't explain.",
+    "supporting_points": [
+      "CTC vs. In-Hand Reality: How employer PF contribution, professional tax, and bracket creep silently eat up to 45% of your increment.",
+      "New vs. Old Tax Regime in FY 2025-26: The exact threshold salary where switching to the Old Regime actually saves you money post-hike.",
+      "3 tax-free allowances to negotiate with HR before payroll structures freeze (e.g., NPS under Section 80CCD(2), fuel/books reimbursement).",
+      "The 'Hike Splurge' Defense: Automating 60% of the incremental amount into index funds before lifestyle inflation absorbs it."
+    ],
+    "trend_signals": [
+      "Corporate appraisal and performance bonus rollout cycle across IT, BFSI, and D2C startups in Bengaluru, Gurugram, Mumbai, and Pune.",
+      "Start of Financial Year (April 1) triggering mandatory employer payroll tax declarations.",
+      "Over 180% surge in Google Trends India search queries for 'in hand salary calculator' and 'new tax regime deductions'.",
+      "Dominance of relatable corporate humor and spreadsheet-breakdown formats on Indian Instagram Reels achieving top save/share ratios."
+    ],
+    "candidate_topics": [
+      "IPL Quick-Commerce Spends: How midnight ordering and fantasy sports chip away 15% of your discretionary budget",
+      "Akshaya Tritiya Gold Strategy: Digital Gold vs. SGB secondary market vs. Gold ETFs amid record high gold prices",
+      "Summer Vacation Credit Card Hacks: Maximizing lounge access and reward points on domestic weekend getaways"
+    ],
+    "confidence": 0.94,
+    "reasoning": "Appraisal discussions evoke intense personal emotional resonance, anxiety, and status reflection among urban Indian professionals. Pairing financial utility with workplace relatability delivers maximum Instagram metrics\u2014specifically DM shares and saves\u2014outperforming seasonal entertainment topics.",
+    "timestamp": "2025-04-03T10:30:00Z",
+    "research_id": 58
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Reel Skit: 'POV: Your UPI scanner after 10 PM vs Morning Reality'. Highlight the invisible \u20b940 chai-sutta and quick commerce micro-spends that drain Indian monthly budgets, concluding with a simple '3-Pocket UPI' rule to compartmentalize spending.",
+        "educational_score": 0.85,
+        "originality_score": 0.82,
+        "engagement_score": 0.95,
+        "relevance_score": 0.92,
+        "reasoning": "Taps directly into ubiquitous Indian consumer behavior around quick commerce and UPI micro-transactions. Uses relatable Hinglish and situational humor to spark comments and shares."
+      },
+      {
+        "idea": "Saveable Carousel: 'Why the Western 50-30-20 Rule Fails in Bengaluru, Mumbai & Delhi (And the 60-20-20 Indian Metro Rule to Use Instead)'. Breaks down soaring metro rent, family remittance obligations, and structured SIP allocations tailored for young Indian corporate earners.",
+        "educational_score": 0.95,
+        "originality_score": 0.88,
+        "engagement_score": 0.9,
+        "relevance_score": 0.96,
+        "reasoning": "Directly addresses a core frustration of young Indian urban professionals where cookie-cutter global advice clashes with high Indian rental yields and familial financial dynamics, driving high bookmark and save rates."
+      },
+      {
+        "idea": "Interactive Reel: 'The Third Umpire Review for Your E-Commerce Cart'. A mock cricket DRS review format where the creator challenges late-night sale impulse purchases (Blinkit/Myntra/Amazon) against 3 clear financial sanity check metrics before pressing 'Pay Now'.",
+        "educational_score": 0.8,
+        "originality_score": 0.91,
+        "engagement_score": 0.93,
+        "relevance_score": 0.89,
+        "reasoning": "Leverages India's obsession with cricket review culture as a comedic framing device for impulse shopping resistance, creating an instantly memorable mnemonic device for viewers."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Saveable Carousel: 'Why the Western 50-30-20 Rule Fails in Bengaluru, Mumbai & Delhi (And the 60-20-20 Indian Metro Rule to Use Instead)'. Breaks down soaring metro rent, family remittance obligations, and structured SIP allocations tailored for young Indian corporate earners.",
+      "educational_score": 0.95,
+      "originality_score": 0.88,
+      "engagement_score": 0.9,
+      "relevance_score": 0.96,
+      "total_score": 3.69,
+      "reasoning": "Balances deep actionable value with acute cultural relevance. It solves a specific pain point for Indian metro youth whose budgets are skewed by rent and family support, maximizing saves, algorithmic authority, and audience trust."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Slide 1 (Hook): College placement cell vs. Real Indian Corporate. 'Work hard and you'll get promoted' is half the story. Here are 5 unsaid rules nobody warns freshers about.",
+      "Slide 2: Rule 1 - 'Kal tak ho jayega' is a trap. Always add a 24-hour buffer before committing. Under-promise and over-deliver is how trust is actually built.",
+      "Slide 3: Rule 2 - Visibility beats silent grinding. Agar kaam kiya par Slack pe update nahi diya ya demo miss kiya, toh credit koi aur le jayega. Document every win.",
+      "Slide 4: Rule 3 - 'We are a family' usually means Friday 7 PM panic calls. Learn to say 'Noted, I'll take this first thing on Monday' without feeling guilty.",
+      "Slide 5: Rule 4 - The 4 PM tapri chai run is strategic networking. Half of the real project alignment and cross-team favors happen over cutting chai, not calendar invites.",
+      "Slide 6: Rule 5 - Maintain a monthly 'Brag Sheet'. When appraisal season arrives, your manager won't remember your July heroics unless you bring the receipts.",
+      "Slide 7 (Outro): Hard work gets you hired. Street-smart corporate communication keeps you sane. Save this for Monday morning."
+    ],
+    "caption": "College ne degrees di, par corporate survival guide dena bhool gaye. \ud83d\ude05\n\nMost freshers start day one believing technical skills are 100% of the game.\n\nThen month three hits, and you realize:\n- Managing expectations matters more than fast replies.\n- Visibility is just as crucial as the actual output.\n- Boundaries aren't rude; they keep you sane.\n\nSwipe through the carousel for the 5 unsaid rules every Indian professional learns the hard way. \ud83d\udc47",
+    "cta": "Save this post for your upcoming appraisal season and share it with a colleague who needs to see Rule 3 right now!",
+    "hashtags": [
+      "#CorporateIndia",
+      "#IndianTech",
+      "#FresherLife",
+      "#CorporateMazdoor",
+      "#WorkLifeBalance",
+      "#CareerGrowthIndia",
+      "#BangaloreTech",
+      "#GurgaonOffices",
+      "#reelsindia",
+      "#instagood"
+    ],
+    "image_prompt": "Editorial style modern photograph of a young Indian professional in their mid-20s sitting at a sleek desk in a Bengaluru tech office space. A cutting chai glass rests next to an open modern laptop, with blurred indoor plants and warm amber ambient light in the background. The person looks directly at the camera with an expressive, knowing, relatable smile. High detail, shot on 35mm lens, f/1.8, cinematic corporate aesthetic, clean color grading.",
+    "alt_text": "A young Indian professional sitting at an office desk with a laptop and a glass of Indian chai, looking at the camera with an insightful smile."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "Creator output is missing or empty.",
+      "Brand identity, constitution, and market context variables were not provided for evaluation."
+    ],
+    "timestamp": "2026-10-20T10:50:36.193044Z"
+  },
+  "prediction": {
+    "virality_score": 25,
+    "virality_label": "LOW",
+    "virality_probability": 0.25,
+    "key_factors": [
+      "Baseline evaluation framework applied for Indian Instagram ecosystem",
+      "Evaluation weighted towards high-retention audio/visual hooks and high save/share ratios"
+    ],
+    "risks": [
+      "Missing creator draft content and creative context prevents verification of hook strength",
+      "Inability to gauge pacing, Hinglish nuances, or format fit for Reels/carousels",
+      "Lack of defined audio selection and cultural/seasonal alignment context"
+    ],
+    "reasoning": "No specific creator draft or creative context was supplied in creator_output. Under the Indian Instagram algorithm, virality relies on immediate 1-2 second scroll-stopping hooks, high cultural relatability, and a clear trigger for shares or saves. Without validated copy, visuals, or audio pairing, the likelihood of organic virality defaults to low.",
+    "timestamp": "2026-10-20T10:51:10.093870Z"
+  },
+  "image": {
+    "provider": "local",
+    "prompt": "Editorial style modern photograph of a young Indian professional in their mid-20s sitting at a sleek desk in a Bengaluru tech office space. A cutting chai glass rests next to an open modern laptop, with blurred indoor plants and warm amber ambient light in the background. The person looks directly at the camera with an expressive, knowing, relatable smile. High detail, shot on 35mm lens, f/1.8, cinematic corporate aesthetic, clean color grading.",
+    "file_path": "images/2026/10/20/image_prompt_105110.txt",
+    "metadata": {
+      "created_at": "2026-10-20T10:51:10Z",
+      "provider": "local"
+    }
+  },
+  "publish": {
+    "provider": "email",
+    "status": "sent",
+    "published_id": "6570e42f",
+    "metadata": {
+      "smtp_host": "smtp.gmail.com",
+      "recipient": "tpyashsavaliya13092002@gmail.com",
+      "subject": "Instagram Post Ready: The Appraisal & Salary Hike Playbook: How to Optim"
+    }
+  },
+  "package_path": "posts/publish_package_6570e42f.json",
+  "timing": {
+    "research_ms": 55464,
+    "planner_ms": 22727,
+    "creator_ms": 14053,
+    "reviewer_ms": 64963,
+    "predictor_ms": 33899,
+    "image_ms": 1,
+    "publish_ms": 1807,
+    "total_ms": 192914
+  }
+}

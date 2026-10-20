@@ -1,0 +1,10 @@
+IMAGE PROMPT
+===========
+Editorial style modern photograph of a young Indian professional in their mid-20s sitting at a sleek desk in a Bengaluru tech office space. A cutting chai glass rests next to an open modern laptop, with blurred indoor plants and warm amber ambient light in the background. The person looks directly at the camera with an expressive, knowing, relatable smile. High detail, shot on 35mm lens, f/1.8, cinematic corporate aesthetic, clean color grading.
+
+BRAND STYLE
+===========
+clean
+
+ASPECT RATIO: 1:1
+CREATED AT (UTC): 2026-10-20T10:51:10Z
