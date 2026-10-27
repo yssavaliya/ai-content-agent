@@ -7,6 +7,7 @@ from .registry import ImageProviderRegistry
 from .local_provider import LocalImageProvider
 from .mock_provider import MockImageProvider
 from .openai_provider import OpenAIImageProvider
+from .pillow_provider import PillowImageProvider
 
 __all__ = [
     "BaseImageProvider",
@@ -17,4 +18,6 @@ __all__ = [
     "LocalImageProvider",
     "MockImageProvider",
     "OpenAIImageProvider",
+    "PillowImageProvider",
 ]
+

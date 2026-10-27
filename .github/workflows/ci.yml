@@ -56,7 +56,50 @@ jobs:
 
       - name: Unit tests
         run: |
-          python -m pytest tests/test_agents.py tests/test_analytics.py tests/test_cli.py tests/test_creator_agent.py tests/test_database_connection.py tests/test_experiments.py tests/test_hosting.py tests/test_image_provider.py tests/test_notifications.py tests/test_opencode_client.py tests/test_pipeline.py tests/test_planner_agent.py tests/test_predictor_agent.py tests/test_prompt_recorder.py tests/test_prompts.py tests/test_publish_instagram.py tests/test_publish_registry.py tests/test_research_agent.py tests/test_reviewer_agent.py tests/test_run_lock.py tests/test_scheduler.py tests/test_scientist_agent.py tests/test_settings.py tests/test_settings_extended.py tests/test_statistics.py tests/test_strategy.py -q
+          python -m pytest tests/test_anime_metadata.py tests/test_anime_generation.py tests/test_pillow_image_provider.py tests/test_agents.py tests/test_analytics.py tests/test_cli.py tests/test_creator_agent.py tests/test_database_connection.py tests/test_experiments.py tests/test_hosting.py tests/test_image_provider.py tests/test_notifications.py tests/test_opencode_client.py tests/test_pipeline.py tests/test_planner_agent.py tests/test_predictor_agent.py tests/test_prompt_recorder.py tests/test_prompts.py tests/test_publish_instagram.py tests/test_publish_registry.py tests/test_research_agent.py tests/test_reviewer_agent.py tests/test_run_lock.py tests/test_scheduler.py tests/test_scientist_agent.py tests/test_settings.py tests/test_settings_extended.py tests/test_statistics.py tests/test_strategy.py -q
+
+      - name: Real anime metadata retrieval (Kitsu API)
+        run: |
+          python -m ai_content_agent.cli anime-trends
+
+      - name: Real anime concept & story generation
+        run: |
+          python -m ai_content_agent.cli anime-concept "Cybernetic Vedic Warriors in Year 3000"
+
+      - name: Genuine visual media generation & verification
+        run: |
+          python -c "
+          from ai_content_agent.providers.image.pillow_provider import PillowImageProvider
+          from ai_content_agent.providers.image.base import ImageRequest
+          from ai_content_agent.publish.hosting import convert_to_jpeg
+          from pathlib import Path
+          from PIL import Image
+
+          provider = PillowImageProvider()
+          req = ImageRequest(
+              prompt='Masterpiece anime key visual for Cybernetic Vedic Warriors, glowing neon, cinematic composition',
+              brand_style='clean',
+              aspect_ratio='1:1'
+          )
+          res = provider.generate(req)
+          print('Generated artwork:', res.file_path)
+
+          assert Path(res.file_path).exists(), 'Output image file does not exist'
+          assert Path(res.file_path).stat().st_size > 15000, 'Image file size too small'
+
+          with Image.open(res.file_path) as img:
+              assert img.format == 'PNG', f'Expected PNG format, got {img.format}'
+              assert img.size == (1080, 1080), f'Expected 1080x1080, got {img.size}'
+              assert img.mode == 'RGB', f'Expected RGB, got {img.mode}'
+              print(f'Verified PNG: size={img.size}, mode={img.mode}, bytes={Path(res.file_path).stat().st_size}')
+
+          jpeg_path = convert_to_jpeg(res.file_path, 'images/jpeg/ci_verified_artwork.jpg')
+          assert Path(jpeg_path).exists(), 'Converted JPEG does not exist'
+          with Image.open(jpeg_path) as j_img:
+              assert j_img.format == 'JPEG'
+              assert j_img.size == (1080, 1080)
+              print(f'Verified JPEG conversion: {jpeg_path} ({Path(jpeg_path).stat().st_size} bytes)')
+          "
 
       - name: End-to-end real user workflow tests
         run: python -m pytest tests/test_e2e_workflows.py -v
@@ -85,4 +128,6 @@ jobs:
             reports/
             logs/
             posts/
+            images/
           if-no-files-found: ignore
+

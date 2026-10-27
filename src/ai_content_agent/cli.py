@@ -13,8 +13,10 @@ Commands:
   analytics   Collect Instagram insights for published posts.
   scientist   Run the Scientist learning loop (experiments, analysis, strategy updates).
   monthly     Generate a monthly performance digest.
-  prompts     Generate the HTML prompt viewer from recorded prompts (logs/prompts).
-  help        Show this help.
+  prompts       Generate the HTML prompt viewer from recorded prompts (logs/prompts).
+  anime-trends  Fetch real-world trending anime metadata from Kitsu API.
+  anime-concept Generate original anime concept, characters, and episode breakdown.
+  help          Show this help.
 
 With no command, 'daily' is assumed.
 """
@@ -91,10 +93,15 @@ def _print_monthly(result: dict[str, Any]) -> None:
     print(f"Analytics observations: {digest.get('observations')}")
 
 
-COMMANDS = ("daily", "analytics", "scientist", "monthly", "prompts")
+COMMANDS = ("daily", "analytics", "scientist", "monthly", "prompts", "anime-trends", "anime-concept")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
     args = list(argv) if argv is not None else sys.argv[1:]
 
     command = args[0] if args else "daily"
@@ -114,6 +121,45 @@ def main(argv: Sequence[str] | None = None) -> int:
 
             output = generate_html()
             print(f"Prompt viewer generated: {output}")
+            return 0
+
+        if command == "anime-trends":
+            from .anime.metadata import AnimeMetadataClient
+
+            client = AnimeMetadataClient()
+            trends = client.get_trending(limit=5)
+            print("=== Real-World Trending Anime (Kitsu API) ===")
+            for i, item in enumerate(trends, 1):
+                print(f"{i}. {item.title} ({item.japanese_title or 'N/A'})")
+                print(f"   Rating: {item.average_rating or 'N/A'}% | Episodes: {item.episode_count or 'TBD'} | Status: {item.status}")
+                print(f"   Synopsis: {item.synopsis[:140]}...")
+            return 0
+
+        if command == "anime-concept":
+            from .anime.generator import AnimeContentGenerator
+
+            theme = args[1] if len(args) > 1 else "Astrophysics and Ancient Indian Astronomy"
+            generator = AnimeContentGenerator()
+            concept = generator.generate_concept(theme=theme)
+            chars = generator.generate_characters(concept=concept, count=2)
+            outline = generator.generate_episode_outline(concept=concept, characters=chars, episode_number=1)
+            pkg = generator.generate_post_package(concept=concept, outline=outline, characters=chars)
+
+            print(f"=== Original Anime Concept: {concept.title} ===")
+            print(f"Genre: {concept.genre}")
+            print(f"Synopsis: {concept.synopsis}")
+            print(f"Setting: {concept.setting}")
+            print(f"Target Audience: {concept.target_audience}")
+            print("\n--- Key Characters ---")
+            for c in chars:
+                print(f"* {c['name']} ({c['role']}): {c['personality']}")
+                print(f"  Appearance: {c['appearance']}")
+                print(f"  Motivation: {c['motivation']}")
+            print(f"\n--- Episode 1 Outline: {outline.episode_title} ---")
+            for s in outline.scenes:
+                print(f"Scene {s.scene_number} [{s.location}]: {s.summary}")
+            print(f"Cliffhanger: {outline.cliffhanger}")
+            print(f"\nCaption:\n{pkg['caption'][:200]}...")
             return 0
 
         scheduler = Scheduler()
