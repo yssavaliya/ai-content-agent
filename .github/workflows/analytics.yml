@@ -68,4 +68,13 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if [ -e agent.db ]; then git add -f agent.db; fi
           git commit -m "chore: analytics artifacts" || echo "No changes to commit"
-          git push
+          for attempt in 1 2 3 4 5; do
+            if git push origin main 2>/dev/null; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; pulling and retrying..."
+            git pull --rebase origin main
+          done
+          echo "Could not push artifacts after 5 attempts"
+          exit 1
+

@@ -96,4 +96,12 @@ jobs:
             if [ -d "$dir" ]; then git add -f "$dir"; fi
           done
           git commit -m "chore: daily run artifacts" || echo "No changes to commit"
-          git push
+          for attempt in 1 2 3 4 5; do
+            if git push origin main 2>/dev/null; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; pulling and retrying..."
+            git pull --rebase origin main
+          done
+          echo "Could not push artifacts after 5 attempts"
+          exit 1
