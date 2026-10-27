@@ -49,12 +49,15 @@ _ENTRY_TEMPLATE = """<details>
 
 
 def _stamp_from_filename(filename: str) -> str:
-    # Filenames are {YYYYMMDD_HHMMSS_ffffff}_{run}_{label}.txt
-    token = filename.split("_", 3)[0]
-    try:
-        return datetime.strptime(token, "%Y%m%d_%H%M%S").isoformat(timespec="seconds") + "Z"
-    except ValueError:
-        return filename
+    # Filenames are {YYYYMMDD}_{HHMMSS}_{ffffff}_{run}_{label}.txt
+    parts = filename.split("_")
+    if len(parts) >= 2:
+        token = f"{parts[0]}_{parts[1]}"
+        try:
+            return datetime.strptime(token, "%Y%m%d_%H%M%S").isoformat(timespec="seconds") + "Z"
+        except ValueError:
+            pass
+    return filename
 
 
 def _read_metadata(prompt_file: Path) -> dict:
@@ -78,11 +81,17 @@ def _badge(meta: dict) -> str:
 
 def _render_entry(prompt_file: Path) -> str:
     meta = _read_metadata(prompt_file)
-    name = prompt_file.stem.rsplit("_", 1)[0] if "_" in prompt_file.name else prompt_file.name
-    stamp = meta.get("created_at", _stamp_from_filename(prompt_file.name))
-    # Filename: {YYYYMMDD_HHMMSS_ffffff}_{run_id}_{label}.txt -> run_id is part index 3
     parts = prompt_file.stem.split("_")
-    run_id = parts[3] if len(parts) >= 4 else "no-run"
+    if len(parts) >= 5:
+        name = "_".join(parts[4:])
+        run_id = parts[3]
+    elif len(parts) >= 4:
+        name = parts[-1]
+        run_id = parts[3]
+    else:
+        name = prompt_file.stem
+        run_id = "no-run"
+    stamp = meta.get("created_at", _stamp_from_filename(prompt_file.name))
     chars = meta.get("prompt_chars", prompt_file.stat().st_size)
     elapsed = f"{meta.get('elapsed_seconds', 0.0)}s"
     content = html.escape(prompt_file.read_text(encoding="utf-8"))
@@ -108,8 +117,13 @@ def generate_html(logs_dir: str | Path = DEFAULT_LOGS_DIR, output: str | Path = 
             reverse=True,
         )
         entries_html = "\n".join(_render_entry(p) for p in prompt_files)
+    if not entries_html:
+        entries_html = '<div class="empty">No prompt logs recorded yet.</div>'
+        stats_count = 0
+    else:
+        stats_count = len(entries_html.split("<details>")) - 1
     page = _PAGE_TEMPLATE.format(
-        stats=len(entries_html.split("<details>")) - 1,
+        stats=stats_count,
         generated=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         entries=entries_html,
     )

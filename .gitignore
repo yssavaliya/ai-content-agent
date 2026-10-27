@@ -23,5 +23,6 @@ dist/
 .ruff_cache/
 .coverage
 htmlcov/
+reports/
 .venv/
 venv/

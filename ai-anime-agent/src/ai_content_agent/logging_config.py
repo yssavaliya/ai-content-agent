@@ -9,7 +9,10 @@ from .settings import current_settings
 def setup_logging(level: str | None = None) -> None:
     """Configure root logging once using the configured LOG_LEVEL."""
     if level is None:
-        level = current_settings().log_level
+        try:
+            level = current_settings().log_level
+        except ValueError:
+            level = "INFO"
     numeric_level = getattr(logging, level.strip().upper(), None)
     if not isinstance(numeric_level, int):
         numeric_level = logging.INFO

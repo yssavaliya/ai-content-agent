@@ -4,32 +4,85 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  test:
+  validate:
+    name: Complete Validation Pipeline
     runs-on: ubuntu-latest
     env:
       AGENT_RETRY_BACKOFF_SECONDS: "0"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+          cache: "pip"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
-      - name: Lint (ruff)
-        run: python -m ruff check .
-      - name: Tests (pytest)
-        run: python -m pytest -q
-      - name: Tests (unittest)
-        run: python -m unittest discover -s tests
-      - name: Tests (ai-anime-agent subfolder)
+          python -m playwright install --with-deps chromium
+
+      - name: Validate configuration handling
         run: |
+          python -m ai_content_agent.cli --help
+          python -m ai_content_agent.cli help
+          # Verify clean error handling when required env variables are absent
+          output=$(python -m ai_content_agent.cli daily 2>&1 || true)
+          echo "$output" | grep -q "Missing required configuration values"
+          ! echo "$output" | grep -q "Traceback"
+
+      - name: Lint & static analysis (ruff)
+        run: |
+          python -m ruff check .
           python -m ruff check ai-anime-agent
+
+      - name: Database migrations on clean test database
+        run: |
+          python -c "from ai_content_agent.database.connection import initialize_database, run_migrations; initialize_database('test_validation.db'); run_migrations('test_validation.db')"
+          rm -f test_validation.db
+
+      - name: Unit tests
+        run: |
+          python -m pytest tests/test_agents.py tests/test_analytics.py tests/test_cli.py tests/test_creator_agent.py tests/test_database_connection.py tests/test_experiments.py tests/test_hosting.py tests/test_image_provider.py tests/test_notifications.py tests/test_opencode_client.py tests/test_pipeline.py tests/test_planner_agent.py tests/test_predictor_agent.py tests/test_prompt_recorder.py tests/test_prompts.py tests/test_publish_instagram.py tests/test_publish_registry.py tests/test_research_agent.py tests/test_reviewer_agent.py tests/test_run_lock.py tests/test_scheduler.py tests/test_scientist_agent.py tests/test_settings.py tests/test_settings_extended.py tests/test_statistics.py tests/test_strategy.py -q
+
+      - name: End-to-end real user workflow tests
+        run: python -m pytest tests/test_e2e_workflows.py -v
+
+      - name: Browser-based end-to-end tests (Playwright)
+        run: python -m pytest tests/test_browser_e2e.py -v
+
+      - name: Subproject tests (ai-anime-agent)
+        run: |
           cd ai-anime-agent
-          python -m pytest -q
+          python -m pip install -e ".[dev]"
+          python -m pytest -v
+          cd ..
+
+      - name: Real execution mode & prompt viewer generation
+        run: |
+          python -m ai_content_agent.cli prompts
+          test -f logs/prompts/index.html
+
+      - name: Upload test artifacts & diagnostic reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-validation-artifacts-${{ github.run_id }}
+          path: |
+            reports/
+            logs/
+            posts/
+          if-no-files-found: ignore
