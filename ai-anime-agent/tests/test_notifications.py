@@ -1,10 +1,11 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
+import requests
+
 from ai_content_agent.notifications.channels import (
     DiscordChannel,
     DryRunChannel,
-    EmailChannel,
     NotificationChannel,
     NotificationError,
     SlackChannel,
@@ -52,33 +53,19 @@ class ChannelTests(unittest.TestCase):
         self.assertIn("/bottoken/sendMessage", url)
 
     @patch("ai_content_agent.notifications.channels.requests.post")
+    def test_telegram_network_error_does_not_leak_bot_token(self, mock_post):
+        mock_post.side_effect = requests.ConnectionError("failed for https://api.telegram.org/botSECRET123/sendMessage")
+        with self.assertRaises(NotificationError) as ctx:
+            TelegramChannel("SECRET123", "chat-1").send("s", "b", {})
+        self.assertNotIn("SECRET123", str(ctx.exception))
+
+    @patch("ai_content_agent.notifications.channels.requests.post")
     def test_slack_channel_posts(self, mock_post):
         mock_post.return_value = MagicMock(status_code=200)
         SlackChannel("https://slack.example/hook").send("s", "b", {})
         _, kwargs = mock_post.call_args
         self.assertIn("s", kwargs["json"]["text"])
 
-    @patch("ai_content_agent.notifications.channels.smtplib.SMTP")
-    def test_email_channel_sends(self, mock_smtp):
-        smtp_instance = MagicMock()
-        smtp_instance.__enter__.return_value = smtp_instance
-        mock_smtp.return_value = smtp_instance
-        channel = EmailChannel(
-            host="smtp.example.com",
-            port=587,
-            username="user",
-            password="pass",
-            from_address="a@example.com",
-            to_addresses="b@example.com, c@example.com",
-        )
-        channel.send("Subject", "Body", {})
-        smtp_instance.send_message.assert_called_once()
-        smtp_instance.starttls.assert_called_once()
-
-    def test_email_channel_requires_recipients(self):
-        channel = EmailChannel(host="smtp.example.com")
-        with self.assertRaises(NotificationError):
-            channel.send("s", "b", {})
 
 
 class BuildChannelsTests(unittest.TestCase):
@@ -87,10 +74,15 @@ class BuildChannelsTests(unittest.TestCase):
         channels = build_channels(settings)
         self.assertEqual([c.name for c in channels], ["dryrun"])
 
-    def test_build_channels_skips_unconfigured(self):
-        settings = make_settings(notify_channels=("discord", "telegram", "slack", "email"))
+    def test_build_channels_falls_back_to_dryrun_when_nothing_usable(self):
+        settings = make_settings(notify_channels=("discord", "telegram", "slack"))
         channels = build_channels(settings)
-        self.assertEqual(channels, [])
+        self.assertEqual([c.name for c in channels], ["dryrun"])
+
+    def test_removed_email_channel_is_ignored(self):
+        settings = make_settings(notify_channels=("email",))
+        channels = build_channels(settings)
+        self.assertEqual([c.name for c in channels], ["dryrun"])
 
     def test_build_channels_instantiates_configured(self):
         settings = make_settings(

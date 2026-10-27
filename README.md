@@ -4,11 +4,12 @@ An autonomous Instagram content system. It researches a topic, plans and scores 
 
 ## What is included
 
-- Five LLM-backed agents that each shell out to the `opencode` CLI as a subprocess and validate strict JSON output:
+- Six LLM-backed agents that each shell out to the `opencode` CLI as a subprocess and validate strict JSON output:
   - `ResearchAgent` — recommends a content topic from the brand identity and strategy.
   - `PlannerAgent` — generates scored candidate ideas and selects the strongest.
   - `CreatorAgent` — turns the selected idea into a full post draft (carousel outline, caption, CTA, hashtags, image prompt, alt text).
   - `ReviewerAgent` — checks the draft for grammar, readability, tone, policy, and completeness, returning `PASS`/`FAIL`.
+  - `PredictorAgent` — estimates virality from the draft, research, review and recent post performance.
   - `ScientistAgent` — analyzes experiment results and recommends strategy changes backed by statistics.
 - Image providers under `src/ai_content_agent/providers/image`:
   - `local` / `mock` — write JSON metadata only; used for tests and offline development.
@@ -16,11 +17,11 @@ An autonomous Instagram content system. It researches a topic, plans and scores 
 - Publishing under `src/ai_content_agent/publish`:
   - `InstagramPublisher` — real publishing via the Instagram Graph API (container → poll → publish). Images are converted to JPEG (≤ 8 MB) and hosted on a public HTTPS URL before publishing.
   - `GitHubRawImageHost` — uploads images to a GitHub repository and returns the raw.githubusercontent.com URL.
-  - `DryRunPublisher` — fallback that simulates publishing when Instagram is not configured.
+  - `DryRunPublisher` — fallback when Instagram is not configured: simulates publishing and writes a Markdown post kit for manual posting (see below).
 - Analytics under `src/ai_content_agent/analytics`:
   - `InstagramAnalyticsClient` — fetches per-post insights and account insights from the Graph API. Missing metrics are never treated as zero.
   - `AnalyticsCollector` — persists `post_metrics` and observations into SQLite.
-- Notifications under `src/ai_content_agent/notifications` — dry-run, Discord, Telegram, Slack, and Email channels (any combination, configured via `NOTIFY_CHANNELS`). The notifier never raises.
+- Notifications under `src/ai_content_agent/notifications` — dry-run, Discord, Telegram, Slack channels (any combination, configured via `NOTIFY_CHANNELS`). The notifier never raises.
 - A `Scheduler` and CLI (`daily`, `analytics`, `scientist`, `monthly`) plus GitHub Actions workflows that run everything on a schedule.
 - A `ContentPipeline` that orchestrates research → planning → creation → review → image → publish and persists each step to SQLite.
 
@@ -48,6 +49,8 @@ Supported environment variables (see `.env.example`):
 - `LOG_LEVEL` — application log level, e.g. `DEBUG`, `INFO`, `WARNING`, `ERROR`
 - `DATABASE_PATH` — SQLite database file path
 - `OPENCODE_COMMAND` — command used to invoke the `opencode` CLI
+- `LLM_PROVIDER` — `opencode` (default, free), `openai` or `gemini`
+- `OPENAI_TEXT_MODEL`, `OPENAI_TEXT_FALLBACK_ENABLED`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_BASE_URL` — optional API fallbacks
 - `OPENCODE_TIMEOUT_SECONDS` — per-invocation timeout for `opencode` (default 60)
 - `INSTAGRAM_ENABLED` — `true`/`false`
 - `IMAGE_PROVIDER` — `local`, `mock`, or `openai`
@@ -58,9 +61,37 @@ Supported environment variables (see `.env.example`):
 - `INSTAGRAM_PUBLISH_ENABLED` — set `true` to publish for real; otherwise publishing falls back to dry-run
 - `INSTAGRAM_ANALYTICS_ENABLED` — set `true` to collect insights
 - `MEDIA_HOST` / `MEDIA_HOST_REPO` / `MEDIA_HOST_TOKEN` / `MEDIA_HOST_BRANCH` / `MEDIA_HOST_PATH` — GitHub-raw media hosting (`MEDIA_HOST=github`); Instagram requires a public HTTPS image URL
-- `NOTIFY_CHANNELS` — comma-separated list: `dryrun`, `discord`, `telegram`, `slack`, `email`
-- `DISCORD_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `SLACK_WEBHOOK_URL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM`, `SMTP_TO`, `NOTIFY_SMTP_TLS` — per-channel credentials
+- `NOTIFY_CHANNELS` — comma-separated list: `dryrun`, `discord`, `telegram`, `slack` (unusable/unknown values fall back to `dryrun`)
+- `DISCORD_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `SLACK_WEBHOOK_URL` — per-channel credentials
 - `SCIENTIST_MIN_SAMPLE_SIZE` (default 10), `SCIENTIST_MIN_EFFECT` (default 0.15), `SCIENTIST_APPLY_THRESHOLD` (default 0.6), `SCIENTIST_MAX_RECOMMENDATIONS` (default 5) — evidence gates for the learning loop
+
+## Manual publishing (replaces the old email hand-off)
+
+When Instagram publishing is off or not configured (`INSTAGRAM_PUBLISH_ENABLED=false`), the pipeline does **not** call Instagram. The `DryRunPublisher` writes a copy-paste-ready Markdown **post kit** next to the package (`posts/post_kit_<run_id>.md`: caption, CTA, hashtags, alt text, image location, carousel outline). The kit is available in three places, none of which need email:
+
+- In the repository, committed with the run artifacts under `posts/`.
+- In the GitHub Actions **job summary** of the `daily` and `manual` workflows.
+- In the success notification (full caption, hashtags and alt text) sent to the configured Discord/Telegram/Slack channel, or the log when only `dryrun` is configured.
+
+If the ReviewerAgent returns `FAIL`, nothing is generated or published: the run is stored with publish status `blocked_review` and a failure notification lists the reviewer's reasons.
+
+## Architecture and static hosting
+
+This repository is a Python command-line system driven by GitHub Actions cron jobs. It has **no web frontend, no HTTP API and no user accounts**, so there is nothing to convert into a static website and no server to host. The only persistent state is a SQLite file (`agent.db`) and generated files under `posts/` and `images/`, which the workflows commit back to the repository. If you want a browsable site later, `posts/post_kit_*.md` and `posts/*.json` can be published with any static host such as GitHub Pages; that is not set up here.
+
+Hosting requirements: a GitHub repository with Actions enabled (free for public repositories; private repositories have a monthly free-minute quota), or any machine with Python 3.11+ and Node.js (for the `opencode` CLI) running `ai-content-agent daily` from cron.
+
+## Costs and free / open-source choices
+
+| Component | Default | Cost / licence note |
+| --- | --- | --- |
+| LLM for all agents | `opencode` CLI with the model in `opencode.json` | The CLI is open source; the configured `-free` model is offered by a third party and is not guaranteed to stay free. |
+| OpenAI / Gemini chat | Off unless `OPENAI_API_KEY` / `GEMINI_API_KEY` is set | Proprietary, usage-billed. Used only as an optional fallback (or when `LLM_PROVIDER` selects them). |
+| Image generation | `IMAGE_PROVIDER=local` (writes the prompt only, no picture) | `openai` renders real images but is a paid API. **No free image generator is bundled**, so automatic image posts need either that paid provider or a manually created image from the post kit. |
+| Instagram Graph API, GitHub API | Optional | No API fee, but Instagram publishing needs a Meta app and Business account. |
+| Python deps | `openai`, `requests`, `Pillow` | MIT/Apache-2.0/HPND licences. |
+
+Email/SMTP support has been removed entirely; no mail provider is required or used.
 
 ## Instagram setup
 
@@ -134,12 +165,26 @@ ai-content-agent monthly     # monthly digest
 `.github/workflows/` contains:
 
 - `ci.yml` — lint + tests on push/PR.
+- `manual.yml` — on-demand run (`workflow_dispatch`) with selectable image provider and notification channels.
 - `daily.yml` — runs the daily pipeline (cron `0 6 * * *`), persists `agent.db`, `brain/strategy.md`, and generated assets back to the repo.
 - `analytics.yml` — collects insights (cron `0 14 * * *`).
 - `weekly.yml` — runs the Scientist learning loop (cron `30 6 * * 0`).
 - `monthly.yml` — sends the monthly digest (cron `0 7 1 * *`).
 
+All workflows share one `concurrency` group (`repo-state`) so two jobs never write `agent.db` or push at the same time. A failing pipeline step now fails the workflow (previously the pipe hid the exit code), but run artifacts are still committed.
+
 Configure repository secrets (Settings → Secrets and variables → Actions) for every environment variable you set in `.env`. Scheduled jobs run on the default branch; commits pushed back use the built-in `GITHUB_TOKEN` with `contents: write`. Each job holds an exclusive lock file next to `agent.db` (`<db>.lock`), so overlapping scheduled runs cannot race on the shared database; stale locks are broken automatically.
+
+## Development and verification
+
+Run everything from the repository root of the instance you are using (`brain/` and `posts/` are resolved relative to the working directory; prompt templates ship inside the package).
+
+```bash
+pip install -e ".[dev]"
+python -m ruff check .
+python -m pytest -q          # fully mocked; no opencode binary, network or API key needed
+python -m unittest discover -s tests
+```
 
 ## Tests
 

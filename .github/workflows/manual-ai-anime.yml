@@ -1,4 +1,4 @@
-name: Manual AI/Anime Content Run (Email)
+name: Manual AI/Anime Content Run
 
 on:
   workflow_dispatch:
@@ -13,15 +13,19 @@ on:
           - mock
           - openai
       notify_channels:
-        description: "Notification channels (email, dryrun)"
+        description: "Notification channels (dryrun, discord, telegram, slack)"
         type: string
         required: false
-        default: "email"
+        default: "dryrun"
       instagram_enabled:
         description: "Enable Instagram publishing (requires secrets)"
         type: boolean
         required: false
         default: false
+
+concurrency:
+  group: repo-state
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -42,13 +46,6 @@ jobs:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
       NOTIFY_CHANNELS: ${{ github.event.inputs.notify_channels }}
-      SMTP_HOST: ${{ secrets.SMTP_HOST }}
-      SMTP_PORT: ${{ secrets.SMTP_PORT }}
-      SMTP_USER: ${{ secrets.SMTP_USER }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      SMTP_FROM: ${{ secrets.SMTP_FROM }}
-      SMTP_TO: ${{ secrets.SMTP_TO }}
-      NOTIFY_SMTP_TLS: ${{ secrets.NOTIFY_SMTP_TLS }}
       # Instagram (only used if instagram_enabled=true)
       INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
       INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
@@ -92,11 +89,18 @@ jobs:
       - name: Run daily pipeline
         working-directory: ai-anime-agent
         run: |
+          set -o pipefail
           python -m ai_content_agent.cli daily 2>&1 | while IFS= read -r line; do
             echo "::notice::$line"
             echo "$line"
           done
 
+      - name: Show post kit in job summary
+        if: ${{ !cancelled() }}
+        working-directory: ai-anime-agent
+        run: |
+          kit=$(ls -t posts/post_kit_*.md 2>/dev/null | head -n 1 || true)
+          if [ -n "$kit" ]; then cat "$kit" >> "$GITHUB_STEP_SUMMARY"; fi
       - name: Generate prompt viewer
         working-directory: ai-anime-agent
         run: python -m ai_content_agent.cli prompts
@@ -110,6 +114,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Persist artifacts
+        if: ${{ !cancelled() }}
         working-directory: ai-anime-agent
         run: |
           git config user.name "github-actions[bot]"

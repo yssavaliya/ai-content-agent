@@ -6,13 +6,16 @@ from string import Template
 from typing import Any
 
 
+PACKAGED_PROMPT_DIR = Path(__file__).resolve().parent
+
+
 class PromptError(ValueError):
     pass
 
 
 class PromptManager:
     def __init__(self, prompt_dir: str | Path | None = None) -> None:
-        self.prompt_dir = Path(prompt_dir) if prompt_dir else Path("prompts")
+        self.prompt_dir = Path(prompt_dir) if prompt_dir else PACKAGED_PROMPT_DIR
 
     @lru_cache(maxsize=32)
     def load_prompt(self, name: str) -> str:

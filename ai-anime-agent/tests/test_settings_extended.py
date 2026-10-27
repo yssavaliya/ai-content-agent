@@ -55,22 +55,20 @@ class ExtendedSettingsTests(unittest.TestCase):
                 SCIENTIST_MIN_SAMPLE_SIZE="15",
                 SCIENTIST_MIN_EFFECT="0.2",
                 SCIENTIST_APPLY_THRESHOLD="0.7",
-                SMTP_PORT="465",
             )
         )
         self.assertEqual(settings.opencode_timeout_seconds, 180)
         self.assertEqual(settings.scientist_min_sample_size, 15)
         self.assertEqual(settings.scientist_min_effect, 0.2)
         self.assertEqual(settings.scientist_apply_threshold, 0.7)
-        self.assertEqual(settings.smtp_port, 465)
 
     def test_rejects_invalid_numeric(self):
         with self.assertRaises(ValueError):
             load_settings(env=self._env(SCIENTIST_MIN_SAMPLE_SIZE="many"))
 
     def test_quoted_env_values_are_unquoted(self):
-        settings = load_settings(env=self._env(NOTIFY_CHANNELS='"email"'))
-        self.assertEqual(settings.notify_channels, ("email",))
+        settings = load_settings(env=self._env(NOTIFY_CHANNELS='"discord"'))
+        self.assertEqual(settings.notify_channels, ("discord",))
 
 
 if __name__ == "__main__":

@@ -43,7 +43,7 @@ class ContentPipeline:
         publisher: Publisher | None = None,
     ) -> None:
         self.settings = settings or current_settings()
-        self.prompt_manager = PromptManager(prompt_dir=Path("src/ai_content_agent/prompts"))
+        self.prompt_manager = PromptManager()
         self.database = database or DatabaseConnection()
         self._owns_database = database is None
         self.notifier = notifier or Notifier([DryRunChannel()])
@@ -90,11 +90,24 @@ class ContentPipeline:
         try:
             package = self._produce_content(run_id)
             self._save_package(package, package.get("package_path"))
-            self.notifier.send_success(
-                subject="AI Content Agent: daily post published",
-                body=self._success_body(package, run_id),
-                metadata={"run_id": run_id, "color": 3066993},
-            )
+            publish_status = (package.get("publish") or {}).get("status")
+            if publish_status == "blocked_review":
+                self.notifier.send_failure(
+                    subject="AI Content Agent: post blocked by review",
+                    body=self._blocked_body(package, run_id),
+                    metadata={"run_id": run_id, "color": 15158332},
+                )
+            else:
+                published = publish_status == "published"
+                self.notifier.send_success(
+                    subject=(
+                        "AI Content Agent: daily post published"
+                        if published
+                        else "AI Content Agent: daily post ready for manual publishing"
+                    ),
+                    body=self._success_body(package, run_id),
+                    metadata={"run_id": run_id, "color": 3066993},
+                )
             logger.info("Pipeline run %s completed", run_id)
             return package
         except Exception as exc:
@@ -149,6 +162,16 @@ class ContentPipeline:
         
         self._persist_review(creator_output_id, reviewer_results)
 
+        if reviewer_results["status"] != "PASS":
+            logger.warning(
+                "::warning::[Pipeline %s] ReviewerAgent returned %s; skipping image and publish",
+                run_id,
+                reviewer_results["status"],
+            )
+            return self._blocked_package(
+                run_id, creator_output_id, research_results, planner_results, creator_results, reviewer_results, timing
+            )
+
         logger.info("::notice::[Pipeline %s] Stage 5/8: PredictorAgent started", run_id)
         stage_start = time.perf_counter()
         predictor_results = self._run_predictor(creator_results, research_results, reviewer_results)
@@ -176,11 +199,11 @@ class ContentPipeline:
         package_path = self._save_package(package)
         package["package_path"] = str(package_path)
 
-        logger.info("::notice::[Pipeline %s] Stage 7/8: Media upload started", run_id)
+        logger.info("::notice::[Pipeline %s] Stage 7/8: Publish started", run_id)
         stage_start = time.perf_counter()
         publish_result = self._run_publish(creator_output_id, package_path, package, run_id)
         timing["publish_ms"] = int((time.perf_counter() - stage_start) * 1000)
-        logger.info("::notice::[Pipeline %s] Stage 7/8: Media upload + publish completed in %dms", run_id, timing["publish_ms"])
+        logger.info("::notice::[Pipeline %s] Stage 7/8: Publish completed in %dms", run_id, timing["publish_ms"])
         
         package["publish"] = publish_result
         self._save_package(package, package_path)
@@ -192,6 +215,40 @@ class ContentPipeline:
                     timing.get("image_ms", 0), timing.get("publish_ms", 0))
         
         package["timing"] = timing
+        return package
+
+    def _blocked_package(
+        self,
+        run_id: str,
+        creator_output_id: int,
+        research: dict[str, Any],
+        planning: dict[str, Any],
+        creation: dict[str, Any],
+        review: dict[str, Any],
+        timing: dict[str, int],
+    ) -> dict[str, Any]:
+        """Persist a package for content the reviewer rejected, without generating or publishing."""
+        result = PublishResult(
+            provider="none",
+            status="blocked_review",
+            published_id="",
+            metadata={"reasons": review.get("reasons", [])},
+        )
+        package: dict[str, Any] = {
+            "run_id": run_id,
+            "research": research,
+            "planning": planning,
+            "creation": creation,
+            "review": review,
+            "prediction": None,
+            "image": None,
+            "publish": result.__dict__,
+            "timing": timing,
+        }
+        package_path = self._save_package(package)
+        package["package_path"] = str(package_path)
+        self._persist_publish_package(creator_output_id, result, package_path)
+        self._save_package(package, package_path)
         return package
 
     def _agents_setup(self) -> tuple[ResearchAgent, PlannerAgent, CreatorAgent, ReviewerAgent, PredictorAgent]:
@@ -482,6 +539,18 @@ class ContentPipeline:
             f"Published id: {publish.get('published_id')}",
             f"Media URL: {(package.get('image') or {}).get('media_url', 'n/a')}",
         ]
+        if publish.get("status") != "published":
+            hashtags = creation.get("hashtags") or []
+            lines += [
+                "",
+                "READY FOR MANUAL PUBLISHING",
+                f"Full caption: {creation.get('caption', '')}",
+                f"Hashtags: {' '.join(hashtags) if hashtags else '(none)'}",
+                f"Alt text: {creation.get('alt_text') or '(none)'}",
+            ]
+            kit_path = (publish.get("metadata") or {}).get("kit_path")
+            if kit_path:
+                lines.append(f"Post kit: {kit_path}")
         if prediction.get("virality_score") is not None:
             lines.append("")
             lines.append("VIRALITY PREDICTION")
@@ -490,6 +559,17 @@ class ContentPipeline:
             lines.append(f"Key factors: {'; '.join(prediction.get('key_factors') or [])}")
             lines.append(f"Risks: {'; '.join(prediction.get('risks') or [])}")
         return "\n".join(lines)
+
+    def _blocked_body(self, package: dict[str, Any], run_id: str) -> str:
+        review = package.get("review") or {}
+        reasons = "\n".join(f"- {reason}" for reason in review.get("reasons", []))
+        return (
+            f"Run: {run_id}\n"
+            f"Topic: {(package.get('research') or {}).get('recommended_topic')}\n"
+            f"The ReviewerAgent returned {review.get('status')}; nothing was generated or published.\n"
+            f"Reasons:\n{reasons}\n"
+            f"Package: {package.get('package_path')}"
+        )
 
     def _failure_body(self, error: Exception, run_id: str) -> str:
         return (

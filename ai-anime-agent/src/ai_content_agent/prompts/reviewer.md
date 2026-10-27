@@ -23,9 +23,16 @@ Required JSON schema:
 
 The status must be exactly "PASS" or "FAIL".
 
-Variables:
-- creator_output
-- identity
-- constitution
-- market
+Input data (use only this data; do not invent inputs):
 
+Creator output (JSON):
+$creator_output
+
+Brand identity:
+$identity
+
+Brand constitution:
+$constitution
+
+Market context:
+$market

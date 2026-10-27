@@ -73,9 +73,9 @@ class SettingsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             load_settings(env=env)
 
-    def test_llm_provider_defaults_to_openai(self):
+    def test_llm_provider_defaults_to_free_opencode(self):
         settings = load_settings(env=REQUIRED_ENV)
-        self.assertEqual(settings.llm_provider, "openai")
+        self.assertEqual(settings.llm_provider, "opencode")
 
     def test_llm_provider_rejects_unknown_value(self):
         with self.assertRaises(ValueError):

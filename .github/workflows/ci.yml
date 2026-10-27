@@ -11,6 +11,8 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      AGENT_RETRY_BACKOFF_SECONDS: "0"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

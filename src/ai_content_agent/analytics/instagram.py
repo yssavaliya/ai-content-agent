@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import logging
+import time
 from typing import Any
 
 import requests
 
+from ..redaction import redact
 from ..timestamps import utc_now_iso
 from .base import AnalyticsProvider, PostMetrics
 
@@ -42,7 +44,12 @@ class InstagramAnalyticsClient(AnalyticsProvider):
     def _get(self, path: str, params: dict[str, Any]) -> dict[str, Any]:
         query = dict(params)
         query["access_token"] = self.access_token
-        response = requests.get(f"{self.base}/{path}", params=query, timeout=self.timeout_seconds)
+        try:
+            response = requests.get(f"{self.base}/{path}", params=query, timeout=self.timeout_seconds)
+        except requests.RequestException as exc:
+            raise InstagramAnalyticsError(
+                f"Instagram Graph API request failed: {redact(str(exc), self.access_token)}"
+            ) from None
         if response.status_code >= 400:
             raise InstagramAnalyticsError(
                 f"Instagram Graph API error ({response.status_code}): {response.text[:500]}"
@@ -101,8 +108,10 @@ class InstagramAnalyticsClient(AnalyticsProvider):
 
     def fetch_account_insights(self, period_days: int = 30) -> dict[str, Any]:
         metric = "follower_count,reach,impressions,accounts_engaged,profile_views"
+        until = int(time.time())
+        since = until - period_days * 86400
         payload = self._get(
             f"{self.account_id}/insights",
-            {"metric": metric, "period": "day", "since": "", "until": ""},
+            {"metric": metric, "period": "day", "since": since, "until": until},
         )
         return payload

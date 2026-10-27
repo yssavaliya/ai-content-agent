@@ -33,9 +33,19 @@ Required JSON schema:
 
 virality_label must be exactly one of "LOW", "MEDIUM", or "HIGH". virality_score must be an integer 0-100. virality_probability must be a number between 0 and 1.
 
-Variables:
-- creator_output
-- research_json
-- review_json
-- market
-- recent_posts_json
+Input data (use only this data; do not invent inputs):
+
+Creator output (JSON):
+$creator_output
+
+Research output (JSON):
+$research_json
+
+Review output (JSON):
+$review_json
+
+Market context:
+$market
+
+Recent posts performance (JSON):
+$recent_posts_json

@@ -72,7 +72,9 @@ def _print_scientist(result: dict[str, Any]) -> None:
             f"p={experiment_result.get('p_value')}, "
             f"winner={experiment_result.get('winner')}"
         )
-    print(f"Recommendations: {result.get('applied_count')} applied")
+    if result.get("note"):
+        print(result["note"])
+    print(f"Recommendations: {result.get('applied_count', 0)} applied")
     for outcome in result.get("outcomes", []):
         status = "applied" if outcome.get("applied") else f"rejected ({outcome.get('reason')})"
         print(f" - {outcome.get('variable')}: {status}")
@@ -89,18 +91,32 @@ def _print_monthly(result: dict[str, Any]) -> None:
     print(f"Analytics observations: {digest.get('observations')}")
 
 
+COMMANDS = ("daily", "analytics", "scientist", "monthly", "prompts")
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = list(argv) if argv is not None else sys.argv[1:]
-    setup_logging()
 
     command = args[0] if args else "daily"
-    scheduler = Scheduler()
 
     if command in ("help", "--help", "-h"):
         print(USAGE)
         return 0
+    if command not in COMMANDS:
+        print(f"Unknown command: {command}", file=sys.stderr)
+        print(USAGE, file=sys.stderr)
+        return 2
 
     try:
+        setup_logging()
+        if command == "prompts":
+            from .diagnostics.prompt_viewer import generate_html
+
+            output = generate_html()
+            print(f"Prompt viewer generated: {output}")
+            return 0
+
+        scheduler = Scheduler()
         if command == "daily":
             result = scheduler.run_daily()
             _print_daily_results(result)
@@ -113,15 +129,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif command == "monthly":
             result = scheduler.run_monthly()
             _print_monthly(result)
-        elif command == "prompts":
-            from .diagnostics.prompt_viewer import generate_html
-
-            output = generate_html()
-            print(f"Prompt viewer generated: {output}")
-        else:
-            print(f"Unknown command: {command}", file=sys.stderr)
-            print(USAGE, file=sys.stderr)
-            return 2
     except Exception as exc:
         print(f"Command '{command}' failed: {exc}", file=sys.stderr)
         return 1

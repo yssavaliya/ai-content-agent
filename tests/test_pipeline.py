@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import sqlite3
 import tempfile
 import unittest
@@ -12,6 +13,7 @@ from ai_content_agent.agents.predictor import PredictorAgent
 from ai_content_agent.agents.research import ResearchAgent
 from ai_content_agent.agents.reviewer import ReviewerAgent
 from ai_content_agent.application.pipeline import ContentPipeline
+from ai_content_agent.notifications.notifier import Notifier
 from ai_content_agent.opencode.client import OpenCodeClient
 from ai_content_agent.prompts.manager import PromptManager
 
@@ -84,6 +86,10 @@ class PipelineTests(unittest.TestCase):
         self._original_env = dict(os.environ)
         self._temp_dir = tempfile.TemporaryDirectory()
         self.db_path = Path(self._temp_dir.name) / "pipeline.db"
+        # Run in a scratch working directory so posts/ and images/ never pollute the repository.
+        self._original_cwd = os.getcwd()
+        shutil.copytree(Path(__file__).resolve().parents[1] / "brain", Path(self._temp_dir.name) / "brain")
+        os.chdir(self._temp_dir.name)
         os.environ.update(
             {
                 "LOG_LEVEL": "DEBUG",
@@ -95,6 +101,7 @@ class PipelineTests(unittest.TestCase):
         )
 
     def tearDown(self) -> None:
+        os.chdir(self._original_cwd)
         os.environ.clear()
         os.environ.update(self._original_env)
         self._temp_dir.cleanup()
@@ -106,7 +113,7 @@ class PipelineTests(unittest.TestCase):
 
     def _build_pipeline(self) -> ContentPipeline:
         pipeline = ContentPipeline()
-        prompt_manager = PromptManager(prompt_dir=Path("src/ai_content_agent/prompts"))
+        prompt_manager = PromptManager()
         database = pipeline.database
         pipeline.research_agent = ResearchAgent(
             prompt_manager=prompt_manager,
@@ -207,6 +214,44 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(publish_row[1], "dry-run")
         finally:
             connection.close()
+
+    def test_dry_run_writes_post_kit_for_manual_publishing(self):
+        pipeline = self._build_pipeline()
+        result = pipeline.run()
+
+        self.assertEqual(result["publish"]["status"], "dry-run")
+        kit = Path(result["publish"]["metadata"]["kit_path"])
+        self.assertTrue(kit.exists())
+        text = kit.read_text(encoding="utf-8")
+        self.assertIn(CREATOR_OUTPUT["caption"], text)
+        self.assertIn("#contentstrategy", text)
+        self.assertIn(CREATOR_OUTPUT["alt_text"], text)
+
+    def test_failed_review_blocks_image_and_publish(self):
+        notifier = MagicMock(spec=Notifier)
+        pipeline = self._build_pipeline()
+        pipeline.notifier = notifier
+        failing = dict(REVIEWER_OUTPUT, status="FAIL", reasons=["Off-brand tone."])
+        pipeline.reviewer_agent.opencode_client = self._mocked_client(failing)
+
+        result = pipeline.run()
+
+        self.assertEqual(result["publish"]["status"], "blocked_review")
+        self.assertIsNone(result["image"])
+        self.assertFalse(Path("images").exists())
+        notifier.send_failure.assert_called_once()
+        notifier.send_success.assert_not_called()
+        self.assertIn("Off-brand tone.", notifier.send_failure.call_args.kwargs["body"])
+
+    def test_published_success_notification_subject_matches_status(self):
+        notifier = MagicMock(spec=Notifier)
+        pipeline = self._build_pipeline()
+        pipeline.notifier = notifier
+        pipeline.run()
+
+        subject = notifier.send_success.call_args.kwargs["subject"]
+        self.assertIn("manual publishing", subject)
+        self.assertIn("Full caption:", notifier.send_success.call_args.kwargs["body"])
 
 
 if __name__ == "__main__":

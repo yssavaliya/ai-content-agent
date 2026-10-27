@@ -56,7 +56,7 @@ class ScientistAgent(BaseAgent):
         opencode_client: OpenCodeClient | None = None,
         database: DatabaseConnection | None = None,
     ) -> None:
-        self.prompt_manager = prompt_manager or PromptManager(prompt_dir=Path("src/ai_content_agent/prompts"))
+        self.prompt_manager = prompt_manager or PromptManager()
         self.opencode_client = opencode_client
         self.database = database
         self.max_attempts = 3

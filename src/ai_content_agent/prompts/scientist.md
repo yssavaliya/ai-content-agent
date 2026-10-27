@@ -31,8 +31,16 @@ Required JSON schema:
 
 recommendations may be an empty array when no recommendation clears the evidence bar.
 
-Variables:
-- experiment_results_json
-- identity
-- constitution
-- strategy
+Input data (use only this data; do not invent inputs):
+
+Experiment results (JSON):
+$experiment_results_json
+
+Brand identity:
+$identity
+
+Brand constitution:
+$constitution
+
+Content strategy:
+$strategy

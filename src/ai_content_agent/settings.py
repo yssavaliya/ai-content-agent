@@ -28,9 +28,10 @@ class Settings:
     openai_max_retries: int = 3
     openai_request_timeout_seconds: int = 60
 
-    # Primary LLM engine for agents: "openai", "gemini", or "opencode".
-    # The other API provider (openai <-> gemini) is tried next, then opencode.
-    llm_provider: str = "openai"
+    # Primary LLM engine for agents: "opencode" (default, free CLI), "openai", or "gemini".
+    # With "openai"/"gemini" the other API provider is tried next, then opencode. When opencode
+    # fails, a configured OpenAI/Gemini key is used as a fallback.
+    llm_provider: str = "opencode"
 
     # OpenAI text fallback (used when the primary LLM is unavailable or fails)
     openai_text_model: str = "gpt-4o-mini"
@@ -61,13 +62,6 @@ class Settings:
     telegram_bot_token: str | None = None
     telegram_chat_id: str | None = None
     slack_webhook_url: str | None = None
-    smtp_host: str | None = None
-    smtp_port: int = 587
-    smtp_user: str | None = None
-    smtp_password: str | None = None
-    smtp_from: str | None = None
-    smtp_to: str | None = None
-    notify_smtp_tls: bool = True
 
     # Scientist / learning
     scientist_min_sample_size: int = 10
@@ -150,7 +144,7 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         return env.get(name, "").strip() or None
 
     def get_provider() -> str:
-        provider = (get("LLM_PROVIDER") or "openai").strip().lower()
+        provider = (get("LLM_PROVIDER") or "opencode").strip().lower()
         if provider not in {"openai", "gemini", "opencode"}:
             raise ValueError(
                 f"Invalid value for LLM_PROVIDER: '{provider}' (expected 'openai', 'gemini', or 'opencode')"
@@ -197,13 +191,6 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         telegram_bot_token=get("TELEGRAM_BOT_TOKEN"),
         telegram_chat_id=get("TELEGRAM_CHAT_ID"),
         slack_webhook_url=get("SLACK_WEBHOOK_URL"),
-        smtp_host=get("SMTP_HOST"),
-        smtp_port=_parse_int(get("SMTP_PORT"), 587, "SMTP_PORT"),
-        smtp_user=get("SMTP_USER"),
-        smtp_password=get("SMTP_PASSWORD"),
-        smtp_from=get("SMTP_FROM"),
-        smtp_to=get("SMTP_TO"),
-        notify_smtp_tls=_parse_bool(get("NOTIFY_SMTP_TLS") or "true", "NOTIFY_SMTP_TLS"),
         scientist_min_sample_size=_parse_int(
             get("SCIENTIST_MIN_SAMPLE_SIZE"), 10, "SCIENTIST_MIN_SAMPLE_SIZE"
         ),

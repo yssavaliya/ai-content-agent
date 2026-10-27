@@ -8,6 +8,7 @@ from typing import Any
 
 import requests
 
+from ..redaction import redact
 from ..settings import current_settings
 from ..timestamps import utc_now_iso
 from .provider import PublishResult, Publisher
@@ -45,14 +46,24 @@ class InstagramGraphClient:
     def _post(self, path: str, params: dict[str, Any]) -> dict[str, Any]:
         query = dict(params)
         query["access_token"] = self.access_token
-        response = requests.post(f"{self.base}/{path}", data=query, timeout=self.timeout_seconds)
+        try:
+            response = requests.post(f"{self.base}/{path}", data=query, timeout=self.timeout_seconds)
+        except requests.RequestException as exc:
+            raise InstagramAPIError(self._request_error(exc)) from None
         return self._handle_response(response)
 
     def _get(self, path: str, params: dict[str, Any]) -> dict[str, Any]:
         query = dict(params)
         query["access_token"] = self.access_token
-        response = requests.get(f"{self.base}/{path}", params=query, timeout=self.timeout_seconds)
+        try:
+            response = requests.get(f"{self.base}/{path}", params=query, timeout=self.timeout_seconds)
+        except requests.RequestException as exc:
+            raise InstagramAPIError(self._request_error(exc)) from None
         return self._handle_response(response)
+
+    def _request_error(self, exc: requests.RequestException) -> str:
+        # requests embeds the full URL (including the access_token query string) in its messages.
+        return f"Instagram Graph API request failed: {redact(str(exc), self.access_token)}"
 
     @staticmethod
     def _handle_response(response: requests.Response) -> dict[str, Any]:

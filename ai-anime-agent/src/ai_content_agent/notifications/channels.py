@@ -1,13 +1,12 @@
 from __future__ import annotations
 
 import logging
-import smtplib
 from abc import ABC, abstractmethod
-from email.message import EmailMessage
 from typing import Any
 
 import requests
 
+from ..redaction import redact
 from ..settings import Settings
 
 logger = logging.getLogger(__name__)
@@ -62,7 +61,10 @@ class DiscordChannel(NotificationChannel):
                 }
             ]
         }
-        response = requests.post(self.webhook_url, json=payload, timeout=30)
+        try:
+            response = requests.post(self.webhook_url, json=payload, timeout=30)
+        except requests.RequestException as exc:
+            raise NotificationError(f"Discord request failed: {redact(str(exc), self.webhook_url)}") from None
         if response.status_code >= 400:
             raise NotificationError(f"Discord webhook error ({response.status_code}): {response.text[:300]}")
 
@@ -78,11 +80,14 @@ class TelegramChannel(NotificationChannel):
 
     def send(self, subject: str, body: str, metadata: dict[str, Any]) -> None:
         text = f"{subject}\n\n{_truncate(body)}"
-        response = requests.post(
-            f"https://api.telegram.org/bot{self.bot_token}/sendMessage",
-            json={"chat_id": self.chat_id, "text": text},
-            timeout=30,
-        )
+        try:
+            response = requests.post(
+                f"https://api.telegram.org/bot{self.bot_token}/sendMessage",
+                json={"chat_id": self.chat_id, "text": text},
+                timeout=30,
+            )
+        except requests.RequestException as exc:
+            raise NotificationError(f"Telegram request failed: {redact(str(exc), self.bot_token)}") from None
         if response.status_code >= 400:
             raise NotificationError(f"Telegram error ({response.status_code}): {response.text[:300]}")
 
@@ -96,53 +101,16 @@ class SlackChannel(NotificationChannel):
         self.webhook_url = webhook_url
 
     def send(self, subject: str, body: str, metadata: dict[str, Any]) -> None:
-        response = requests.post(
-            self.webhook_url,
-            json={"text": f"*{subject}*\n{_truncate(body)}"},
-            timeout=30,
-        )
+        try:
+            response = requests.post(
+                self.webhook_url,
+                json={"text": f"*{subject}*\n{_truncate(body)}"},
+                timeout=30,
+            )
+        except requests.RequestException as exc:
+            raise NotificationError(f"Slack request failed: {redact(str(exc), self.webhook_url)}") from None
         if response.status_code >= 400:
             raise NotificationError(f"Slack webhook error ({response.status_code}): {response.text[:300]}")
-
-
-class EmailChannel(NotificationChannel):
-    @property
-    def name(self) -> str:
-        return "email"
-
-    def __init__(
-        self,
-        host: str,
-        port: int = 587,
-        username: str | None = None,
-        password: str | None = None,
-        from_address: str | None = None,
-        to_addresses: str | None = None,
-        use_tls: bool = True,
-    ) -> None:
-        self.host = host
-        self.port = port
-        self.username = username
-        self.password = password
-        self.from_address = from_address or username or ""
-        self.to_addresses = [addr.strip() for addr in (to_addresses or "").split(",") if addr.strip()]
-        self.use_tls = use_tls
-
-    def send(self, subject: str, body: str, metadata: dict[str, Any]) -> None:
-        if not self.from_address or not self.to_addresses:
-            raise NotificationError("Email channel requires SMTP_FROM and SMTP_TO")
-        message = EmailMessage()
-        message["Subject"] = subject
-        message["From"] = self.from_address
-        message["To"] = ", ".join(self.to_addresses)
-        message.set_content(body)
-
-        with smtplib.SMTP(self.host, self.port, timeout=30) as server:
-            if self.use_tls:
-                server.starttls()
-            if self.username:
-                server.login(self.username, self.password or "")
-            server.send_message(message)
 
 
 def build_channels(settings: Settings) -> list[NotificationChannel]:
@@ -165,21 +133,9 @@ def build_channels(settings: Settings) -> list[NotificationChannel]:
                 channels.append(SlackChannel(settings.slack_webhook_url))
             else:
                 logger.warning("NOTIFY_CHANNELS includes slack but SLACK_WEBHOOK_URL is unset")
-        elif channel_name == "email":
-            if settings.smtp_host and settings.smtp_from and settings.smtp_to:
-                channels.append(
-                    EmailChannel(
-                        host=settings.smtp_host,
-                        port=settings.smtp_port,
-                        username=settings.smtp_user,
-                        password=settings.smtp_password,
-                        from_address=settings.smtp_from,
-                        to_addresses=settings.smtp_to,
-                        use_tls=settings.notify_smtp_tls,
-                    )
-                )
-            else:
-                logger.warning("NOTIFY_CHANNELS includes email but SMTP_HOST/SMTP_FROM/SMTP_TO are unset")
         else:
             logger.warning("Unknown notification channel in NOTIFY_CHANNELS: %s", channel_name)
+    if not channels:
+        logger.warning("No usable notification channel configured; falling back to dryrun (log only)")
+        channels.append(DryRunChannel())
     return channels

@@ -5,6 +5,10 @@ on:
     - cron: "0 6 * * *"
   workflow_dispatch:
 
+concurrency:
+  group: repo-state
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -38,13 +42,6 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      SMTP_HOST: ${{ secrets.SMTP_HOST }}
-      SMTP_PORT: ${{ secrets.SMTP_PORT }}
-      SMTP_USER: ${{ secrets.SMTP_USER }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      SMTP_FROM: ${{ secrets.SMTP_FROM }}
-      SMTP_TO: ${{ secrets.SMTP_TO }}
-      NOTIFY_SMTP_TLS: ${{ secrets.NOTIFY_SMTP_TLS }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -68,10 +65,16 @@ jobs:
           python -m pip install -e .
       - name: Run daily pipeline
         run: |
+          set -o pipefail
           python -m ai_content_agent.cli daily 2>&1 | while IFS= read -r line; do
             echo "::notice::$line"
             echo "$line"
           done
+      - name: Show post kit in job summary
+        if: ${{ !cancelled() }}
+        run: |
+          kit=$(ls -t posts/post_kit_*.md 2>/dev/null | head -n 1 || true)
+          if [ -n "$kit" ]; then cat "$kit" >> "$GITHUB_STEP_SUMMARY"; fi
       - name: Generate prompt viewer
         run: python -m ai_content_agent.cli prompts
       - name: Upload prompt logs
@@ -82,6 +85,7 @@ jobs:
           path: logs/prompts/
           if-no-files-found: ignore
       - name: Persist artifacts
+        if: ${{ !cancelled() }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

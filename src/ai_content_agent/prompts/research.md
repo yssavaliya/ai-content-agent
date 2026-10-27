@@ -29,7 +29,15 @@ Required JSON schema:
 
 Fields trend_signals and candidate_topics are required. candidate_topics lists the alternative directions that were considered.
 
-Variables:
-- identity
-- strategy
-- market
+Input data (use only this data; do not invent inputs):
+
+Brand identity:
+$identity
+
+Content strategy:
+$strategy
+
+Market context:
+$market
+
+Today's date (UTC): $run_date

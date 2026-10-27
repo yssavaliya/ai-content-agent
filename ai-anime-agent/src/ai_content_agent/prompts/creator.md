@@ -23,9 +23,19 @@ Required JSON schema:
   "alt_text": "string"
 }
 
-Variables:
-- selected_idea
-- identity
-- constitution
-- strategy
-- market
+Input data (use only this data; do not invent inputs):
+
+Selected idea (JSON):
+$selected_idea
+
+Brand identity:
+$identity
+
+Brand constitution:
+$constitution
+
+Content strategy:
+$strategy
+
+Market context:
+$market

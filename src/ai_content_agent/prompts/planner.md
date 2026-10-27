@@ -34,6 +34,10 @@ Required JSON schema:
   }
 }
 
-Variables:
-- research_json
-- market
+Input data (use only this data; do not invent inputs):
+
+Research output (JSON):
+$research_json
+
+Market context:
+$market
