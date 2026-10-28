@@ -351,43 +351,38 @@ class ContentPipeline:
 
         if is_anime:
             carousel_outline = [
-                "Slide 1: The Secret Behind Anime Visual Virality - Why certain sequences blow up on Instagram Explore.",
-                "Slide 2: Dynamic Sakuga Pacing - How fluid frame timing captures immediate viewer retention.",
-                "Slide 3: High-Contrast Color Grading - Visual cues that evoke emotion and drive 3x more saves.",
-                "Slide 4: The 3 Rules for Creator Graphics - How to apply anime aesthetic principles to your posts.",
+                "Single Post Focus: Standalone anime concept artwork and philosophy breakdown",
             ]
             caption = (
-                "Ever wondered why top anime scenes stop your scroll instantly? \U0001f3ac\u2728\n\n"
-                "It is not just pretty animation - it is deliberate psychological pacing:\n\n"
-                "\u2022 Dynamic sakuga timing locks attention in the first 1.5 seconds\n"
-                "\u2022 High-contrast palettes create instant visual hierarchy\n"
-                "\u2022 Micro-tension leads directly to massive comment debates\n\n"
-                "Save this post and swipe through to master the aesthetic framework! \U0001f447"
+                "The world only celebrates the awakening. \U00002694\U0001f311\n\n"
+                "They never see the ten thousand hours of quiet discipline in the shadows.\n\n"
+                "Whether you are mastering an art, building something legendary, or locking into your craft — remember:\n\n"
+                "\u2022 Relentless focus beats noisy talent every single time\n"
+                "\u2022 The greatest transformations happen when nobody is watching\n"
+                "\u2022 Your current chapter is the training arc for what comes next\n\n"
+                "Save this visual reminder when you need that extra surge of momentum. \U0001f4cc"
             )
-            cta = "Double-tap if you love anime art and share your favorite animated sequence in the comments!"
-            hashtags = ["#anime", "#animeart", "#visualstorytelling", "#creatoreconomy", "#digitalart", "#aesthetic"]
-            image_prompt = "Vibrant high-contrast modern anime aesthetic key visual, dramatic lighting, sharp typography banner, clean 1080x1080 graphic"
-            alt_text = "Educational carousel cover detailing anime visual pacing and modern digital aesthetics."
+            cta = "Drop a ⚔️ in the comments if you are locking into your craft today!"
+            hashtags = ["#anime", "#animeart", "#sololeveling", "#visualstorytelling", "#digitalart", "#aesthetic", "#animephilosophy"]
+            image_prompt = "Masterpiece anime key visual, dramatic blood moon eclipse, lone swordsman silhouette with glowing cyan katana blade, stardust particles, cinematic anime poster"
+            alt_text = "Cinematic anime artwork featuring a lone swordsman standing before a glowing celestial eclipse moon."
         else:
             carousel_outline = [
-                "Slide 1: Stop Working 15+ Hours on Social Content - The Autonomous AI Agent Blueprint.",
-                "Slide 2: Stage 1-3: Automated Trend Discovery, Topic Scoring & Idea Planning.",
-                "Slide 3: Stage 4-6: Verified Copywriting, Virality Scoring & Brand Graphic Generation.",
-                "Slide 4: Your Daily Action Plan: How to launch your autonomous pipeline in 30 minutes.",
+                "Single Post Focus: High-impact standalone visual art and architecture blueprint",
             ]
             caption = (
-                "Stop spending 15 hours a week drafting posts from scratch. \U0001f680\u26a1\n\n"
-                "Here is how autonomous AI agent pipelines generate high-performing content on autopilot:\n\n"
-                "\u2022 Trend research discovers what is resonating right now\n"
-                "\u2022 Scored planning picks the highest-ROI narrative angle\n"
-                "\u2022 Pre-publish virality checks ensure every hook is razor sharp\n"
-                "\u2022 Automated graphic synthesis keeps your grid pristine\n\n"
-                "Swipe through for the full 4-stage breakdown! \U0001f447"
+                "Building in the shadows before the breakthrough hits. \U000026a1\U0001f680\n\n"
+                "Most people see autonomous systems as overnight success. The reality?\n\n"
+                "• Iterating every single pipeline stage until it never breaks\n"
+                "• Replacing manual grunt work with deterministic intelligence\n"
+                "• Protecting your creative energy for the work that actually matters\n\n"
+                "The future belongs to the builders who automate the routine and amplify the craft.\n\n"
+                "Save this blueprint for your next build session. \U0001f4cc"
             )
-            cta = "Comment 'AGENT' below and we will send you the complete open-source pipeline setup guide!"
-            hashtags = ["#aiagents", "#creatoreconomy", "#contentautomation", "#socialmediamarketing", "#buildinpublic", "#python"]
-            image_prompt = "Modern clean tech dashboard infographic, sleek cyber typography, autonomous workflow diagram, 1080x1080 high resolution"
-            alt_text = "Infographic cover illustrating an autonomous AI agent content creation architecture."
+            cta = "Are you building with autonomous AI agents this year? Drop your thoughts below!"
+            hashtags = ["#aiagents", "#creatoreconomy", "#buildinpublic", "#autonomousagents", "#developers", "#python"]
+            image_prompt = "Futuristic cyber key visual, glowing neon energy core, lone creator silhouette, cosmic cyber particles, cinematic poster 1080x1080"
+            alt_text = "Futuristic digital art poster featuring a glowing energy core and cyber typography."
 
         return {
             "carousel_outline": carousel_outline,
