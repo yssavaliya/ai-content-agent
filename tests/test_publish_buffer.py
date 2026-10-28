@@ -35,8 +35,14 @@ class BufferPublisherTests(unittest.TestCase):
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.json.return_value = {
-            "success": True,
-            "updates": [{"id": "buffer_update_12345"}],
+            "data": {
+                "createPost": {
+                    "post": {
+                        "id": "buffer_update_12345",
+                        "status": "published",
+                    }
+                }
+            }
         }
         mock_post.return_value = mock_resp
 
@@ -48,10 +54,12 @@ class BufferPublisherTests(unittest.TestCase):
         self.assertEqual(res.published_id, "buffer_update_12345")
         mock_post.assert_called_once()
         _, kwargs = mock_post.call_args
-        self.assertEqual(kwargs["data"]["access_token"], "tok_123")
-        self.assertEqual(kwargs["data"]["profile_ids[]"], "prof_456")
-        self.assertIn("Test viral caption", kwargs["data"]["text"])
-        self.assertEqual(kwargs["data"]["media[photo]"], "https://raw.githubusercontent.com/test/repo/main/images/test.jpg")
+        self.assertEqual(kwargs["headers"]["Authorization"], "Bearer tok_123")
+        self.assertIn("CreatePost", kwargs["json"]["query"])
+        input_data = kwargs["json"]["variables"]["input"]
+        self.assertEqual(input_data["channelId"], "prof_456")
+        self.assertIn("Test viral caption", input_data["text"])
+        self.assertEqual(input_data["assets"][0]["image"]["url"], "https://raw.githubusercontent.com/test/repo/main/images/test.jpg")
 
     def test_publish_raises_if_media_url_missing(self) -> None:
         package_no_url = Path(self.temp_dir.name) / "no_url.json"
