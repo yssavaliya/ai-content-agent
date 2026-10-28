@@ -4,7 +4,6 @@ import logging
 import random
 import urllib.parse
 from pathlib import Path
-from typing import Any
 
 import requests
 
@@ -128,3 +127,4 @@ class FluxImageProvider(PollinationsImageProvider):
     """Alias for PollinationsImageProvider with FLUX model."""
 
     name = "flux"
+

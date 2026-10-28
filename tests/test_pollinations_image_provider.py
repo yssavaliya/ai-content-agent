@@ -75,3 +75,4 @@ class PollinationsImageProviderTests(unittest.TestCase):
         self.assertEqual(res.provider, "pillow")
         self.assertTrue(Path(res.file_path).exists())
         self.assertTrue(res.file_path.endswith(".png"))
+
