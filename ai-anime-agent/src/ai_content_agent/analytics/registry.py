@@ -4,6 +4,7 @@ import logging
 
 from ..settings import Settings
 from .base import AnalyticsProvider
+from .buffer import BufferAnalyticsClient
 from .instagram import InstagramAnalyticsClient
 
 logger = logging.getLogger(__name__)
@@ -18,6 +19,11 @@ class AnalyticsRegistry:
             from ..settings import current_settings
 
             settings = current_settings()
+
+        # If Buffer access token is present, use Buffer analytics client
+        if settings.buffer_access_token:
+            logger.info("Buffer analytics enabled")
+            return BufferAnalyticsClient(access_token=settings.buffer_access_token)
 
         if not settings.instagram_analytics_enabled:
             return None

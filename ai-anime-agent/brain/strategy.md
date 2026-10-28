@@ -1,41 +1,44 @@
-# Strategy
+# Content Strategy & Virality Engine
 
-## Content Focus: AI and Anime, Alternating Daily
+## Mission & Goal
+Produce standalone high-impact visual posts that maximize viral reach, saves, and comments for `@aimagix.studio` on Instagram, continuously refining through real performance feedback via Buffer.
 
-This instance publishes about two topics: artificial intelligence (AI) and anime. The topic alternates deterministically by UTC date:
+---
 
-- Even UTC date (e.g., 2026-08-10) -> AI content.
-- Odd UTC date (e.g., 2026-08-11) -> Anime content.
+## 1. Visual Virality Architecture (Single-Post Format)
+- **Aspect Ratio**: 1:1 square (1080x1080) optimized for feed prominence.
+- **Visual Aesthetic**:
+  - High-contrast, cinematic anime digital concept art.
+  - Deep atmospheric color palettes: deep violet/obsidian backdrop, vibrant cyan neon blade beams, celestial blood moon / solar eclipse corona.
+  - Lone hero silhouette compositions that trigger instant emotional intrigue in the first 0.5 seconds of scrolling.
+- **Rule - Anti-Carousel Format**:
+  - Single standalone poster visual ONLY. Never overlay pagination artifacts ("01/04", "Swipe Next >>", or multi-slide bullets) on the image.
+  - Keep artwork clean, atmospheric, and museum-grade.
 
-Use the run_date provided in the research prompt to determine today's parity. Do not guess the date; use run_date.
+---
 
-## Content Pillars
+## 2. Copy & Caption Virality Formula
+- **First 7 Words (The Scroll-Stopper Hook)**:
+  - Open with a bold, philosophical, or counter-intuitive claim.
+  - E.g.: *"The world only celebrates the awakening. They never see the ten thousand hours in the shadows."*
+- **Body & Value Delivery**:
+  - 3 concise bulleted insights formatted with clean spacing.
+  - Resonate with creator discipline, craft mastery, and perseverance.
+- **Call-to-Action (CTA)**:
+  - Single, low-friction micro-action (emoji comment or save).
+  - E.g.: *"Drop a ⚔️ in the comments if you are locking into your craft today!"*
+- **Hashtag Matrix**:
+  - 7 to 9 tightly curated hashtags mixing high-volume discovery (`#anime`, `#digitalart`) with niche affinity (`#animephilosophy`, `#visualstorytelling`, `#sololeveling`).
 
-### AI days
-- AI tools for daily Indian life: ChatGPT, Gemini, DeepSeek, Canva AI, free tools for students and small businesses.
-- AI career and skills: how to learn AI, prompts that work, AI jobs and freelancing in India.
-- AI news explained simply: what the latest model release means in one paragraph.
-- AI caution: scams, deepfakes, over-reliance on AI — with a practical tip.
+---
 
-### Anime days
-- Anime recommendations: where to start, hidden gems, series for beginners (never assume everyone watched everything).
-- Seasonal anime updates: what is airing this season, what is worth watching.
-- Anime culture: Hindi/Hinglish anime community moments, manga vs anime, dub vs sub.
-- AI-generated anime art: creative crossover content using original styles.
-
-## Format Rules
-
-- Carousels for value content (lists, step-by-step, "X anime like Y"). Reels-style hooks in the first line.
-- Every post must feel native to Indian Instagram: Hinglish-friendly captions, relatable scenarios (hostel life, metro commute, exam season, family WhatsApp groups).
-- 2-5 emojis max per caption, skimmable short lines.
-- Hashtags: mix broad tags (#reelsindia, #instagood, #animeindia, #aiforindia) with niche tags and location tags where relevant.
-
-## Publishing Windows (IST)
-
-- 12-2pm lunch scroll, 6-9pm evening peak, 10-11pm night scroll.
-
-## Topic-Specific Rules
-
-- AI posts: never exaggerate capability; if unsure about a tool or claim, keep it generic and safe. No financial/investment advice.
-- Anime posts: recommendations must avoid heavy spoilers; keep titles and shows family-appropriate unless clearly flagged.
-- Image prompts: always use original art styles inspired by the theme — never reproduce or copy actual anime frames, character designs, or copyrighted artwork.
+## 3. Continuous Learning & Mistake Correction Loop
+1. **Pre-Generation Analytics Ingestion**:
+   - Every scheduled pipeline run queries Buffer GraphQL API for recent post metrics (`impressions`, `reach`, `reactions/likes`, `comments`, `shares`, `saves`).
+   - Persists performance data to `post_metrics` and `observations` in `agent.db`.
+2. **Mistake Avoidance Engine**:
+   - If a topic or hook receives below average engagement rate (< 2%), downgrade that topic category in subsequent candidate selections.
+   - If an engagement driver (e.g. question CTA or neon katana visual) yields high saves (> 5% save-to-reach ratio), prioritize that visual motif in upcoming runs.
+3. **Scientist Governance**:
+   - Automatically track variant performance vs control benchmarks.
+   - Promote winning elements into permanent strategy guidelines.

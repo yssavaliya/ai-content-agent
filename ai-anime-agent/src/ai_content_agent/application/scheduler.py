@@ -39,6 +39,20 @@ class Scheduler:
 
     def run_daily(self) -> dict[str, Any]:
         with self._run_lock():
+            try:
+                provider = AnalyticsRegistry.build_provider(self.settings)
+                if provider:
+                    logger.info('Running pre-generation analytics collection via %s...', provider.name)
+                    collector = AnalyticsCollector(provider)
+                    collector.collect()
+            except Exception as exc:
+                logger.warning('Pre-run analytics collection failed: %s', exc)
+
+            try:
+                self._run_scientist_locked()
+            except Exception as exc:
+                logger.warning('Pre-run scientist analysis failed: %s', exc)
+
             pipeline = ContentPipeline(settings=self.settings, notifier=self.notifier)
             try:
                 package = pipeline.run()

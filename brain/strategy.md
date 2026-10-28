@@ -1,34 +1,44 @@
-# Strategy
+# Content Strategy & Virality Engine
 
-## Initial Strategy
+## Mission & Goal
+Produce standalone high-impact visual posts that maximize viral reach, saves, and comments for `@aimagix.studio` on Instagram, continuously refining through real performance feedback via Buffer.
 
-The initial strategy is focused on building a dependable foundation for the AI Content Agent using a phased, document-first approach.
+---
 
-### 1. Trend Research
+## 1. Visual Virality Architecture (Single-Post Format)
+- **Aspect Ratio**: 1:1 square (1080x1080) optimized for feed prominence.
+- **Visual Aesthetic**:
+  - High-contrast, cinematic anime digital concept art.
+  - Deep atmospheric color palettes: deep violet/obsidian backdrop, vibrant cyan neon blade beams, celestial blood moon / solar eclipse corona.
+  - Lone hero silhouette compositions that trigger instant emotional intrigue in the first 0.5 seconds of scrolling.
+- **Rule - Anti-Carousel Format**:
+  - Single standalone poster visual ONLY. Never overlay pagination artifacts ("01/04", "Swipe Next >>", or multi-slide bullets) on the image.
+  - Keep artwork clean, atmospheric, and museum-grade.
 
-- Identify relevant topics that are currently resonating on social media.
-- Prioritize trends that align with Instagram content and creator growth.
-- Use lightweight discovery methods in this phase to simulate idea generation.
+---
 
-### 2. Content Concept Generation
+## 2. Copy & Caption Virality Formula
+- **First 7 Words (The Scroll-Stopper Hook)**:
+  - Open with a bold, philosophical, or counter-intuitive claim.
+  - E.g.: *"The world only celebrates the awakening. They never see the ten thousand hours in the shadows."*
+- **Body & Value Delivery**:
+  - 3 concise bulleted insights formatted with clean spacing.
+  - Resonate with creator discipline, craft mastery, and perseverance.
+- **Call-to-Action (CTA)**:
+  - Single, low-friction micro-action (emoji comment or save).
+  - E.g.: *"Drop a ⚔️ in the comments if you are locking into your craft today!"*
+- **Hashtag Matrix**:
+  - 7 to 9 tightly curated hashtags mixing high-volume discovery (`#anime`, `#digitalart`) with niche affinity (`#animephilosophy`, `#visualstorytelling`, `#sololeveling`).
 
-- Translate discovered trends into a single high-level Instagram content idea.
-- Keep concept output concise and actionable.
-- Include caption guidance, visual description, and hashtags to support execution.
+---
 
-### 3. Publish Simulation
-
-- Simulate the publishing step to demonstrate the end-to-end flow.
-- Ensure the workflow can be validated without external integrations.
-
-### 4. Analytics Feedback
-
-- Collect proxy analytics data to close the loop.
-- Use the results to verify the full checkpoint path.
-
-## Guiding Principles
-
-- Start small: focus on one complete checkpoint rather than multiple capabilities.
-- Stay phase-aligned: do not add future-phase functionality.
-- Keep the architecture adaptable: define interfaces now and replace implementations later.
-- Document behavior clearly so that later development follows the same intent.
+## 3. Continuous Learning & Mistake Correction Loop
+1. **Pre-Generation Analytics Ingestion**:
+   - Every scheduled pipeline run queries Buffer GraphQL API for recent post metrics (`impressions`, `reach`, `reactions/likes`, `comments`, `shares`, `saves`).
+   - Persists performance data to `post_metrics` and `observations` in `agent.db`.
+2. **Mistake Avoidance Engine**:
+   - If a topic or hook receives below average engagement rate (< 2%), downgrade that topic category in subsequent candidate selections.
+   - If an engagement driver (e.g. question CTA or neon katana visual) yields high saves (> 5% save-to-reach ratio), prioritize that visual motif in upcoming runs.
+3. **Scientist Governance**:
+   - Automatically track variant performance vs control benchmarks.
+   - Promote winning elements into permanent strategy guidelines.
