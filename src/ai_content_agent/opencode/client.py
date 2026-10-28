@@ -18,6 +18,12 @@ from .recorder import PromptRecorder
 
 logger = logging.getLogger(__name__)
 
+_EXHAUSTED_PROVIDERS: set[str] = set()
+
+
+def reset_exhausted_providers() -> None:
+    _EXHAUSTED_PROVIDERS.clear()
+
 
 class OpenCodeError(RuntimeError):
     def __init__(self, message: str, exit_code: int, stdout: str, stderr: str) -> None:
@@ -106,10 +112,12 @@ class OpenCodeClient:
             )
             prompt_path = self.recorder.start(input_text, label or "agent", run_id)
 
+        tried_api = False
         try:
             if input_text is not None:
                 provider = self._settings.llm_provider if self._settings else "opencode"
                 if provider in ("openai", "gemini"):
+                    tried_api = True
                     result = self._try_chat_api(provider, input_text, label, start, prompt_path, primary=True)
                     if result is not None:
                         return result
@@ -121,12 +129,13 @@ class OpenCodeClient:
                     return self._run_opencode(args, input_text, start, prompt_path)
             return self._run_opencode(args, input_text, start, prompt_path)
         except OpenCodeError:
-            fallback = self._try_chat_api("openai", input_text, label, start, prompt_path, primary=False)
-            if fallback is not None:
-                return fallback
-            fallback = self._try_chat_api("gemini", input_text, label, start, prompt_path, primary=False)
-            if fallback is not None:
-                return fallback
+            if not tried_api and input_text is not None:
+                fallback = self._try_chat_api("openai", input_text, label, start, prompt_path, primary=False)
+                if fallback is not None:
+                    return fallback
+                fallback = self._try_chat_api("gemini", input_text, label, start, prompt_path, primary=False)
+                if fallback is not None:
+                    return fallback
             raise
 
     def _run_opencode(
@@ -308,6 +317,9 @@ class OpenCodeClient:
     ) -> OpenCodeResult | None:
         if input_text is None:
             return None
+        if provider in _EXHAUSTED_PROVIDERS:
+            logger.warning("LLM provider %s is marked exhausted / out of quota; skipping", provider)
+            return None
         settings = self._settings
         if settings is None or not settings.openai_text_fallback_enabled:
             logger.warning("LLM chat APIs are disabled (OPENAI_TEXT_FALLBACK_ENABLED=false)")
@@ -329,7 +341,12 @@ class OpenCodeClient:
             )
             content = (response.choices[0].message.content or "").strip()
         except Exception as exc:
-            logger.error("%s chat failed for %s: %s", display, label or "agent", exc)
+            err_msg = str(exc).lower()
+            if any(term in err_msg for term in ("insufficient_quota", "credits remaining", "billing", "quota_exceeded")):
+                logger.error("%s quota exhausted or out of credits (%s); disabling for session", display, exc)
+                _EXHAUSTED_PROVIDERS.add(provider)
+            else:
+                logger.error("%s chat failed for %s: %s", display, label or "agent", exc)
             return None
 
         elapsed = time.monotonic() - start

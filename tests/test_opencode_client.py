@@ -6,7 +6,11 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
-from ai_content_agent.opencode.client import OpenCodeClient, OpenCodeError
+from ai_content_agent.opencode.client import (
+    OpenCodeClient,
+    OpenCodeError,
+    reset_exhausted_providers,
+)
 from ai_content_agent.opencode.recorder import PromptRecorder
 
 REQUIRED_ENV = {
@@ -20,6 +24,7 @@ REQUIRED_ENV = {
 
 class OpenCodeClientFallbackTests(unittest.TestCase):
     def setUp(self) -> None:
+        reset_exhausted_providers()
         self._old_env = dict(os.environ)
         self._tmp = tempfile.TemporaryDirectory()
         self.logs_dir = Path(self._tmp.name) / "logs" / "prompts"
@@ -27,6 +32,7 @@ class OpenCodeClientFallbackTests(unittest.TestCase):
         os.environ["LLM_PROVIDER"] = "opencode"
 
     def tearDown(self) -> None:
+        reset_exhausted_providers()
         os.environ.clear()
         os.environ.update(self._old_env)
         self._tmp.cleanup()
@@ -97,6 +103,7 @@ class OpenCodeClientFallbackTests(unittest.TestCase):
 
 class OpenCodeClientOpenAIPrimaryTests(unittest.TestCase):
     def setUp(self) -> None:
+        reset_exhausted_providers()
         self._old_env = dict(os.environ)
         self._tmp = tempfile.TemporaryDirectory()
         self.logs_dir = Path(self._tmp.name) / "logs" / "prompts"
@@ -105,6 +112,7 @@ class OpenCodeClientOpenAIPrimaryTests(unittest.TestCase):
         os.environ["OPENAI_API_KEY"] = "sk-test"
 
     def tearDown(self) -> None:
+        reset_exhausted_providers()
         os.environ.clear()
         os.environ.update(self._old_env)
         self._tmp.cleanup()
@@ -184,6 +192,7 @@ class OpenCodeClientOpenAIPrimaryTests(unittest.TestCase):
 
 class OpenCodeClientGeminiPrimaryTests(unittest.TestCase):
     def setUp(self) -> None:
+        reset_exhausted_providers()
         self._old_env = dict(os.environ)
         self._tmp = tempfile.TemporaryDirectory()
         self.logs_dir = Path(self._tmp.name) / "logs" / "prompts"
@@ -192,6 +201,7 @@ class OpenCodeClientGeminiPrimaryTests(unittest.TestCase):
         os.environ["GEMINI_API_KEY"] = "gemini-test"
 
     def tearDown(self) -> None:
+        reset_exhausted_providers()
         os.environ.clear()
         os.environ.update(self._old_env)
         self._tmp.cleanup()
@@ -253,6 +263,48 @@ class OpenCodeClientGeminiPrimaryTests(unittest.TestCase):
             result = client.run([], input_text="prompt", label="ResearchAgent")
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(json.loads(result.stdout), {"topic": "AI"})
+
+
+    def test_gemini_primary_does_not_retry_api_when_opencode_fails(self):
+        os.environ["OPENAI_API_KEY"] = "sk-test"
+        fake_gemini = MagicMock()
+        fake_gemini.chat.completions.create.side_effect = RuntimeError("gemini down")
+        fake_openai = MagicMock()
+        fake_openai.chat.completions.create.side_effect = RuntimeError("openai down")
+        client = OpenCodeClient(
+            recorder=PromptRecorder(logs_dir=self.logs_dir),
+            openai_client=fake_openai,
+            gemini_client=fake_gemini,
+        )
+        with patch("ai_content_agent.opencode.client.subprocess.Popen", side_effect=FileNotFoundError("opencode missing")):
+            with self.assertRaises(OpenCodeError):
+                client.run([], input_text="prompt", label="ResearchAgent")
+        # Ensure gemini and openai were each only called once, not retried after opencode failed
+        self.assertEqual(fake_gemini.chat.completions.create.call_count, 1)
+        self.assertEqual(fake_openai.chat.completions.create.call_count, 1)
+
+    def test_quota_exhausted_provider_skipped_subsequently(self):
+        os.environ["OPENAI_API_KEY"] = "sk-test"
+        fake_gemini = MagicMock()
+        fake_gemini.chat.completions.create.side_effect = RuntimeError("gemini 503 error")
+        fake_openai = MagicMock()
+        fake_openai.chat.completions.create.side_effect = RuntimeError("You have no credits remaining. Check billing.")
+        client = OpenCodeClient(
+            recorder=PromptRecorder(logs_dir=self.logs_dir),
+            openai_client=fake_openai,
+            gemini_client=fake_gemini,
+        )
+        with patch("ai_content_agent.opencode.client.subprocess.Popen", side_effect=FileNotFoundError("opencode missing")):
+            with self.assertRaises(OpenCodeError):
+                client.run([], input_text="prompt 1", label="ResearchAgent")
+        self.assertEqual(fake_openai.chat.completions.create.call_count, 1)
+
+        # Second prompt: OpenAI should be completely skipped due to circuit breaker
+        with patch("ai_content_agent.opencode.client.subprocess.Popen", side_effect=FileNotFoundError("opencode missing")):
+            with self.assertRaises(OpenCodeError):
+                client.run([], input_text="prompt 2", label="ResearchAgent")
+        # OpenAI call count stays 1 (was not called a second time)
+        self.assertEqual(fake_openai.chat.completions.create.call_count, 1)
 
 
 if __name__ == "__main__":

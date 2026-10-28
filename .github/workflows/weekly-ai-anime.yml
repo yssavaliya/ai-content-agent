@@ -19,7 +19,7 @@ jobs:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
       OPENCODE_COMMAND: opencode
-      OPENCODE_TIMEOUT_SECONDS: "1200"
+      OPENCODE_TIMEOUT_SECONDS: "180"
       INSTAGRAM_ENABLED: "true"
       IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -46,11 +46,15 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: opencode-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: opencode-${{ runner.os }}-npm
           restore-keys: |
             opencode-${{ runner.os }}-
       - name: Install opencode
-        run: npm install -g opencode-ai
+        timeout-minutes: 3
+        run: |
+          if ! command -v opencode >/dev/null 2>&1; then
+            npm install -g --prefer-offline --no-audit --no-fund opencode-ai
+          fi
 
       - name: Add npm global bin to PATH
         run: echo "$(npm config get prefix)/bin" >> "$GITHUB_PATH"

@@ -23,7 +23,7 @@ class BrowserPromptViewerE2ETests(unittest.TestCase):
             raise unittest.SkipTest("playwright is not installed")
         try:
             cls._pw = sync_playwright().start()
-            cls._browser = cls._pw.chromium.launch(headless=True)
+            cls._browser = cls._pw.chromium.launch(headless=True, timeout=10000)
         except Exception as exc:
             if hasattr(cls, "_pw"):
                 cls._pw.stop()

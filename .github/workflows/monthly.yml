@@ -38,11 +38,15 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: opencode-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: opencode-${{ runner.os }}-npm
           restore-keys: |
             opencode-${{ runner.os }}-
       - name: Install opencode
-        run: npm install -g opencode-ai
+        timeout-minutes: 3
+        run: |
+          if ! command -v opencode >/dev/null 2>&1; then
+            npm install -g --prefer-offline --no-audit --no-fund opencode-ai
+          fi
 
       - name: Add npm global bin to PATH
         run: echo "$(npm config get prefix)/bin" >> "$GITHUB_PATH"
