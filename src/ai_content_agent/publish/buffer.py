@@ -146,6 +146,13 @@ class BufferPublisher(Publisher):
         post_data: dict[str, Any] = {}
 
         for mode in modes:
+            instagram_meta: dict[str, Any] = {
+                "type": "post",
+                "shouldShareToFeed": True,
+            }
+            if first_comment:
+                instagram_meta["firstComment"] = first_comment
+
             variables = {
                 "input": {
                     "channelId": channel_id,
@@ -160,11 +167,7 @@ class BufferPublisher(Publisher):
                         }
                     ],
                     "metadata": {
-                        "instagram": {
-                            "type": "post",
-                            "shouldShareToFeed": True,
-                            "firstComment": first_comment,
-                        }
+                        "instagram": instagram_meta,
                     },
                 }
             }
@@ -189,6 +192,10 @@ class BufferPublisher(Publisher):
                 errors = payload["errors"]
                 error_msg = "; ".join(e.get("message", "Unknown error") for e in errors)
                 last_error = error_msg
+                # If first comment is locked to paid plans, retry without it
+                if "first comment" in error_msg.lower() and first_comment:
+                    first_comment = None
+                    continue
                 if "mode" in error_msg.lower() or "sharenow" in error_msg.lower():
                     continue
                 raise RuntimeError(f"Buffer GraphQL error: {error_msg}")
@@ -197,6 +204,11 @@ class BufferPublisher(Publisher):
             if "message" in create_result and "post" not in create_result:
                 msg = create_result["message"]
                 last_error = msg
+                # If first comment is locked to paid plans, retry without it
+                if "first comment" in msg.lower() and first_comment:
+                    logger.info("Buffer plan does not support firstComment; continuing with standard post...")
+                    first_comment = None
+                    continue
                 if "mode" in msg.lower() or "sharenow" in msg.lower():
                     continue
                 raise RuntimeError(f"Buffer GraphQL mutation error: {msg}")
@@ -210,9 +222,10 @@ class BufferPublisher(Publisher):
         status = post_data.get("status") or "published"
 
         logger.info(
-            "Published to Instagram via Buffer GraphQL (post_id=%s, status=%s, with first_comment)",
+            "Published to Instagram via Buffer GraphQL (post_id=%s, status=%s, first_comment=%s)",
             update_id,
             status,
+            bool(first_comment),
         )
         return PublishResult(
             provider=self.name,
