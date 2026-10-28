@@ -8,12 +8,15 @@ Produce standalone high-impact visual posts that maximize viral reach, saves, an
 ## 1. Visual Virality Architecture (Single-Post Format)
 - **Aspect Ratio**: 1:1 square (1080x1080) optimized for feed prominence.
 - **Visual Aesthetic**:
-  - High-contrast, cinematic anime digital concept art.
+  - High-contrast, cinematic anime digital concept art generated via FLUX.1 / Pollinations.
   - Deep atmospheric color palettes: deep violet/obsidian backdrop, vibrant cyan neon blade beams, celestial blood moon / solar eclipse corona.
   - Lone hero silhouette compositions that trigger instant emotional intrigue in the first 0.5 seconds of scrolling.
 - **Rule - Anti-Carousel Format**:
   - Single standalone poster visual ONLY. Never overlay pagination artifacts ("01/04", "Swipe Next >>", or multi-slide bullets) on the image.
   - Keep artwork clean, atmospheric, and museum-grade.
+- **Masterpiece Prompt Engineering Formula**:
+  - Structure: `[Subject & Pose] + [Environment & Lore Setting] + [Atmospheric Lighting & Color Palette] + [Cinematic Style & Quality Tags]`.
+  - Quality Tags to inject: `masterpiece anime key visual, volumetric rim lighting, glowing embers, Makoto Shinkai sky gradient, Ufotable dynamic action aesthetic, octane render, 8k resolution, sharp focus`.
 
 ---
 

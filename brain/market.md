@@ -1,35 +1,38 @@
-# Indian Market Context
+# Market Context & Virality Dynamics
 
-## Audience
+## Audience Demographics & Behavioral Triggers
 
-- Primary: Indian Instagram users aged 18-34, across Tier 1 (metro), Tier 2, and Tier 3 cities.
-- Mix of Hindi, Hinglish, and English speakers. Hinglish (Hindi+English mix) is the highest-engagement content language on Indian Instagram.
-- Audiences are mobile-first, data-light users: fast scroll, strong preference for relatable, value-first content.
-- Large "creator economy" and small-business audience: dropshippers, D2C brands, local sellers, freelancers, students.
+- **Primary**: Anime, gaming, digital art, and self-mastery communities aged 18–32 across India and global hubs.
+- **Scroll Behavior**: Ultra-fast feed skimmers (0.7-second retention window). Posts must visually arrest attention before they scroll past.
+- **Save Triggers**:
+  1. *Wallpaper Worthiness*: Stunning artwork that users immediately save to use as phone/lock screen wallpapers.
+  2. *Mindset Anchor*: A perspective on craft, focus, or perseverance that users want to reference during low-energy moments.
+- **Share Triggers**:
+  1. Posts that express an unspoken truth about the grind ("silent work beats loud talent").
+  2. High-aesthetic concept art that friends tag each other in because it reminds them of favorite anime or themes.
 
-## Language
+## Algorithmic Ranking Signals on Instagram
 
-- Captions should be written in Hinglish (Roman script) by default, or English with Hinglish flavor, unless the strategy says otherwise.
-- Keep emojis moderate (2-5 per caption). Emojis increase engagement on Indian feeds.
-- Avoid heavy English slang; prefer phrases used in daily Indian life (e.g., "kaam ki baat", "zabardast", "struggle real hai").
+1. **Saves (> 5% of Reach)**: The single strongest Explore Page amplifier. Saves signal high long-term perceived value to Instagram's recommendation graph.
+2. **DM Shares (> 3% of Reach)**: Propels posts into recommendation circles of lookalike accounts.
+3. **First 90-Minute Velocity**: Fast engagement within 90 minutes of posting dictates whether Instagram pushes content from follower feeds into the Explore feed.
+4. **Clean Dwell Time**: Users pausing to admire intricate visual details increases dwell time, signaling exceptional quality to the feed ranking model.
 
-## Trends & Moments
+## Peak Engagement Windows (IST)
 
-- Follow the Indian festival calendar: Diwali, Holi, Navratri, Dussehra, Eid, Pongal, Onam, Raksha Bandhan, Independence Day, Republic Day, New Year, Valentine's Week.
-- Seasonal moments: wedding season (Oct-Mar), exam season (Feb-Mar boards, Apr-May finals), cricket season (IPL Apr-May, international tours), monsoon (Jun-Sep), startup/IPO news, budget day, cricket/bollywood events.
-- Trending audio, reels formats, and meme formats spread fast on Indian Instagram; hooks should reference familiar daily scenarios (metro commute, chai breaks, hostel life, family WhatsApp groups).
+- **Prime Evening Peak**: 6:00 PM – 9:00 PM IST (post-work, post-college relaxation window — prime exploration time).
+- **Secondary Lunch Window**: 1:00 PM – 2:30 PM IST.
+- **Late Night Focus**: 10:30 PM – 11:30 PM IST.
 
-## Platforms & Format
+## Content Pillars & Themes for Virality
 
-- Instagram Reels are the dominant format; carousels work well for value content (tips, checklists, tutorials).
-- Hashtags: mix of broad English tags (#instagood, #reelsindia) and niche Hinglish tags (#kaamkibaatein), with location tags for local reach.
-- Best posting windows (IST): 12-2pm lunch scroll, 6-9pm evening peak, 10-11pm night scroll.
+1. **The Training Arc / Silent Grind**: The psychological cost and reward of relentless craft discipline (Solo Leveling / Berserk archetypes).
+2. **The Awakening Moment**: Breaking through mental barriers, shedding self-doubt, stepping into sovereign focus.
+3. **Aesthetic Philosophy**: Juxtaposing beautiful, ethereal worlds (Makoto Shinkai skies, neon cyberpunk streets) with timeless truths about time, destiny, and human resilience.
+4. **Cinematic Character Concepts**: Unveiling original wanderers, guardians, and swordsmen with evocative micro-backstories.
 
-## Do's and Don'ts
+## Hashtag Discovery Matrix
 
-- DO reference Indian daily life, price sensitivity (value for money), family dynamics, and local humor.
-- DO use Indian festivals and cricket as timely hooks.
-- DO keep captions skimmable: short lines, bullets, one idea per line.
-- DON'T copy Western references that do not translate (e.g., Thanksgiving, prom season).
-- DON'T use formal/bureaucratic tone; it reads as corporate spam.
-- DON'T ignore regional diversity; avoid assuming all India is one culture or language.
+- **Broad Tier (Reach)**: `#anime`, `#animeart`, `#digitalart`, `#conceptart`, `#aesthetic`
+- **Niche Tier (Intent)**: `#animephilosophy`, `#visualstorytelling`, `#sololeveling`, `#darkaesthetic`, `#aimagix`
+- **Format / Community**: `#keyvisual`, `#animeaesthetic`, `#creativecommunity`

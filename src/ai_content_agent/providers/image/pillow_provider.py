@@ -286,7 +286,7 @@ class PillowImageProvider(BaseImageProvider):
 
         font_footer = _load_font(int(width * 0.018), bold=True)
         draw.text((margin + 28, footer_y), "LIMITED EDITION KEY VISUAL", fill=(120, 140, 175), font=font_footer)
-        draw.text((width - margin - 220, footer_y), "@ANIME_AI_INDIA", fill=accent_col, font=font_footer)
+        draw.text((width - margin - 220, footer_y), "@AIMAGIX.STUDIO", fill=accent_col, font=font_footer)
 
         return img
 

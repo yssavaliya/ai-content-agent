@@ -26,7 +26,7 @@ jobs:
       AGENT_RETRY_BACKOFF_SECONDS: "0"
       OPENCODE_TIMEOUT_SECONDS: "60"
       INSTAGRAM_ENABLED: "true"
-      IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
+      IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER || 'pollinations' }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
       LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
