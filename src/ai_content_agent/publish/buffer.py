@@ -148,6 +148,12 @@ class BufferPublisher(Publisher):
                             }
                         }
                     ],
+                    "metadata": {
+                        "instagram": {
+                            "type": "post",
+                            "shouldShareToFeed": True,
+                        }
+                    },
                 }
             }
 

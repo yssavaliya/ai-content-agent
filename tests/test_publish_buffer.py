@@ -60,6 +60,7 @@ class BufferPublisherTests(unittest.TestCase):
         self.assertEqual(input_data["channelId"], "prof_456")
         self.assertIn("Test viral caption", input_data["text"])
         self.assertEqual(input_data["assets"][0]["image"]["url"], "https://raw.githubusercontent.com/test/repo/main/images/test.jpg")
+        self.assertEqual(input_data["metadata"]["instagram"]["type"], "post")
 
     def test_publish_raises_if_media_url_missing(self) -> None:
         package_no_url = Path(self.temp_dir.name) / "no_url.json"
