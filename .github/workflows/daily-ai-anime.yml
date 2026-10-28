@@ -1,12 +1,13 @@
-name: Daily AI/Anime content run
+name: Daily AI Anime content run
 
 on:
   schedule:
-    - cron: "0 12 * * *"
+    # Runs daily at 12:30 UTC (6:00 PM IST prime evening Instagram scroll peak)
+    - cron: "30 12 * * *"
   workflow_dispatch:
 
 concurrency:
-  group: repo-state
+  group: repo-state-ai-anime
   cancel-in-progress: false
 
 permissions:
@@ -15,6 +16,9 @@ permissions:
 jobs:
   daily-ai-anime:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ai-anime-agent
     env:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
@@ -67,12 +71,10 @@ jobs:
       - name: Add npm global bin to PATH
         run: echo "$(npm config get prefix)/bin" >> "$GITHUB_PATH"
       - name: Install dependencies
-        working-directory: ai-anime-agent
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e .
       - name: Run daily pipeline
-        working-directory: ai-anime-agent
         run: |
           set -o pipefail
           python -m ai_content_agent.cli daily 2>&1 | while IFS= read -r line; do
@@ -81,23 +83,20 @@ jobs:
           done
       - name: Show post kit in job summary
         if: ${{ !cancelled() }}
-        working-directory: ai-anime-agent
         run: |
           kit=$(ls -t posts/post_kit_*.md 2>/dev/null | head -n 1 || true)
           if [ -n "$kit" ]; then cat "$kit" >> "$GITHUB_STEP_SUMMARY"; fi
       - name: Generate prompt viewer
-        working-directory: ai-anime-agent
         run: python -m ai_content_agent.cli prompts
       - name: Upload prompt logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-prompts-ai-anime-${{ github.run_id }}
+          name: opencode-prompts-${{ github.run_id }}
           path: ai-anime-agent/logs/prompts/
           if-no-files-found: ignore
       - name: Persist artifacts
         if: ${{ !cancelled() }}
-        working-directory: ai-anime-agent
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -107,7 +106,7 @@ jobs:
           for dir in posts images; do
             if [ -d "$dir" ]; then git add -f "$dir"; fi
           done
-          git commit -m "chore: ai-anime daily run artifacts" || echo "No changes to commit"
+          git commit -m "chore: daily run artifacts" || echo "No changes to commit"
           for attempt in 1 2 3 4 5; do
             if git push origin main 2>/dev/null; then
               exit 0

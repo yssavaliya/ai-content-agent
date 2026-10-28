@@ -2,7 +2,8 @@ name: Daily content run
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    # Runs daily at 12:30 UTC (6:00 PM IST prime evening Instagram scroll peak)
+    - cron: "30 12 * * *"
   workflow_dispatch:
 
 concurrency:

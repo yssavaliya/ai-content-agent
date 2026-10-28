@@ -120,6 +120,17 @@ class BufferPublisher(Publisher):
         creation = package.get("creation") or {}
         caption = build_caption(creation.get("caption", ""), creation.get("hashtags"))
 
+        # Conversation-seeding first comment to build early engagement
+        first_comment = creation.get("first_comment")
+        if not first_comment:
+            cta = creation.get("cta") or ""
+            if cta:
+                first_comment = f"Drop your thoughts below 👇 {cta}"
+            else:
+                first_comment = (
+                    "Drop your thoughts below 👇 What is the #1 project or skill you are locking into this week? ⚔️"
+                )
+
         channel_id = self._resolve_channel_id()
         if not channel_id:
             raise RuntimeError("No Buffer channelId / profile_id available for publishing")
@@ -152,6 +163,7 @@ class BufferPublisher(Publisher):
                         "instagram": {
                             "type": "post",
                             "shouldShareToFeed": True,
+                            "firstComment": first_comment,
                         }
                     },
                 }
@@ -197,7 +209,11 @@ class BufferPublisher(Publisher):
         update_id = post_data.get("id") or ""
         status = post_data.get("status") or "published"
 
-        logger.info("Published to Instagram via Buffer GraphQL (post_id=%s, status=%s)", update_id, status)
+        logger.info(
+            "Published to Instagram via Buffer GraphQL (post_id=%s, status=%s, with first_comment)",
+            update_id,
+            status,
+        )
         return PublishResult(
             provider=self.name,
             status=status,
@@ -207,6 +223,7 @@ class BufferPublisher(Publisher):
                 "update_id": update_id,
                 "channel_id": channel_id,
                 "profile_id": channel_id,
+                "first_comment": first_comment,
                 "status": status,
                 "published_at": utc_now_iso(),
             },
