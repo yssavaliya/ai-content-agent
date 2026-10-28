@@ -145,6 +145,8 @@ class OpenCodeClient:
         start: float,
         prompt_path: Path | None,
     ) -> OpenCodeResult:
+        if "opencode" in _EXHAUSTED_PROVIDERS:
+            raise OpenCodeError("OpenCode provider circuit broken due to previous failure", -1, "", "")
         # Use 'run' subcommand for non-interactive execution (much faster than TUI)
         # If input_text provided, use it as the prompt; otherwise use args.
         # On Windows the prompt is piped via stdin because cmd.exe shims mangle
@@ -232,6 +234,9 @@ class OpenCodeClient:
 
         elapsed = time.monotonic() - start
         if process.returncode != 0:
+            err_lower = (stderr or stdout or "").lower()
+            if any(term in err_lower for term in ("unexpected server error", "listen eaddrinuse", "econnrefused", "unknownerror")):
+                _EXHAUSTED_PROVIDERS.add("opencode")
             logger.error(
                 "opencode failed (exit=%s) after %.2fs: %s",
                 process.returncode,
@@ -342,7 +347,7 @@ class OpenCodeClient:
             content = (response.choices[0].message.content or "").strip()
         except Exception as exc:
             err_msg = str(exc).lower()
-            if any(term in err_msg for term in ("insufficient_quota", "credits remaining", "billing", "quota_exceeded")):
+            if any(term in err_msg for term in ("insufficient_quota", "credits remaining", "billing", "quota_exceeded", "resource_exhausted", "credit_balance_exhausted", "rate_limit", "429")):
                 logger.error("%s quota exhausted or out of credits (%s); disabling for session", display, exc)
                 _EXHAUSTED_PROVIDERS.add(provider)
             else:
