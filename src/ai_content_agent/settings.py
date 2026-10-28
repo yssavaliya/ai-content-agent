@@ -47,6 +47,8 @@ class Settings:
     instagram_account_id: str | None = None
     instagram_api_version: str = "21.0"
     instagram_publish_enabled: bool = False
+    buffer_access_token: str | None = None
+    buffer_profile_id: str | None = None
     instagram_analytics_enabled: bool = False
 
     # Media hosting (public URL required by the Instagram Graph API)
@@ -175,6 +177,8 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         instagram_access_token=get("INSTAGRAM_ACCESS_TOKEN"),
         instagram_account_id=get("INSTAGRAM_ACCOUNT_ID"),
         instagram_api_version=get("INSTAGRAM_API_VERSION") or "21.0",
+        buffer_access_token=get("BUFFER_ACCESS_TOKEN"),
+        buffer_profile_id=get("BUFFER_PROFILE_ID"),
         instagram_publish_enabled=_parse_bool(
             get("INSTAGRAM_PUBLISH_ENABLED") or "false", "INSTAGRAM_PUBLISH_ENABLED"
         ),

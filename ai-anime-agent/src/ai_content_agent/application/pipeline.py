@@ -557,7 +557,7 @@ class ContentPipeline:
         package: dict[str, Any],
         run_id: str,
     ) -> dict[str, Any]:
-        if self.publisher.name == "instagram":
+        if self.publisher.name in {"instagram", "buffer"}:
             image = package["image"]
             media_url = self._prepare_media(image, run_id)
             image["media_url"] = media_url
