@@ -26,6 +26,7 @@ class PublishRegistry:
             return BufferPublisher(
                 access_token=settings.buffer_access_token,
                 profile_id=settings.buffer_profile_id,
+                schedule_time_utc=settings.buffer_schedule_time_utc,
             )
 
         if settings.instagram_publish_enabled:

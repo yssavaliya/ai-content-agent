@@ -49,7 +49,9 @@ class Settings:
     instagram_publish_enabled: bool = False
     buffer_access_token: str | None = None
     buffer_profile_id: str | None = None
+    buffer_schedule_time_utc: str | None = None
     instagram_analytics_enabled: bool = False
+    analytics_max_age_days: int = 30
 
     # Media hosting (public URL required by the Instagram Graph API)
     media_host: str = "none"
@@ -179,6 +181,7 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         instagram_api_version=get("INSTAGRAM_API_VERSION") or "21.0",
         buffer_access_token=get("BUFFER_ACCESS_TOKEN"),
         buffer_profile_id=get("BUFFER_PROFILE_ID"),
+        buffer_schedule_time_utc=get("BUFFER_SCHEDULE_TIME_UTC"),
         instagram_publish_enabled=_parse_bool(
             get("INSTAGRAM_PUBLISH_ENABLED") or "false", "INSTAGRAM_PUBLISH_ENABLED"
         ),
@@ -195,6 +198,7 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         telegram_bot_token=get("TELEGRAM_BOT_TOKEN"),
         telegram_chat_id=get("TELEGRAM_CHAT_ID"),
         slack_webhook_url=get("SLACK_WEBHOOK_URL"),
+        analytics_max_age_days=_parse_int(get("ANALYTICS_MAX_AGE_DAYS"), 30, "ANALYTICS_MAX_AGE_DAYS"),
         scientist_min_sample_size=_parse_int(
             get("SCIENTIST_MIN_SAMPLE_SIZE"), 10, "SCIENTIST_MIN_SAMPLE_SIZE"
         ),

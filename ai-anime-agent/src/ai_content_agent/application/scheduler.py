@@ -43,7 +43,7 @@ class Scheduler:
                 provider = AnalyticsRegistry.build_provider(self.settings)
                 if provider:
                     logger.info('Running pre-generation analytics collection via %s...', provider.name)
-                    collector = AnalyticsCollector(provider)
+                    collector = AnalyticsCollector(provider, max_age_days=self.settings.analytics_max_age_days)
                     collector.collect()
             except Exception as exc:
                 logger.warning('Pre-run analytics collection failed: %s', exc)
@@ -63,7 +63,7 @@ class Scheduler:
     def run_analytics(self) -> dict[str, Any]:
         with self._run_lock():
             provider = AnalyticsRegistry.build_provider(self.settings)
-            collector = AnalyticsCollector(provider)
+            collector = AnalyticsCollector(provider, max_age_days=self.settings.analytics_max_age_days)
             summary = collector.collect()
             if summary.get("enabled"):
                 self.notifier.send_success(

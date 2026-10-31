@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import json
 import logging
+from datetime import timedelta
 from typing import Any
 
 from ..database.connection import DatabaseConnection
-from ..timestamps import utc_now_iso
+from ..timestamps import format_utc, utc_now, utc_now_iso
 from .base import AnalyticsProvider, PostMetrics
 
 logger = logging.getLogger(__name__)
@@ -18,9 +19,13 @@ class AnalyticsCollector:
         self,
         provider: AnalyticsProvider | None = None,
         database: DatabaseConnection | None = None,
+        max_age_days: int | None = None,
     ) -> None:
         self.provider = provider
         self.database = database
+        # Engagement stabilises within days; refreshing every post forever makes the number of API
+        # calls per run grow without bound. None keeps the old behaviour (all posts).
+        self.max_age_days = max_age_days
 
     def _get_database(self) -> DatabaseConnection:
         if self.database is None:
@@ -28,10 +33,13 @@ class AnalyticsCollector:
         return self.database
 
     def _published_posts(self, db: DatabaseConnection) -> list[tuple[int, str]]:
+        query = "SELECT id, external_id FROM posts WHERE external_id IS NOT NULL AND external_id != ''"
+        parameters: tuple = ()
+        if self.max_age_days is not None:
+            query += " AND created_at >= ?"
+            parameters = (format_utc(utc_now() - timedelta(days=self.max_age_days), "microseconds"),)
         with db.cursor() as cursor:
-            cursor.execute(
-                "SELECT id, external_id FROM posts WHERE external_id IS NOT NULL AND external_id != ''"
-            )
+            cursor.execute(query, parameters)
             return [(int(row[0]), str(row[1])) for row in cursor.fetchall()]
 
     def _persist_metrics(self, db: DatabaseConnection, post_id: int, metrics: PostMetrics) -> int:

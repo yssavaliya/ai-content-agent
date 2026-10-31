@@ -16,6 +16,8 @@ from ai_content_agent.application.pipeline import ContentPipeline
 from ai_content_agent.notifications.notifier import Notifier
 from ai_content_agent.opencode.client import OpenCodeClient
 from ai_content_agent.prompts.manager import PromptManager
+from ai_content_agent.publish.provider import PublishResult, Publisher
+from ai_content_agent.science.experiments import ExperimentRepository
 
 RESEARCH_OUTPUT = {
     "recommended_topic": "Micro-content trends for creators",
@@ -242,6 +244,73 @@ class PipelineTests(unittest.TestCase):
         notifier.send_failure.assert_called_once()
         notifier.send_success.assert_not_called()
         self.assertIn("Off-brand tone.", notifier.send_failure.call_args.kwargs["body"])
+
+    def test_buffer_posts_are_recorded_for_analytics_and_experiments(self):
+        class FakeBuffer(Publisher):
+            name = "buffer"
+
+            def publish(self, package_path: str) -> PublishResult:
+                # Buffer reports "scheduled", never "published".
+                return PublishResult(provider="buffer", status="scheduled", published_id="buf-123", metadata={})
+
+        pipeline = self._build_pipeline()
+        pipeline.publisher = FakeBuffer()
+        pipeline._prepare_media = lambda image, run_id: "https://example.com/image.jpg"
+        ExperimentRepository(pipeline.database).create(
+            name="exp",
+            description="d",
+            hypothesis="h",
+            variable="v",
+            control_description="c",
+            variant_description="v",
+            min_effect=0.15,
+            confidence_threshold=0.6,
+        )
+
+        result = pipeline.run()
+
+        self.assertIsNotNone(result["publish"]["post_id"])
+        self.assertIsNotNone(result["publish"]["experiment_id"])
+        connection = sqlite3.connect(self.db_path)
+        try:
+            row = connection.execute("SELECT external_id, media_url FROM posts").fetchone()
+            self.assertEqual(row, ("buf-123", "https://example.com/image.jpg"))
+            self.assertEqual(connection.execute("SELECT COUNT(*) FROM experiment_posts").fetchone()[0], 1)
+        finally:
+            connection.close()
+
+    def test_dry_run_posts_are_not_recorded_as_published(self):
+        pipeline = self._build_pipeline()
+        pipeline.run()
+        connection = sqlite3.connect(self.db_path)
+        try:
+            self.assertEqual(connection.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 0)
+        finally:
+            connection.close()
+
+    def test_llm_outage_is_flagged_not_disguised_as_model_output(self):
+        notifier = MagicMock(spec=Notifier)
+        pipeline = self._build_pipeline()
+        pipeline.notifier = notifier
+        for agent in (pipeline.reviewer_agent, pipeline.predictor_agent):
+            agent.opencode_client = MagicMock(spec=OpenCodeClient)
+            agent.opencode_client.run.side_effect = RuntimeError("llm down")
+            agent.max_attempts = 1
+
+        result = pipeline.run()
+
+        self.assertEqual(result["fallbacks"], ["reviewer", "predictor"])
+        self.assertEqual(result["review"]["source"], "procedural_fallback")
+        self.assertIn("NOT produced by a model", result["review"]["reasons"][0])
+        self.assertEqual(result["prediction"]["virality_score"], 50)
+        self.assertEqual(result["prediction"]["source"], "procedural_fallback")
+        subject = notifier.send_success.call_args.kwargs["subject"]
+        self.assertIn("template fallback content", subject)
+        self.assertIn("reviewer, predictor", notifier.send_success.call_args.kwargs["body"])
+
+    def test_healthy_run_reports_no_fallbacks(self):
+        result = self._build_pipeline().run()
+        self.assertEqual(result["fallbacks"], [])
 
     def test_published_success_notification_subject_matches_status(self):
         notifier = MagicMock(spec=Notifier)

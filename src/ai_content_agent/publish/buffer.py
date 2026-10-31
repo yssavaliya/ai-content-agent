@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -55,14 +56,42 @@ query GetChannels($input: ChannelsInput!) {
 """
 
 
+MIN_LEAD_MINUTES = 5
+
+
+def parse_schedule_time(value: str) -> tuple[int, int]:
+    """Parse an 'HH:MM' (24h, UTC) string."""
+    try:
+        hour_text, minute_text = value.strip().split(":")
+        hour, minute = int(hour_text), int(minute_text)
+    except ValueError:
+        raise ValueError(f"Invalid schedule time {value!r}; expected HH:MM in UTC, e.g. 12:30") from None
+    if not (0 <= hour <= 23 and 0 <= minute <= 59):
+        raise ValueError(f"Invalid schedule time {value!r}; expected HH:MM in UTC, e.g. 12:30")
+    return hour, minute
+
+
+def next_due_at(now: datetime, schedule_time_utc: str) -> str:
+    """Next occurrence of HH:MM UTC that is at least MIN_LEAD_MINUTES away, as an ISO-8601 string."""
+    hour, minute = parse_schedule_time(schedule_time_utc)
+    due = now.astimezone(timezone.utc).replace(hour=hour, minute=minute, second=0, microsecond=0)
+    if due < now.astimezone(timezone.utc) + timedelta(minutes=MIN_LEAD_MINUTES):
+        due += timedelta(days=1)
+    return due.isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
 class BufferPublisher(Publisher):
     @property
     def name(self) -> str:
         return "buffer"
 
-    def __init__(self, access_token: str, profile_id: str = "") -> None:
+    def __init__(self, access_token: str, profile_id: str = "", schedule_time_utc: str | None = None) -> None:
         self.access_token = access_token
         self.profile_id = profile_id
+        # When set, posts are scheduled for the next HH:MM UTC instead of being shared immediately.
+        self.schedule_time_utc = schedule_time_utc
+        if schedule_time_utc:
+            parse_schedule_time(schedule_time_utc)
 
     def _resolve_channel_id(self) -> str:
         """Return configured profile_id or auto-discover Instagram channel ID from Buffer API."""
@@ -140,8 +169,10 @@ class BufferPublisher(Publisher):
             "Content-Type": "application/json",
         }
 
-        # Attempt shareNow first (instant publishing), fallback to addToQueue if immediate sharing is restricted
-        modes = ["shareNow", "addToQueue"]
+        # Default: shareNow (instant), falling back to addToQueue if immediate sharing is restricted.
+        # With a schedule time: customScheduled at the next HH:MM UTC, falling back to addToQueue.
+        due_at = next_due_at(datetime.now(timezone.utc), self.schedule_time_utc) if self.schedule_time_utc else None
+        modes = ["customScheduled", "addToQueue"] if due_at else ["shareNow", "addToQueue"]
         last_error = ""
         post_data: dict[str, Any] = {}
 
@@ -171,6 +202,8 @@ class BufferPublisher(Publisher):
                     },
                 }
             }
+            if mode == "customScheduled" and due_at:
+                variables["input"]["dueAt"] = due_at
 
             try:
                 resp = requests.post(
@@ -237,6 +270,7 @@ class BufferPublisher(Publisher):
                 "channel_id": channel_id,
                 "profile_id": channel_id,
                 "first_comment": first_comment,
+                "due_at": due_at if mode == "customScheduled" else None,
                 "status": status,
                 "published_at": utc_now_iso(),
             },

@@ -53,13 +53,17 @@ Supported environment variables (see `.env.example`):
 - `OPENAI_TEXT_MODEL`, `OPENAI_TEXT_FALLBACK_ENABLED`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_BASE_URL` — optional API fallbacks
 - `OPENCODE_TIMEOUT_SECONDS` — per-invocation timeout for `opencode` (default 60)
 - `INSTAGRAM_ENABLED` — `true`/`false`
-- `IMAGE_PROVIDER` — `local`, `mock`, or `openai`
+- `IMAGE_PROVIDER` — `pollinations`/`flux`, `pillow`, `openai`, `local` or `mock`
 - `OPENAI_API_KEY` — optional; required only when `IMAGE_PROVIDER=openai`
 - `OPENAI_MODEL`, `OPENAI_MAX_RETRIES`, `OPENAI_REQUEST_TIMEOUT_SECONDS` — OpenAI provider tuning
 - `INSTAGRAM_ACCESS_TOKEN` / `INSTAGRAM_ACCOUNT_ID` — Instagram Business account credentials
 - `INSTAGRAM_API_VERSION` — Graph API version (default `21.0`)
 - `INSTAGRAM_PUBLISH_ENABLED` — set `true` to publish for real; otherwise publishing falls back to dry-run
 - `INSTAGRAM_ANALYTICS_ENABLED` — set `true` to collect insights
+- `ANALYTICS_MAX_AGE_DAYS` — only posts newer than this are re-measured each run (default 30)
+- `BUFFER_ACCESS_TOKEN` / `BUFFER_PROFILE_ID` — optional Buffer publishing and analytics (see costs table)
+- `BUFFER_SCHEDULE_TIME_UTC` — optional `HH:MM` (UTC). Without it Buffer posts are shared immediately when the job ends (GitHub cron jobs are often delayed by hours, so that can be the middle of the night in India); with it they are scheduled for the next occurrence of that time (`12:30` = 6 PM IST). Uses Buffer's `customScheduled` mode and falls back to the queue; not yet verified against a live Buffer account.
+- `AGENT_RETRY_BACKOFF_SECONDS` — pause between LLM retries (default 15; tests set 0)
 - `MEDIA_HOST` / `MEDIA_HOST_REPO` / `MEDIA_HOST_TOKEN` / `MEDIA_HOST_BRANCH` / `MEDIA_HOST_PATH` — GitHub-raw media hosting (`MEDIA_HOST=github`); Instagram requires a public HTTPS image URL
 - `NOTIFY_CHANNELS` — comma-separated list: `dryrun`, `discord`, `telegram`, `slack` (unusable/unknown values fall back to `dryrun`)
 - `DISCORD_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `SLACK_WEBHOOK_URL` — per-channel credentials
@@ -88,10 +92,25 @@ Hosting requirements: a GitHub repository with Actions enabled (free for public 
 | LLM for all agents | `opencode` CLI with the model in `opencode.json` | The CLI is open source; the configured `-free` model is offered by a third party and is not guaranteed to stay free. |
 | OpenAI / Gemini chat | Off unless `OPENAI_API_KEY` / `GEMINI_API_KEY` is set | Proprietary, usage-billed. Used only as an optional fallback (or when `LLM_PROVIDER` selects them). |
 | Image generation | `IMAGE_PROVIDER=local` (writes the prompt only, no picture) | `openai` renders real images but is a paid API. **No free image generator is bundled**, so automatic image posts need either that paid provider or a manually created image from the post kit. |
-| Instagram Graph API, GitHub API | Optional | No API fee, but Instagram publishing needs a Meta app and Business account. |
+| Image generation (free path) | `IMAGE_PROVIDER=pollinations` (alias `flux`) or `pillow` | Pollinations is a free hosted FLUX service: no key, but it is **not open source** and has no uptime guarantee, so it falls back to the offline `pillow` renderer (Pillow, HPND licence). |
+| Publishing | Instagram Graph API, or Buffer when `BUFFER_ACCESS_TOKEN` + `BUFFER_PROFILE_ID` are set | The Graph API has no fee but needs a Meta app and Business account. Buffer is a proprietary service; its free plan is limited and may change. Both are optional: without either the dry-run post kit is used. |
+| Media hosting | `MEDIA_HOST=github` | Uses raw.githubusercontent.com, so the image repository must be **public** for Buffer/Instagram to fetch the file. |
+| Anime metadata | Kitsu API (`anime-trends`, `anime-concept` commands only) | Free, no key, third-party; a built-in sample list is used if it is unreachable. |
 | Python deps | `openai`, `requests`, `Pillow` | MIT/Apache-2.0/HPND licences. |
 
 Email/SMTP support has been removed entirely; no mail provider is required or used.
+
+## When the LLM is unavailable
+
+If an agent cannot get an answer from any LLM provider, the pipeline continues with fixed template output so a post is still produced. That output is never presented as model output:
+
+- The package gets `"fallbacks": ["reviewer", ...]` and the affected sections carry `"source": "procedural_fallback"`.
+- The fallback reviewer passes the template content but says so in its reasons; the fallback predictor records a neutral 50/MEDIUM placeholder rather than an invented estimate.
+- The notification subject ends with `(template fallback content)` and the body names the stages, so a green run with no model behind it is visible. Check `LLM_PROVIDER`, API keys and quotas when you see it.
+
+## Analytics and the learning loop
+
+Every post sent through a live publisher (Instagram or Buffer, whatever status it reports such as `published`, `scheduled` or `sent`) is stored in `posts` and assigned to the active experiment. `ai-content-agent analytics` (and the start of every `daily` run) then refreshes metrics for posts from the last `ANALYTICS_MAX_AGE_DAYS` days (default 30). The Scientist only acts once each experiment arm has `SCIENTIST_MIN_SAMPLE_SIZE` measured posts.
 
 ## Instagram setup
 

@@ -29,6 +29,11 @@ from ..timestamps import utc_now_iso
 
 logger = logging.getLogger(__name__)
 
+# Publishers that really post to Instagram. Buffer reports "scheduled"/"sent" rather than "published",
+# so the status alone cannot decide whether a post must be tracked for analytics and experiments.
+LIVE_PUBLISHERS = frozenset({"instagram", "buffer"})
+NOT_LIVE_STATUSES = frozenset({"error", "failed", "draft", "needs_approval", "blocked_review", ""})
+
 
 class PipelineError(RuntimeError):
     pass
@@ -56,6 +61,13 @@ class ContentPipeline:
         self.creator_agent: CreatorAgent | None = None
         self.reviewer_agent: ReviewerAgent | None = None
         self.predictor_agent: PredictorAgent | None = None
+        self._fallbacks: list[str] = []
+
+    def _use_fallback(self, stage: str, payload: dict[str, Any]) -> dict[str, Any]:
+        """Flag deterministic template output so it is never mistaken for model output."""
+        self._fallbacks.append(stage)
+        payload["source"] = "procedural_fallback"
+        return payload
 
     def _ensure_agents(self) -> None:
         if self.research_agent is None:
@@ -86,6 +98,7 @@ class ContentPipeline:
 
     def run(self, run_id: str | None = None) -> dict[str, Any]:
         run_id = run_id or uuid.uuid4().hex[:8]
+        self._fallbacks = []
         set_run_id(run_id)
         logger.info("Pipeline run %s starting", run_id)
         try:
@@ -99,13 +112,16 @@ class ContentPipeline:
                     metadata={"run_id": run_id, "color": 15158332},
                 )
             else:
-                published = publish_status == "published"
+                published = publish_status not in {None, "dry-run"}
+                subject = (
+                    "AI Content Agent: daily post published"
+                    if published
+                    else "AI Content Agent: daily post ready for manual publishing"
+                )
+                if package.get("fallbacks"):
+                    subject += " (template fallback content)"
                 self.notifier.send_success(
-                    subject=(
-                        "AI Content Agent: daily post published"
-                        if published
-                        else "AI Content Agent: daily post ready for manual publishing"
-                    ),
+                    subject=subject,
                     body=self._success_body(package, run_id),
                     metadata={"run_id": run_id, "color": 3066993},
                 )
@@ -196,6 +212,7 @@ class ContentPipeline:
             "prediction": predictor_results,
             "image": image_result,
             "publish": None,
+            "fallbacks": list(self._fallbacks),
         }
         package_path = self._save_package(package)
         package["package_path"] = str(package_path)
@@ -244,6 +261,7 @@ class ContentPipeline:
             "prediction": None,
             "image": None,
             "publish": result.__dict__,
+            "fallbacks": list(self._fallbacks),
             "timing": timing,
         }
         package_path = self._save_package(package)
@@ -268,7 +286,7 @@ class ContentPipeline:
                 "supporting_points": [
                     "Dynamic sakuga sequences capture attention in the first 1.5 seconds of the scroll.",
                     "Color grading shifts (high-contrast neon vs dark shadows) trigger emotional reactions and high save rates.",
-                    "Translating anime aesthetics into creator graphics boosts retention by over 40%."
+                    "Translating anime aesthetics into creator graphics keeps feeds visually consistent and recognisable."
                 ],
                 "trend_signals": ["#AnimeArt trending across Instagram explore", "Solo Leveling season animation analysis"],
                 "candidate_topics": [
@@ -280,15 +298,15 @@ class ContentPipeline:
             },
             {
                 "recommended_topic": "Autonomous AI Agents in 2026: The End-to-End Content Pipeline Blueprint",
-                "audience_problem": "Creators spend 15+ hours weekly on research and drafting instead of engaging with their community.",
+                "audience_problem": "Creators spend many hours on research and drafting instead of engaging with their community.",
                 "why_now": "Multi-agent orchestration frameworks now automate research, planning, generation, and virality scoring in real time.",
-                "hook": "Stop wasting 15 hours a week manually drafting posts. Here is the exact autonomous agent workflow top creators use.",
+                "hook": "Stop losing hours to manual drafting. Here is an autonomous agent workflow worth copying.",
                 "supporting_points": [
                     "Decoupled agents for research, planning, copy, and review eliminate creative fatigue.",
                     "Real-time virality prediction models catch weak hooks before you hit publish.",
                     "Deterministic image generation guarantees brand consistency on every single post."
                 ],
-                "trend_signals": ["#AIAgents trending on developer Twitter and Instagram", "Creator automation workflow queries up 300%"],
+                "trend_signals": ["#AIAgents trending on developer Twitter and Instagram", "Creator automation workflows are a recurring topic among developers"],
                 "candidate_topics": [
                     "Autonomous AI Agents in 2026: The End-to-End Content Pipeline Blueprint",
                     "How to Build a Zero-Touch AI Content Engine Using Open Models"
@@ -320,26 +338,28 @@ class ContentPipeline:
         ideas = [
             {
                 "idea": f"Comprehensive Breakdown: {topic}. Step-by-step framework with actionable takeaways.",
-                "educational_score": 92,
-                "originality_score": 88,
-                "engagement_score": 94,
-                "relevance_score": 95,
+                "educational_score": 0.92,
+                "originality_score": 0.88,
+                "engagement_score": 0.94,
+                "relevance_score": 0.95,
             },
             {
                 "idea": f"Mistakes & Fixes: 3 common traps when implementing {topic} and how to avoid them.",
-                "educational_score": 86,
-                "originality_score": 84,
-                "engagement_score": 90,
-                "relevance_score": 91,
+                "educational_score": 0.86,
+                "originality_score": 0.84,
+                "engagement_score": 0.90,
+                "relevance_score": 0.91,
             },
             {
                 "idea": f"Behind the Scenes: Inside the engine powering {topic}.",
-                "educational_score": 88,
-                "originality_score": 91,
-                "engagement_score": 87,
-                "relevance_score": 89,
+                "educational_score": 0.88,
+                "originality_score": 0.91,
+                "engagement_score": 0.87,
+                "relevance_score": 0.89,
             },
         ]
+        for idea in ideas:
+            idea["reasoning"] = "Fixed template idea used because the planner LLM was unavailable."
         return {
             "ideas": ideas,
             "selected_idea": ideas[0],
@@ -397,9 +417,8 @@ class ContentPipeline:
         return {
             "status": "PASS",
             "reasons": [
-                "Content strictly adheres to brand voice, constitution, and market guidelines.",
-                "Hook is engaging and provides clear educational value.",
-                "Formatting, emojis, and hashtags are verified for Instagram compliance.",
+                "Reviewer LLM unavailable; this verdict was NOT produced by a model review.",
+                "Content comes from a fixed, pre-approved template and was passed without checks.",
             ],
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
@@ -411,19 +430,12 @@ class ContentPipeline:
         reviewer_output: dict[str, Any],
     ) -> dict[str, Any]:
         return {
-            "virality_score": 88,
-            "virality_label": "HIGH",
-            "virality_probability": 0.88,
-            "key_factors": [
-                "Strong relatable hook addressing a specific creator pain point",
-                "Structured 4-slide carousel format with proven high save rates",
-                "Optimized hashtags targeting both broad discovery and niche communities",
-            ],
-            "risks": [
-                "Posting outside peak Indian audience scroll hours (6-9 PM IST)",
-                "Audience drop-off between slide 3 and slide 4 if caption is not read",
-            ],
-            "reasoning": "The post has an immediate value proposition, high visual readability, and a direct engagement-focused call to action.",
+            "virality_score": 50,
+            "virality_label": "MEDIUM",
+            "virality_probability": 0.5,
+            "key_factors": ["No model estimate available (predictor LLM unavailable)"],
+            "risks": ["This is a neutral placeholder, not an analysis of the post"],
+            "reasoning": "Predictor LLM unavailable; a neutral placeholder score is recorded instead of an estimate.",
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -443,7 +455,7 @@ class ContentPipeline:
                 "::warning::[ResearchAgent] LLM execution failed (%s); activating autonomous procedural research fallback",
                 exc,
             )
-            return self._procedural_research()
+            return self._use_fallback("research", self._procedural_research())
 
     def _run_planner(self, research_output: dict[str, Any]) -> dict[str, Any]:
         try:
@@ -459,7 +471,7 @@ class ContentPipeline:
                 "::warning::[PlannerAgent] LLM execution failed (%s); activating autonomous procedural planner fallback",
                 exc,
             )
-            return self._procedural_planner(research_output)
+            return self._use_fallback("planner", self._procedural_planner(research_output))
 
     def _run_creator(self, planner_output: dict[str, Any]) -> dict[str, Any]:
         try:
@@ -478,7 +490,7 @@ class ContentPipeline:
                 "::warning::[CreatorAgent] LLM execution failed (%s); activating autonomous procedural creator fallback",
                 exc,
             )
-            return self._procedural_creator(planner_output)
+            return self._use_fallback("creator", self._procedural_creator(planner_output))
 
     def _run_reviewer(self, creator_output: dict[str, Any]) -> dict[str, Any]:
         try:
@@ -496,7 +508,7 @@ class ContentPipeline:
                 "::warning::[ReviewerAgent] LLM execution failed (%s); activating autonomous procedural reviewer fallback",
                 exc,
             )
-            return self._procedural_reviewer(creator_output)
+            return self._use_fallback("reviewer", self._procedural_reviewer(creator_output))
 
     def _run_predictor(
         self,
@@ -521,7 +533,7 @@ class ContentPipeline:
                 "::warning::[PredictorAgent] LLM execution failed (%s); activating autonomous procedural predictor fallback",
                 exc,
             )
-            return self._procedural_predictor(creator_output, research_output, reviewer_output)
+            return self._use_fallback("predictor", self._procedural_predictor(creator_output, research_output, reviewer_output))
 
     def _persist_prediction(self, creator_output_id: int, predictor_output: dict[str, Any]) -> int:
         cursor = self.database.execute(
@@ -567,7 +579,7 @@ class ContentPipeline:
         self._persist_publish_package(creator_output_id, result, package_path)
 
         output = result.__dict__
-        if result.status == "published":
+        if result.provider in LIVE_PUBLISHERS and result.status.lower() not in NOT_LIVE_STATUSES:
             post_id = self._persist_published_post(package, result)
             experiment_id = self._assign_to_active_experiment(post_id)
             output["post_id"] = post_id
@@ -746,7 +758,13 @@ class ContentPipeline:
             f"Published id: {publish.get('published_id')}",
             f"Media URL: {(package.get('image') or {}).get('media_url', 'n/a')}",
         ]
-        if publish.get("status") != "published":
+        if package.get("fallbacks"):
+            lines += [
+                "",
+                "WARNING: the LLM was unavailable for: " + ", ".join(package["fallbacks"]),
+                "These stages used fixed template output, not model output. Check LLM_PROVIDER, API keys and quotas.",
+            ]
+        if publish.get("provider") not in LIVE_PUBLISHERS:
             hashtags = creation.get("hashtags") or []
             lines += [
                 "",

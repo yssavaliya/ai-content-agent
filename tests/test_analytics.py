@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, timezone
 import unittest
 from unittest.mock import MagicMock, patch
 
@@ -127,6 +128,25 @@ class AnalyticsCollectorTests(unittest.TestCase):
             self.assertEqual(summary["collected"], 0)
             self.assertEqual(summary["failed"], 2)
             self.assertEqual(len(summary["failures"]), 2)
+        finally:
+            db.close()
+
+    def test_collect_only_refreshes_recent_posts_when_window_is_set(self):
+        db = DatabaseConnection(db_path=":memory:")
+        try:
+            now = datetime.now(timezone.utc)
+            for external_id, age_days in (("old", 90), ("recent", 3)):
+                db.execute(
+                    "INSERT INTO posts(external_id, caption, image_description, hashtags, created_at) VALUES (?, ?, ?, ?, ?)",
+                    (external_id, "caption", "desc", "[]", (now - timedelta(days=age_days)).isoformat().replace("+00:00", "Z")),
+                )
+
+            windowed = AnalyticsCollector(provider=FakeProvider(), database=db, max_age_days=30).collect()
+            self.assertEqual(windowed["posts_considered"], 1)
+            self.assertEqual(db.execute("SELECT media_id FROM post_metrics").fetchone()[0], "recent")
+
+            unlimited = AnalyticsCollector(provider=FakeProvider(), database=db).collect()
+            self.assertEqual(unlimited["posts_considered"], 2)
         finally:
             db.close()
 
