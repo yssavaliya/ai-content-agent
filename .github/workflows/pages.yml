@@ -1,0 +1,76 @@
+name: Deploy dashboards (GitHub Pages)
+
+# Builds the static growth dashboards from the committed databases and publishes them.
+# Needs Settings -> Pages -> Build and deployment -> Source: "GitHub Actions" (one-time, repo admin).
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/pages.yml"
+      - "src/ai_content_agent/growth/**"
+  # Commits pushed by other workflows (with GITHUB_TOKEN) do not trigger `push`, so redeploy when the
+  # jobs that update agent.db finish.
+  workflow_run:
+    workflows:
+      - "Analytics collection"
+      - "AI/Anime analytics collection"
+      - "Daily content run"
+      - "Daily AI Anime content run"
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      LOG_LEVEL: WARNING
+      OPENCODE_COMMAND: opencode
+      INSTAGRAM_ENABLED: "false"
+      IMAGE_PROVIDER: local
+      NOTIFY_CHANNELS: dryrun
+      GROWTH_START_DATE: ${{ vars.GROWTH_START_DATE }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+      - name: Install
+        run: python -m pip install -e .
+      - name: Build dashboards
+        run: |
+          mkdir -p _site/main _site/anime
+          DATABASE_PATH=agent.db python -m ai_content_agent.cli dashboard _site/main/index.html
+          (cd ai-anime-agent && DATABASE_PATH=agent.db python -m ai_content_agent.cli dashboard ../_site/anime/index.html)
+          cat > _site/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Growth dashboards</title>
+          <style>body{font:16px/1.6 system-ui,sans-serif;max-width:32rem;margin:3rem auto;padding:0 1rem;color:#161a23;background:#f6f7fb}
+          @media(prefers-color-scheme:dark){body{color:#eceff6;background:#0f1117}a{color:#9a82ff}}</style></head>
+          <body><h1>Growth dashboards</h1>
+          <ul><li><a href="main/">Main content agent</a></li><li><a href="anime/">AI / anime agent</a></li></ul>
+          <p>Generated from the agents' own databases. No credentials or API keys are published here.</p></body></html>
+          HTML
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
