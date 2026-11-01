@@ -4,6 +4,9 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
+# Names accepted in LLM_CHAIN (see ai_content_agent/llm/registry.py).
+LLM_CHAIN_PROVIDERS = ("groq", "gemini", "cloudflare", "openrouter", "pollinations", "openai", "opencode")
+
 REQUIRED_SETTINGS = [
     "LOG_LEVEL",
     "DATABASE_PATH",
@@ -32,6 +35,28 @@ class Settings:
     # With "openai"/"gemini" the other API provider is tried next, then opencode. When opencode
     # fails, a configured OpenAI/Gemini key is used as a fallback.
     llm_provider: str = "opencode"
+
+    # Free-tier provider chain: tried in order, first valid answer wins. Empty keeps the legacy
+    # LLM_PROVIDER behaviour. Providers without credentials are skipped automatically.
+    llm_chain: tuple[str, ...] = ()
+    llm_request_timeout_seconds: float = 45.0
+    llm_call_budget_seconds: float = 240.0
+    llm_max_attempts: int = 2
+    llm_backoff_seconds: float = 1.5
+    llm_max_output_tokens: int = 8192
+    llm_cache_enabled: bool = True
+    llm_cache_ttl_hours: float = 24.0
+    llm_cache_dir: str = "cache/llm"
+    groq_api_key: str | None = None
+    groq_model: str = "llama-3.3-70b-versatile"
+    cloudflare_account_id: str | None = None
+    cloudflare_api_token: str | None = None
+    cloudflare_model: str = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+    openrouter_api_key: str | None = None
+    openrouter_model: str = "meta-llama/llama-3.3-70b-instruct:free"
+    pollinations_text_url: str = "https://text.pollinations.ai/openai"
+    pollinations_text_model: str = "openai-fast"
+    pollinations_api_key: str | None = None
 
     # OpenAI text fallback (used when the primary LLM is unavailable or fails)
     openai_text_model: str = "gpt-4o-mini"
@@ -163,6 +188,15 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
             )
         return provider
 
+    def get_chain() -> tuple[str, ...]:
+        names = tuple(item.strip().lower() for item in (get("LLM_CHAIN") or "").split(",") if item.strip())
+        unknown = [name for name in names if name not in LLM_CHAIN_PROVIDERS]
+        if unknown:
+            raise ValueError(
+                f"Invalid value for LLM_CHAIN: {', '.join(unknown)} (known: {', '.join(LLM_CHAIN_PROVIDERS)})"
+            )
+        return names
+
     return Settings(
         log_level=env["LOG_LEVEL"].strip(),
         database_path=env["DATABASE_PATH"].strip(),
@@ -171,6 +205,25 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         image_provider=env["IMAGE_PROVIDER"].strip(),
         openai_api_key=get("OPENAI_API_KEY"),
         llm_provider=get_provider(),
+        llm_chain=get_chain(),
+        llm_request_timeout_seconds=_parse_float(get("LLM_REQUEST_TIMEOUT_SECONDS"), 45.0, "LLM_REQUEST_TIMEOUT_SECONDS"),
+        llm_call_budget_seconds=_parse_float(get("LLM_CALL_BUDGET_SECONDS"), 240.0, "LLM_CALL_BUDGET_SECONDS"),
+        llm_max_attempts=_parse_int(get("LLM_MAX_ATTEMPTS"), 2, "LLM_MAX_ATTEMPTS"),
+        llm_backoff_seconds=_parse_float(get("LLM_BACKOFF_SECONDS"), 1.5, "LLM_BACKOFF_SECONDS"),
+        llm_max_output_tokens=_parse_int(get("LLM_MAX_OUTPUT_TOKENS"), 8192, "LLM_MAX_OUTPUT_TOKENS"),
+        llm_cache_enabled=_parse_bool(get("LLM_CACHE_ENABLED") or "true", "LLM_CACHE_ENABLED"),
+        llm_cache_ttl_hours=_parse_float(get("LLM_CACHE_TTL_HOURS"), 24.0, "LLM_CACHE_TTL_HOURS"),
+        llm_cache_dir=get("LLM_CACHE_DIR") or "cache/llm",
+        groq_api_key=get("GROQ_API_KEY"),
+        groq_model=get("GROQ_MODEL") or "llama-3.3-70b-versatile",
+        cloudflare_account_id=get("CLOUDFLARE_ACCOUNT_ID"),
+        cloudflare_api_token=get("CLOUDFLARE_API_TOKEN"),
+        cloudflare_model=get("CLOUDFLARE_MODEL") or "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        openrouter_api_key=get("OPENROUTER_API_KEY"),
+        openrouter_model=get("OPENROUTER_MODEL") or "meta-llama/llama-3.3-70b-instruct:free",
+        pollinations_text_url=get("POLLINATIONS_TEXT_URL") or "https://text.pollinations.ai/openai",
+        pollinations_text_model=get("POLLINATIONS_TEXT_MODEL") or "openai-fast",
+        pollinations_api_key=get("POLLINATIONS_API_KEY"),
         opencode_timeout_seconds=_parse_int(get("OPENCODE_TIMEOUT_SECONDS"), 60, "OPENCODE_TIMEOUT_SECONDS"),
         openai_model=get("OPENAI_MODEL") or "gpt-image-1",
         openai_max_retries=_parse_int(get("OPENAI_MAX_RETRIES"), 3, "OPENAI_MAX_RETRIES"),

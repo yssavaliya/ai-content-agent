@@ -33,6 +33,7 @@ permissions:
 jobs:
   manual-ai-anime-run:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
       LOG_LEVEL: INFO
       DATABASE_PATH: agent.db
@@ -46,6 +47,14 @@ jobs:
       LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+      LLM_CHAIN: ${{ secrets.LLM_CHAIN || vars.LLM_CHAIN || 'groq,gemini,cloudflare,openrouter,pollinations,opencode' }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GROQ_MODEL: ${{ secrets.GROQ_MODEL }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_MODEL: ${{ secrets.CLOUDFLARE_MODEL }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL }}
       NOTIFY_CHANNELS: ${{ github.event.inputs.notify_channels }}
       # Instagram (only used if instagram_enabled=true)
       INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
@@ -88,6 +97,13 @@ jobs:
       - name: Add npm global bin to PATH
         run: echo "$(npm config get prefix)/bin" >> "$GITHUB_PATH"
 
+      - name: Restore LLM answer cache
+        uses: actions/cache@v4
+        with:
+          path: ai-anime-agent/cache/llm
+          key: llm-cache-anime-${{ github.run_id }}
+          restore-keys: |
+            llm-cache-anime-
       - name: Install dependencies
         working-directory: ai-anime-agent
         run: |

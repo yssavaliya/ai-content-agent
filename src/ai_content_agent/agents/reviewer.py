@@ -101,7 +101,7 @@ class ReviewerAgent(BaseAgent):
         if not isinstance(payload, dict):
             raise ValueError("Reviewer output must be a JSON object")
 
-        for field in ("status", "reasons", "timestamp"):
+        for field in ("status", "reasons"):
             if field not in payload:
                 raise ValueError(f"Missing required reviewer field: {field}")
 
@@ -113,9 +113,6 @@ class ReviewerAgent(BaseAgent):
         for reason in payload["reasons"]:
             if not isinstance(reason, str) or not reason.strip():
                 raise ValueError("reasons must contain non-empty strings")
-
-        if not isinstance(payload["timestamp"], str) or not payload["timestamp"].strip():
-            raise ValueError("timestamp must be a non-empty string")
 
         payload["timestamp"] = utc_now_iso()
         return payload

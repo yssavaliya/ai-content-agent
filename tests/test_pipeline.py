@@ -5,7 +5,7 @@ import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ai_content_agent.agents.creator import CreatorAgent
 from ai_content_agent.agents.planner import PlannerAgent
@@ -341,13 +341,34 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(result["publish"]["status"], "dry-run")
         self.assertEqual(result["creation"]["caption"], fresh["caption"])
 
-    def test_fixed_template_is_not_retried_when_it_repeats(self):
-        for attempt in range(2):
-            pipeline = self._build_pipeline()
-            pipeline.creator_agent.opencode_client = MagicMock(spec=OpenCodeClient)
-            pipeline.creator_agent.opencode_client.run.side_effect = RuntimeError("llm down")
-            pipeline.creator_agent.max_attempts = 1
-            result = pipeline.run()
+    def _llm_down_pipeline(self) -> ContentPipeline:
+        pipeline = self._build_pipeline()
+        pipeline.creator_agent.opencode_client = MagicMock(spec=OpenCodeClient)
+        pipeline.creator_agent.opencode_client.run.side_effect = RuntimeError("llm down")
+        pipeline.creator_agent.max_attempts = 1
+        return pipeline
+
+    def test_offline_template_gives_a_different_post_each_time(self):
+        first = self._llm_down_pipeline().run()
+        second = self._llm_down_pipeline().run()
+
+        self.assertEqual(first["publish"]["status"], "dry-run")
+        self.assertEqual(second["publish"]["status"], "dry-run")  # a fresh variant, not a blocked repeat
+        self.assertEqual(second["fallbacks"], ["creator"])
+        self.assertNotEqual(first["creation"]["caption"], second["creation"]["caption"])
+        connection = sqlite3.connect(self.db_path)
+        try:  # rejected variants are never stored
+            self.assertEqual(connection.execute("SELECT COUNT(*) FROM creator_outputs").fetchone()[0], 2)
+        finally:
+            connection.close()
+
+    def test_exhausted_templates_are_blocked_not_repeated(self):
+        from ai_content_agent.application import pipeline as pipeline_module
+
+        constant = dict(CREATOR_OUTPUT, caption="Always the very same offline caption text.", source="x")
+        with patch.object(pipeline_module, "generate_post", return_value=constant):
+            self._llm_down_pipeline().run()
+            result = self._llm_down_pipeline().run()
         self.assertEqual(result["publish"]["status"], "blocked_duplicate")
         self.assertEqual(result["fallbacks"], ["creator"])
 
@@ -398,6 +419,20 @@ class PipelineTests(unittest.TestCase):
         prompt = pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"]
         self.assertIn("Best performing", prompt)
         self.assertIn("Winning caption here", prompt)
+
+    def test_every_provider_down_still_completes_the_daily_run(self):
+        """The real agents + real client + provider chain, with the network completely unavailable."""
+        import requests
+
+        env = {"LLM_CHAIN": "groq,pollinations", "GROQ_API_KEY": "k", "LLM_BACKOFF_SECONDS": "0"}
+        with patch.dict(os.environ, env), patch("requests.post", side_effect=requests.ConnectionError("no network")):
+            result = ContentPipeline().run()
+
+        self.assertEqual(result["publish"]["status"], "dry-run")
+        self.assertEqual(result["fallbacks"], ["research", "planner", "creator", "reviewer", "predictor"])
+        self.assertTrue(result["creation"]["caption"])
+        self.assertEqual(result["review"]["source"], "procedural_fallback")
+        self.assertTrue(Path(result["image"]["file_path"]).exists())
 
     def test_healthy_run_reports_no_fallbacks(self):
         result = self._build_pipeline().run()

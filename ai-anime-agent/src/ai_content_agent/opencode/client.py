@@ -92,6 +92,7 @@ class OpenCodeClient:
         self.recorder = recorder or PromptRecorder()
         self._openai_client = openai_client
         self._gemini_client = gemini_client
+        self._chain: Any | None = None
 
     def run(
         self,
@@ -111,6 +112,9 @@ class OpenCodeClient:
                 prompt_preview,
             )
             prompt_path = self.recorder.start(input_text, label or "agent", run_id)
+
+        if input_text is not None and self._settings is not None and self._settings.llm_chain:
+            return self._run_via_chain(input_text, label, start, prompt_path)
 
         tried_api = False
         try:
@@ -137,6 +141,47 @@ class OpenCodeClient:
                 if fallback is not None:
                     return fallback
             raise
+
+    def _run_via_chain(
+        self,
+        input_text: str,
+        label: str | None,
+        start: float,
+        prompt_path: Path | None,
+    ) -> OpenCodeResult:
+        """LLM_CHAIN mode: free-tier providers in order with health tracking, retries, caching."""
+        # Imported lazily: the llm package imports modules that import this one.
+        from ..llm.errors import AllProvidersFailed
+        from ..llm.registry import build_chain
+
+        if self._chain is None:
+            self._chain = build_chain(self._settings, opencode_client=self)
+        try:
+            result = self._chain.complete(input_text, label)
+        except AllProvidersFailed as exc:
+            if prompt_path is not None:
+                self.recorder.finish(
+                    prompt_path,
+                    elapsed_seconds=time.monotonic() - start,
+                    exit_code=-1,
+                    error=str(exc)[:500],
+                )
+            raise OpenCodeError(str(exc), -1, "", str(exc)) from exc
+        elapsed = time.monotonic() - start
+        if prompt_path is not None:
+            self.recorder.finish(
+                prompt_path,
+                elapsed_seconds=elapsed,
+                exit_code=0,
+                error=f"chain:{result.provider}{' (cache)' if result.cached else ''}",
+                stdout_chars=len(result.text),
+            )
+        return OpenCodeResult(
+            stdout=strip_markdown_fences(result.text),
+            stderr="",
+            exit_code=0,
+            elapsed_seconds=elapsed,
+        )
 
     def _run_opencode(
         self,

@@ -26,3 +26,7 @@ htmlcov/
 reports/
 .venv/
 venv/
+
+# LLM answer cache (restored by actions/cache, never committed)
+/cache/
+ai-anime-agent/cache/

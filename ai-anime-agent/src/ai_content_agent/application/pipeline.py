@@ -14,11 +14,13 @@ from ..agents.predictor import PredictorAgent
 from ..agents.research import ResearchAgent
 from ..agents.reviewer import ReviewerAgent
 from ..database.connection import DatabaseConnection
+from ..fallback.templates import generate_post
 from ..growth.dedupe import find_similar_caption
 from ..growth.insights import performance_insights
 from ..growth.usage import record_usage
 from ..notifications.channels import DryRunChannel
 from ..notifications.notifier import Notifier
+from ..llm import reset_health
 from ..opencode.context import set_run_id
 from ..prompts.manager import PromptManager
 from ..providers.image import ImageProviderRegistry
@@ -40,6 +42,8 @@ NOT_LIVE_STATUSES = frozenset(
 )
 # One regeneration (told which captions to avoid) before a duplicate post is blocked.
 MAX_ORIGINALITY_ATTEMPTS = 2
+# The offline template generator is free and instant, so it may try many variants to find an unused post.
+MAX_FALLBACK_VARIANTS = 12
 
 
 class PipelineError(RuntimeError):
@@ -70,6 +74,7 @@ class ContentPipeline:
         self.predictor_agent: PredictorAgent | None = None
         self._fallbacks: list[str] = []
         self._experiment: dict[str, Any] | None = None
+        self._creator_variant = 0
 
     def _choose_experiment_arm(self) -> None:
         """Pick the arm for this post before it is written, so the creator can actually apply it."""
@@ -109,22 +114,25 @@ class ContentPipeline:
         return "\n\n".join(parts) if parts else "No extra guidance for this run."
 
     def _create_unique_content(self, planner_results: dict[str, Any], planner_id: int):
-        """Create the draft and make sure it is not a near-copy of an earlier caption."""
+        """Create the draft and make sure it is not a near-copy of an earlier caption.
+
+        The caption is checked *before* it is stored, so rejected attempts leave no rows behind. After an LLM
+        draft is rejected it is regenerated once with the old caption listed as off-limits. Offline template
+        drafts retry with other variants (cheap and local) until one is unused.
+        """
         avoid: list[str] = []
         similar = None
         creator_results: dict[str, Any] = {}
-        creator_output_id = 0
-        for _ in range(MAX_ORIGINALITY_ATTEMPTS):
+        attempt = 0
+        limit = MAX_ORIGINALITY_ATTEMPTS
+        while attempt < limit:
+            self._creator_variant = attempt
             creator_results = self._run_creator(planner_results, self._creator_guidance(avoid))
-            creator_output_id = self._persist_creator_output(planner_id, creator_results)
             similar = find_similar_caption(
-                self.database,
-                creator_results["caption"],
-                self.settings.duplicate_similarity_threshold,
-                exclude_id=creator_output_id,
+                self.database, creator_results["caption"], self.settings.duplicate_similarity_threshold
             )
             if similar is None:
-                return creator_results, creator_output_id, None
+                return creator_results, self._persist_creator_output(planner_id, creator_results), None
             logger.warning(
                 "::warning::Draft is %.0f%% similar to an earlier caption (creator output %s)",
                 similar.score * 100,
@@ -132,12 +140,14 @@ class ContentPipeline:
             )
             avoid.append(similar.caption)
             if creator_results.get("source") == "procedural_fallback":
-                break  # re-running a fixed template cannot produce different text
-        return creator_results, creator_output_id, similar
+                limit = MAX_FALLBACK_VARIANTS
+            attempt += 1
+        return creator_results, self._persist_creator_output(planner_id, creator_results), similar
 
     def _use_fallback(self, stage: str, payload: dict[str, Any]) -> dict[str, Any]:
         """Flag deterministic template output so it is never mistaken for model output."""
-        self._fallbacks.append(stage)
+        if stage not in self._fallbacks:
+            self._fallbacks.append(stage)
         payload["source"] = "procedural_fallback"
         return payload
 
@@ -172,6 +182,8 @@ class ContentPipeline:
         run_id = run_id or uuid.uuid4().hex[:8]
         self._fallbacks = []
         self._experiment = None
+        self._creator_variant = 0
+        reset_health()  # forget provider outages from an earlier run in this process
         set_run_id(run_id)
         logger.info("Pipeline run %s starting", run_id)
         try:
@@ -462,53 +474,10 @@ class ContentPipeline:
             "selected_idea": ideas[0],
         }
 
-    def _procedural_creator(self, planner_output: dict[str, Any]) -> dict[str, Any]:
+    def _procedural_creator(self, planner_output: dict[str, Any], variant: int = 0) -> dict[str, Any]:
         selected_idea = planner_output.get("selected_idea", {}).get("idea", "Content Strategy")
-        is_anime = "anime" in selected_idea.lower()
-
-        if is_anime:
-            carousel_outline = [
-                "Single Post Focus: Standalone anime concept artwork and philosophy breakdown",
-            ]
-            caption = (
-                "The world only celebrates the awakening. \U00002694\U0001f311\n\n"
-                "They never see the ten thousand hours of quiet discipline in the shadows.\n\n"
-                "Whether you are mastering an art, building something legendary, or locking into your craft — remember:\n\n"
-                "\u2022 Relentless focus beats noisy talent every single time\n"
-                "\u2022 The greatest transformations happen when nobody is watching\n"
-                "\u2022 Your current chapter is the training arc for what comes next\n\n"
-                "Save this visual reminder when you need that extra surge of momentum. \U0001f4cc"
-            )
-            cta = "Drop a ⚔️ in the comments if you are locking into your craft today!"
-            hashtags = ["#anime", "#animeart", "#sololeveling", "#visualstorytelling", "#digitalart", "#aesthetic", "#animephilosophy"]
-            image_prompt = "Masterpiece anime key visual, dramatic blood moon eclipse, lone swordsman silhouette with glowing cyan katana blade, stardust particles, cinematic anime poster"
-            alt_text = "Cinematic anime artwork featuring a lone swordsman standing before a glowing celestial eclipse moon."
-        else:
-            carousel_outline = [
-                "Single Post Focus: High-impact standalone visual art and architecture blueprint",
-            ]
-            caption = (
-                "Building in the shadows before the breakthrough hits. \U000026a1\U0001f680\n\n"
-                "Most people see autonomous systems as overnight success. The reality?\n\n"
-                "• Iterating every single pipeline stage until it never breaks\n"
-                "• Replacing manual grunt work with deterministic intelligence\n"
-                "• Protecting your creative energy for the work that actually matters\n\n"
-                "The future belongs to the builders who automate the routine and amplify the craft.\n\n"
-                "Save this blueprint for your next build session. \U0001f4cc"
-            )
-            cta = "Are you building with autonomous AI agents this year? Drop your thoughts below!"
-            hashtags = ["#aiagents", "#creatoreconomy", "#buildinpublic", "#autonomousagents", "#developers", "#python"]
-            image_prompt = "Futuristic cyber key visual, glowing neon energy core, lone creator silhouette, cosmic cyber particles, cinematic poster 1080x1080"
-            alt_text = "Futuristic digital art poster featuring a glowing energy core and cyber typography."
-
-        return {
-            "carousel_outline": carousel_outline,
-            "caption": caption,
-            "cta": cta,
-            "hashtags": hashtags,
-            "image_prompt": image_prompt,
-            "alt_text": alt_text,
-        }
+        theme = "anime" if "anime" in str(selected_idea).lower() else "ai"
+        return generate_post(theme, seed=datetime.now(timezone.utc).date().isoformat(), variant=variant)
 
     def _procedural_reviewer(self, creator_output: dict[str, Any]) -> dict[str, Any]:
         return {
@@ -588,7 +557,7 @@ class ContentPipeline:
                 "::warning::[CreatorAgent] LLM execution failed (%s); activating autonomous procedural creator fallback",
                 exc,
             )
-            return self._use_fallback("creator", self._procedural_creator(planner_output))
+            return self._use_fallback("creator", self._procedural_creator(planner_output, self._creator_variant))
 
     def _run_reviewer(self, creator_output: dict[str, Any]) -> dict[str, Any]:
         try:

@@ -115,6 +115,41 @@ If an agent cannot get an answer from any LLM provider, the pipeline continues w
 
 Every post sent through a live publisher (Instagram or Buffer, whatever status it reports such as `published`, `scheduled` or `sent`) is stored in `posts` and assigned to the active experiment. `ai-content-agent analytics` (and the start of every `daily` run) then refreshes metrics for posts from the last `ANALYTICS_MAX_AGE_DAYS` days (default 30). The Scientist only acts once each experiment arm has `SCIENTIST_MIN_SAMPLE_SIZE` measured posts.
 
+## LLM providers: free tiers, fallback and caching
+
+Nothing here needs a GPU, a local model or a paid API, and nothing is installed in GitHub Actions beyond Python packages. Every agent calls one function; behind it `LLM_CHAIN` (see `.env.example`) lists providers in order. For each call the chain skips providers without credentials, tries the next one on any failure, and only if all of them fail does the pipeline use the offline template generator, so a provider outage can never stop the daily run.
+
+**What each provider actually is** (checked 1 Nov 2026 against the provider's own documentation unless marked; free tiers change, so re-check before relying on a number):
+
+| Provider | Free access | Open source? | What I verified |
+| --- | --- | --- | --- |
+| **Groq** | Free plan, API key | No: proprietary service running open-weight models | Per-account limits shown only in the console. Third-party pages agree on about 30 requests/min and 1,000/day for the 70B Llama model; **not confirmed from Groq's own docs**. |
+| **Cloudflare Workers AI** | 10,000 neurons/day on the free Workers plan; above that requests fail until 00:00 UTC | No (open-weight models) | Official pricing page. Has an OpenAI-compatible endpoint (`.../accounts/{id}/ai/v1/chat/completions`). |
+| **OpenRouter** `:free` models | Yes: 20 requests/min, 50/day (1,000/day after buying $10 of credits) | No (aggregator; free model list changes) | Official limits page. |
+| **Gemini API** | Free tier in AI Studio | No: proprietary model | Limits are per account in AI Studio and not published on the page I could read. Terms: on the free tier Google may use prompts and outputs to improve its products; in the EEA, UK and Switzerland only paid services may be used to serve users. |
+| **Pollinations text** | Keyless legacy endpoint worked in my tests | Model is open-weight (GPT-OSS-20B); the service is not | **1 reply per 45 s per IP** (HTTP 402 `FREE_LIMIT`), answers identical requests from a shared cache, 30-50 s per answer, no stated terms. Newer docs say a key is required, so this endpoint may go away. Use as a last resort only. |
+| **opencode CLI** | Free gateway model | CLI is open source; the model is third-party | Flaky in practice ("Unexpected server error" in CI on 30 Oct). Last resort. |
+| *GitHub Models* | **Retired on 30 Jul 2026**: do not use | | GitHub's own notice. |
+| *Hugging Face Inference Providers* | **Not free**: free accounts get no included credits | | Official pricing page. |
+| *Cerebras* | Needs a verified payment method for the trial credits | No | Official limits page (5 requests/min per model). Left out of the default chain. |
+| *Mistral* | Free "Experiment" tier reported | Some models open-weight | Could not load Mistral's own limits page; third-party numbers conflict. Not wired in. |
+
+"Free" is not "open source": the services above are hosted products. The weights behind most of them are open (Llama, GPT-OSS, Qwen); the APIs, limits and uptime are not.
+
+At about 5 LLM calls per instance per day, every free tier above is far below its limit. What fails in practice is availability and output quality, not quota, so batching calls would save nothing. The chain does these instead:
+
+- **Health tracking.** A provider answering 401/403, 400/404 or "quota exhausted" is skipped for the rest of the run; two failed calls in a row cool it down for 5 minutes; a provider whose last 3+ calls in 48 h all failed is moved to the back of the order.
+- **Retries and timeouts.** Timeouts, 5xx and rate limits are retried with backoff (honouring `Retry-After`, up to 60 s); each provider has a request timeout (120 s for the slow keyless one), and one call never exceeds `LLM_CALL_BUDGET_SECONDS` across all providers.
+- **Output validation.** An answer that is not a JSON object, or was cut off (`finish_reason=length`), counts as a failure of that provider and the next one is tried. `max_tokens` (default 8192) is always sent because a provider default of 1,500 truncated reasoning-model answers, and even 4096 was not enough for the research prompt on the keyless GPT-OSS model.
+- **Cache.** Validated answers are cached on disk by prompt for `LLM_CACHE_TTL_HOURS`, and the workflows persist the folder with `actions/cache`, so re-running a failed job does not spend quota again. A cached answer is never served twice to a caller that rejected it.
+- **Offline templates.** `fallback/templates.py` writes a different on-brand post per day and per retry (thousands of combinations, no numbers or claims), and the duplicate guard asks for another variant when one was already used.
+- **Visibility.** Every call is recorded in `api_usage`; a run that used templates says so in its notification.
+
+**Setup (all free).** Add any of these as repository secrets (Settings -> Secrets and variables -> Actions); none is required:
+`GROQ_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_API_TOKEN`, `OPENROUTER_API_KEY`, `GEMINI_API_KEY`. Optional: `GROQ_MODEL`, `CLOUDFLARE_MODEL`, `OPENROUTER_MODEL`, `LLM_CHAIN` (secret or repository variable). Model ids change; `llm-check` reports a model that has been retired.
+
+**Testing it on GitHub Actions.** Run the **LLM provider check** workflow (Actions -> LLM provider check -> Run workflow). It pings each provider once and writes a status table to the job summary; it fails only if none answers. It also runs every Monday. Locally: `LLM_CHAIN=groq,pollinations ai-content-agent llm-check`.
+
 ## Growth engine
 
 The pipeline is built to grow `@aimagix.studio` with real followers only: it uses official APIs, never buys or fakes engagement, and never scrapes. Everything below is implemented and covered by tests; what needs your accounts is called out explicitly.
@@ -208,6 +243,7 @@ ai-content-agent followers [N]  # record follower count (API, or the number N)
 ai-content-agent milestone   # progress toward the active follower target
 ai-content-agent dashboard [path]  # static HTML dashboard
 ai-content-agent health      # alert channels if something needs a human
+ai-content-agent llm-check   # ping every provider in LLM_CHAIN
 ```
 
 ## Automation

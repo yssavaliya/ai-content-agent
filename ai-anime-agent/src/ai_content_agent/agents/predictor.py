@@ -110,7 +110,7 @@ class PredictorAgent(BaseAgent):
         if not isinstance(payload, dict):
             raise ValueError("Predictor output must be a JSON object")
 
-        for field in ("virality_score", "virality_label", "virality_probability", "key_factors", "risks", "reasoning", "timestamp"):
+        for field in ("virality_score", "virality_label", "virality_probability", "key_factors", "risks", "reasoning"):
             if field not in payload:
                 raise ValueError(f"Missing required predictor field: {field}")
 
@@ -141,9 +141,6 @@ class PredictorAgent(BaseAgent):
 
         if not isinstance(payload["reasoning"], str) or not payload["reasoning"].strip():
             raise ValueError("reasoning must be a non-empty string")
-        if not isinstance(payload["timestamp"], str) or not payload["timestamp"].strip():
-            raise ValueError("timestamp must be a non-empty string")
-
         payload["virality_score"] = score
         payload["virality_probability"] = float(probability)
         payload["timestamp"] = utc_now_iso()

@@ -122,7 +122,6 @@ class ResearchAgent(BaseAgent):
             "candidate_topics",
             "confidence",
             "reasoning",
-            "timestamp",
         ]
 
         for field in required_fields:
@@ -156,8 +155,8 @@ class ResearchAgent(BaseAgent):
             raise ValueError("confidence must be numeric")
         if not isinstance(payload["reasoning"], str) or not payload["reasoning"].strip():
             raise ValueError("reasoning must be a non-empty string")
-        if not isinstance(payload["timestamp"], str) or not payload["timestamp"].strip():
-            raise ValueError("timestamp must be a non-empty string")
+        # The model's clock is not trustworthy and the field is not needed from it: always stamp it ourselves.
+        payload["timestamp"] = utc_now_iso()
 
         return payload
 

@@ -17,6 +17,7 @@ Commands:
   milestone   Show progress toward the active follower milestone.
   dashboard [path]  Write the static HTML growth dashboard (default dashboard/index.html).
   health      Alert the notification channels if anything needs a human.
+  llm-check [--markdown] [--with-opencode]  Ping every provider in LLM_CHAIN; exit 1 if none answers.
   prompts       Generate the HTML prompt viewer from recorded prompts (logs/prompts).
   anime-trends  Fetch real-world trending anime metadata from Kitsu API.
   anime-concept Generate original anime concept, characters, and episode breakdown.
@@ -97,7 +98,7 @@ def _print_monthly(result: dict[str, Any]) -> None:
     print(f"Analytics observations: {digest.get('observations')}")
 
 
-COMMANDS = ("daily", "analytics", "scientist", "monthly", "followers", "milestone", "dashboard", "health", "prompts", "anime-trends", "anime-concept")
+COMMANDS = ("daily", "analytics", "scientist", "monthly", "followers", "milestone", "dashboard", "health", "llm-check", "prompts", "anime-trends", "anime-concept")
 
 
 def _print_milestone(result: dict[str, Any]) -> None:
@@ -109,6 +110,29 @@ def _print_milestone(result: dict[str, Any]) -> None:
         print(f"Needed per day: {m.required_per_day:.1f} | current pace: "
               f"{'n/a' if m.recent_per_day is None else f'{m.recent_per_day:.1f}'} | projected at deadline: "
               f"{'n/a' if m.projected_at_deadline is None else f'{m.projected_at_deadline:,}'}")
+
+
+def _llm_check(flags: Sequence[str]) -> int:
+    from .llm.check import render_markdown, render_text, run_check
+    from .llm.registry import build_providers, describe_chain
+    from .opencode.client import OpenCodeClient
+    from .settings import current_settings
+
+    settings = current_settings()
+    if not settings.llm_chain:
+        print("LLM_CHAIN is not set, so the legacy LLM_PROVIDER mode is active; there is no chain to check.", file=sys.stderr)
+        return 2
+    with_opencode = "--with-opencode" in flags
+    statuses = describe_chain(settings)
+    providers = build_providers(settings, OpenCodeClient() if with_opencode else None)
+    skipped = {} if with_opencode else {"opencode": "not pinged (pass --with-opencode; needs the CLI installed)"}
+    rows = run_check(providers, statuses, settings.llm_request_timeout_seconds, skipped)
+    print(render_markdown(rows) if "--markdown" in flags else render_text(rows))
+    working = [row.provider for row in rows if row.status == "ok"]
+    if not working:
+        print("\nNo provider answered: the pipeline would use local templates only.", file=sys.stderr)
+        return 1
+    return 0
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -137,6 +161,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             output = generate_html()
             print(f"Prompt viewer generated: {output}")
             return 0
+
+        if command == "llm-check":
+            return _llm_check(args[1:])
 
         if command == "anime-trends":
             from .anime.metadata import AnimeMetadataClient
