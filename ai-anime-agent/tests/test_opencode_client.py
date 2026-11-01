@@ -15,7 +15,7 @@ from ai_content_agent.opencode.recorder import PromptRecorder
 
 REQUIRED_ENV = {
     "LOG_LEVEL": "INFO",
-    "DATABASE_PATH": "agent.db",
+    "DATABASE_PATH": ":memory:",
     "OPENCODE_COMMAND": "opencode",
     "INSTAGRAM_ENABLED": "false",
     "IMAGE_PROVIDER": "local",
