@@ -1,0 +1,170 @@
+{
+  "run_id": "e09a8639",
+  "research": {
+    "recommended_topic": "The Solitary Training Arc: Why True Mastery Demands Isolation in the Shadows",
+    "audience_problem": "Creators, builders, and students feel constant pressure to broadcast progress prematurely for external validation, risking creative burnout and shallow craft instead of enduring the quiet, unglamorous isolation required for true mastery.",
+    "why_now": "Feed saturation is at an all-time peak with superficial wins and loud hustle culture; the core audience craves a grounding mindset anchor and wallpaper-tier visual spectacle that validates the unseen, grueling hours spent in solitude.",
+    "hook": "The world only celebrates the awakening. They never see the ten thousand hours in the shadows.",
+    "supporting_points": [
+      "Skill acquisition demands prolonged seasons of quiet anonymity where no audience is clapping for your daily repetitions.",
+      "Real confidence is forged by honoring unseen commitments when exhaustion urges compromise.",
+      "The breakthrough moment everyone calls 'talent' is simply the compounding interest of solitary discipline."
+    ],
+    "trend_signals": [
+      "High algorithmic amplification on Instagram driven by save-to-collection behaviors (>5% benchmark) on dark wallpaper-worthy key visual art.",
+      "Surging resonance around 'Solo Leveling' and 'Berserk' archetype themes highlighting the psychological cost of the silent training arc.",
+      "Elevated feed dwell time on high-contrast obsidian backdrops paired with celestial eclipse coronas and radiant cyan blade lighting."
+    ],
+    "candidate_topics": [
+      "The Awakening Moment: Stepping Out of Self-Doubt and Claiming Sovereign Focus",
+      "Aesthetic Stoicism: Finding Serenity Amidst Chaos Under Makoto Shinkai Skies",
+      "The Blade and the Void: Why Craft Discipline Is the Ultimate Antidote to Digital Distraction"
+    ],
+    "confidence": 0.94,
+    "reasoning": "Aligns the strongest content pillar ('The Training Arc / Silent Grind') with the proven high-save visual archetype (lone wanderer silhouette with glowing neon edge against a celestial eclipse). It simultaneously satisfies both primary save triggers\u2014wallpaper aesthetic appeal and a resilient mindset anchor\u2014maximizing dwell time and Explore reach.",
+    "timestamp": "2026-11-01T06:26:15.635800Z",
+    "research_id": 77
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "A single high\u2011contrast wallpaper: a lone silhouette in a celestial eclipse, cyan blade glow, captioned in Hinglish: \u2018World celebrates awakening. We grind in the shadows. #SolitudeWins\u2019",
+        "educational_score": 0.7,
+        "originality_score": 0.8,
+        "engagement_score": 0.9,
+        "relevance_score": 0.9,
+        "reasoning": "Matches trend signals\u2014dark obsidian backdrop, celestial corona, cyan lighting. Hinglish hook ties to Indian audience. Caption delivers mindset anchor, likely to be saved and shared."
+      },
+      {
+        "idea": "Short carousel (5 slides) telling a micro\u2011story of a creator\u2019s 10k\u2011hour grind: each slide shows a night\u2011time training scene with subtle progress markers; final slide reveals the \u2018awakening\u2019 moment with a bright burst. Caption: \u201810,000 hours unseen, 1 moment loud. Ready to step out?\u2019",
+        "educational_score": 0.8,
+        "originality_score": 0.7,
+        "engagement_score": 0.85,
+        "relevance_score": 0.85,
+        "reasoning": "Carousel boosts dwell time and saves; story arc satisfies audience problem. Visuals align with high\u2011contrast trend. Indian audience loves narrative sequences."
+      },
+      {
+        "idea": "Interactive Reel: 15\u2011second loop of a character training solo, overlay text in Hinglish: \u2018What you see is only the surface. The real grind? 10k hours in silence.\u2019 Use trending audio, end with a CTA to DM for a personalized \u2018grind\u2011plan\u2019 sticker pack.",
+        "educational_score": 0.6,
+        "originality_score": 0.9,
+        "engagement_score": 0.8,
+        "relevance_score": 0.8,
+        "reasoning": "Reels hit early\u2011hour engagement, audio trend, and DM shares. Learning value lower but high originality and engagement potential."
+      }
+    ],
+    "selected_idea": {
+      "idea": "A single high\u2011contrast wallpaper: a lone silhouette in a celestial eclipse, cyan blade glow, captioned in Hinglish: \u2018World celebrates awakening. We grind in the shadows. #SolitudeWins\u2019",
+      "educational_score": 0.7,
+      "originality_score": 0.8,
+      "engagement_score": 0.9,
+      "relevance_score": 0.9,
+      "total_score": 3.3,
+      "reasoning": "Highest combined score. Directly taps into save\u2011trigger wallpaper aesthetic, delivers mindset anchor, uses Hinglish hook, and aligns with visual trend signals, maximizing reach and dwell time for Indian audience."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "A lone silhouette standing beneath a celestial eclipse, cyan blade glow swirling around, captioned in Hinglish: \u2018World celebrates awakening. We grind in the shadows. #SolitudeWins\u2019"
+    ],
+    "caption": "The world only celebrates the awakening. They never see the ten thousand hours in the shadows.\n\n- Silent grit fuels the brightest glows.\n- Shadows are the forge of true mastery.\n- Every grind builds a legend.\n\nDrop a \u2694\ufe0f if you\u2019re locking into your craft today!",
+    "cta": "Drop a \u2694\ufe0f in the comments if you\u2019re locking into your craft today!",
+    "hashtags": [
+      "#anime",
+      "#digitalart",
+      "#conceptart",
+      "#animephilosophy",
+      "#visualstorytelling",
+      "#sololeveling",
+      "#darkaesthetic",
+      "#aimagix"
+    ],
+    "image_prompt": "A lone silhouette of a warrior standing on a jagged cliff, cyan blade glow emanating from the sword, celestial eclipse with a glowing corona in the background, deep indigo shadows, stardust particles swirling, volumetric rim lighting, glowing embers, Makoto Shinkai sky gradient, Ufotable dynamic action aesthetic, masterpiece anime key visual, 8k resolution, octane render, sharp focus",
+    "alt_text": "A high\u2011contrast anime-style illustration of a lone silhouette of a warrior standing beneath a celestial eclipse. The silhouette is illuminated by a glowing cyan blade, with a dramatic corona of light around the eclipse. Deep indigo shadows and stardust particles add depth, creating a cinematic, inspirational mood."
+  },
+  "review": {
+    "status": "PASS",
+    "reasons": [
+      "Grammar and spelling are correct.",
+      "Readability and clarity are good, with concise bullet points and a clear call to action.",
+      "Tone aligns with the brand\u2019s cinematic, stoic, and philosophical voice while encouraging community interaction.",
+      "Caption and hashtags comply with policy and the brand constitution.",
+      "Indian market fit is appropriate; the caption is engaging for Indian audiences and uses a relatable emoji CTA.",
+      "Hashtags are relevant, mixing broad and niche tags to maximize reach and engagement."
+    ],
+    "timestamp": "2026-11-01T06:34:33.129897Z"
+  },
+  "prediction": {
+    "virality_score": 80,
+    "virality_label": "HIGH",
+    "virality_probability": 0.85,
+    "key_factors": [
+      "Strong visual hook with cinematic silhouette and celestial eclipse matching high\u2011save wallpaper aesthetic",
+      "Clear, relatable Hinglish hook that taps into Indian grind culture",
+      "High emotional trigger of silent effort vs public applause",
+      "Effective CTA with emoji prompting comments",
+      "Hashtag mix of broad and niche terms boosting discoverability",
+      "Recent similar post trend shows no data yet but aligns with proven content pillars",
+      "Timing aligns with evening peak window"
+    ],
+    "risks": [
+      "Single slide carousel may limit pacing for Reels/longer carousel engagement",
+      "Competition in silent grind niche could dilute visibility",
+      "Potential over\u2011use of generic dark aesthetic tags may reduce uniqueness",
+      "No explicit festival or trending tie\u2011in could miss seasonal surge"
+    ],
+    "reasoning": "The post aligns perfectly with the recommended theme of solitary training and uses the proven high\u2011save visual archetype of a lone silhouette with glowing cyan blade against a celestial eclipse. The hook, caption, and CTA are concise, emotionally resonant, and tailored to Indian creators\u2019 desire for underground mastery. Hashtags balance broad reach and niche intent, enhancing discovery. The content fits the high\u2011save, high\u2011dwell\u2011time pattern that drives algorithmic amplification. While the carousel only has one slide, the strong visual and emotional pull should compensate, and the timing in the evening peak window maximizes first\u201190\u2011minute velocity. Overall, the probability of significant reach and engagement is high.",
+    "timestamp": "2026-11-01T06:36:50.854681Z"
+  },
+  "image": {
+    "provider": "pollinations",
+    "prompt": "A lone silhouette of a warrior standing on a jagged cliff, cyan blade glow emanating from the sword, celestial eclipse with a glowing corona in the background, deep indigo shadows, stardust particles swirling, volumetric rim lighting, glowing embers, Makoto Shinkai sky gradient, Ufotable dynamic action aesthetic, masterpiece anime key visual, 8k resolution, octane render, sharp focus",
+    "file_path": "images/2026/11/01/flux_image_063656_393512.jpg",
+    "metadata": {
+      "provider": "pollinations",
+      "model": "flux",
+      "width": 1080,
+      "height": 1080,
+      "dimensions": "1080x1080",
+      "aspect_ratio": "1:1",
+      "format": "JPEG",
+      "seed": 73393512,
+      "enhanced_prompt": "A lone silhouette of a warrior standing on a jagged cliff, cyan blade glow emanating from the sword, celestial eclipse with a glowing corona in the background, deep indigo shadows, stardust particles swirling, volumetric rim lighting, glowing embers, Makoto Shinkai sky gradient, Ufotable dynamic action aesthetic, masterpiece anime key visual, 8k resolution, octane render, sharp focus",
+      "created_at": "2026-11-01T06:36:56Z"
+    },
+    "media_url": "https://raw.githubusercontent.com/yssavaliya/ai-content-agent/main/images/e09a8639/e09a8639.jpg"
+  },
+  "publish": {
+    "provider": "buffer",
+    "status": "scheduled",
+    "published_id": "6ae6de0a21c807e9d5a51472",
+    "metadata": {
+      "post_id": "6ae6de0a21c807e9d5a51472",
+      "update_id": "6ae6de0a21c807e9d5a51472",
+      "channel_id": "6ae249e62f1f5ed6480116ab",
+      "profile_id": "6ae249e62f1f5ed6480116ab",
+      "first_comment": null,
+      "due_at": null,
+      "status": "scheduled",
+      "published_at": "2026-11-01T06:36:58.122766Z"
+    },
+    "post_id": 3,
+    "experiment_id": 1
+  },
+  "fallbacks": [],
+  "experiment": {
+    "id": 1,
+    "arm": "control",
+    "variable": "hook-style"
+  },
+  "package_path": "posts/publish_package_e09a8639.json",
+  "timing": {
+    "research_ms": 11,
+    "planner_ms": 226534,
+    "creator_ms": 130179,
+    "reviewer_ms": 140775,
+    "predictor_ms": 137723,
+    "image_ms": 5229,
+    "publish_ms": 2042,
+    "total_ms": 642493
+  }
+}
