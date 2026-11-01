@@ -493,6 +493,74 @@ class PipelineTests(unittest.TestCase):
         finally:
             connection.close()
 
+    # ------------------------------------------------------------------ review revisions
+    def _reviewer_says(self, pipeline, *verdicts):
+        """Script the reviewer: each verdict is a (status, reasons) pair, the last one repeats."""
+        outputs = [
+            MagicMock(stdout=json.dumps({"status": s, "reasons": r, "timestamp": "2026-11-01T00:00:00Z"}))
+            for s, r in verdicts
+        ]
+        pipeline.reviewer_agent.opencode_client.run.side_effect = outputs + [outputs[-1]] * 5
+
+    def test_a_rejected_draft_is_revised_with_the_reviewers_feedback_and_then_published(self):
+        better = dict(CREATOR_OUTPUT, caption="Nobody claps for the silent hours, yet every legend is built inside them.")
+        pipeline = self._build_pipeline()
+        self._reviewer_says(pipeline, ("FAIL", ["The caption lacks a philosophical hook."]), ("PASS", ["Strong hook now."]))
+        pipeline.creator_agent.opencode_client.run.side_effect = [
+            MagicMock(stdout=json.dumps(CREATOR_OUTPUT)),
+            MagicMock(stdout=json.dumps(better)),
+        ]
+        result = pipeline.run()
+
+        self.assertEqual(result["review"]["status"], "PASS")
+        self.assertEqual(result["creation"]["caption"], better["caption"])
+        self.assertEqual(result["revisions"], 1)
+        self.assertEqual(result["publish"]["status"], "dry-run")
+        revision_prompt = pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"]
+        self.assertIn("A reviewer REJECTED the previous draft", revision_prompt)
+        self.assertIn("The caption lacks a philosophical hook.", revision_prompt)
+        connection = sqlite3.connect(self.db_path)
+        try:  # both drafts and both verdicts are kept as history
+            self.assertEqual(connection.execute("SELECT COUNT(*) FROM creator_outputs").fetchone()[0], 2)
+            self.assertEqual([r[0] for r in connection.execute("SELECT status FROM review_history ORDER BY id")], ["FAIL", "PASS"])
+        finally:
+            connection.close()
+
+    def test_revisions_stop_after_the_limit_and_the_post_is_blocked(self):
+        captions = [
+            "Nobody claps for the silent hours, yet every legend is built inside them.",
+            "A blade is folded a thousand times before it ever meets the light.",
+            "Harbor lamps burn longest for the sailors who left before sunrise.",
+            "Rain teaches stone to become a river one patient morning at a time.",
+            "Every masterpiece hides a hundred drafts nobody ever sees.",
+        ]
+        drafts = [dict(CREATOR_OUTPUT, caption=caption) for caption in captions]
+        pipeline = self._build_pipeline()
+        self._reviewer_says(pipeline, ("FAIL", ["Still generic."]))
+        pipeline.creator_agent.opencode_client.run.side_effect = [MagicMock(stdout=json.dumps(d)) for d in drafts]
+        result = pipeline.run()
+
+        self.assertEqual(result["publish"]["status"], "blocked_review")
+        self.assertEqual(result["revisions"], 2)  # MAX_REVIEW_REVISIONS default
+        self.assertEqual(pipeline.creator_agent.opencode_client.run.call_count, 3)  # first draft + 2 revisions
+
+    def test_revisions_can_be_switched_off(self):
+        from dataclasses import replace
+
+        pipeline = self._build_pipeline()
+        pipeline.settings = replace(pipeline.settings, max_review_revisions=0)
+        self._reviewer_says(pipeline, ("FAIL", ["Nope."]))
+        result = pipeline.run()
+        self.assertEqual(result["publish"]["status"], "blocked_review")
+        self.assertEqual(pipeline.creator_agent.opencode_client.run.call_count, 1)
+
+    def test_a_revision_that_just_repeats_the_rejected_draft_keeps_the_rejection(self):
+        pipeline = self._build_pipeline()  # the mocked creator always returns the same caption
+        self._reviewer_says(pipeline, ("FAIL", ["Too generic."]))
+        result = pipeline.run()
+        self.assertEqual(result["publish"]["status"], "blocked_review")
+        self.assertIn("Too generic.", result["publish"]["metadata"]["reasons"])
+
     # ------------------------------------------------------------------ Buffer pre-flight
     def _buffer_pipeline(self, status=None, error=None):
         """A pipeline whose publisher is named 'buffer' and whose Buffer read is faked."""

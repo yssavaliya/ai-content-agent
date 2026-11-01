@@ -55,6 +55,7 @@ class Settings:
     cloudflare_image_model: str = "@cf/black-forest-labs/flux-1-schnell"
     image_chain: tuple[str, ...] = ("cloudflare", "pollinations", "pillow")
     buffer_queue_limit: int = 10
+    max_review_revisions: int = 2
     openrouter_api_key: str | None = None
     openrouter_model: str = "meta-llama/llama-3.3-70b-instruct:free"
     pollinations_text_url: str = "https://text.pollinations.ai/openai"
@@ -227,6 +228,7 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
             item.strip().lower() for item in (get("IMAGE_CHAIN") or "cloudflare,pollinations,pillow").split(",") if item.strip()
         ),
         buffer_queue_limit=_parse_int(get("BUFFER_QUEUE_LIMIT"), 10, "BUFFER_QUEUE_LIMIT"),
+        max_review_revisions=_parse_int(get("MAX_REVIEW_REVISIONS"), 2, "MAX_REVIEW_REVISIONS"),
         openrouter_api_key=get("OPENROUTER_API_KEY"),
         openrouter_model=get("OPENROUTER_MODEL") or "meta-llama/llama-3.3-70b-instruct:free",
         pollinations_text_url=get("POLLINATIONS_TEXT_URL") or "https://text.pollinations.ai/openai",

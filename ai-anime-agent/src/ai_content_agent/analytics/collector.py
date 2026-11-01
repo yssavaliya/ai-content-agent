@@ -87,6 +87,7 @@ class AnalyticsCollector:
             posts = self._published_posts(db)
             collected = 0
             pending = 0
+            missing = 0
             failures: list[dict[str, Any]] = []
             for post_id, media_id in posts:
                 try:
@@ -99,6 +100,11 @@ class AnalyticsCollector:
                     self._persist_metrics(db, post_id, metrics)
                     collected += 1
                 except Exception as exc:
+                    if "not found" in str(exc).lower():
+                        # Deleted from the platform (e.g. a queued post that was removed): nothing to measure.
+                        logger.info("Post %s (%s) no longer exists on the platform; skipping", post_id, media_id)
+                        missing += 1
+                        continue
                     logger.warning("Analytics collection failed for post %s (%s): %s", post_id, media_id, exc)
                     failures.append({"post_id": post_id, "media_id": media_id, "error": str(exc)})
 
@@ -108,6 +114,7 @@ class AnalyticsCollector:
                 "posts_considered": len(posts),
                 "collected": collected,
                 "pending": pending,
+                "missing": missing,
                 "failed": len(failures),
                 "failures": failures,
                 "collected_at": utc_now_iso(),

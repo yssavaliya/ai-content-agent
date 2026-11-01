@@ -168,6 +168,22 @@ class AnalyticsCollectorTests(unittest.TestCase):
         finally:
             db.close()
 
+    def test_a_post_deleted_from_the_platform_is_skipped_quietly(self):
+        class GoneProvider(FakeProvider):
+            def fetch_post_metrics(self, media_id: str) -> PostMetrics:
+                raise RuntimeError("Buffer Analytics GraphQL error: Post not found for id: " + media_id)
+
+        db = DatabaseConnection(db_path=":memory:")
+        try:
+            db.execute(
+                "INSERT INTO posts(external_id, caption, image_description, hashtags, created_at) VALUES (?, ?, ?, ?, ?)",
+                ("gone-1", "caption", "desc", "[]", "2026-11-01T00:00:00Z"),
+            )
+            summary = AnalyticsCollector(provider=GoneProvider(), database=db).collect()
+            self.assertEqual((summary["collected"], summary["missing"], summary["failed"]), (0, 1, 0))
+        finally:
+            db.close()
+
     def test_collect_without_provider_is_noop(self):
         db = DatabaseConnection(db_path=":memory:")
         try:

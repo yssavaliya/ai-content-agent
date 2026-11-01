@@ -77,6 +77,7 @@ class ContentPipeline:
         self._fallbacks: list[str] = []
         self._experiment: dict[str, Any] | None = None
         self._creator_variant = 0
+        self._revisions = 0
         self._external_texts: list[str] = []
 
     def _preflight_publisher(self) -> None:
@@ -150,13 +151,19 @@ class ContentPipeline:
         }
         logger.info("Experiment %s: this post uses the %s arm (%s)", experiment.id, arm, experiment.variable)
 
-    def _creator_guidance(self, avoid_captions: list[str]) -> str:
+    def _creator_guidance(self, avoid_captions: list[str], feedback: list[str] | None = None) -> str:
         parts: list[str] = []
         experiment = self._experiment
         if experiment and experiment.get("directive"):
             parts.append(
                 f"EXPERIMENT '{experiment.get('variable') or 'content'}' (arm: {experiment['arm']}). "
                 f"For this post: {experiment['directive']}"
+            )
+        if feedback:
+            parts.append(
+                "A reviewer REJECTED the previous draft for these reasons. Write a NEW draft that fixes every point "
+                "(keep the idea, change the caption, hook, wording and hashtags as needed):\n"
+                + "\n".join(f"- {' '.join(str(reason).split())[:300]}" for reason in feedback)
             )
         insights = performance_insights(self.database)
         if insights:
@@ -168,7 +175,9 @@ class ContentPipeline:
             )
         return "\n\n".join(parts) if parts else "No extra guidance for this run."
 
-    def _create_unique_content(self, planner_results: dict[str, Any], planner_id: int):
+    def _create_unique_content(
+        self, planner_results: dict[str, Any], planner_id: int, feedback: list[str] | None = None
+    ):
         """Create the draft and make sure it is not a near-copy of an earlier caption.
 
         The caption is checked *before* it is stored, so rejected attempts leave no rows behind. After an LLM
@@ -182,7 +191,7 @@ class ContentPipeline:
         limit = MAX_ORIGINALITY_ATTEMPTS
         while attempt < limit:
             self._creator_variant = attempt
-            creator_results = self._run_creator(planner_results, self._creator_guidance(avoid))
+            creator_results = self._run_creator(planner_results, self._creator_guidance(avoid, feedback))
             similar = find_similar_caption(
                 self.database, creator_results["caption"], self.settings.duplicate_similarity_threshold
             ) or find_similar_reference(creator_results["caption"], strategy_examples("brain/strategy.md")) or (
@@ -241,6 +250,7 @@ class ContentPipeline:
         self._fallbacks = []
         self._experiment = None
         self._creator_variant = 0
+        self._revisions = 0
         reset_health()  # forget provider outages from an earlier run in this process
         set_run_id(run_id)
         logger.info("Pipeline run %s starting", run_id)
@@ -340,6 +350,32 @@ class ContentPipeline:
         
         self._persist_review(creator_output_id, reviewer_results)
 
+        revisions = 0
+        while (
+            reviewer_results["status"] != "PASS"
+            and revisions < self.settings.max_review_revisions
+            and creator_results.get("source") != "procedural_fallback"
+        ):
+            revisions += 1
+            logger.warning(
+                "::warning::[Pipeline %s] ReviewerAgent returned %s; revising the draft using its feedback (%d/%d)",
+                run_id,
+                reviewer_results["status"],
+                revisions,
+                self.settings.max_review_revisions,
+            )
+            stage_start = time.perf_counter()
+            revised, revised_id, still_duplicate = self._create_unique_content(
+                planner_results, planner_id, feedback=reviewer_results.get("reasons")
+            )
+            if still_duplicate is not None:
+                break  # the model can only repeat the rejected draft: keep the rejection
+            creator_results, creator_output_id = revised, revised_id
+            reviewer_results = self._run_reviewer(creator_results)
+            self._persist_review(creator_output_id, reviewer_results)
+            timing["revision_ms"] = timing.get("revision_ms", 0) + int((time.perf_counter() - stage_start) * 1000)
+        self._revisions = revisions
+
         if reviewer_results["status"] != "PASS":
             logger.warning(
                 "::warning::[Pipeline %s] ReviewerAgent returned %s; skipping image and publish",
@@ -374,6 +410,7 @@ class ContentPipeline:
             "image": image_result,
             "publish": None,
             "fallbacks": list(self._fallbacks),
+            "revisions": self._revisions,
             "experiment": self._experiment_summary(),
         }
         package_path = self._save_package(package)
@@ -430,6 +467,7 @@ class ContentPipeline:
             "prediction": None,
             "image": None,
             "publish": result.__dict__,
+            "revisions": self._revisions,
             "experiment": self._experiment_summary(),
             "fallbacks": list(self._fallbacks),
             "timing": timing,

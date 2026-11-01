@@ -128,6 +128,8 @@ Every post sent through a live publisher (Instagram or Buffer, whatever status i
 
 **Buffer queue.** With Buffer, every run first reads the channel's posts (read-only). If `BUFFER_QUEUE_LIMIT` (default 10, Buffer's free-plan limit) scheduled posts are already waiting it stops before any LLM or image call and alerts you, and the captions Buffer already holds are added to the duplicate check, which also covers the other instance and any other automation posting to the same channel. If Buffer refuses a post anyway, the run saves a post kit, records `blocked_publish` and exits non-zero. `ai-content-agent buffer-status` (or the **Buffer queue status** workflow) lists what Buffer holds.
 
+**Review revisions.** A draft the reviewer rejects is no longer simply discarded: the creator is asked again with the reviewer's objections in the prompt, up to `MAX_REVIEW_REVISIONS` times (default 2). Every draft and verdict is kept in the database; if the last draft still fails, or the model can only repeat the rejected one, the post is blocked as before. A real run showed why: the first draft was generic ("What fuels your inner strength?"), and the reviewer was right to reject it.
+
 ## LLM providers: free tiers, fallback and caching
 
 Nothing here needs a GPU, a local model or a paid API, and nothing is installed in GitHub Actions beyond Python packages. Every agent calls one function; behind it `LLM_CHAIN` (see `.env.example`) lists providers in order. For each call the chain skips providers without credentials, tries the next one on any failure, and only if all of them fail does the pipeline use the offline template generator, so a provider outage can never stop the daily run.
