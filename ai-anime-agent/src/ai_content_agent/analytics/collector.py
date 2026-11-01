@@ -86,10 +86,16 @@ class AnalyticsCollector:
 
             posts = self._published_posts(db)
             collected = 0
+            pending = 0
             failures: list[dict[str, Any]] = []
             for post_id, media_id in posts:
                 try:
                     metrics = self.provider.fetch_post_metrics(media_id)
+                    if not metrics.has_data():
+                        # No numbers yet (too new, or not published). Storing nothing keeps the post out of
+                        # the "measured" counts and the experiments until real data exists.
+                        pending += 1
+                        continue
                     self._persist_metrics(db, post_id, metrics)
                     collected += 1
                 except Exception as exc:
@@ -101,6 +107,7 @@ class AnalyticsCollector:
                 "provider": self.provider.name,
                 "posts_considered": len(posts),
                 "collected": collected,
+                "pending": pending,
                 "failed": len(failures),
                 "failures": failures,
                 "collected_at": utc_now_iso(),

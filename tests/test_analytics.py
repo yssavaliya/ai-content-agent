@@ -150,6 +150,24 @@ class AnalyticsCollectorTests(unittest.TestCase):
         finally:
             db.close()
 
+    def test_posts_without_any_metrics_are_pending_not_stored_as_measured(self):
+        class NoDataProvider(FakeProvider):
+            def fetch_post_metrics(self, media_id: str) -> PostMetrics:
+                return PostMetrics(media_id, None, None, None, None, None, None, None, None, "2026-11-01T00:00:00Z")
+
+        db = DatabaseConnection(db_path=":memory:")
+        try:
+            db.execute(
+                "INSERT INTO posts(external_id, caption, image_description, hashtags, created_at) VALUES (?, ?, ?, ?, ?)",
+                ("media-new", "caption", "desc", "[]", "2026-11-01T00:00:00Z"),
+            )
+            summary = AnalyticsCollector(provider=NoDataProvider(), database=db).collect()
+            self.assertEqual((summary["collected"], summary["pending"], summary["failed"]), (0, 1, 0))
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM post_metrics").fetchone()[0], 0)
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM observations").fetchone()[0], 0)
+        finally:
+            db.close()
+
     def test_collect_without_provider_is_noop(self):
         db = DatabaseConnection(db_path=":memory:")
         try:

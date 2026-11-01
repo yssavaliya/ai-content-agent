@@ -29,6 +29,10 @@ query GetPostMetrics($id: PostId!) {
 """
 
 
+def _as_int(value: float | None) -> int | None:
+    return None if value is None else int(value)
+
+
 class BufferAnalyticsClient(AnalyticsProvider):
     """Fetches social media post insights from Buffer GraphQL API."""
 
@@ -80,17 +84,20 @@ class BufferAnalyticsClient(AnalyticsProvider):
 
         impressions = int(metrics_map["impressions"]) if "impressions" in metrics_map else None
         reach = int(metrics_map["reach"]) if "reach" in metrics_map else impressions
-        likes = int(metrics_map.get("reactions") or metrics_map.get("likes") or 0)
-        comments = int(metrics_map.get("comments", 0))
-        shares = int(metrics_map.get("shares", 0))
-        saves = int(metrics_map.get("saves", 0))
-        total_engagement = likes + comments + shares + saves
+        # A metric Buffer did not return stays None: "not measured" is not the same as zero.
+        likes = _as_int(metrics_map["reactions"] if "reactions" in metrics_map else metrics_map.get("likes"))
+        comments = _as_int(metrics_map.get("comments"))
+        shares = _as_int(metrics_map.get("shares"))
+        saves = _as_int(metrics_map.get("saves"))
+        parts = [value for value in (likes, comments, shares, saves) if value is not None]
+        total_engagement = sum(parts) if parts else None
 
         engagement_rate: float | None = None
-        if reach and reach > 0:
-            engagement_rate = round(total_engagement / reach, 4)
-        elif impressions and impressions > 0:
-            engagement_rate = round(total_engagement / impressions, 4)
+        if total_engagement is not None:
+            if reach and reach > 0:
+                engagement_rate = round(total_engagement / reach, 4)
+            elif impressions and impressions > 0:
+                engagement_rate = round(total_engagement / impressions, 4)
 
         return PostMetrics(
             media_id=media_id,

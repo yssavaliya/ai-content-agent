@@ -152,6 +152,7 @@ class Scheduler:
                     body=(
                         f"Posts considered: {summary.get('posts_considered')}\n"
                         f"Collected: {summary.get('collected')}\n"
+                        f"Waiting for first metrics: {summary.get('pending', 0)}\n"
                         f"Failed: {summary.get('failed')}\n"
                         f"Collected at: {summary.get('collected_at')}"
                     ),

@@ -16,6 +16,33 @@ class BufferAnalyticsQueryTests(unittest.TestCase):
         self.assertNotIn("String!", GET_POST_METRICS_QUERY)
 
 
+class MissingMetricsAreNotZeroTests(unittest.TestCase):
+    def fetch(self, metrics):
+        with patch("ai_content_agent.analytics.buffer.requests.post") as mock_post:
+            mock_post.return_value = MagicMock(status_code=200)
+            mock_post.return_value.json.return_value = {"data": {"post": {"id": "p", "metrics": metrics}}}
+            return BufferAnalyticsClient("tok").fetch_post_metrics("p")
+
+    def test_a_post_with_no_metrics_has_no_data_not_zeros(self) -> None:
+        metrics = self.fetch([])
+        self.assertFalse(metrics.has_data())
+        self.assertEqual(
+            (metrics.likes, metrics.comments, metrics.shares, metrics.saves, metrics.engagement, metrics.engagement_rate),
+            (None, None, None, None, None, None),
+        )
+
+    def test_only_returned_metrics_are_filled_in(self) -> None:
+        metrics = self.fetch([{"type": "impressions", "value": 400}, {"type": "reactions", "value": 20}])
+        self.assertTrue(metrics.has_data())
+        self.assertEqual((metrics.likes, metrics.comments, metrics.shares, metrics.saves), (20, None, None, None))
+        self.assertEqual(metrics.engagement, 20)
+        self.assertEqual(metrics.engagement_rate, 0.05)
+
+    def test_a_real_zero_is_kept(self) -> None:
+        metrics = self.fetch([{"type": "impressions", "value": 300}, {"type": "reactions", "value": 0}])
+        self.assertEqual((metrics.likes, metrics.engagement, metrics.engagement_rate), (0, 0, 0.0))
+
+
 class BufferAnalyticsClientTests(unittest.TestCase):
     @patch("ai_content_agent.analytics.buffer.requests.post")
     def test_fetch_post_metrics(self, mock_post: MagicMock) -> None:

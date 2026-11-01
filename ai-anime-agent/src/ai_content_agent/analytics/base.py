@@ -19,6 +19,21 @@ class PostMetrics:
     collected_at: str
     raw: dict[str, Any] = field(default_factory=dict)
 
+    def has_data(self) -> bool:
+        """False when the provider returned no numbers at all (e.g. a post too new to have insights)."""
+        return any(
+            value is not None
+            for value in (
+                self.impressions,
+                self.reach,
+                self.likes,
+                self.comments,
+                self.shares,
+                self.saves,
+                self.engagement,
+            )
+        )
+
 
 class AnalyticsProvider(ABC):
     @property

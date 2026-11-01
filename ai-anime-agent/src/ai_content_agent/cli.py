@@ -64,6 +64,7 @@ def _print_analytics(result: dict[str, Any]) -> None:
     if summary.get("enabled"):
         print(f"Posts considered: {summary.get('posts_considered')}")
         print(f"Collected: {summary.get('collected')}")
+        print(f"Waiting for first metrics: {summary.get('pending', 0)}")
         print(f"Failed: {summary.get('failed')}")
         for failure in summary.get("failures", []):
             print(f" - post {failure.get('post_id')} ({failure.get('media_id')}): {failure.get('error')}")
