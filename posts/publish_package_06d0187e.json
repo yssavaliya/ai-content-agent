@@ -1,0 +1,122 @@
+{
+  "run_id": "06d0187e",
+  "research": {
+    "recommended_topic": "The Celestial Blade: Unveiling the Ethereal Dance of Neon Katana and Shadow",
+    "audience_problem": "Audiences are seeking visually stunning and thought-provoking content that combines anime aesthetics with philosophical depth",
+    "why_now": "The current trending themes of sakuga visual discussions and cultural moments are captivating audiences, and the topic of celestial blades and shadow realms is particularly relevant",
+    "hook": "What lies beyond the veil of darkness, where neon katanas slice through the shadows?",
+    "supporting_points": [
+      "The intersection of anime and philosophy offers a unique perspective on the human condition",
+      "The use of neon katanas and shadow realms as visual motifs can evoke a sense of wonder and awe",
+      "The topic allows for exploration of themes such as light and darkness, good and evil, and the struggle for balance"
+    ],
+    "trend_signals": [
+      "Sakuga visual discussions",
+      "Cultural moments of anime and manga",
+      "Increasing interest in philosophical and thought-provoking content"
+    ],
+    "candidate_topics": [
+      "The Solitary Training Arc: Why True Mastery Demands Isolation in the Shadows",
+      "Modern Anime Aesthetics: How Studio Visuals Drive Viral Instagram Engagement",
+      "The Awakening Moment: Breaking through Mental Barriers and Shedding Self-Doubt"
+    ],
+    "confidence": 0.85,
+    "reasoning": "The recommended topic combines trending themes and visual motifs with philosophical depth, making it a strong candidate for arresting attention in the feed",
+    "timestamp": "2026-11-01T08:24:37.922735Z",
+    "research_id": 79
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Neon Katana: Slicing Through Shadows, a Visual Representation of Inner Strength",
+        "educational_score": 0.8,
+        "originality_score": 0.9,
+        "engagement_score": 0.7,
+        "relevance_score": 0.9,
+        "reasoning": "This idea combines the trending theme of sakuga visual discussions with the philosophical depth of exploring inner strength, making it a strong candidate for arresting attention in the feed."
+      },
+      {
+        "idea": "The Shadow Realm: A Philosophical Exploration of Light and Darkness",
+        "educational_score": 0.9,
+        "originality_score": 0.8,
+        "engagement_score": 0.6,
+        "relevance_score": 0.8,
+        "reasoning": "This idea explores the theme of light and darkness, which is particularly relevant to the Indian audience, and offers a unique perspective on the human condition."
+      },
+      {
+        "idea": "Unveiling the Celestial Blade: A Visual Journey Through Anime Aesthetics",
+        "educational_score": 0.7,
+        "originality_score": 0.8,
+        "engagement_score": 0.8,
+        "relevance_score": 0.9,
+        "reasoning": "This idea rides the trend signal of sakuga visual discussions and offers a visually stunning representation of anime aesthetics, making it a strong candidate for engagement."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Neon Katana: Slicing Through Shadows, a Visual Representation of Inner Strength",
+      "educational_score": 0.8,
+      "originality_score": 0.9,
+      "engagement_score": 0.7,
+      "relevance_score": 0.9,
+      "total_score": 3.3,
+      "reasoning": "This idea combines the trending theme of sakuga visual discussions with the philosophical depth of exploring inner strength, making it a strong candidate for arresting attention in the feed. The use of neon katanas and shadow realms as visual motifs can evoke a sense of wonder and awe, and the topic allows for exploration of themes such as light and darkness, good and evil, and the struggle for balance."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Neon Katana Visual Representation"
+    ],
+    "caption": "What fuels your inner strength? \n\n* Embracing the shadows within \n* Finding balance in darkness and light \n* Unleashing the power of solitude \nDrop a \u2694\ufe0f if you're ready to unlock yours!",
+    "cta": "Drop a \u2694\ufe0f",
+    "hashtags": [
+      "#anime",
+      "#animeart",
+      "#digitalart",
+      "#animephilosophy",
+      "#visualstorytelling",
+      "#sololeveling",
+      "#darkaesthetic",
+      "#aimagix"
+    ],
+    "image_prompt": "Lone katana-wielding warrior in a dynamic pose + amidst a neon-lit, shadowy environment with a deep indigo backdrop + under volumetric rim lighting, glowing embers, and a Makoto Shinkai-inspired sky gradient + in the style of a masterpiece anime key visual, Ufotable dynamic action aesthetic, octane render, 8k resolution, sharp focus",
+    "alt_text": "A cinematic anime-style illustration of a lone warrior wielding a neon katana, set against a dark, neon-lit environment with deep shadows and vibrant colors."
+  },
+  "review": {
+    "status": "FAIL",
+    "reasons": [
+      "The caption does not fully align with the brand's tone and language, lacking a strong philosophical hook and high-gravitas vocabulary.",
+      "The hashtags, although relevant, do not include any Hinglish or Indian-specific tags that could enhance the post's native feel on Indian Instagram.",
+      "The caption's engagement prompt, while encouraging interaction, could be more thought-provoking and aligned with the brand's mission to 'provoke thought, inspire relentless focus, and earn massive saves and shares'.",
+      "The use of Western references and lack of Indian market-specific content might not fully resonate with the target audience."
+    ],
+    "timestamp": "2026-11-01T08:25:03.005139Z"
+  },
+  "prediction": null,
+  "image": null,
+  "publish": {
+    "provider": "none",
+    "status": "blocked_review",
+    "published_id": "",
+    "metadata": {
+      "reasons": [
+        "The caption does not fully align with the brand's tone and language, lacking a strong philosophical hook and high-gravitas vocabulary.",
+        "The hashtags, although relevant, do not include any Hinglish or Indian-specific tags that could enhance the post's native feel on Indian Instagram.",
+        "The caption's engagement prompt, while encouraging interaction, could be more thought-provoking and aligned with the brand's mission to 'provoke thought, inspire relentless focus, and earn massive saves and shares'.",
+        "The use of Western references and lack of Indian market-specific content might not fully resonate with the target audience."
+      ]
+    }
+  },
+  "experiment": {
+    "id": 1,
+    "arm": "variant",
+    "variable": "hook-style"
+  },
+  "fallbacks": [],
+  "timing": {
+    "research_ms": 12642,
+    "planner_ms": 12087,
+    "creator_ms": 7947,
+    "reviewer_ms": 5041
+  },
+  "package_path": "posts/publish_package_06d0187e.json"
+}
