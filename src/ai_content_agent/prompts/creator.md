@@ -9,6 +9,7 @@ Instructions:
 - Provide a curated set of 7-9 hashtags mixing high-reach discovery (#anime, #animeart, #digitalart) with niche affinity (#animephilosophy, #visualstorytelling, #sololeveling).
 - Write a detailed image generation prompt following the virality formula: [Subject & Dynamic Pose] + [Atmospheric Environment & Background Lore] + [Lighting & Color Palette: volumetric light, glowing embers, deep contrast] + [Style Tags: masterpiece anime key visual, Makoto Shinkai sky / Ufotable lighting, 8k resolution, octane render, sharp focus]. Ensure no text overlays or numbers are requested.
 - Write alt_text that describes the generated image for accessibility.
+- Never copy example sentences from the strategy or any other document word for word; use them only as a pattern and write new wording.
 - Return only valid JSON with the exact fields listed below.
 - Do not include any extra text, markdown, or commentary.
 

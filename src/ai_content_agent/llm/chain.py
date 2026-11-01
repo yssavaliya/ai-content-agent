@@ -115,10 +115,11 @@ def is_json_object(text: str) -> bool:
 
 
 def demote_recently_failing(providers: Sequence[Provider], database_path: str, hours: int = 48) -> list[Provider]:
-    """Move providers whose recent calls all failed behind the ones that work.
+    """Move providers whose latest calls all failed behind the ones that work.
 
-    Reads ``api_usage`` (written by every call). A provider needs at least 3 recent calls with no success
-    to be demoted, so a single bad day does not reorder the chain permanently.
+    Reads ``api_usage`` (written by every call). A provider is demoted when its 3 most recent calls in the
+    window all failed, so one bad call never reorders the chain, but a provider that has gone dead (an earlier
+    success does not matter) stops costing a timeout at the start of every run.
     """
     if database_path == ":memory:" or not Path(database_path).exists():
         return list(providers)
@@ -126,15 +127,20 @@ def demote_recently_failing(providers: Sequence[Provider], database_path: str, h
         connection = sqlite3.connect(f"file:{database_path}?mode=ro", uri=True, timeout=3)
         try:
             rows = connection.execute(
-                "SELECT provider, COUNT(*), SUM(ok) FROM api_usage WHERE service = 'llm' "
-                "AND created_at >= strftime('%Y-%m-%dT%H:%M:%SZ', 'now', ?) GROUP BY provider",
+                "SELECT provider, ok FROM api_usage WHERE service = 'llm' "
+                "AND created_at >= strftime('%Y-%m-%dT%H:%M:%SZ', 'now', ?) ORDER BY id DESC",
                 (f"-{hours} hours",),
             ).fetchall()
         finally:
             connection.close()
     except sqlite3.Error:
         return list(providers)
-    failing = {name for name, calls, ok in rows if calls >= 3 and not ok}
+    latest: dict[str, list[int]] = {}
+    for name, ok in rows:
+        bucket = latest.setdefault(name, [])
+        if len(bucket) < 3:
+            bucket.append(ok)
+    failing = {name for name, oks in latest.items() if len(oks) == 3 and not any(oks)}
     return [p for p in providers if p.name not in failing] + [p for p in providers if p.name in failing]
 
 
@@ -194,12 +200,13 @@ class ProviderChain:
             if completion is not None:
                 if self.cache is not None and (not self.expect_json or is_json_object(completion.text)):
                     self.cache.put(key, completion.text, provider.name, completion.model)
+                failed = [a for a in attempts if a.kind != "skipped"]
                 logger.info(
                     "::notice::[LLM:%s] answered by %s (%s)%s",
                     label or "agent",
                     provider.name,
                     completion.model,
-                    f" after {len(attempts)} failed attempt(s)" if attempts else "",
+                    f" after {len(failed)} failed attempt(s)" if failed else "",
                 )
                 return ChainResult(completion.text, provider.name, completion.model, False, attempts)
         raise AllProvidersFailed(attempts)

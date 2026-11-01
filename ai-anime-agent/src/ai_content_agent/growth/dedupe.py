@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from difflib import SequenceMatcher
+from pathlib import Path
 
 from ..database.connection import DatabaseConnection
 
@@ -58,4 +59,32 @@ def find_similar_caption(
         score = similarity(caption, row["caption"])
         if score >= threshold and (best is None or score > best.score):
             best = SimilarCaption(score=score, caption=row["caption"], creator_output_id=int(row["id"]))
+    return best
+
+
+_QUOTED_EXAMPLE = re.compile(r'\*"([^"\n]{25,})"\*')
+
+
+def strategy_examples(strategy_path: str | Path) -> list[str]:
+    """Sentences quoted as examples (*"..."*) in a strategy document: the model must not reuse them."""
+    try:
+        return _QUOTED_EXAMPLE.findall(Path(strategy_path).read_text(encoding="utf-8"))
+    except OSError:
+        return []
+
+
+def find_similar_reference(caption: str, references: list[str], threshold: float = 0.6) -> SimilarCaption | None:
+    """Most similar reference text at or above ``threshold``.
+
+    The bar is lower than for earlier posts because a caption that merely *contains* an example sentence
+    next to new lines is still a copy of it.
+    """
+    best: SimilarCaption | None = None
+    caption_norm = normalize(caption)
+    for index, reference in enumerate(references):
+        ref_norm = normalize(reference)
+        contained = bool(ref_norm) and ref_norm in caption_norm
+        score = 1.0 if contained else similarity(caption, reference)
+        if score >= threshold and (best is None or score > best.score):
+            best = SimilarCaption(score=score, caption=reference, creator_output_id=-(index + 1))
     return best

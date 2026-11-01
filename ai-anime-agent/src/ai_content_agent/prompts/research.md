@@ -42,6 +42,9 @@ $strategy
 Market:
 $market
 
+Topics already covered recently (choose a clearly different topic and angle, not a rewording of these):
+$recent_topics
+
 Today's date (UTC): $run_date
 
 Variables:

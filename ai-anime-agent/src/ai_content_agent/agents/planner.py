@@ -107,9 +107,30 @@ class PlannerAgent(BaseAgent):
         selected_idea = payload["selected_idea"]
         if not isinstance(selected_idea, dict):
             raise ValueError("selected_idea must be a JSON object")
+        self._fill_scores_from_ideas(selected_idea, ideas)
         self._validate_scored_idea(selected_idea, "selected_idea")
 
         return payload
+
+    @staticmethod
+    def _fill_scores_from_ideas(selected: dict[str, Any], ideas: list[dict[str, Any]]) -> None:
+        """Smaller models often repeat the winning idea but drop its score fields.
+
+        When the same idea is in ``ideas`` with its scores, copy those (real numbers the model produced).
+        Nothing is invented: with no matching idea the validation error stands and the agent retries.
+        """
+        missing = [field for field in SCORE_FIELDS if field not in selected]
+        if not missing:
+            return
+        text = " ".join(str(selected.get("idea", "")).lower().split())
+        for idea in ideas:
+            if " ".join(str(idea.get("idea", "")).lower().split()) == text:
+                for field in missing:
+                    if field in idea:
+                        selected[field] = idea[field]
+                if "total_score" not in selected and "total_score" in idea:
+                    selected["total_score"] = idea["total_score"]
+                return
 
     def _validate_scored_idea(self, idea: dict[str, Any], label: str) -> None:
         if not isinstance(idea.get("idea"), str) or not idea["idea"].strip():

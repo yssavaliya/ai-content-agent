@@ -10,6 +10,7 @@ Instructions:
 - Provide a relevant set of hashtags: a mix of broad tags (#reelsindia, #instagood) and niche/Hinglish tags, with location tags where relevant.
 - Write a detailed image generation prompt for the lead visual.
 - Write alt_text that describes the generated image for accessibility.
+- Never copy example sentences from the strategy or any other document word for word; use them only as a pattern and write new wording.
 - Return only valid JSON with the exact fields listed below.
 - Do not include any extra text, markdown, or commentary.
 

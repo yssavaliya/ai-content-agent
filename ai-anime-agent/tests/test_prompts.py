@@ -5,7 +5,7 @@ from ai_content_agent.prompts.manager import PACKAGED_PROMPT_DIR, PromptManager
 
 # Variables each agent passes to PromptManager.render (see ai_content_agent/agents/*.py).
 AGENT_VARIABLES = {
-    "research.md": ["identity", "strategy", "market", "run_date"],
+    "research.md": ["identity", "strategy", "market", "run_date", "recent_topics"],
     "planner.md": ["research_json", "market"],
     "creator.md": ["selected_idea", "creator_guidance", "identity", "constitution", "strategy", "market"],
     "reviewer.md": ["creator_output", "identity", "constitution", "market"],

@@ -434,6 +434,34 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(result["review"]["source"], "procedural_fallback")
         self.assertTrue(Path(result["image"]["file_path"]).exists())
 
+    def test_research_prompt_lists_recent_topics_so_a_new_run_picks_another(self):
+        first = self._build_pipeline()
+        first.run()
+        second = self._build_pipeline()
+        second.run()
+        first_prompt = first.research_agent.opencode_client.run.call_args.kwargs["input_text"]
+        second_prompt = second.research_agent.opencode_client.run.call_args.kwargs["input_text"]
+        self.assertIn("- none yet", first_prompt)
+        self.assertIn(f"- {RESEARCH_OUTPUT['recommended_topic']}", second_prompt)
+        self.assertNotEqual(first_prompt, second_prompt)  # so a cached answer cannot repeat yesterday's topic
+
+    def test_a_caption_copied_from_the_strategy_examples_is_regenerated(self):
+        copied = dict(
+            CREATOR_OUTPUT,
+            caption="The world only celebrates the awakening. They never see the ten thousand hours in the shadows.\n\n- Extra line.",
+        )
+        original = dict(CREATOR_OUTPUT, caption="Ever wondered why the quiet hours matter more than the loud ones?")
+        pipeline = self._build_pipeline()
+        pipeline.creator_agent.opencode_client.run.side_effect = [
+            MagicMock(stdout=json.dumps(copied)),
+            MagicMock(stdout=json.dumps(original)),
+        ]
+        result = pipeline.run()
+        self.assertEqual(result["creation"]["caption"], original["caption"])
+        self.assertEqual(result["publish"]["status"], "dry-run")
+        retry_prompt = pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"]
+        self.assertIn("must NOT reuse", retry_prompt)
+
     def test_healthy_run_reports_no_fallbacks(self):
         result = self._build_pipeline().run()
         self.assertEqual(result["fallbacks"], [])

@@ -81,6 +81,7 @@ class ResearchAgent(BaseAgent):
             "strategy": strategy,
             "market": market,
             "run_date": run_date,
+            "recent_topics": str(inputs.get("recent_topics") or "- none yet"),
         })
 
         last_error: Exception | None = None

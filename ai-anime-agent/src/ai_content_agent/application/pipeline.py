@@ -15,7 +15,7 @@ from ..agents.research import ResearchAgent
 from ..agents.reviewer import ReviewerAgent
 from ..database.connection import DatabaseConnection
 from ..fallback.templates import generate_post
-from ..growth.dedupe import find_similar_caption
+from ..growth.dedupe import find_similar_caption, find_similar_reference, strategy_examples
 from ..growth.insights import performance_insights
 from ..growth.usage import record_usage
 from ..notifications.channels import DryRunChannel
@@ -130,7 +130,7 @@ class ContentPipeline:
             creator_results = self._run_creator(planner_results, self._creator_guidance(avoid))
             similar = find_similar_caption(
                 self.database, creator_results["caption"], self.settings.duplicate_similarity_threshold
-            )
+            ) or find_similar_reference(creator_results["caption"], strategy_examples("brain/strategy.md"))
             if similar is None:
                 return creator_results, self._persist_creator_output(planner_id, creator_results), None
             logger.warning(
@@ -505,6 +505,20 @@ class ContentPipeline:
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
+    def _recent_topics(self, limit: int = 14) -> str:
+        """Titles of the latest research results, so a new run picks a different topic (and so the prompt,
+        and therefore the answer cache key, changes once a post exists)."""
+        try:
+            rows = self.database.fetch_all("SELECT title FROM research_raw ORDER BY id DESC LIMIT ?", (limit * 2,))
+        except Exception:  # noqa: BLE001 - the hint is optional
+            return "- none yet"
+        seen: list[str] = []
+        for row in rows:
+            title = " ".join(str(row["title"]).split())
+            if title and title not in seen:
+                seen.append(title)
+        return "\n".join(f"- {title}" for title in seen[:limit]) or "- none yet"
+
     def _run_research(self) -> dict[str, Any]:
         try:
             research_agent = self._agents_setup()[0]
@@ -514,6 +528,7 @@ class ContentPipeline:
                     "strategy": "brain/strategy.md",
                     "market": "brain/market.md",
                     "prompt": "research.md",
+                    "recent_topics": self._recent_topics(),
                 }
             )
         except Exception as exc:
