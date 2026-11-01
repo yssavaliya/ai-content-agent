@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 BUFFER_GRAPHQL_URL = "https://api.buffer.com"
 
 GET_POST_METRICS_QUERY = """
-query GetPostMetrics($id: String!) {
+query GetPostMetrics($id: PostId!) {
   post(input: { id: $id }) {
     id
     metrics {

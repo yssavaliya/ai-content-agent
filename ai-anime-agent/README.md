@@ -147,6 +147,9 @@ At about 5 LLM calls per instance per day, every free tier above is far below it
 - **Output validation.** An answer that is not a JSON object, or was cut off (`finish_reason=length`), counts as a failure of that provider and the next one is tried. `max_tokens` (default 8192) is always sent because a provider default of 1,500 truncated reasoning-model answers, and even 4096 was not enough for the research prompt on the keyless GPT-OSS model.
 - **Cache.** Validated answers are cached on disk by prompt for `LLM_CACHE_TTL_HOURS`, and the workflows persist the folder with `actions/cache`, so re-running a failed job does not spend quota again. A cached answer is never served twice to a caller that rejected it.
 - **Offline templates.** `fallback/templates.py` writes a different on-brand post per day and per retry (thousands of combinations, no numbers or claims), and the duplicate guard asks for another variant when one was already used.
+- **Reasoning effort.** The keyless GPT-OSS model is sent `reasoning_effort: low`: with its default effort a 9 KB prompt used more than 8,192 tokens thinking and returned HTTP 400, while `low` answered in about 20 s with a few hundred tokens.
+- **Short limits are waited out.** A 429/402 that names a wait of 60 s or less (`Retry-After`, "retry in 25s", `retryDelay`) is a per-minute limit even when the text says "quota"; longer ones disable the provider for the run.
+- **Image retries.** The Pollinations image provider waits out a 402/429/5xx (honouring "Retry after 10s", capped at 30 s) up to 3 times before using the offline Pillow poster; a busy second used to cost the artwork.
 - **Visibility.** Every call is recorded in `api_usage`; a run that used templates says so in its notification.
 
 **Setup (all free).** Add any of these as repository secrets (Settings -> Secrets and variables -> Actions); none is required:

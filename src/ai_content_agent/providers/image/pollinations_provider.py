@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import logging
 import random
+import re
+import time
 import urllib.parse
 from pathlib import Path
 
@@ -16,6 +18,29 @@ from .registry import ImageProviderRegistry
 logger = logging.getLogger(__name__)
 
 POLLINATIONS_API_BASE = "https://image.pollinations.ai/prompt"
+_RETRY_HINT = re.compile(r"retry after\s+(\d+(?:\.\d+)?)\s*s", flags=re.I)
+MAX_RETRY_WAIT_SECONDS = 30.0
+DEFAULT_RETRY_WAIT_SECONDS = 5.0
+
+
+def _retry_wait(resp: "requests.Response | None") -> float:
+    """Seconds to wait before retrying: Retry-After header, 'Retry after 10s' in the body, else a default."""
+    if resp is not None:
+        header = resp.headers.get("Retry-After") if hasattr(resp.headers, "get") else None
+        try:
+            if header:
+                return min(max(float(header), 0.0), MAX_RETRY_WAIT_SECONDS)
+        except (TypeError, ValueError):
+            pass
+        match = _RETRY_HINT.search(str(getattr(resp, "text", "") or ""))
+        if match:
+            return min(float(match.group(1)), MAX_RETRY_WAIT_SECONDS)
+    return DEFAULT_RETRY_WAIT_SECONDS
+
+
+def _retryable(resp: "requests.Response | None") -> bool:
+    """A network error (no response), a rate limit (402/429) or a server error is worth another try."""
+    return resp is None or resp.status_code in (402, 429) or resp.status_code >= 500
 
 
 @ImageProviderRegistry.register
@@ -39,10 +64,12 @@ class PollinationsImageProvider(BaseImageProvider):
         model: str = "flux",
         timeout_seconds: int = 45,
         fallback_to_pillow: bool = True,
+        max_attempts: int = 3,
     ) -> None:
         self.model = model
         self.timeout_seconds = timeout_seconds
         self.fallback_to_pillow = fallback_to_pillow
+        self.max_attempts = max(1, max_attempts)
 
     def validate(self, request: ImageRequest) -> None:
         if not request.prompt or not request.prompt.strip():
@@ -81,9 +108,13 @@ class PollinationsImageProvider(BaseImageProvider):
             height,
         )
 
-        try:
-            resp = requests.get(url, timeout=self.timeout_seconds)
-            if resp.status_code == 200 and resp.content:
+        for attempt in range(1, self.max_attempts + 1):
+            resp = None
+            try:
+                resp = requests.get(url, timeout=self.timeout_seconds)
+            except Exception as exc:
+                logger.warning("Pollinations image request failed (attempt %s/%s): %s", attempt, self.max_attempts, exc)
+            if resp is not None and resp.status_code == 200 and resp.content:
                 # Determine output path
                 now = utc_now()
                 rel_dir = Path("images") / now.strftime("%Y") / now.strftime("%m") / now.strftime("%d")
@@ -110,9 +141,20 @@ class PollinationsImageProvider(BaseImageProvider):
                         "created_at": format_utc(now),
                     },
                 )
-            logger.warning("Pollinations API returned status %s: %s", resp.status_code, resp.text[:200])
-        except Exception as exc:
-            logger.warning("Pollinations image generation failed: %s", exc)
+            if resp is not None:
+                logger.warning(
+                    "Pollinations API returned status %s (attempt %s/%s): %s",
+                    resp.status_code,
+                    attempt,
+                    self.max_attempts,
+                    resp.text[:200],
+                )
+            if attempt < self.max_attempts and _retryable(resp):
+                wait = _retry_wait(resp)
+                logger.info("Retrying the Pollinations image in %.0fs", wait)
+                time.sleep(wait)
+                continue
+            break
 
         if not self.fallback_to_pillow:
             raise ImageProviderError(f"Pollinations generation failed for prompt: {request.prompt[:50]}")

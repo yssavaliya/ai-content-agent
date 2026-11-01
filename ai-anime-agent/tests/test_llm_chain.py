@@ -118,6 +118,10 @@ class HttpProviderTests(unittest.TestCase):
             (429, "busy", {"Retry-After": "600"}, QUOTA),
             (402, '{"error":{"code":"FREE_LIMIT","message":"Free limit reached: 1 reply every 45 seconds per IP. Retry after 16s"}}', {}, RATE_LIMIT),
             (402, "payment required", {}, QUOTA),
+            (429, "You exceeded your current quota. Please retry in 25.5s.", {}, RATE_LIMIT),
+            (429, 'You exceeded your current quota {"retryDelay": "30s"}', {}, RATE_LIMIT),
+            (429, 'You exceeded your current quota {"retryDelay": "3600s"}', {}, QUOTA),
+            (400, "The model exhausted its output token limit before producing an answer.", {}, BAD_OUTPUT),
             (500, "oops", {}, TRANSIENT),
             (503, "overloaded", {}, TRANSIENT),
         ]
@@ -154,6 +158,13 @@ class HttpProviderTests(unittest.TestCase):
         seeded = HttpProvider(ProviderSpec("s", "https://x", "m", None, requires_key=False, send_seed=True), session=session)
         seeded.complete("x", False, 20)
         self.assertIsInstance(session.post.call_args.kwargs["json"]["seed"], int)
+
+    def test_extra_body_is_merged_into_every_request(self):
+        spec = ProviderSpec("p", "https://x", "m", None, requires_key=False, extra_body={"reasoning_effort": "low"})
+        session = MagicMock()
+        session.post.return_value = response(body=ok_body())
+        HttpProvider(spec, session=session).complete("x", False, 20)
+        self.assertEqual(session.post.call_args.kwargs["json"]["reasoning_effort"], "low")
 
     def test_retry_after_is_parsed(self):
         provider, session = self.make()
@@ -403,6 +414,12 @@ class RegistryAndCheckTests(unittest.TestCase):
         self.assertTrue(status["groq"].configured)
         self.assertEqual(status["gemini"].reason, "GEMINI_API_KEY is not set")
         self.assertIn("CLOUDFLARE_ACCOUNT_ID", status["cloudflare"].reason)
+
+    def test_only_the_gpt_oss_provider_gets_reasoning_effort(self):
+        settings = settings_for(LLM_CHAIN="pollinations,groq", GROQ_API_KEY="k")
+        specs = {p.name: p.spec for p in build_providers(settings)}
+        self.assertEqual(specs["pollinations"].extra_body, {"reasoning_effort": "low"})
+        self.assertEqual(specs["groq"].extra_body, {})  # Llama models would reject the parameter
 
     def test_cloudflare_url_contains_the_account_id(self):
         settings = settings_for(LLM_CHAIN="cloudflare", CLOUDFLARE_ACCOUNT_ID="acc123", CLOUDFLARE_API_TOKEN="t")

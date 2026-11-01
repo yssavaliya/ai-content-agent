@@ -6,6 +6,16 @@ from ai_content_agent.analytics.registry import AnalyticsRegistry
 from ai_content_agent.settings import Settings
 
 
+class BufferAnalyticsQueryTests(unittest.TestCase):
+    def test_query_declares_the_id_variable_with_the_schema_type(self) -> None:
+        # Buffer rejected `$id: String!` with: Variable "$id" of type "String!" used in position expecting
+        # type "PostId!" (seen in the Actions log of the 1 Nov daily run), so every metrics call failed.
+        from ai_content_agent.analytics.buffer import GET_POST_METRICS_QUERY
+
+        self.assertIn("$id: PostId!", GET_POST_METRICS_QUERY)
+        self.assertNotIn("String!", GET_POST_METRICS_QUERY)
+
+
 class BufferAnalyticsClientTests(unittest.TestCase):
     @patch("ai_content_agent.analytics.buffer.requests.post")
     def test_fetch_post_metrics(self, mock_post: MagicMock) -> None:

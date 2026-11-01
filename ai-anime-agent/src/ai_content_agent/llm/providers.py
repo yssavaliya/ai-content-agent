@@ -20,7 +20,7 @@ from .errors import (
 )
 
 _THINK = re.compile(r"<think>.*?</think>", flags=re.S | re.I)
-_RETRY_HINT = re.compile(r"retry after\s+(\d+(?:\.\d+)?)\s*s", flags=re.I)
+_RETRY_HINT = re.compile(r"retry (?:after|in)\s+(\d+(?:\.\d+)?)\s*s|retrydelay\W+(\d+(?:\.\d+)?)s", flags=re.I)
 _QUOTA_HINTS = ("quota", "daily", "exhausted", "insufficient", "credits", "billing", "per day", "limit exceeded")
 _JSON_MODE_HINTS = ("response_format", "json_object", "json mode", "json_schema")
 
@@ -64,6 +64,8 @@ class ProviderSpec:
     send_seed: bool = False
     # Overrides the chain's request timeout for providers that are slow by nature (reasoning models).
     timeout_seconds: float | None = None
+    # Extra JSON fields merged into every request (e.g. reasoning_effort for reasoning models).
+    extra_body: dict[str, Any] = field(default_factory=dict)
     extra_headers: dict[str, str] = field(default_factory=dict)
 
     @property
@@ -84,7 +86,7 @@ def _retry_after_seconds(response: requests.Response) -> float | None:
         except ValueError:
             pass
     match = _RETRY_HINT.search(response.text or "")
-    return float(match.group(1)) if match else None
+    return float(match.group(1) or match.group(2)) if match else None
 
 
 class HttpProvider:
@@ -114,6 +116,7 @@ class HttpProvider:
             "temperature": spec.temperature,
             "max_tokens": spec.max_tokens,
         }
+        body.update(spec.extra_body)
         if spec.send_seed:
             body["seed"] = random.randint(1, 2**31 - 1)
         if json_mode:
@@ -165,9 +168,16 @@ class HttpProvider:
             quota_words = any(hint in lowered for hint in _QUOTA_HINTS)
             if retry_after is None and status == 402:
                 return ProviderError(QUOTA, f"HTTP 402 payment required: {snippet}", status)
-            if quota_words or (retry_after is not None and retry_after > MAX_RETRY_WAIT_SECONDS):
+            if retry_after is not None and retry_after <= MAX_RETRY_WAIT_SECONDS:
+                # A short, explicit wait is a per-minute limit even when the wording says "quota"
+                # (Gemini: "You exceeded your current quota ... Please retry in 25s").
+                return ProviderError(RATE_LIMIT, f"HTTP {status}: {snippet}", status, retry_after)
+            if quota_words or retry_after is not None:
                 return ProviderError(QUOTA, f"HTTP {status} quota: {snippet}", status, retry_after)
             return ProviderError(RATE_LIMIT, f"HTTP {status}: {snippet}", status, retry_after)
+        if status == 400 and "output token limit" in lowered:
+            # The model spent its whole budget thinking: this answer failed, the provider itself is fine.
+            return ProviderError(BAD_OUTPUT, f"HTTP 400: model exhausted its output token limit: {snippet}", status)
         if status == 400 and any(hint in lowered for hint in _JSON_MODE_HINTS):
             return ProviderError(JSON_MODE, f"HTTP 400: {snippet}", status)
         if status in (408, 409, 425) or status >= 500:

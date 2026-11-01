@@ -65,6 +65,9 @@ def _base_spec(name: str, settings: Settings) -> tuple[ProviderSpec | None, str]
             requires_key=False,
             send_seed=True,
             timeout_seconds=POLLINATIONS_TIMEOUT_SECONDS,
+            # Measured: the default effort exceeded 8192 tokens on a 9 KB prompt (HTTP 400); "low" answered
+            # in 20 s with ~340 tokens. Only this provider is GPT-OSS, so only it gets the parameter.
+            extra_body={"reasoning_effort": "low"},
         ), ""
     if name == "openai":
         return ProviderSpec(
