@@ -561,6 +561,23 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(result["publish"]["status"], "blocked_review")
         self.assertIn("Too generic.", result["publish"]["metadata"]["reasons"])
 
+    def test_a_model_pass_cannot_override_the_famous_quote_check(self):
+        quoted = dict(CREATOR_OUTPUT, caption="Be the change you wish to see, even when nobody is watching.")
+        original = dict(CREATOR_OUTPUT, caption="Nobody claps for the silent hours, yet every legend is built inside them.")
+        pipeline = self._build_pipeline()
+        self._reviewer_says(pipeline, ("PASS", ["Looks fine."]))  # the model approves both drafts
+        pipeline.creator_agent.opencode_client.run.side_effect = [
+            MagicMock(stdout=json.dumps(quoted)),
+            MagicMock(stdout=json.dumps(original)),
+        ]
+        result = pipeline.run()
+
+        self.assertEqual(result["revisions"], 1)
+        self.assertEqual(result["creation"]["caption"], original["caption"])
+        self.assertEqual(result["publish"]["status"], "dry-run")
+        revision_prompt = pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"]
+        self.assertIn("famous quote", revision_prompt)
+
     # ------------------------------------------------------------------ Buffer pre-flight
     def _buffer_pipeline(self, status=None, error=None):
         """A pipeline whose publisher is named 'buffer' and whose Buffer read is faked."""

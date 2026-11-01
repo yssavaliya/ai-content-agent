@@ -144,6 +144,10 @@ Nothing here needs a GPU, a local model or a paid API, and nothing is installed 
 | **Gemini API** | Free tier in AI Studio | No: proprietary model | Limits are per account in AI Studio and not published on the page I could read. Terms: on the free tier Google may use prompts and outputs to improve its products; in the EEA, UK and Switzerland only paid services may be used to serve users. |
 | **Pollinations text** | Keyless legacy endpoint worked in my tests | Model is open-weight (GPT-OSS-20B); the service is not | **1 reply per 45 s per IP** (HTTP 402 `FREE_LIMIT`), answers identical requests from a shared cache, 30-50 s per answer, no stated terms. Newer docs say a key is required, so this endpoint may go away. Use as a last resort only. |
 | **opencode CLI** | Free gateway model | CLI is open source; the model is third-party | Flaky in practice ("Unexpected server error" in CI on 30 Oct). Last resort. |
+
+**Default order.** The workflows use `cloudflare,groq,gemini,openrouter,pollinations` (override with an `LLM_CHAIN` secret or repository variable). Cloudflare is first because it answered 13 of 13 recorded calls in about 9 s, while Pollinations averaged 39 s with many failures and Gemini mostly failed on this account. `opencode` is no longer in the default order (it failed every call it received); add it to `LLM_CHAIN` to bring it back.
+
+**Caption quality gate.** After the model reviewer, `growth/quality.py` runs deterministic checks (famous-quote reproduction, over-long hook, hashtag stuffing, too many emojis). A model PASS cannot override them: the draft goes back to the creator with the reasons, like any other rejection. The quote list is a small curated guard, not a complete one; the creator prompt also asks for original wording and, in the Hinglish instance, for natural everyday Hindi only.
 | *GitHub Models* | **Retired on 30 Jul 2026**: do not use | | GitHub's own notice. |
 | *Hugging Face Inference Providers* | **Not free**: free accounts get no included credits | | Official pricing page. |
 | *Cerebras* | Needs a verified payment method for the trial credits | No | Official limits page (5 requests/min per model). Left out of the default chain. |
@@ -274,6 +278,7 @@ ai-content-agent llm-check   # ping every provider in LLM_CHAIN
 - `analytics.yml` — collects insights (cron `0 14 * * *`).
 - `weekly.yml` — runs the Scientist learning loop (cron `30 6 * * 0`).
 - `monthly.yml` — sends the monthly digest (cron `0 7 1 * *`).
+- `record-followers.yml` — manual: enter the follower count you see on Instagram (and pick the instance); it is stored, the dashboard is rebuilt and both are committed. Use it until the Instagram Graph API token is set.
 
 All workflows share one `concurrency` group (`repo-state`) so two jobs never write `agent.db` or push at the same time. A failing pipeline step now fails the workflow (previously the pipe hid the exit code), but run artifacts are still committed.
 

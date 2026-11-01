@@ -16,6 +16,7 @@ on:
       - "AI/Anime analytics collection"
       - "Daily content run"
       - "Daily AI Anime content run"
+      - "Record followers"
     types: [completed]
   workflow_dispatch:
 

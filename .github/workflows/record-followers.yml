@@ -1,0 +1,76 @@
+name: Record followers
+
+# Records today's follower count so the dashboard, milestone plan and growth insights have data.
+# Use it until INSTAGRAM_ACCESS_TOKEN / INSTAGRAM_ACCOUNT_ID are set (then the analytics job records it daily).
+# Open the Instagram profile, read the number, and run this workflow with it.
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Current follower count (whole number)"
+        required: true
+        type: string
+      instance:
+        description: "Which instance the account belongs to"
+        required: true
+        type: choice
+        default: aimagix
+        options:
+          - aimagix
+          - anime
+
+concurrency:
+  group: repo-state
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      LOG_LEVEL: INFO
+      OPENCODE_COMMAND: opencode
+      INSTAGRAM_ENABLED: "false"
+      IMAGE_PROVIDER: local
+      COUNT: ${{ github.event.inputs.count }}
+      INSTANCE: ${{ github.event.inputs.instance }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+      - name: Pick the instance folder
+        run: |
+          if [ "$INSTANCE" = "anime" ]; then echo "APP_DIR=ai-anime-agent" >> "$GITHUB_ENV"; else echo "APP_DIR=." >> "$GITHUB_ENV"; fi
+      - name: Install
+        working-directory: ${{ env.APP_DIR }}
+        run: python -m pip install -e .
+      - name: Record the count and rebuild the dashboard
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          DATABASE_PATH: agent.db
+        run: |
+          set -o pipefail
+          case "$COUNT" in ''|*[!0-9]*) echo "count must be a whole number, got '$COUNT'"; exit 1;; esac
+          python -m ai_content_agent.cli followers "$COUNT" | tee -a "$GITHUB_STEP_SUMMARY"
+          python -m ai_content_agent.cli dashboard dashboard/index.html
+      - name: Persist
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f agent.db dashboard
+          git commit -m "chore: record follower count" || echo "No changes to commit"
+          for attempt in 1 2 3 4 5; do
+            if git push origin main 2>/dev/null; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; pulling and retrying..."
+            git pull --rebase origin main
+          done
+          echo "Could not push after 5 attempts"
+          exit 1

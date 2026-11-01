@@ -10,6 +10,8 @@ Instructions:
 - Write a detailed image generation prompt following the virality formula: [Subject & Dynamic Pose] + [Atmospheric Environment & Background Lore] + [Lighting & Color Palette: volumetric light, glowing embers, deep contrast] + [Style Tags: masterpiece anime key visual, Makoto Shinkai sky / Ufotable lighting, 8k resolution, octane render, sharp focus]. Ensure no text overlays or numbers are requested.
 - Write alt_text that describes the generated image for accessibility.
 - Never copy example sentences from the strategy or any other document word for word; use them only as a pattern and write new wording.
+- Be original: do not quote, paraphrase or lightly reword any famous quote, proverb, song line or movie line, and do not attribute words to real people. Express the idea in your own plain, concrete language.
+- Plain, natural wording: short sentences a real person would say aloud; no stacked metaphors, no filler like "in a world where", and at most 4 hashtags inside the caption body (put the rest in the hashtags field).
 - Return only valid JSON with the exact fields listed below.
 - Do not include any extra text, markdown, or commentary.
 

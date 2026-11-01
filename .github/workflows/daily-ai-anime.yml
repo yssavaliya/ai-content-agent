@@ -35,7 +35,7 @@ jobs:
       LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
-      LLM_CHAIN: ${{ secrets.LLM_CHAIN || vars.LLM_CHAIN || 'groq,gemini,cloudflare,openrouter,pollinations,opencode' }}
+      LLM_CHAIN: ${{ secrets.LLM_CHAIN || vars.LLM_CHAIN || 'cloudflare,groq,gemini,openrouter,pollinations' }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       GROQ_MODEL: ${{ secrets.GROQ_MODEL }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

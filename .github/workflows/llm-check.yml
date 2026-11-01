@@ -25,7 +25,7 @@ jobs:
       OPENCODE_COMMAND: opencode
       INSTAGRAM_ENABLED: "false"
       IMAGE_PROVIDER: local
-      LLM_CHAIN: ${{ github.event.inputs.chain || secrets.LLM_CHAIN || vars.LLM_CHAIN || 'groq,gemini,cloudflare,openrouter,pollinations' }}
+      LLM_CHAIN: ${{ github.event.inputs.chain || secrets.LLM_CHAIN || vars.LLM_CHAIN || 'cloudflare,groq,gemini,openrouter,pollinations' }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       GROQ_MODEL: ${{ secrets.GROQ_MODEL }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

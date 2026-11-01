@@ -11,6 +11,9 @@ Instructions:
 - Write a detailed image generation prompt for the lead visual.
 - Write alt_text that describes the generated image for accessibility.
 - Never copy example sentences from the strategy or any other document word for word; use them only as a pattern and write new wording.
+- Be original: do not quote, paraphrase or lightly reword any famous quote, proverb, song line or movie line, and do not attribute words to real people. Express the idea in your own plain, concrete language.
+- Natural Hinglish: write the way a young Indian friend texts, in everyday Hindi words written in the Roman alphabet mixed with simple English. Use only Hindi phrases you are certain are correct and idiomatic. Never translate English idioms word for word, never invent poetic Hindi phrases, and when unsure write that line in plain English instead.
+- Keep it simple: short sentences, concrete words, no stacked metaphors, and at most 4 hashtags inside the caption body (put the rest in the hashtags field).
 - Return only valid JSON with the exact fields listed below.
 - Do not include any extra text, markdown, or commentary.
 

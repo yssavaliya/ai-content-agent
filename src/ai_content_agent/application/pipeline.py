@@ -17,6 +17,7 @@ from ..database.connection import DatabaseConnection
 from ..fallback.templates import generate_post
 from ..growth.dedupe import find_similar_caption, find_similar_reference, strategy_examples
 from ..growth.insights import performance_insights
+from ..growth.quality import lint_caption
 from ..growth.usage import record_usage
 from ..notifications.channels import DryRunChannel
 from ..notifications.notifier import Notifier
@@ -676,7 +677,7 @@ class ContentPipeline:
     def _run_reviewer(self, creator_output: dict[str, Any]) -> dict[str, Any]:
         try:
             reviewer_agent = self._agents_setup()[3]
-            return reviewer_agent.execute(
+            verdict = reviewer_agent.execute(
                 {
                     "creator_output": creator_output,
                     "identity": "brain/identity.md",
@@ -684,12 +685,26 @@ class ContentPipeline:
                     "market": "brain/market.md",
                 }
             )
+            return self._apply_quality_lint(creator_output, verdict)
         except Exception as exc:
             logger.warning(
                 "::warning::[ReviewerAgent] LLM execution failed (%s); activating autonomous procedural reviewer fallback",
                 exc,
             )
             return self._use_fallback("reviewer", self._procedural_reviewer(creator_output))
+
+    @staticmethod
+    def _apply_quality_lint(creator_output: dict[str, Any], verdict: dict[str, Any]) -> dict[str, Any]:
+        """A model PASS cannot override the deterministic checks (famous quotes, spammy tags, over-long hook).
+
+        Fixed templates are exempt: they are pre-approved and have no model to revise them.
+        """
+        if verdict.get("status") != "PASS" or creator_output.get("source") == "procedural_fallback":
+            return verdict
+        problems = lint_caption(str(creator_output.get("caption") or ""), creator_output.get("hashtags"))
+        if not problems:
+            return verdict
+        return {**verdict, "status": "FAIL", "reasons": [*(verdict.get("reasons") or []), *problems]}
 
     def _run_predictor(
         self,
