@@ -462,6 +462,37 @@ class PipelineTests(unittest.TestCase):
         retry_prompt = pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"]
         self.assertIn("must NOT reuse", retry_prompt)
 
+    def test_a_refusing_publisher_keeps_the_content_alerts_and_does_not_crash(self):
+        class FullQueue(Publisher):
+            name = "buffer"
+
+            def publish(self, package_path: str) -> PublishResult:
+                from ai_content_agent.publish.provider import PublishUnavailable
+
+                raise PublishUnavailable("Buffer refused the post: Scheduled posts limit reached. 10 out of 10 allowed.")
+
+        notifier = MagicMock(spec=Notifier)
+        pipeline = self._build_pipeline()
+        pipeline.notifier = notifier
+        pipeline.publisher = FullQueue()
+        pipeline._prepare_media = lambda image, run_id: "https://example.com/i.jpg"
+
+        result = pipeline.run()
+
+        self.assertEqual(result["publish"]["status"], "blocked_publish")
+        kit = Path(result["publish"]["metadata"]["kit_path"])
+        self.assertIn(CREATOR_OUTPUT["caption"], kit.read_text(encoding="utf-8"))  # the content is not lost
+        notifier.send_failure.assert_called_once()
+        self.assertIn("publishing blocked", notifier.send_failure.call_args.kwargs["subject"])
+        self.assertIn("10 out of 10", notifier.send_failure.call_args.kwargs["body"])
+        notifier.send_success.assert_not_called()
+        connection = sqlite3.connect(self.db_path)
+        try:  # nothing went out, so nothing is tracked as a live post
+            self.assertEqual(connection.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 0)
+            self.assertEqual(connection.execute("SELECT status FROM publish_packages").fetchone()[0], "blocked_publish")
+        finally:
+            connection.close()
+
     def test_healthy_run_reports_no_fallbacks(self):
         result = self._build_pipeline().run()
         self.assertEqual(result["fallbacks"], [])

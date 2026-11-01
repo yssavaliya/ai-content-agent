@@ -26,7 +26,8 @@ from ..prompts.manager import PromptManager
 from ..providers.image import ImageProviderRegistry
 from ..providers.image.base import BaseImageProvider, ImageRequest
 from ..publish.hosting import GitHubRawImageHost, MediaHostingError, convert_to_jpeg
-from ..publish.provider import PublishResult, Publisher
+from ..publish.provider import PublishResult, Publisher, PublishUnavailable
+from ..publish.providers.dry_run import DryRunPublisher
 from ..publish.registry import PublishRegistry
 from ..science.experiments import ExperimentRepository
 from ..settings import Settings, current_settings
@@ -38,7 +39,7 @@ logger = logging.getLogger(__name__)
 # so the status alone cannot decide whether a post must be tracked for analytics and experiments.
 LIVE_PUBLISHERS = frozenset({"instagram", "buffer"})
 NOT_LIVE_STATUSES = frozenset(
-    {"error", "failed", "draft", "needs_approval", "blocked_review", "blocked_duplicate", ""}
+    {"error", "failed", "draft", "needs_approval", "blocked_review", "blocked_duplicate", "blocked_publish", ""}
 )
 # One regeneration (told which captions to avoid) before a duplicate post is blocked.
 MAX_ORIGINALITY_ATTEMPTS = 2
@@ -192,11 +193,10 @@ class ContentPipeline:
             publish_status = (package.get("publish") or {}).get("status")
             if str(publish_status).startswith("blocked_"):
                 self.notifier.send_failure(
-                    subject=(
-                        "AI Content Agent: post blocked by review"
-                        if publish_status == "blocked_review"
-                        else "AI Content Agent: post blocked, duplicate content"
-                    ),
+                    subject={
+                        "blocked_review": "AI Content Agent: post blocked by review",
+                        "blocked_publish": "AI Content Agent: publishing blocked, post kit saved",
+                    }.get(publish_status, "AI Content Agent: post blocked, duplicate content"),
                     body=self._blocked_body(package, run_id),
                     metadata={"run_id": run_id, "color": 15158332},
                 )
@@ -669,12 +669,26 @@ class ContentPipeline:
         started = time.monotonic()
         try:
             result = self.publisher.publish(str(package_path))
+        except PublishUnavailable as exc:
+            # The publisher refused (e.g. Buffer's queue is full). Keep the content: write the post kit so a
+            # person can post it, record the run as blocked and alert, rather than crashing the whole run.
+            record_usage("publish", "post", provider=self.publisher.name, ok=False,
+                         duration_ms=int((time.monotonic() - started) * 1000))
+            logger.warning("::warning::[Pipeline %s] publishing blocked: %s", run_id, exc)
+            kit = DryRunPublisher().publish(str(package_path))
+            result = PublishResult(
+                provider=self.publisher.name,
+                status="blocked_publish",
+                published_id="",
+                metadata={**kit.metadata, "reasons": [str(exc)]},
+            )
         except Exception:
             record_usage("publish", "post", provider=self.publisher.name, ok=False,
                          duration_ms=int((time.monotonic() - started) * 1000))
             raise
-        record_usage("publish", "post", provider=self.publisher.name, ok=True,
-                     duration_ms=int((time.monotonic() - started) * 1000))
+        else:
+            record_usage("publish", "post", provider=self.publisher.name, ok=True,
+                         duration_ms=int((time.monotonic() - started) * 1000))
         self._persist_publish_package(creator_output_id, result, package_path)
 
         output = result.__dict__
@@ -887,6 +901,12 @@ class ContentPipeline:
         reasons = "\n".join(f"- {reason}" for reason in (publish.get("metadata") or {}).get("reasons", []))
         if publish.get("status") == "blocked_review":
             headline = f"The ReviewerAgent returned {review.get('status')}; nothing was generated or published."
+        elif publish.get("status") == "blocked_publish":
+            kit = (publish.get("metadata") or {}).get("kit_path")
+            headline = (
+                "The post was created but the publisher refused it, so nothing went out. "
+                f"The post kit is saved{f' at {kit}' if kit else ''} for manual posting."
+            )
         else:
             headline = "Duplicate content detected; nothing was generated or published."
         return (

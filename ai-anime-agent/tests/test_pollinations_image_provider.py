@@ -104,7 +104,7 @@ class PollinationsImageRetryTests(unittest.TestCase):
     def test_retry_after_header_is_capped(self, mock_get: MagicMock, mock_sleep: MagicMock) -> None:
         mock_get.side_effect = [self.response(429, headers={"Retry-After": "900"}), self.response(200, content=self.JPEG)]
         PollinationsImageProvider().generate(self.request())
-        mock_sleep.assert_called_once_with(30.0)
+        mock_sleep.assert_called_once_with(60.0)
 
     @patch("ai_content_agent.providers.image.pollinations_provider.time.sleep")
     @patch("requests.get")

@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 POLLINATIONS_API_BASE = "https://image.pollinations.ai/prompt"
 _RETRY_HINT = re.compile(r"retry after\s+(\d+(?:\.\d+)?)\s*s", flags=re.I)
-MAX_RETRY_WAIT_SECONDS = 30.0
+MAX_RETRY_WAIT_SECONDS = 60.0  # the anonymous limit is 1 image per 45 s per IP
 DEFAULT_RETRY_WAIT_SECONDS = 5.0
 
 
@@ -64,7 +64,7 @@ class PollinationsImageProvider(BaseImageProvider):
         model: str = "flux",
         timeout_seconds: int = 45,
         fallback_to_pillow: bool = True,
-        max_attempts: int = 3,
+        max_attempts: int = 4,
     ) -> None:
         self.model = model
         self.timeout_seconds = timeout_seconds

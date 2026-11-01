@@ -11,7 +11,7 @@ import requests
 from ..redaction import redact
 from ..timestamps import utc_now_iso
 from .instagram import build_caption
-from .provider import PublishResult, Publisher
+from .provider import PublishResult, Publisher, PublishUnavailable
 
 logger = logging.getLogger(__name__)
 
@@ -78,6 +78,14 @@ def next_due_at(now: datetime, schedule_time_utc: str) -> str:
     if due < now.astimezone(timezone.utc) + timedelta(minutes=MIN_LEAD_MINUTES):
         due += timedelta(days=1)
     return due.isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+_LIMIT_HINTS = ("limit reached", "posts limit", "out of", "upgrade")
+
+
+def _is_plan_limit(message: str) -> bool:
+    lowered = message.lower()
+    return "limit" in lowered and any(hint in lowered for hint in _LIMIT_HINTS)
 
 
 class BufferPublisher(Publisher):
@@ -229,6 +237,8 @@ class BufferPublisher(Publisher):
                 if "first comment" in error_msg.lower() and first_comment:
                     first_comment = None
                     continue
+                if _is_plan_limit(error_msg):
+                    raise PublishUnavailable(f"Buffer refused the post: {error_msg}")
                 if "mode" in error_msg.lower() or "sharenow" in error_msg.lower():
                     continue
                 raise RuntimeError(f"Buffer GraphQL error: {error_msg}")
@@ -242,6 +252,8 @@ class BufferPublisher(Publisher):
                     logger.info("Buffer plan does not support firstComment; continuing with standard post...")
                     first_comment = None
                     continue
+                if _is_plan_limit(msg):
+                    raise PublishUnavailable(f"Buffer refused the post: {msg}")
                 if "mode" in msg.lower() or "sharenow" in msg.lower():
                     continue
                 raise RuntimeError(f"Buffer GraphQL mutation error: {msg}")

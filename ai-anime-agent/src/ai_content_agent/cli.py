@@ -18,6 +18,7 @@ Commands:
   dashboard [path]  Write the static HTML growth dashboard (default dashboard/index.html).
   health      Alert the notification channels if anything needs a human.
   llm-check [--markdown] [--with-opencode]  Ping every provider in LLM_CHAIN; exit 1 if none answers.
+  buffer-status [--markdown]  Read-only list of the posts Buffer holds for the channel.
   prompts       Generate the HTML prompt viewer from recorded prompts (logs/prompts).
   anime-trends  Fetch real-world trending anime metadata from Kitsu API.
   anime-concept Generate original anime concept, characters, and episode breakdown.
@@ -99,7 +100,7 @@ def _print_monthly(result: dict[str, Any]) -> None:
     print(f"Analytics observations: {digest.get('observations')}")
 
 
-COMMANDS = ("daily", "analytics", "scientist", "monthly", "followers", "milestone", "dashboard", "health", "llm-check", "prompts", "anime-trends", "anime-concept")
+COMMANDS = ("daily", "analytics", "scientist", "monthly", "followers", "milestone", "dashboard", "health", "llm-check", "buffer-status", "prompts", "anime-trends", "anime-concept")
 
 
 def _print_milestone(result: dict[str, Any]) -> None:
@@ -111,6 +112,23 @@ def _print_milestone(result: dict[str, Any]) -> None:
         print(f"Needed per day: {m.required_per_day:.1f} | current pace: "
               f"{'n/a' if m.recent_per_day is None else f'{m.recent_per_day:.1f}'} | projected at deadline: "
               f"{'n/a' if m.projected_at_deadline is None else f'{m.projected_at_deadline:,}'}")
+
+
+def _buffer_status(flags: Sequence[str]) -> int:
+    from .publish.buffer_status import BufferStatusError, fetch_status, render
+    from .settings import current_settings
+
+    settings = current_settings()
+    if not settings.buffer_access_token or not settings.buffer_profile_id:
+        print("BUFFER_ACCESS_TOKEN and BUFFER_PROFILE_ID must be set.", file=sys.stderr)
+        return 2
+    try:
+        status = fetch_status(settings.buffer_access_token, settings.buffer_profile_id)
+    except BufferStatusError as exc:
+        print(f"Could not read the Buffer queue: {exc}", file=sys.stderr)
+        return 1
+    print(render(status, markdown="--markdown" in flags))
+    return 0
 
 
 def _llm_check(flags: Sequence[str]) -> int:
@@ -166,6 +184,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         if command == "llm-check":
             return _llm_check(args[1:])
 
+        if command == "buffer-status":
+            return _buffer_status(args[1:])
+
         if command == "anime-trends":
             from .anime.metadata import AnimeMetadataClient
 
@@ -209,6 +230,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         if command == "daily":
             result = scheduler.run_daily()
             _print_daily_results(result)
+            blocked = ((result.get("package") or {}).get("publish") or {})
+            if blocked.get("status") == "blocked_publish":
+                # An infrastructure problem (e.g. Buffer's queue is full): make the run visibly fail.
+                reasons = "; ".join((blocked.get("metadata") or {}).get("reasons", []))
+                print(f"Publishing was blocked, nothing went out: {reasons}", file=sys.stderr)
+                return 1
         elif command == "analytics":
             result = scheduler.run_analytics()
             _print_analytics(result)

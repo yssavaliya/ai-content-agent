@@ -13,6 +13,13 @@ class PublishResult:
     metadata: dict[str, Any]
 
 
+class PublishUnavailable(RuntimeError):
+    """The publisher refused to take the post for a reason a human must fix (queue full, plan limit...).
+
+    Unlike a crash, the content is kept: the pipeline saves a post kit and alerts instead of failing the run.
+    """
+
+
 class Publisher(ABC):
     @property
     @abstractmethod

@@ -108,6 +108,9 @@ class ReviewerAgent(BaseAgent):
         if payload["status"] not in {"PASS", "FAIL"}:
             raise ValueError("status must be either PASS or FAIL")
 
+        if payload["status"] == "PASS" and payload["reasons"] == []:
+            # Models routinely return PASS with no findings; that is a valid verdict, not a malformed one.
+            payload["reasons"] = ["No issues found."]
         if not isinstance(payload["reasons"], list) or not payload["reasons"]:
             raise ValueError("reasons must be a non-empty list")
         for reason in payload["reasons"]:
