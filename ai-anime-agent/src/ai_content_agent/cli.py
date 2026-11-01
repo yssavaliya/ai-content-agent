@@ -19,6 +19,7 @@ Commands:
   health      Alert the notification channels if anything needs a human.
   llm-check [--markdown] [--with-opencode]  Ping every provider in LLM_CHAIN; exit 1 if none answers.
   buffer-status [--markdown]  Read-only list of the posts Buffer holds for the channel.
+  buffer-delete --match TEXT [--yes]  List (or with --yes delete) unsent Buffer posts containing TEXT.
   prompts       Generate the HTML prompt viewer from recorded prompts (logs/prompts).
   anime-trends  Fetch real-world trending anime metadata from Kitsu API.
   anime-concept Generate original anime concept, characters, and episode breakdown.
@@ -100,7 +101,7 @@ def _print_monthly(result: dict[str, Any]) -> None:
     print(f"Analytics observations: {digest.get('observations')}")
 
 
-COMMANDS = ("daily", "analytics", "scientist", "monthly", "followers", "milestone", "dashboard", "health", "llm-check", "buffer-status", "prompts", "anime-trends", "anime-concept")
+COMMANDS = ("daily", "analytics", "scientist", "monthly", "followers", "milestone", "dashboard", "health", "llm-check", "buffer-status", "buffer-delete", "prompts", "anime-trends", "anime-concept")
 
 
 def _print_milestone(result: dict[str, Any]) -> None:
@@ -112,6 +113,40 @@ def _print_milestone(result: dict[str, Any]) -> None:
         print(f"Needed per day: {m.required_per_day:.1f} | current pace: "
               f"{'n/a' if m.recent_per_day is None else f'{m.recent_per_day:.1f}'} | projected at deadline: "
               f"{'n/a' if m.projected_at_deadline is None else f'{m.projected_at_deadline:,}'}")
+
+
+def _buffer_delete(flags: Sequence[str]) -> int:
+    from .publish.buffer_status import BufferStatusError, delete_posts, fetch_status, select_for_deletion
+    from .settings import current_settings
+
+    flag_list = list(flags)
+    match = ""
+    if "--match" in flag_list and flag_list.index("--match") + 1 < len(flag_list):
+        match = flag_list[flag_list.index("--match") + 1]
+    if not match:
+        print("buffer-delete needs --match TEXT (15+ characters of the post text).", file=sys.stderr)
+        return 2
+    settings = current_settings()
+    if not settings.buffer_access_token or not settings.buffer_profile_id:
+        print("BUFFER_ACCESS_TOKEN and BUFFER_PROFILE_ID must be set.", file=sys.stderr)
+        return 2
+    try:
+        status = fetch_status(settings.buffer_access_token, settings.buffer_profile_id)
+        selected = select_for_deletion(status, match)
+    except BufferStatusError as exc:
+        print(f"buffer-delete refused: {exc}", file=sys.stderr)
+        return 1
+    print(f"{len(selected)} unsent post(s) match {match!r}:")
+    for post in selected:
+        print(f" - {post.status:<10} due={post.due_at or '-'}  {post.text[:70]}")
+    if "--yes" not in flag_list:
+        print("Dry run: nothing was deleted. Add --yes to delete these posts.")
+        return 0
+    failed = 0
+    for post, deleted, detail in delete_posts(settings.buffer_access_token, selected):
+        print(f"{'deleted' if deleted else 'FAILED '} {post.id[-8:]}: {detail}")
+        failed += 0 if deleted else 1
+    return 1 if failed else 0
 
 
 def _buffer_status(flags: Sequence[str]) -> int:
@@ -186,6 +221,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
         if command == "buffer-status":
             return _buffer_status(args[1:])
+
+        if command == "buffer-delete":
+            return _buffer_delete(args[1:])
 
         if command == "anime-trends":
             from .anime.metadata import AnimeMetadataClient

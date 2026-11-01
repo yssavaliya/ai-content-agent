@@ -136,3 +136,53 @@ def render(status: BufferStatus, markdown: bool = False) -> str:
     if markdown:
         return "\n".join(lines + [""] + header + rows)
     return "\n".join(lines + [""] + [f"{p.status:<10} {p.share_mode:<14} due={p.due_at or '-'} sent={p.sent_at or '-'}  {p.text[:50]}" for p in status.posts[:30]])
+
+
+# --------------------------------------------------------------------------- guarded deletion
+DELETE_POST_MUTATION = """
+mutation DeletePost($input: DeletePostInput!) {
+  deletePost(input: $input) {
+    __typename
+    ... on DeletePostSuccess {
+      id
+    }
+  }
+}
+"""
+
+# Buffer documents these as the deletable states. A post that has been sent is never selected.
+DELETABLE_STATUSES = frozenset({"draft", "needs_approval", "scheduled", "error", "failed"})
+MIN_MATCH_CHARS = 15
+MAX_DELETIONS = 10
+
+
+def select_for_deletion(status: BufferStatus, match: str) -> list[BufferPost]:
+    """Posts whose text contains ``match`` (case-insensitive) and that have not been sent.
+
+    The match must be specific (15+ characters) and at most 10 posts may be selected, so a typo cannot
+    empty the queue.
+    """
+    needle = " ".join(match.lower().split())
+    if len(needle) < MIN_MATCH_CHARS:
+        raise BufferStatusError(f"The match text must be at least {MIN_MATCH_CHARS} characters so it cannot select broadly")
+    selected = [
+        p for p in status.posts if p.status.lower() in DELETABLE_STATUSES and needle in " ".join(p.text.lower().split())
+    ]
+    if len(selected) > MAX_DELETIONS:
+        raise BufferStatusError(f"{len(selected)} posts match; refusing to delete more than {MAX_DELETIONS} at once")
+    return selected
+
+
+def delete_posts(token: str, posts: list[BufferPost], post: Callable = requests.post) -> list[tuple[BufferPost, bool, str]]:
+    """Delete each post. Returns (post, deleted, detail); one failure does not stop the others."""
+    results: list[tuple[BufferPost, bool, str]] = []
+    for item in posts:
+        try:
+            data = _graphql(token, DELETE_POST_MUTATION, {"input": {"id": item.id}}, post)
+        except BufferStatusError as exc:
+            results.append((item, False, str(exc)))
+            continue
+        outcome = data.get("deletePost") or {}
+        ok = outcome.get("__typename") == "DeletePostSuccess"
+        results.append((item, ok, "deleted" if ok else f"Buffer answered {outcome.get('__typename')}"))
+    return results
