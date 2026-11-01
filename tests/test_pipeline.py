@@ -308,6 +308,97 @@ class PipelineTests(unittest.TestCase):
         self.assertIn("template fallback content", subject)
         self.assertIn("reviewer, predictor", notifier.send_success.call_args.kwargs["body"])
 
+    def test_duplicate_caption_is_retried_with_avoid_list_then_blocked(self):
+        first = self._build_pipeline().run()
+        self.assertEqual(first["publish"]["status"], "dry-run")
+
+        notifier = MagicMock(spec=Notifier)
+        second_pipeline = self._build_pipeline()
+        second_pipeline.notifier = notifier
+        second = second_pipeline.run()
+
+        self.assertEqual(second["publish"]["status"], "blocked_duplicate")
+        self.assertIsNone(second["image"])
+        creator_client = second_pipeline.creator_agent.opencode_client
+        self.assertEqual(creator_client.run.call_count, 2)  # one regeneration attempt
+        retry_prompt = creator_client.run.call_args.kwargs["input_text"]
+        self.assertIn("must NOT reuse", retry_prompt)
+        self.assertIn(CREATOR_OUTPUT["caption"], retry_prompt)
+        notifier.send_failure.assert_called_once()
+        self.assertIn("duplicate", notifier.send_failure.call_args.kwargs["subject"])
+        self.assertIn("similar", notifier.send_failure.call_args.kwargs["body"])
+        notifier.send_success.assert_not_called()
+
+    def test_regenerated_original_caption_is_published(self):
+        self._build_pipeline().run()
+        pipeline = self._build_pipeline()
+        fresh = dict(CREATOR_OUTPUT, caption="Nobody posts the rejected drafts, yet every masterpiece hides a hundred.")
+        pipeline.creator_agent.opencode_client.run.side_effect = [
+            MagicMock(stdout=json.dumps(CREATOR_OUTPUT)),
+            MagicMock(stdout=json.dumps(fresh)),
+        ]
+        result = pipeline.run()
+        self.assertEqual(result["publish"]["status"], "dry-run")
+        self.assertEqual(result["creation"]["caption"], fresh["caption"])
+
+    def test_fixed_template_is_not_retried_when_it_repeats(self):
+        for attempt in range(2):
+            pipeline = self._build_pipeline()
+            pipeline.creator_agent.opencode_client = MagicMock(spec=OpenCodeClient)
+            pipeline.creator_agent.opencode_client.run.side_effect = RuntimeError("llm down")
+            pipeline.creator_agent.max_attempts = 1
+            result = pipeline.run()
+        self.assertEqual(result["publish"]["status"], "blocked_duplicate")
+        self.assertEqual(result["fallbacks"], ["creator"])
+
+    def test_experiment_arm_steers_the_creator_and_is_recorded(self):
+        class FakeBuffer(Publisher):
+            name = "buffer"
+
+            def publish(self, package_path: str) -> PublishResult:
+                return PublishResult(provider="buffer", status="scheduled", published_id=Path(package_path).stem, metadata={})
+
+        seen: list[tuple[str, str]] = []
+        arms: list[str] = []
+        for index in range(2):
+            pipeline = self._build_pipeline()
+            pipeline.publisher = FakeBuffer()
+            pipeline._prepare_media = lambda image, run_id: "https://example.com/i.jpg"
+            if index == 0:
+                ExperimentRepository(pipeline.database).create(
+                    name="hook", description="d", hypothesis="h", variable="hook-style",
+                    control_description="CONTROL-DIRECTIVE-TEXT", variant_description="VARIANT-DIRECTIVE-TEXT",
+                    min_effect=0.15, confidence_threshold=0.6,
+                )
+            caption = f"Unique caption {index} about {'harbors' if index == 0 else 'blades and eclipses'} tonight."
+            pipeline.creator_agent.opencode_client = self._mocked_client(dict(CREATOR_OUTPUT, caption=caption))
+            result = pipeline.run()
+            arms.append(result["experiment"]["arm"])
+            prompt = pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"]
+            seen.append(("CONTROL-DIRECTIVE-TEXT" in prompt, "VARIANT-DIRECTIVE-TEXT" in prompt))
+
+        self.assertEqual(arms, ["control", "variant"])
+        self.assertEqual(seen, [(True, False), (False, True)])
+        connection = sqlite3.connect(self.db_path)
+        try:
+            rows = connection.execute("SELECT arm FROM experiment_posts ORDER BY id").fetchall()
+        finally:
+            connection.close()
+        self.assertEqual([r[0] for r in rows], ["control", "variant"])
+
+    def test_measured_performance_is_fed_back_into_the_creator_prompt(self):
+        pipeline = self._build_pipeline()
+        pipeline.database.execute(
+            "INSERT INTO posts(external_id, caption, image_description, hashtags, created_at) VALUES ('x1', 'Winning caption here', 'd', '[]', '2026-10-01T00:00:00Z')"
+        )
+        pipeline.database.execute(
+            "INSERT INTO post_metrics(post_id, media_id, engagement_rate, collected_at, raw_payload, saves, shares) VALUES (1, 'x1', 0.2, 'x', '{}', 9, 4)"
+        )
+        pipeline.run()
+        prompt = pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"]
+        self.assertIn("Best performing", prompt)
+        self.assertIn("Winning caption here", prompt)
+
     def test_healthy_run_reports_no_fallbacks(self):
         result = self._build_pipeline().run()
         self.assertEqual(result["fallbacks"], [])

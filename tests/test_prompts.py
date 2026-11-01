@@ -7,7 +7,7 @@ from ai_content_agent.prompts.manager import PACKAGED_PROMPT_DIR, PromptManager
 AGENT_VARIABLES = {
     "research.md": ["identity", "strategy", "market", "run_date"],
     "planner.md": ["research_json", "market"],
-    "creator.md": ["selected_idea", "identity", "constitution", "strategy", "market"],
+    "creator.md": ["selected_idea", "creator_guidance", "identity", "constitution", "strategy", "market"],
     "reviewer.md": ["creator_output", "identity", "constitution", "market"],
     "predictor.md": ["creator_output", "research_json", "review_json", "market", "recent_posts_json"],
     "scientist.md": ["experiment_results_json", "identity", "constitution", "strategy"],

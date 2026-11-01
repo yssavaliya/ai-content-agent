@@ -213,6 +213,7 @@ class OpenCodeClient:
             stdout, stderr = process.communicate()
             elapsed = time.monotonic() - start
             logger.error("opencode timed out after %ss (exit=%s)", self.timeout_seconds, -1)
+            self._track("opencode", None, False, start)
             if prompt_path is not None:
                 self.recorder.finish(
                     prompt_path,
@@ -237,6 +238,7 @@ class OpenCodeClient:
             err_lower = (stderr or stdout or "").lower()
             if any(term in err_lower for term in ("unexpected server error", "listen eaddrinuse", "econnrefused", "unknownerror")):
                 _EXHAUSTED_PROVIDERS.add("opencode")
+            self._track("opencode", None, False, start)
             logger.error(
                 "opencode failed (exit=%s) after %.2fs: %s",
                 process.returncode,
@@ -259,6 +261,7 @@ class OpenCodeClient:
                 stderr or "",
             )
         logger.debug("opencode succeeded (exit=0) after %.2fs", elapsed)
+        self._track("opencode", None, True, start)
         if prompt_path is not None:
             self.recorder.finish(
                 prompt_path,
@@ -272,6 +275,29 @@ class OpenCodeClient:
             stderr=stderr or "",
             exit_code=process.returncode,
             elapsed_seconds=elapsed,
+        )
+
+    @staticmethod
+    def _track(
+        provider: str,
+        model: str | None,
+        ok: bool,
+        start: float,
+        input_tokens: object = None,
+        output_tokens: object = None,
+    ) -> None:
+        # Imported lazily: ai_content_agent.growth.usage imports this package's context module.
+        from ..growth.usage import as_int, record_usage
+
+        record_usage(
+            "llm",
+            "chat",
+            provider=provider,
+            model=model,
+            ok=ok,
+            input_tokens=as_int(input_tokens),
+            output_tokens=as_int(output_tokens),
+            duration_ms=int((time.monotonic() - start) * 1000),
         )
 
     def _resolve_windows_command(self, command_line: list[str]) -> list[str] | str:
@@ -338,6 +364,7 @@ class OpenCodeClient:
         model = settings.openai_text_model if provider == "openai" else settings.gemini_model
         display = "OpenAI" if provider == "openai" else "Gemini"
 
+        in_tokens = out_tokens = None
         try:
             client = self._chat_client_for(provider)
             response = client.chat.completions.create(
@@ -345,7 +372,11 @@ class OpenCodeClient:
                 messages=[{"role": "user", "content": input_text}],
             )
             content = (response.choices[0].message.content or "").strip()
+            usage = getattr(response, "usage", None)
+            in_tokens = getattr(usage, "prompt_tokens", None)
+            out_tokens = getattr(usage, "completion_tokens", None)
         except Exception as exc:
+            self._track(provider, model, False, start)
             err_msg = str(exc).lower()
             if any(term in err_msg for term in ("insufficient_quota", "credits remaining", "billing", "quota_exceeded", "resource_exhausted", "credit_balance_exhausted", "rate_limit", "429")):
                 logger.error("%s quota exhausted or out of credits (%s); disabling for session", display, exc)
@@ -354,6 +385,7 @@ class OpenCodeClient:
                 logger.error("%s chat failed for %s: %s", display, label or "agent", exc)
             return None
 
+        self._track(provider, model, True, start, in_tokens, out_tokens)
         elapsed = time.monotonic() - start
         if primary:
             logger.info(

@@ -13,6 +13,10 @@ Commands:
   analytics   Collect Instagram insights for published posts.
   scientist   Run the Scientist learning loop (experiments, analysis, strategy updates).
   monthly     Generate a monthly performance digest.
+  followers [N]  Record the follower count (from the Instagram API, or the number N you give).
+  milestone   Show progress toward the active follower milestone.
+  dashboard [path]  Write the static HTML growth dashboard (default dashboard/index.html).
+  health      Alert the notification channels if anything needs a human.
   prompts       Generate the HTML prompt viewer from recorded prompts (logs/prompts).
   anime-trends  Fetch real-world trending anime metadata from Kitsu API.
   anime-concept Generate original anime concept, characters, and episode breakdown.
@@ -93,7 +97,18 @@ def _print_monthly(result: dict[str, Any]) -> None:
     print(f"Analytics observations: {digest.get('observations')}")
 
 
-COMMANDS = ("daily", "analytics", "scientist", "monthly", "prompts", "anime-trends", "anime-concept")
+COMMANDS = ("daily", "analytics", "scientist", "monthly", "followers", "milestone", "dashboard", "health", "prompts", "anime-trends", "anime-concept")
+
+
+def _print_milestone(result: dict[str, Any]) -> None:
+    m = result["milestone"]
+    print(f"Milestone: {m.target:,} followers by {m.deadline.isoformat()} ({m.days_left} days left) - {m.status}")
+    print(f"Followers now: {m.followers if m.followers is not None else 'no data yet'}  (+{result['week_gain'] if result['week_gain'] is not None else '?'} in 7 days)")
+    print(f"Progress: {m.progress * 100:.0f}% | still needed: {m.remaining:,}")
+    if m.required_per_day is not None:
+        print(f"Needed per day: {m.required_per_day:.1f} | current pace: "
+              f"{'n/a' if m.recent_per_day is None else f'{m.recent_per_day:.1f}'} | projected at deadline: "
+              f"{'n/a' if m.projected_at_deadline is None else f'{m.projected_at_deadline:,}'}")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -175,6 +190,37 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif command == "monthly":
             result = scheduler.run_monthly()
             _print_monthly(result)
+        elif command == "followers":
+            manual = None
+            if len(args) > 1:
+                try:
+                    manual = int(args[1])
+                except ValueError:
+                    print(f"followers expects a whole number, got {args[1]!r}", file=sys.stderr)
+                    return 2
+                if manual < 0:
+                    print("followers must not be negative", file=sys.stderr)
+                    return 2
+            result = scheduler.run_followers(manual)
+            if result["ok"]:
+                print(f"Recorded {result['followers']:,} followers (source: {result['source']}).")
+            else:
+                print(result["note"], file=sys.stderr)
+                return 1
+        elif command == "milestone":
+            _print_milestone(scheduler.run_milestone())
+        elif command == "dashboard":
+            result = scheduler.run_dashboard(args[1] if len(args) > 1 else "dashboard/index.html")
+            print(f"Dashboard written to {result['path']}")
+        elif command == "health":
+            result = scheduler.run_health()
+            if result["ok"]:
+                print("Healthy: nothing needs attention.")
+            else:
+                print("Needs attention:")
+                for issue in result["issues"]:
+                    print(f" - {issue}")
+                return 1
     except Exception as exc:
         print(f"Command '{command}' failed: {exc}", file=sys.stderr)
         return 1

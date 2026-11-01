@@ -76,6 +76,7 @@ class CreatorAgent(BaseAgent):
         market = market_path.read_text(encoding="utf-8")
         prompt_text = self.prompt_manager.render("creator.md", {
             "selected_idea": json.dumps(selected_idea, indent=2, default=str),
+            "creator_guidance": str(inputs.get("creator_guidance") or "No extra guidance for this run."),
             "identity": identity,
             "constitution": constitution,
             "strategy": strategy,

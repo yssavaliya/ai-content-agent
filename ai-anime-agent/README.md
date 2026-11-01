@@ -67,6 +67,9 @@ Supported environment variables (see `.env.example`):
 - `ANALYTICS_MAX_AGE_DAYS` — only posts newer than this are re-measured each run (default 30)
 - `BUFFER_ACCESS_TOKEN` / `BUFFER_PROFILE_ID` — optional Buffer publishing and analytics (see costs table)
 - `BUFFER_SCHEDULE_TIME_UTC` — optional `HH:MM` (UTC). Without it Buffer posts are shared immediately when the job ends (GitHub cron jobs are often delayed by hours, so that can be the middle of the night in India); with it they are scheduled for the next occurrence of that time (`12:30` = 6 PM IST). Uses Buffer's `customScheduled` mode and falls back to the queue; not yet verified against a live Buffer account.
+- `GROWTH_START_DATE`, `GROWTH_BASE_TARGET`, `GROWTH_MULTIPLIER`, `GROWTH_PERIOD_DAYS` — follower milestone plan (defaults: first snapshot date, 1000, 2.5, 90)
+- `DUPLICATE_SIMILARITY_THRESHOLD` — similarity (0-1) at which a caption counts as a repeat (default 0.85)
+- `LLM_COST_PER_1K_TOKENS` — optional cost estimate for paid LLM providers (default 0 = untracked)
 - `AGENT_RETRY_BACKOFF_SECONDS` — pause between LLM retries (default 15; tests set 0)
 - `MEDIA_HOST` / `MEDIA_HOST_REPO` / `MEDIA_HOST_TOKEN` / `MEDIA_HOST_BRANCH` / `MEDIA_HOST_PATH` — GitHub-raw media hosting (`MEDIA_HOST=github`); Instagram requires a public HTTPS image URL
 - `NOTIFY_CHANNELS` — comma-separated list: `dryrun`, `discord`, `telegram`, `slack` (unusable/unknown values fall back to `dryrun`)
@@ -115,6 +118,30 @@ If an agent cannot get an answer from any LLM provider, the pipeline continues w
 ## Analytics and the learning loop
 
 Every post sent through a live publisher (Instagram or Buffer, whatever status it reports such as `published`, `scheduled` or `sent`) is stored in `posts` and assigned to the active experiment. `ai-content-agent analytics` (and the start of every `daily` run) then refreshes metrics for posts from the last `ANALYTICS_MAX_AGE_DAYS` days (default 30). The Scientist only acts once each experiment arm has `SCIENTIST_MIN_SAMPLE_SIZE` measured posts.
+
+## Growth engine
+
+The pipeline is built to grow `@aimagix.studio` with real followers only: it uses official APIs, never buys or fakes engagement, and never scrapes. Everything below is implemented and covered by tests; what needs your accounts is called out explicitly.
+
+**Milestones.** Targets are 1,000 followers, then 2.5x the previous target for every further 90 days (1,000 / 2,500 / 6,250 / 15,625 ...). Each target is due `90 x (n + 1)` days after the start date. `ai-content-agent milestone` shows progress, the pace needed per day, the pace of the last 7 days and whether that pace reaches the target (`on_track`, `at_risk`, `behind`, `overdue`).
+
+**Follower tracking.** `ai-content-agent followers` stores today's count in `follower_snapshots`. Source: the official Instagram Graph API (`followers_count`), which needs an Instagram **Business or Creator** account linked to a Facebook Page plus `INSTAGRAM_ACCESS_TOKEN` and `INSTAGRAM_ACCOUNT_ID`. Without those, record the number yourself (for example from the app) with `ai-content-agent followers 412`. Buffer's API has no follower-count endpoint that this project uses.
+
+**Dashboard.** `ai-content-agent dashboard [path]` writes one self-contained HTML file (no CDN, no JavaScript) from the agent's own database: followers and daily/weekly gain, milestone progress, reach, impressions, engagement rate, saves/shares/comments, best and weakest posts, experiment results, recent run health and API usage. The analytics workflows rebuild it daily and commit `dashboard/index.html`; turn on GitHub Pages for that folder, or just open the file.
+
+**It learns from results.**
+- The daily run first refreshes metrics for recent posts, then the Scientist analyses the active experiment.
+- The creator prompt receives the best and weakest recent posts, so it repeats what worked and avoids what failed.
+- The active experiment (default: curiosity-question hook vs declarative hook) assigns each post an arm *before* it is written and tells the creator which hook style to use, so the two arms really differ. The Scientist only changes `brain/strategy.md` when sample size, effect size and confidence gates are all met.
+
+**Originality.** A caption at least `DUPLICATE_SIMILARITY_THRESHOLD` similar to any earlier one is regenerated once with the old caption listed as off-limits. If it is still a near-copy, or the LLM is down and only the fixed template is available, the post is **blocked** (`blocked_duplicate`) and you are notified instead of posting repetitive content.
+
+**Monitoring and cost.** Every LLM, image and publish call is recorded in `api_usage` (provider, success, tokens, duration). Cost is only estimated for paid providers when `LLM_COST_PER_1K_TOKENS` is set. `ai-content-agent health` (run by the analytics workflows) notifies your channels when: no post was recorded for 3 days, the last runs used fallback content or were blocked, more than half of recent API calls failed, follower counts are stale, or growth is `behind`/`overdue`.
+
+**Not automated (and why).**
+- Reading competitors' accounts: Instagram's official Business Discovery endpoint needs a Business-account token (see above) and is not implemented yet; scraping is out of bounds.
+- Reels or video: the pipeline publishes single images; there are no retention metrics for them.
+- Followers and viral reach are outcomes of content quality and time. Nothing here can guarantee 1,000 followers in 2-3 months; the milestone report tells you honestly whether the measured pace gets there.
 
 ## Instagram setup
 
@@ -181,6 +208,10 @@ ai-content-agent daily       # full pipeline (default)
 ai-content-agent analytics   # collect Instagram insights
 ai-content-agent scientist   # experiments + strategy updates
 ai-content-agent monthly     # monthly digest
+ai-content-agent followers [N]  # record follower count (API, or the number N)
+ai-content-agent milestone   # progress toward the active follower target
+ai-content-agent dashboard [path]  # static HTML dashboard
+ai-content-agent health      # alert channels if something needs a human
 ```
 
 ## Automation

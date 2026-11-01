@@ -68,6 +68,17 @@ jobs:
             echo "::notice::$line"
             echo "$line"
           done
+      - name: Record follower count
+        continue-on-error: true
+        working-directory: ai-anime-agent
+        run: python -m ai_content_agent.cli followers
+      - name: Build growth dashboard
+        working-directory: ai-anime-agent
+        run: python -m ai_content_agent.cli dashboard dashboard/index.html
+      - name: Health check (alerts via NOTIFY_CHANNELS)
+        continue-on-error: true
+        working-directory: ai-anime-agent
+        run: python -m ai_content_agent.cli health
       - name: Persist artifacts
         if: ${{ !cancelled() }}
         working-directory: ai-anime-agent
@@ -75,6 +86,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if [ -e agent.db ]; then git add -f agent.db; fi
+          if [ -d dashboard ]; then git add -f dashboard; fi
           git commit -m "chore: ai-anime analytics artifacts" || echo "No changes to commit"
           for attempt in 1 2 3 4 5; do
             if git push origin main 2>/dev/null; then

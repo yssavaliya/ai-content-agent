@@ -22,7 +22,7 @@ from ai_content_agent.analytics.base import AnalyticsProvider, PostMetrics
 from ai_content_agent.application.pipeline import ContentPipeline
 from ai_content_agent.application.scheduler import Scheduler
 from ai_content_agent.cli import main as cli_main
-from ai_content_agent.database.connection import DatabaseConnection, initialize_database, run_migrations
+from ai_content_agent.database.connection import MIGRATIONS, DatabaseConnection, initialize_database, run_migrations
 from ai_content_agent.notifications.notifier import Notifier
 from ai_content_agent.opencode.client import OpenCodeClient
 from ai_content_agent.prompts.manager import PromptManager
@@ -217,7 +217,7 @@ class EndToEndWorkflowTests(unittest.TestCase):
             cursor = conn.cursor()
             cursor.execute("SELECT MAX(version) FROM schema_migrations")
             version = cursor.fetchone()[0]
-            self.assertEqual(version, 2)
+            self.assertEqual(version, len(MIGRATIONS))
 
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
             tables = {row[0] for row in cursor.fetchall()}
@@ -346,7 +346,16 @@ class EndToEndWorkflowTests(unittest.TestCase):
             run_id = f"run-multi-{run_idx}"
             research_data = dict(SAMPLE_RESEARCH_A, recommended_topic=f"Topic Sequence {run_idx}")
             pipeline = ContentPipeline(settings=self.settings)
-            self._wire_mocked_pipeline(pipeline, research_data=research_data)
+            # Each run needs its own caption: identical captions are (correctly) blocked as duplicates.
+            captions = {
+                1: "Sunrise over the neon harbor is a reminder that discipline outlasts motivation.",
+                2: "Nobody posts the rejected drafts, yet every masterpiece hides a hundred of them.",
+            }
+            self._wire_mocked_pipeline(
+                pipeline,
+                research_data=research_data,
+                creator_data=dict(SAMPLE_CREATOR_A, caption=captions[run_idx]),
+            )
             pipeline.run(run_id)
 
         conn = sqlite3.connect(self.db_path)

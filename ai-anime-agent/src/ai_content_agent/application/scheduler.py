@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -8,6 +9,14 @@ from ..agents.scientist import ScientistAgent
 from ..analytics.collector import AnalyticsCollector
 from ..analytics.registry import AnalyticsRegistry
 from ..database.connection import DatabaseConnection
+from ..growth.dashboard import build_plan, collect_dashboard_data, generate_dashboard
+from ..growth.followers import (
+    FollowerCount,
+    FollowerSourceError,
+    build_follower_source,
+    record_snapshot,
+)
+from ..growth.health import check_health
 from ..notifications.notifier import Notifier
 from ..science.experiments import ExperimentRepository, compute_experiment_result
 from ..science.strategy import StrategyGovernance
@@ -19,6 +28,16 @@ from .run_lock import RunLock, lock_path_for_database
 logger = logging.getLogger(__name__)
 
 DEFAULT_EXPERIMENT_NAME = "initial-content-strategy"
+HOOK_STYLE_VARIABLE = "hook-style"
+HOOK_CONTROL = (
+    "open the caption with a bold, declarative claim stated as a single confident sentence "
+    "(the current default hook style)."
+)
+HOOK_VARIANT = (
+    "open the caption with a curiosity-gap question of at most 12 words that makes the viewer need to read "
+    "the next line; do not answer it in the first sentence."
+)
+PLACEHOLDER_VARIANT = "Experimentally varied content approach"
 
 
 class Scheduler:
@@ -60,6 +79,68 @@ class Scheduler:
             finally:
                 pipeline.close()
 
+    def run_followers(self, manual_count: int | None = None) -> dict[str, Any]:
+        """Record today's follower count: from the Instagram Graph API, or a number you supply."""
+        with self._run_lock():
+            db = DatabaseConnection()
+            try:
+                if manual_count is not None:
+                    count = FollowerCount(followers=manual_count, media_count=None, source="manual")
+                else:
+                    source = build_follower_source(self.settings)
+                    if source is None:
+                        return {
+                            "stage": "followers",
+                            "ok": False,
+                            "note": "No follower source configured. Set INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_ACCOUNT_ID "
+                            "(Business/Creator account) or record a count with: ai-content-agent followers <number>",
+                        }
+                    try:
+                        count = source.fetch()
+                    except FollowerSourceError as exc:
+                        self.notifier.send_failure(
+                            subject="AI Content Agent: follower count unavailable",
+                            body=str(exc),
+                            metadata={"color": 15158332},
+                        )
+                        raise
+                record_snapshot(db, count)
+                return {"stage": "followers", "ok": True, "followers": count.followers, "source": count.source}
+            finally:
+                db.close()
+
+    def run_dashboard(self, output_path: str | Path = "dashboard/index.html") -> dict[str, Any]:
+        db = DatabaseConnection()
+        try:
+            path = generate_dashboard(db, self.settings, output_path)
+            return {"stage": "dashboard", "ok": True, "path": str(path)}
+        finally:
+            db.close()
+
+    def run_milestone(self) -> dict[str, Any]:
+        db = DatabaseConnection()
+        try:
+            data = collect_dashboard_data(db, self.settings)
+            return {"stage": "milestone", "ok": True, "milestone": data["milestone"], "day_gain": data["day_gain"],
+                    "week_gain": data["week_gain"]}
+        finally:
+            db.close()
+
+    def run_health(self) -> dict[str, Any]:
+        """Alert the configured channels when something needs a human."""
+        db = DatabaseConnection()
+        try:
+            issues = check_health(db, build_plan(self.settings, db, datetime.now(timezone.utc).date()))
+            if issues:
+                self.notifier.send_failure(
+                    subject="AI Content Agent: attention needed",
+                    body="\n".join(f"- {issue}" for issue in issues),
+                    metadata={"color": 15158332},
+                )
+            return {"stage": "health", "ok": not issues, "issues": issues}
+        finally:
+            db.close()
+
     def run_analytics(self) -> dict[str, Any]:
         with self._run_lock():
             provider = AnalyticsRegistry.build_provider(self.settings)
@@ -82,17 +163,34 @@ class Scheduler:
         repository = ExperimentRepository(db)
         active = repository.list_active()
         if active:
+            self._upgrade_placeholder_experiment(db, active[0])
             return active[0].id
         return repository.create(
             name=DEFAULT_EXPERIMENT_NAME,
-            description="Initial content strategy experiment comparing the default approach against a variant.",
-            hypothesis="A systematically varied content approach outperforms the current default.",
-            variable="content-approach",
-            control_description="Current default content approach",
-            variant_description="Experimentally varied content approach",
+            description="Does a curiosity-gap opening earn a higher engagement rate than a bold declarative opening?",
+            hypothesis="Opening with a curiosity-gap question increases engagement rate versus a declarative claim.",
+            variable=HOOK_STYLE_VARIABLE,
+            control_description=HOOK_CONTROL,
+            variant_description=HOOK_VARIANT,
             min_effect=self.settings.scientist_min_effect,
             confidence_threshold=self.settings.scientist_apply_threshold,
         )
+
+    @staticmethod
+    def _upgrade_placeholder_experiment(db: DatabaseConnection, experiment: Any) -> None:
+        """Early databases hold an experiment whose two arms were vague labels that changed nothing.
+
+        Give it the concrete treatment so its arms genuinely differ. Only the descriptions change; posts
+        already assigned keep their arm.
+        """
+        if experiment.variant_description == PLACEHOLDER_VARIANT:
+            db.execute(
+                "UPDATE experiments SET variable = ?, control_description = ?, variant_description = ?, "
+                "hypothesis = ? WHERE id = ?",
+                (HOOK_STYLE_VARIABLE, HOOK_CONTROL, HOOK_VARIANT,
+                 "Opening with a curiosity-gap question increases engagement rate versus a declarative claim.",
+                 experiment.id),
+            )
 
     def run_scientist(self) -> dict[str, Any]:
         with self._run_lock():

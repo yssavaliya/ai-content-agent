@@ -14,6 +14,9 @@ from ..agents.predictor import PredictorAgent
 from ..agents.research import ResearchAgent
 from ..agents.reviewer import ReviewerAgent
 from ..database.connection import DatabaseConnection
+from ..growth.dedupe import find_similar_caption
+from ..growth.insights import performance_insights
+from ..growth.usage import record_usage
 from ..notifications.channels import DryRunChannel
 from ..notifications.notifier import Notifier
 from ..opencode.context import set_run_id
@@ -32,7 +35,11 @@ logger = logging.getLogger(__name__)
 # Publishers that really post to Instagram. Buffer reports "scheduled"/"sent" rather than "published",
 # so the status alone cannot decide whether a post must be tracked for analytics and experiments.
 LIVE_PUBLISHERS = frozenset({"instagram", "buffer"})
-NOT_LIVE_STATUSES = frozenset({"error", "failed", "draft", "needs_approval", "blocked_review", ""})
+NOT_LIVE_STATUSES = frozenset(
+    {"error", "failed", "draft", "needs_approval", "blocked_review", "blocked_duplicate", ""}
+)
+# One regeneration (told which captions to avoid) before a duplicate post is blocked.
+MAX_ORIGINALITY_ATTEMPTS = 2
 
 
 class PipelineError(RuntimeError):
@@ -62,6 +69,71 @@ class ContentPipeline:
         self.reviewer_agent: ReviewerAgent | None = None
         self.predictor_agent: PredictorAgent | None = None
         self._fallbacks: list[str] = []
+        self._experiment: dict[str, Any] | None = None
+
+    def _choose_experiment_arm(self) -> None:
+        """Pick the arm for this post before it is written, so the creator can actually apply it."""
+        self._experiment = None
+        active = self.experiments.list_active()
+        if not active:
+            return
+        experiment = active[0]
+        control = len(self.experiments.posts_for_arm(experiment.id, "control"))
+        variant = len(self.experiments.posts_for_arm(experiment.id, "variant"))
+        arm = "variant" if variant < control else "control"
+        directive = experiment.variant_description if arm == "variant" else experiment.control_description
+        self._experiment = {
+            "id": experiment.id,
+            "arm": arm,
+            "variable": experiment.variable,
+            "directive": directive,
+        }
+        logger.info("Experiment %s: this post uses the %s arm (%s)", experiment.id, arm, experiment.variable)
+
+    def _creator_guidance(self, avoid_captions: list[str]) -> str:
+        parts: list[str] = []
+        experiment = self._experiment
+        if experiment and experiment.get("directive"):
+            parts.append(
+                f"EXPERIMENT '{experiment.get('variable') or 'content'}' (arm: {experiment['arm']}). "
+                f"For this post: {experiment['directive']}"
+            )
+        insights = performance_insights(self.database)
+        if insights:
+            parts.append(insights)
+        if avoid_captions:
+            parts.append(
+                "Recent captions you must NOT reuse or paraphrase (write something clearly different):\n"
+                + "\n".join(f"- {' '.join(c.split())[:200]}" for c in avoid_captions)
+            )
+        return "\n\n".join(parts) if parts else "No extra guidance for this run."
+
+    def _create_unique_content(self, planner_results: dict[str, Any], planner_id: int):
+        """Create the draft and make sure it is not a near-copy of an earlier caption."""
+        avoid: list[str] = []
+        similar = None
+        creator_results: dict[str, Any] = {}
+        creator_output_id = 0
+        for _ in range(MAX_ORIGINALITY_ATTEMPTS):
+            creator_results = self._run_creator(planner_results, self._creator_guidance(avoid))
+            creator_output_id = self._persist_creator_output(planner_id, creator_results)
+            similar = find_similar_caption(
+                self.database,
+                creator_results["caption"],
+                self.settings.duplicate_similarity_threshold,
+                exclude_id=creator_output_id,
+            )
+            if similar is None:
+                return creator_results, creator_output_id, None
+            logger.warning(
+                "::warning::Draft is %.0f%% similar to an earlier caption (creator output %s)",
+                similar.score * 100,
+                similar.creator_output_id,
+            )
+            avoid.append(similar.caption)
+            if creator_results.get("source") == "procedural_fallback":
+                break  # re-running a fixed template cannot produce different text
+        return creator_results, creator_output_id, similar
 
     def _use_fallback(self, stage: str, payload: dict[str, Any]) -> dict[str, Any]:
         """Flag deterministic template output so it is never mistaken for model output."""
@@ -99,15 +171,20 @@ class ContentPipeline:
     def run(self, run_id: str | None = None) -> dict[str, Any]:
         run_id = run_id or uuid.uuid4().hex[:8]
         self._fallbacks = []
+        self._experiment = None
         set_run_id(run_id)
         logger.info("Pipeline run %s starting", run_id)
         try:
             package = self._produce_content(run_id)
             self._save_package(package, package.get("package_path"))
             publish_status = (package.get("publish") or {}).get("status")
-            if publish_status == "blocked_review":
+            if str(publish_status).startswith("blocked_"):
                 self.notifier.send_failure(
-                    subject="AI Content Agent: post blocked by review",
+                    subject=(
+                        "AI Content Agent: post blocked by review"
+                        if publish_status == "blocked_review"
+                        else "AI Content Agent: post blocked, duplicate content"
+                    ),
                     body=self._blocked_body(package, run_id),
                     metadata={"run_id": run_id, "color": 15158332},
                 )
@@ -142,6 +219,7 @@ class ContentPipeline:
     def _produce_content(self, run_id: str) -> dict[str, Any]:
         timing = {}
         stage_start = time.perf_counter()
+        self._choose_experiment_arm()
         
         logger.info("::notice::[Pipeline %s] Stage 1/8: ResearchAgent started", run_id)
         stage_start = time.perf_counter()
@@ -165,11 +243,21 @@ class ContentPipeline:
 
         logger.info("::notice::[Pipeline %s] Stage 3/8: CreatorAgent started", run_id)
         stage_start = time.perf_counter()
-        creator_results = self._run_creator(planner_results)
+        creator_results, creator_output_id, duplicate = self._create_unique_content(planner_results, planner_id)
         timing["creator_ms"] = int((time.perf_counter() - stage_start) * 1000)
         logger.info("::notice::[Pipeline %s] Stage 3/8: CreatorAgent completed in %dms", run_id, timing["creator_ms"])
         
-        creator_output_id = self._persist_creator_output(planner_id, creator_results)
+        if duplicate is not None:
+            reasons = [
+                f"Caption is {duplicate.score * 100:.0f}% similar to an earlier post (creator output "
+                f"{duplicate.creator_output_id}) and regeneration did not fix it.",
+                "Nothing was published to avoid repetitive content. Check the LLM provider if this is template output.",
+            ]
+            logger.warning("::warning::[Pipeline %s] duplicate content blocked", run_id)
+            return self._blocked_package(
+                run_id, creator_output_id, research_results, planner_results, creator_results, None, timing,
+                status="blocked_duplicate", reasons=reasons,
+            )
 
         logger.info("::notice::[Pipeline %s] Stage 4/8: ReviewerAgent started", run_id)
         stage_start = time.perf_counter()
@@ -213,6 +301,7 @@ class ContentPipeline:
             "image": image_result,
             "publish": None,
             "fallbacks": list(self._fallbacks),
+            "experiment": self._experiment_summary(),
         }
         package_path = self._save_package(package)
         package["package_path"] = str(package_path)
@@ -235,6 +324,11 @@ class ContentPipeline:
         package["timing"] = timing
         return package
 
+    def _experiment_summary(self) -> dict[str, Any] | None:
+        if not self._experiment:
+            return None
+        return {key: self._experiment[key] for key in ("id", "arm", "variable")}
+
     def _blocked_package(
         self,
         run_id: str,
@@ -242,15 +336,17 @@ class ContentPipeline:
         research: dict[str, Any],
         planning: dict[str, Any],
         creation: dict[str, Any],
-        review: dict[str, Any],
+        review: dict[str, Any] | None,
         timing: dict[str, int],
+        status: str = "blocked_review",
+        reasons: list[str] | None = None,
     ) -> dict[str, Any]:
-        """Persist a package for content the reviewer rejected, without generating or publishing."""
+        """Persist a package for content that must not go out (rejected review, duplicate caption)."""
         result = PublishResult(
             provider="none",
-            status="blocked_review",
+            status=status,
             published_id="",
-            metadata={"reasons": review.get("reasons", [])},
+            metadata={"reasons": reasons if reasons is not None else (review or {}).get("reasons", [])},
         )
         package: dict[str, Any] = {
             "run_id": run_id,
@@ -261,6 +357,7 @@ class ContentPipeline:
             "prediction": None,
             "image": None,
             "publish": result.__dict__,
+            "experiment": self._experiment_summary(),
             "fallbacks": list(self._fallbacks),
             "timing": timing,
         }
@@ -473,12 +570,13 @@ class ContentPipeline:
             )
             return self._use_fallback("planner", self._procedural_planner(research_output))
 
-    def _run_creator(self, planner_output: dict[str, Any]) -> dict[str, Any]:
+    def _run_creator(self, planner_output: dict[str, Any], guidance: str = "") -> dict[str, Any]:
         try:
             creator_agent = self._agents_setup()[2]
             return creator_agent.execute(
                 {
                     "selected_idea": planner_output["selected_idea"],
+                    "creator_guidance": guidance or "No extra guidance for this run.",
                     "identity": "brain/identity.md",
                     "constitution": "brain/constitution.md",
                     "strategy": "brain/strategy.md",
@@ -558,7 +656,16 @@ class ContentPipeline:
             brand_style="clean",
             aspect_ratio="1:1",
         )
-        image_result = self.image_provider.generate(request)
+        started = time.monotonic()
+        provider_name = getattr(self.image_provider, "name", None)
+        try:
+            image_result = self.image_provider.generate(request)
+        except Exception:
+            record_usage("image", "generate", provider=provider_name, ok=False,
+                         duration_ms=int((time.monotonic() - started) * 1000))
+            raise
+        record_usage("image", "generate", provider=provider_name, ok=True,
+                     duration_ms=int((time.monotonic() - started) * 1000))
         self._persist_image_asset(creator_output_id, image_result)
         return image_result.__dict__
 
@@ -575,7 +682,15 @@ class ContentPipeline:
             image["media_url"] = media_url
             self._save_package(package, package_path)
 
-        result = self.publisher.publish(str(package_path))
+        started = time.monotonic()
+        try:
+            result = self.publisher.publish(str(package_path))
+        except Exception:
+            record_usage("publish", "post", provider=self.publisher.name, ok=False,
+                         duration_ms=int((time.monotonic() - started) * 1000))
+            raise
+        record_usage("publish", "post", provider=self.publisher.name, ok=True,
+                     duration_ms=int((time.monotonic() - started) * 1000))
         self._persist_publish_package(creator_output_id, result, package_path)
 
         output = result.__dict__
@@ -695,7 +810,7 @@ class ContentPipeline:
                 publish_result.status,
                 publish_result.published_id,
                 str(package_path),
-                json.dumps(publish_result.metadata),
+                json.dumps({**publish_result.metadata, "fallbacks": list(self._fallbacks)}),
                 utc_now_iso(),
             ),
         )
@@ -722,16 +837,13 @@ class ContentPipeline:
         return cursor.lastrowid
 
     def _assign_to_active_experiment(self, post_id: int) -> int | None:
-        active = self.experiments.list_active()
-        if not active:
+        if not self._experiment:
             return None
-        experiment = active[0]
-        control_count = len(self.experiments.posts_for_arm(experiment.id, "control"))
-        variant_count = len(self.experiments.posts_for_arm(experiment.id, "variant"))
-        arm = "variant" if variant_count < control_count else "control"
-        self.experiments.assign_post(experiment.id, post_id, arm)
-        logger.info("Assigned post %s to experiment %s (%s)", post_id, experiment.id, arm)
-        return experiment.id
+        self.experiments.assign_post(self._experiment["id"], post_id, self._experiment["arm"])
+        logger.info(
+            "Assigned post %s to experiment %s (%s)", post_id, self._experiment["id"], self._experiment["arm"]
+        )
+        return self._experiment["id"]
 
     def _save_package(self, package: dict[str, Any], path: Path | str | None = None) -> Path:
         output_dir = Path("posts")
@@ -786,12 +898,17 @@ class ContentPipeline:
         return "\n".join(lines)
 
     def _blocked_body(self, package: dict[str, Any], run_id: str) -> str:
+        publish = package.get("publish") or {}
         review = package.get("review") or {}
-        reasons = "\n".join(f"- {reason}" for reason in review.get("reasons", []))
+        reasons = "\n".join(f"- {reason}" for reason in (publish.get("metadata") or {}).get("reasons", []))
+        if publish.get("status") == "blocked_review":
+            headline = f"The ReviewerAgent returned {review.get('status')}; nothing was generated or published."
+        else:
+            headline = "Duplicate content detected; nothing was generated or published."
         return (
             f"Run: {run_id}\n"
             f"Topic: {(package.get('research') or {}).get('recommended_topic')}\n"
-            f"The ReviewerAgent returned {review.get('status')}; nothing was generated or published.\n"
+            f"{headline}\n"
             f"Reasons:\n{reasons}\n"
             f"Package: {package.get('package_path')}"
         )

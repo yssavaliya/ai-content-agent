@@ -203,11 +203,42 @@ def _migration_v2(db: "DatabaseConnection") -> None:
     )
 
 
+def _migration_v3(db: "DatabaseConnection") -> None:
+    db.execute(
+        "CREATE TABLE IF NOT EXISTS follower_snapshots ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "captured_at TEXT NOT NULL,"
+        "followers INTEGER NOT NULL,"
+        "media_count INTEGER,"
+        "source TEXT NOT NULL"
+        ")"
+    )
+    db.execute("CREATE INDEX IF NOT EXISTS idx_follower_snapshots_captured_at ON follower_snapshots(captured_at)")
+    db.execute(
+        "CREATE TABLE IF NOT EXISTS api_usage ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "created_at TEXT NOT NULL,"
+        "service TEXT NOT NULL,"
+        "operation TEXT NOT NULL,"
+        "provider TEXT,"
+        "model TEXT,"
+        "ok INTEGER NOT NULL,"
+        "input_tokens INTEGER,"
+        "output_tokens INTEGER,"
+        "est_cost_usd REAL NOT NULL DEFAULT 0,"
+        "duration_ms INTEGER,"
+        "run_id TEXT"
+        ")"
+    )
+    db.execute("CREATE INDEX IF NOT EXISTS idx_api_usage_created_at ON api_usage(created_at)")
+
+
 Migration = str | Callable[["DatabaseConnection"], None]
 
 MIGRATIONS: list[Migration] = [
     _migration_v1,
     _migration_v2,
+    _migration_v3,
 ]
 
 

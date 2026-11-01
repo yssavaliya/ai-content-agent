@@ -67,6 +67,14 @@ class Settings:
     telegram_chat_id: str | None = None
     slack_webhook_url: str | None = None
 
+    # Growth engine
+    llm_cost_per_1k_tokens: float = 0.0
+    duplicate_similarity_threshold: float = 0.85
+    growth_start_date: str | None = None
+    growth_base_target: int = 1000
+    growth_multiplier: float = 2.5
+    growth_period_days: int = 90
+
     # Scientist / learning
     scientist_min_sample_size: int = 10
     scientist_min_effect: float = 0.15
@@ -199,6 +207,14 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         telegram_chat_id=get("TELEGRAM_CHAT_ID"),
         slack_webhook_url=get("SLACK_WEBHOOK_URL"),
         analytics_max_age_days=_parse_int(get("ANALYTICS_MAX_AGE_DAYS"), 30, "ANALYTICS_MAX_AGE_DAYS"),
+        llm_cost_per_1k_tokens=_parse_float(get("LLM_COST_PER_1K_TOKENS"), 0.0, "LLM_COST_PER_1K_TOKENS"),
+        duplicate_similarity_threshold=_parse_float(
+            get("DUPLICATE_SIMILARITY_THRESHOLD"), 0.85, "DUPLICATE_SIMILARITY_THRESHOLD"
+        ),
+        growth_start_date=get("GROWTH_START_DATE"),
+        growth_base_target=_parse_int(get("GROWTH_BASE_TARGET"), 1000, "GROWTH_BASE_TARGET"),
+        growth_multiplier=_parse_float(get("GROWTH_MULTIPLIER"), 2.5, "GROWTH_MULTIPLIER"),
+        growth_period_days=_parse_int(get("GROWTH_PERIOD_DAYS"), 90, "GROWTH_PERIOD_DAYS"),
         scientist_min_sample_size=_parse_int(
             get("SCIENTIST_MIN_SAMPLE_SIZE"), 10, "SCIENTIST_MIN_SAMPLE_SIZE"
         ),

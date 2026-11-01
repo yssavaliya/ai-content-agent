@@ -39,3 +39,6 @@ $strategy
 
 Market context:
 $market
+
+Guidance for this run (follow the EXPERIMENT line exactly if present; use the performance notes to repeat what worked and avoid what failed; never reuse the listed captions):
+$creator_guidance

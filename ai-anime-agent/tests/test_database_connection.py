@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from ai_content_agent.database.connection import (
+    MIGRATIONS,
     DatabaseConnection,
     initialize_database,
     run_migrations,
@@ -56,7 +57,7 @@ class DatabaseConnectionTests(unittest.TestCase):
                 cursor = connection.cursor()
                 cursor.execute(f"SELECT MAX(version) FROM {MIGRATIONS_TABLE}")
                 row = cursor.fetchone()
-                self.assertEqual(row[0], 2)
+                self.assertEqual(row[0], len(MIGRATIONS))
 
                 cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('post_metrics', 'observations', 'experiment_posts', 'strategy_history', 'virality_predictions')")
                 tables = {row[0] for row in cursor.fetchall()}
@@ -71,7 +72,7 @@ class DatabaseConnectionTests(unittest.TestCase):
                 cursor = connection.cursor()
                 cursor.execute(f"SELECT MAX(version) FROM {MIGRATIONS_TABLE}")
                 row = cursor.fetchone()
-                self.assertEqual(row[0], 2)
+                self.assertEqual(row[0], len(MIGRATIONS))
             finally:
                 connection.close()
 
