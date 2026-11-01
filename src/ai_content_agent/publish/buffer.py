@@ -147,6 +147,68 @@ class BufferPublisher(Publisher):
 
         return self.profile_id
 
+    def _attempt(
+        self,
+        mode: str,
+        channel_id: str,
+        caption: str,
+        media_url: str,
+        first_comment: str | None,
+        due_at: str | None,
+        headers: dict[str, str],
+    ) -> tuple[str, Any]:
+        """One createPost call. Returns ("ok", post) | ("no_first_comment", msg) | ("next_mode", msg).
+
+        Raises PublishUnavailable for plan limits and RuntimeError for failures no other mode can fix.
+        """
+        instagram_meta: dict[str, Any] = {"type": "post", "shouldShareToFeed": True}
+        if first_comment:
+            instagram_meta["firstComment"] = first_comment
+        variables: dict[str, Any] = {
+            "input": {
+                "channelId": channel_id,
+                "text": caption,
+                "schedulingType": "automatic",
+                "mode": mode,
+                "assets": [{"image": {"url": media_url}}],
+                "metadata": {"instagram": instagram_meta},
+            }
+        }
+        if mode == "customScheduled" and due_at:
+            variables["input"]["dueAt"] = due_at
+
+        try:
+            resp = requests.post(
+                BUFFER_GRAPHQL_URL,
+                json={"query": CREATE_POST_MUTATION, "variables": variables},
+                headers=headers,
+                timeout=30,
+            )
+        except requests.RequestException as exc:
+            raise RuntimeError(f"Buffer API request failed: {redact(str(exc), self.access_token)}") from None
+        if resp.status_code >= 400:
+            raise RuntimeError(f"Buffer API HTTP error ({resp.status_code}): {resp.text[:500]}")
+
+        payload = resp.json()
+        if payload.get("errors"):
+            message = "; ".join(e.get("message", "Unknown error") for e in payload["errors"])
+            source = "GraphQL error"
+        else:
+            result = payload.get("data", {}).get("createPost", {})
+            if not ("message" in result and "post" not in result):
+                return "ok", result.get("post") or {}
+            message = result["message"]
+            source = "GraphQL mutation error"
+
+        if "first comment" in message.lower() and first_comment:
+            return "no_first_comment", message
+        if _is_plan_limit(message):
+            raise PublishUnavailable(f"Buffer refused the post: {message}")
+        if mode != "addToQueue" or "mode" in message.lower():
+            # An immediate or timed share Buffer will not do is not fatal: the queue is the last resort.
+            return "next_mode", message
+        raise RuntimeError(f"Buffer {source}: {message}")
+
     def publish(self, package_path: str) -> PublishResult:
         package = json.loads(Path(package_path).read_text(encoding="utf-8"))
         image = package.get("image") or {}
@@ -184,82 +246,21 @@ class BufferPublisher(Publisher):
         last_error = ""
         post_data: dict[str, Any] = {}
 
+        mode = modes[-1]
         for mode in modes:
-            instagram_meta: dict[str, Any] = {
-                "type": "post",
-                "shouldShareToFeed": True,
-            }
-            if first_comment:
-                instagram_meta["firstComment"] = first_comment
-
-            variables = {
-                "input": {
-                    "channelId": channel_id,
-                    "text": caption,
-                    "schedulingType": "automatic",
-                    "mode": mode,
-                    "assets": [
-                        {
-                            "image": {
-                                "url": media_url,
-                            }
-                        }
-                    ],
-                    "metadata": {
-                        "instagram": instagram_meta,
-                    },
-                }
-            }
-            if mode == "customScheduled" and due_at:
-                variables["input"]["dueAt"] = due_at
-
-            try:
-                resp = requests.post(
-                    BUFFER_GRAPHQL_URL,
-                    json={"query": CREATE_POST_MUTATION, "variables": variables},
-                    headers=headers,
-                    timeout=30,
-                )
-            except requests.RequestException as exc:
-                raise RuntimeError(
-                    f"Buffer API request failed: {redact(str(exc), self.access_token)}"
-                ) from None
-
-            if resp.status_code >= 400:
-                raise RuntimeError(f"Buffer API HTTP error ({resp.status_code}): {resp.text[:500]}")
-
-            payload = resp.json()
-            if payload.get("errors"):
-                errors = payload["errors"]
-                error_msg = "; ".join(e.get("message", "Unknown error") for e in errors)
-                last_error = error_msg
-                # If first comment is locked to paid plans, retry without it
-                if "first comment" in error_msg.lower() and first_comment:
+            kind, value = "next_mode", ""
+            for _ in range(2):  # the 2nd pass retries THIS mode without the first comment
+                kind, value = self._attempt(mode, channel_id, caption, media_url, first_comment, due_at, headers)
+                if kind == "no_first_comment" and first_comment:
+                    logger.info("Buffer plan does not support firstComment; retrying %s without it", mode)
                     first_comment = None
                     continue
-                if _is_plan_limit(error_msg):
-                    raise PublishUnavailable(f"Buffer refused the post: {error_msg}")
-                if "mode" in error_msg.lower() or "sharenow" in error_msg.lower():
-                    continue
-                raise RuntimeError(f"Buffer GraphQL error: {error_msg}")
-
-            create_result = payload.get("data", {}).get("createPost", {})
-            if "message" in create_result and "post" not in create_result:
-                msg = create_result["message"]
-                last_error = msg
-                # If first comment is locked to paid plans, retry without it
-                if "first comment" in msg.lower() and first_comment:
-                    logger.info("Buffer plan does not support firstComment; continuing with standard post...")
-                    first_comment = None
-                    continue
-                if _is_plan_limit(msg):
-                    raise PublishUnavailable(f"Buffer refused the post: {msg}")
-                if "mode" in msg.lower() or "sharenow" in msg.lower():
-                    continue
-                raise RuntimeError(f"Buffer GraphQL mutation error: {msg}")
-
-            post_data = create_result.get("post") or {}
-            break
+                break
+            if kind == "ok":
+                post_data = value
+                break
+            last_error = str(value)
+            logger.warning("Buffer did not accept mode %s (%s); trying the next mode", mode, last_error)
         else:
             raise RuntimeError(f"Buffer publication failed: {last_error}")
 

@@ -64,7 +64,7 @@ class PillowImageProvider(BaseImageProvider):
             raise ImageProviderError("Pillow is required for pillow image provider; run: pip install Pillow")
 
         width, height = self._DIMENSIONS[request.aspect_ratio]
-        image = self._create_artwork(width, height, request.prompt, request.brand_style)
+        image = self._create_artwork(width, height, request.prompt, request.brand_style, request.headline)
 
         now = utc_now()
         output_dir = Path("images") / now.strftime("%Y") / now.strftime("%m") / now.strftime("%d")
@@ -92,7 +92,7 @@ class PillowImageProvider(BaseImageProvider):
             metadata=metadata,
         )
 
-    def _create_artwork(self, width: int, height: int, prompt: str, brand_style: str) -> Any:
+    def _create_artwork(self, width: int, height: int, prompt: str, brand_style: str, headline: str = "") -> Any:
         img = Image.new("RGB", (width, height), color=(6, 7, 12))
         draw = ImageDraw.Draw(img)
 
@@ -239,7 +239,7 @@ class PillowImageProvider(BaseImageProvider):
             draw.line([(cx, cy), (cx, cy + dy)], fill=accent_col, width=3)
 
         # 7. Top Header Meta
-        category, title, subtitle, quote = self._resolve_copy(prompt, is_anime)
+        category, title, subtitle, quote = self._resolve_copy(prompt, is_anime, headline)
         font_meta = _load_font(int(width * 0.018), bold=True)
         draw.text((margin + 28, margin + 24), f"// {category}", fill=(0, 242, 254), font=font_meta)
         draw.text((width - margin - 220, margin + 24), "ORIGINAL ARTWORK", fill=(140, 160, 200), font=font_meta)
@@ -247,7 +247,10 @@ class PillowImageProvider(BaseImageProvider):
 
         # 8. Main Cinematic Title (Bold, Centered, Letterbox Style)
         font_title = _load_font(int(width * 0.046), bold=True)
-        title_display = "  ".join(title.replace(" ", "").upper()) if len(title) <= 15 else title.upper()
+        # Letter-spaced title; a wider gap keeps the words of a two-word title apart ("FINAL FORM").
+        title_display = (
+            "     ".join("  ".join(word) for word in title.upper().split()) if len(title) <= 15 else title.upper()
+        )
         try:
             bbox = draw.textbbox((0, 0), title_display, font=font_title)
             tw = bbox[2] - bbox[0]
@@ -268,7 +271,7 @@ class PillowImageProvider(BaseImageProvider):
 
         # 9. Standalone Quote / Key Message
         font_quote = _load_font(int(width * 0.021), bold=False)
-        q_lines = self._wrap_text(quote, max_chars=46)[:2]
+        q_lines = self._fit_lines(quote, max_chars=46, max_lines=3)
         qy = int(height * 0.815)
         for ql in q_lines:
             try:
@@ -290,7 +293,29 @@ class PillowImageProvider(BaseImageProvider):
 
         return img
 
-    def _resolve_copy(self, prompt: str, is_anime: bool) -> tuple[str, str, str, str]:
+    _ANIME_TITLES = [
+        ("AWAKENING", "THE ARCHETYPE OF UNSTOPPABLE FOCUS"),
+        ("SILENT GRIND", "WHERE DISCIPLINE BECOMES POWER"),
+        ("TRAINING ARC", "THE HOURS NOBODY SEES"),
+        ("IRON WILL", "CRAFT BUILT IN QUIET"),
+        ("FINAL FORM", "EARNED ONE REP AT A TIME"),
+        ("STILLNESS", "THE CALM BEFORE THE BLADE"),
+    ]
+    _AI_TITLES = [
+        ("AUTONOMOUS", "THE BLUEPRINT FOR ZERO-TOUCH CREATION"),
+        ("SYSTEMS", "RELIABLE MACHINES, FREE CREATORS"),
+        ("BUILD LOOP", "SHIP, MEASURE, IMPROVE"),
+        ("QUIET ENGINE", "AUTOMATION THAT KEEPS SHIPPING"),
+    ]
+
+    def _resolve_copy(self, prompt: str, is_anime: bool, headline: str = "") -> tuple[str, str, str, str]:
+        if headline.strip():
+            # Pick the title block from the headline itself so the same post always gets the same poster but
+            # different posts get different ones.
+            pool = self._ANIME_TITLES if is_anime else self._AI_TITLES
+            title, subtitle = pool[sum(ord(c) for c in headline) % len(pool)]
+            category = "ANIME PHILOSOPHY" if is_anime else "CREATOR SYSTEM"
+            return category, title, subtitle, f'"{headline.strip().strip(chr(34))}"'
         if is_anime:
             category = "ANIME PHILOSOPHY // 01"
             title = "A W A K E N I N G"
@@ -302,6 +327,22 @@ class PillowImageProvider(BaseImageProvider):
             subtitle = "THE BLUEPRINT FOR ZERO-TOUCH CREATION"
             quote = '"Replace repetitive grunt work with deterministic intelligence and amplify your real craft."'
         return category, title, subtitle, quote
+
+    @classmethod
+    def _fit_lines(cls, text: str, max_chars: int, max_lines: int) -> list[str]:
+        """Wrap ``text`` into at most ``max_lines`` lines without ever stopping mid-sentence silently.
+
+        If it does not fit, the last line ends with an ellipsis at a word boundary.
+        """
+        lines = cls._wrap_text(text, max_chars)
+        if len(lines) <= max_lines:
+            return lines
+        kept = lines[:max_lines]
+        last = kept[-1].rstrip(" .,;:!?-\"'")
+        if len(last) + 1 > max_chars:
+            last = last[: max_chars - 1].rsplit(" ", 1)[0]
+        kept[-1] = last + "\u2026"
+        return kept
 
     @staticmethod
     def _wrap_text(text: str, max_chars: int) -> list[str]:

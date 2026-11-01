@@ -57,7 +57,7 @@ Supported environment variables (see `.env.example`):
 - `OPENAI_TEXT_MODEL`, `OPENAI_TEXT_FALLBACK_ENABLED`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_BASE_URL` — optional API fallbacks
 - `OPENCODE_TIMEOUT_SECONDS` — per-invocation timeout for `opencode` (default 60)
 - `INSTAGRAM_ENABLED` — `true`/`false`
-- `IMAGE_PROVIDER` — `pollinations`/`flux`, `pillow`, `openai`, `local` or `mock`
+- `IMAGE_PROVIDER` — `auto` (default in the workflows), `cloudflare`, `pollinations`/`flux`, `pillow`, `openai`, `local` or `mock`; `IMAGE_CHAIN`, `CLOUDFLARE_IMAGE_MODEL`, `BUFFER_QUEUE_LIMIT` — see "Images and the Buffer queue"
 - `OPENAI_API_KEY` — optional; required only when `IMAGE_PROVIDER=openai`
 - `OPENAI_MODEL`, `OPENAI_MAX_RETRIES`, `OPENAI_REQUEST_TIMEOUT_SECONDS` — OpenAI provider tuning
 - `INSTAGRAM_ACCESS_TOKEN` / `INSTAGRAM_ACCOUNT_ID` — Instagram Business account credentials
@@ -118,6 +118,15 @@ If an agent cannot get an answer from any LLM provider, the pipeline continues w
 ## Analytics and the learning loop
 
 Every post sent through a live publisher (Instagram or Buffer, whatever status it reports such as `published`, `scheduled` or `sent`) is stored in `posts` and assigned to the active experiment. `ai-content-agent analytics` (and the start of every `daily` run) then refreshes metrics for posts from the last `ANALYTICS_MAX_AGE_DAYS` days (default 30). The Scientist only acts once each experiment arm has `SCIENTIST_MIN_SAMPLE_SIZE` measured posts.
+
+## Images and the Buffer queue
+
+**Image quality.** `IMAGE_PROVIDER=auto` (the workflow default) tries `IMAGE_CHAIN` in order and keeps the first real image:
+1. **Cloudflare FLUX.1 [schnell]**, 1024 px, no watermark, using the same free Cloudflare credentials as the LLM chain. Request and response follow Cloudflare's model page; it has not been run against a live account here, and Cloudflare's pricing for it was not on the page I could read, so watch your neuron usage in the Cloudflare dashboard.
+2. **Pollinations FLUX**, keyless. Measured: it returns **768x768** (not the 1080 requested), stamps a **"pollinations.ai" logo** in the corner despite `nologo=true`, and allows one image per 45 s per IP. Bytes that are not a decodable image are rejected.
+3. **Offline Pillow poster.** It cannot fail. It now draws the post's own opening line (it used to print one fixed quote, cut mid-sentence, on every post) and ends a too-long line with an ellipsis.
+
+**Buffer queue.** With Buffer, every run first reads the channel's posts (read-only). If `BUFFER_QUEUE_LIMIT` (default 10, Buffer's free-plan limit) scheduled posts are already waiting it stops before any LLM or image call and alerts you, and the captions Buffer already holds are added to the duplicate check, which also covers the other instance and any other automation posting to the same channel. If Buffer refuses a post anyway, the run saves a post kit, records `blocked_publish` and exits non-zero. `ai-content-agent buffer-status` (or the **Buffer queue status** workflow) lists what Buffer holds.
 
 ## LLM providers: free tiers, fallback and caching
 

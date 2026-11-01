@@ -62,6 +62,7 @@ def find_similar_caption(
     return best
 
 
+MIN_CONTAINED_WORDS = 6
 _QUOTED_EXAMPLE = re.compile(r'\*"([^"\n]{25,})"\*')
 
 
@@ -83,7 +84,9 @@ def find_similar_reference(caption: str, references: list[str], threshold: float
     caption_norm = normalize(caption)
     for index, reference in enumerate(references):
         ref_norm = normalize(reference)
-        contained = bool(ref_norm) and ref_norm in caption_norm
+        # Containment only counts for a reference long enough to be a real sentence, matched on word
+        # boundaries; otherwise a one-word Buffer post would make every caption look like a copy.
+        contained = len(ref_norm.split()) >= MIN_CONTAINED_WORDS and f" {ref_norm} " in f" {caption_norm} "
         score = 1.0 if contained else similarity(caption, reference)
         if score >= threshold and (best is None or score > best.score):
             best = SimilarCaption(score=score, caption=reference, creator_output_id=-(index + 1))

@@ -12,6 +12,17 @@ from ai_content_agent.providers.image.pollinations_provider import (
 from ai_content_agent.providers.image.registry import ImageProviderRegistry
 
 
+def real_jpeg(size=(96, 80)) -> bytes:
+    """A small but genuinely decodable JPEG (the provider now rejects bytes that are not an image)."""
+    import io
+
+    from PIL import Image
+
+    buffer = io.BytesIO()
+    Image.new("RGB", size, (30, 60, 120)).save(buffer, "JPEG")
+    return buffer.getvalue()
+
+
 class PollinationsImageProviderTests(unittest.TestCase):
     def setUp(self) -> None:
         self.provider = PollinationsImageProvider()
@@ -44,7 +55,7 @@ class PollinationsImageProviderTests(unittest.TestCase):
 
     @patch("requests.get")
     def test_generate_success_saves_file(self, mock_get: MagicMock) -> None:
-        fake_jpeg = b"\xff\xd8\xff\xe0\x00\x10JFIFfake-image-bytes"
+        fake_jpeg = real_jpeg()
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.content = fake_jpeg
@@ -61,7 +72,9 @@ class PollinationsImageProviderTests(unittest.TestCase):
         self.assertTrue(Path(res.file_path).exists())
         self.assertEqual(Path(res.file_path).read_bytes(), fake_jpeg)
         self.assertEqual(res.metadata["model"], "flux")
-        self.assertEqual(res.metadata["dimensions"], "1080x1080")
+        self.assertEqual(res.metadata["dimensions"], "96x80")  # the real size, not the requested one
+        self.assertEqual(res.metadata["requested_dimensions"], "1080x1080")
+        self.assertTrue(res.metadata["watermark"])
 
     @patch("ai_content_agent.providers.image.pollinations_provider.time.sleep")
     @patch("requests.get", side_effect=requests.RequestException("Network timeout"))
@@ -78,7 +91,7 @@ class PollinationsImageProviderTests(unittest.TestCase):
         self.assertTrue(res.file_path.endswith(".png"))
 
 class PollinationsImageRetryTests(unittest.TestCase):
-    JPEG = b"\xff\xd8\xff\xe0\x00\x10JFIFfake-image-bytes"
+    JPEG = real_jpeg()
 
     def request(self) -> ImageRequest:
         return ImageRequest(prompt="Masterpiece anime key visual of a lone swordsman", brand_style="clean", aspect_ratio="1:1")
@@ -132,3 +145,12 @@ class PollinationsImageRetryTests(unittest.TestCase):
         with self.assertRaises(ImageProviderError):
             PollinationsImageProvider(fallback_to_pillow=False).generate(self.request())
 
+class PollinationsBadBodyTests(unittest.TestCase):
+    @patch("ai_content_agent.providers.image.pollinations_provider.time.sleep")
+    @patch("requests.get")
+    def test_a_200_with_a_non_image_body_is_not_published_as_an_image(self, mock_get, mock_sleep):
+        mock_get.return_value = MagicMock(status_code=200, content=b"<html>error page</html>", headers={}, text="")
+        result = PollinationsImageProvider().generate(
+            ImageRequest(prompt="Masterpiece anime key visual", brand_style="clean", aspect_ratio="1:1")
+        )
+        self.assertEqual(result.provider, "pillow")  # fell back instead of saving an HTML page as a .jpg

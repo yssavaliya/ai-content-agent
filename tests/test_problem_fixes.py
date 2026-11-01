@@ -84,6 +84,13 @@ class StrategyExampleTests(unittest.TestCase):
         self.assertIsNotNone(hit)
         self.assertEqual(hit.score, 1.0)
 
+    def test_short_references_never_count_as_contained(self):
+        # Buffer can hold one-word or empty posts; they must not make every caption a "copy".
+        caption = "Ever wondered why the silent hours matter?\n\n- The night is a canvas for unseen practice."
+        for reference in ("a", "the", "silent hours", "night is a canvas"):
+            with self.subTest(reference=reference):
+                self.assertIsNone(find_similar_reference(caption, [reference]))
+
     def test_original_captions_pass(self):
         caption = "Ever wondered why the silent hours matter?\n\n- The night is a canvas for unseen practice."
         self.assertIsNone(find_similar_reference(caption, self.examples()))

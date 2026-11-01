@@ -68,6 +68,76 @@ class BufferRefusalTests(unittest.TestCase):
         self.assertEqual(result.status, "scheduled")
 
 
+class BufferModeFallbackTests(unittest.TestCase):
+    """The first-comment rejection used to skip straight to addToQueue, so nothing was ever shared now."""
+
+    FIRST_COMMENT_MSG = "First comment is not available on your plan"
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.package = Path(self.tmp.name) / "package.json"
+        self.package.write_text(
+            json.dumps({"image": {"media_url": "https://example.com/a.jpg"}, "creation": {"caption": "c", "hashtags": [], "cta": "Save"}}),
+            encoding="utf-8",
+        )
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    @staticmethod
+    def ok(status):
+        return http({"data": {"createPost": {"post": {"id": "p1", "status": status}}}})
+
+    @staticmethod
+    def rejected(message):
+        return http({"data": {"createPost": {"message": message}}})
+
+    def sent_inputs(self, post):
+        return [call.kwargs["json"]["variables"]["input"] for call in post.call_args_list]
+
+    @patch("ai_content_agent.publish.buffer.requests.post")
+    def test_first_comment_rejection_retries_share_now_without_the_comment(self, post):
+        post.side_effect = [self.rejected(self.FIRST_COMMENT_MSG), self.ok("sent")]
+        result = BufferPublisher("tok", "chan").publish(str(self.package))
+        first, second = self.sent_inputs(post)
+        self.assertEqual((first["mode"], second["mode"]), ("shareNow", "shareNow"))  # NOT addToQueue
+        self.assertIn("firstComment", first["metadata"]["instagram"])
+        self.assertNotIn("firstComment", second["metadata"]["instagram"])
+        self.assertEqual(result.status, "sent")
+
+    @patch("ai_content_agent.publish.buffer.requests.post")
+    def test_a_refused_share_now_falls_back_to_the_queue_and_says_why(self, post):
+        post.side_effect = [self.rejected("Sharing now is not allowed right now"), self.ok("scheduled")]
+        with self.assertLogs("ai_content_agent.publish.buffer", level="WARNING") as logs:
+            result = BufferPublisher("tok", "chan").publish(str(self.package))
+        self.assertEqual([i["mode"] for i in self.sent_inputs(post)], ["shareNow", "addToQueue"])
+        self.assertEqual(result.status, "scheduled")
+        self.assertIn("Sharing now is not allowed", " ".join(logs.output))
+
+    @patch("ai_content_agent.publish.buffer.requests.post")
+    def test_a_failed_custom_schedule_falls_back_whatever_the_reason(self, post):
+        post.side_effect = [self.rejected("dueAt must be in the future"), self.ok("scheduled")]
+        BufferPublisher("tok", "chan", schedule_time_utc="12:30").publish(str(self.package))
+        inputs = self.sent_inputs(post)
+        self.assertEqual([i["mode"] for i in inputs], ["customScheduled", "addToQueue"])
+        self.assertIn("dueAt", inputs[0])
+        self.assertNotIn("dueAt", inputs[1])
+
+    @patch("ai_content_agent.publish.buffer.requests.post")
+    def test_an_unknown_error_in_the_last_mode_is_still_a_failure(self, post):
+        post.side_effect = [self.rejected("nope"), self.rejected("Image could not be downloaded")]
+        with self.assertRaises(RuntimeError) as ctx:
+            BufferPublisher("tok", "chan").publish(str(self.package))
+        self.assertIn("Image could not be downloaded", str(ctx.exception))
+
+    @patch("ai_content_agent.publish.buffer.requests.post")
+    def test_a_plan_limit_is_reported_in_any_mode(self, post):
+        post.return_value = self.rejected(LIMIT_MESSAGE)
+        with self.assertRaises(PublishUnavailable):
+            BufferPublisher("tok", "chan").publish(str(self.package))
+        self.assertEqual(post.call_count, 1)  # no point trying other modes against a full queue
+
+
 class ReviewerEmptyPassTests(unittest.TestCase):
     def test_pass_with_no_findings_is_valid(self):
         out = ReviewerAgent()._validate_payload({"status": "PASS", "reasons": [], "timestamp": "x"})

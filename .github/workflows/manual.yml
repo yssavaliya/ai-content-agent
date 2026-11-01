@@ -4,11 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       image_provider:
-        description: "Image provider (local, mock, openai)"
+        description: "Image provider (auto tries Cloudflare FLUX, then Pollinations, then the offline poster)"
         type: choice
         required: true
-        default: "local"
+        default: "auto"
         options:
+          - auto
+          - cloudflare
+          - pollinations
+          - pillow
           - local
           - mock
           - openai

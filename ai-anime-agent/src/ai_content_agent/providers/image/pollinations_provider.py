@@ -89,6 +89,20 @@ class PollinationsImageProvider(BaseImageProvider):
             return prompt
         return f"{prompt}, {aesthetic_tags}"
 
+    @staticmethod
+    def _image_size(data: bytes) -> tuple[int, int] | None:
+        """(width, height) of the image in ``data``, or None when it is not a decodable image."""
+        try:
+            import io
+
+            from PIL import Image
+
+            with Image.open(io.BytesIO(data)) as image:
+                image.load()
+                return image.size
+        except Exception:  # noqa: BLE001 - anything undecodable is "not an image"
+            return None
+
     def generate(self, request: ImageRequest) -> ImageResult:
         self.validate(request)
         width, height = self._DIMENSIONS[request.aspect_ratio]
@@ -114,7 +128,11 @@ class PollinationsImageProvider(BaseImageProvider):
                 resp = requests.get(url, timeout=self.timeout_seconds)
             except Exception as exc:
                 logger.warning("Pollinations image request failed (attempt %s/%s): %s", attempt, self.max_attempts, exc)
-            if resp is not None and resp.status_code == 200 and resp.content:
+            size = self._image_size(resp.content) if resp is not None and resp.status_code == 200 else None
+            if resp is not None and resp.status_code == 200 and resp.content and size is None:
+                logger.warning("Pollinations answered 200 but the body is not a decodable image")
+                break
+            if resp is not None and resp.status_code == 200 and resp.content and size is not None:
                 # Determine output path
                 now = utc_now()
                 rel_dir = Path("images") / now.strftime("%Y") / now.strftime("%m") / now.strftime("%d")
@@ -131,9 +149,11 @@ class PollinationsImageProvider(BaseImageProvider):
                     metadata={
                         "provider": self.name,
                         "model": self.model,
-                        "width": width,
-                        "height": height,
-                        "dimensions": f"{width}x{height}",
+                        "width": size[0],
+                        "height": size[1],
+                        "dimensions": f"{size[0]}x{size[1]}",
+                        "requested_dimensions": f"{width}x{height}",
+                        "watermark": True,  # the keyless tier stamps its logo despite nologo=true
                         "aspect_ratio": request.aspect_ratio,
                         "format": "JPEG",
                         "seed": seed,

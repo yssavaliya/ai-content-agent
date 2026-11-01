@@ -493,6 +493,96 @@ class PipelineTests(unittest.TestCase):
         finally:
             connection.close()
 
+    # ------------------------------------------------------------------ Buffer pre-flight
+    def _buffer_pipeline(self, status=None, error=None):
+        """A pipeline whose publisher is named 'buffer' and whose Buffer read is faked."""
+        from dataclasses import replace
+
+        from ai_content_agent.publish.buffer_status import BufferPost, BufferStatus
+
+        class FakeBuffer(Publisher):
+            name = "buffer"
+
+            def publish(self, package_path: str) -> PublishResult:
+                return PublishResult(provider="buffer", status="scheduled", published_id=Path(package_path).stem, metadata={})
+
+        pipeline = self._build_pipeline()
+        pipeline.settings = replace(pipeline.settings, buffer_access_token="tok", buffer_profile_id="chan")
+        pipeline.publisher = FakeBuffer()
+        pipeline._prepare_media = lambda image, run_id: "https://example.com/i.jpg"
+        posts = [BufferPost(f"id{i}", s, "addToQueue", None, None, text) for i, (s, text) in enumerate(status or [])]
+        fake = BufferStatus("chan", posts)
+        from collections import Counter
+
+        fake.by_status = Counter(p.status for p in posts)
+        patcher = patch(
+            "ai_content_agent.application.pipeline.fetch_status",
+            side_effect=error if error else None,
+            return_value=fake,
+        )
+        return pipeline, patcher
+
+    def test_a_full_buffer_queue_stops_the_run_before_any_llm_call(self):
+        notifier = MagicMock(spec=Notifier)
+        pipeline, patcher = self._buffer_pipeline([("scheduled", f"queued {i}") for i in range(10)])
+        pipeline.notifier = notifier
+        with patcher:
+            result = pipeline.run()
+
+        self.assertEqual(result["publish"]["status"], "blocked_publish")
+        self.assertIn("10 of 10", result["publish"]["metadata"]["reasons"][0])
+        for agent in (pipeline.research_agent, pipeline.planner_agent, pipeline.creator_agent):
+            agent.opencode_client.run.assert_not_called()  # nothing was spent generating an unpublishable post
+        notifier.send_failure.assert_called_once()
+        self.assertIn("nothing generated", notifier.send_failure.call_args.kwargs["subject"])
+        connection = sqlite3.connect(self.db_path)
+        try:
+            self.assertEqual(connection.execute("SELECT COUNT(*) FROM research_raw").fetchone()[0], 0)
+        finally:
+            connection.close()
+
+    def test_drafts_and_sent_posts_do_not_count_against_the_scheduled_limit(self):
+        status = [("scheduled", "a"), ("draft", "b"), ("draft", "c")] + [("sent", f"old post {i}") for i in range(20)]
+        pipeline, patcher = self._buffer_pipeline(status)
+        with patcher:
+            result = pipeline.run()
+        self.assertEqual(result["publish"]["status"], "scheduled")
+
+    def test_a_caption_already_in_buffer_is_regenerated(self):
+        queued = CREATOR_OUTPUT["caption"] + " #contentstrategy #creatoreconomy"  # how Buffer stores it
+        fresh = dict(CREATOR_OUTPUT, caption="Nobody posts the rejected drafts, yet every masterpiece hides a hundred.")
+        pipeline, patcher = self._buffer_pipeline([("scheduled", queued)])
+        pipeline.creator_agent.opencode_client.run.side_effect = [
+            MagicMock(stdout=json.dumps(CREATOR_OUTPUT)),
+            MagicMock(stdout=json.dumps(fresh)),
+        ]
+        with patcher:
+            result = pipeline.run()
+        self.assertEqual(result["creation"]["caption"], fresh["caption"])
+        self.assertIn("must NOT reuse", pipeline.creator_agent.opencode_client.run.call_args.kwargs["input_text"])
+
+    def test_a_failed_buffer_read_never_blocks_the_run(self):
+        pipeline, patcher = self._buffer_pipeline(error=RuntimeError("Buffer is down"))
+        with patcher:
+            result = pipeline.run()
+        self.assertEqual(result["publish"]["status"], "scheduled")
+
+    def test_the_queue_limit_can_be_switched_off(self):
+        from dataclasses import replace
+
+        pipeline, patcher = self._buffer_pipeline([("scheduled", f"queued {i}") for i in range(10)])
+        pipeline.settings = replace(pipeline.settings, buffer_queue_limit=0)
+        with patcher:
+            result = pipeline.run()
+        self.assertEqual(result["publish"]["status"], "scheduled")
+
+    def test_the_poster_headline_is_the_posts_first_line_cut_at_a_word(self):
+        self.assertEqual(ContentPipeline._headline("First line here.\n\nSecond line"), "First line here.")
+        long = ContentPipeline._headline("word " * 60)
+        self.assertTrue(long.endswith("…"))
+        self.assertLessEqual(len(long), 111)
+        self.assertEqual(ContentPipeline._headline(""), "")
+
     def test_healthy_run_reports_no_fallbacks(self):
         result = self._build_pipeline().run()
         self.assertEqual(result["fallbacks"], [])

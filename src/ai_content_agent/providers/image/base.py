@@ -10,6 +10,9 @@ class ImageRequest:
     prompt: str
     brand_style: str
     aspect_ratio: str
+    # The post's opening line. Providers that draw text (the offline Pillow poster) use it so every poster
+    # says something about the actual post instead of one fixed quote.
+    headline: str = ""
 
 
 @dataclass(frozen=True)

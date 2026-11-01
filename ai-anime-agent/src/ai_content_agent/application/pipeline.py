@@ -26,6 +26,7 @@ from ..prompts.manager import PromptManager
 from ..providers.image import ImageProviderRegistry
 from ..providers.image.base import BaseImageProvider, ImageRequest
 from ..publish.hosting import GitHubRawImageHost, MediaHostingError, convert_to_jpeg
+from ..publish.buffer_status import fetch_status
 from ..publish.provider import PublishResult, Publisher, PublishUnavailable
 from ..publish.providers.dry_run import DryRunPublisher
 from ..publish.registry import PublishRegistry
@@ -76,6 +77,59 @@ class ContentPipeline:
         self._fallbacks: list[str] = []
         self._experiment: dict[str, Any] | None = None
         self._creator_variant = 0
+        self._external_texts: list[str] = []
+
+    def _preflight_publisher(self) -> None:
+        """Before spending LLM calls: is there room to publish, and what is already queued or sent?
+
+        With Buffer this reads the channel's posts (read-only). A full queue stops the run early, and the
+        captions Buffer already holds become extra "earlier posts" for the duplicate check, which covers the
+        other instance and any other automation posting to the same channel. A failed check never blocks.
+        """
+        self._external_texts = []
+        settings = self.settings
+        if self.publisher.name != "buffer" or not (settings.buffer_access_token and settings.buffer_profile_id):
+            return
+        try:
+            status = fetch_status(settings.buffer_access_token, settings.buffer_profile_id)
+        except Exception as exc:  # noqa: BLE001 - a convenience check, never a reason to stop the run
+            logger.warning("Buffer pre-flight skipped: %s", exc)
+            return
+        self._external_texts = [post.text for post in status.posts if post.text]
+        scheduled = status.by_status.get("scheduled", 0)
+        limit = settings.buffer_queue_limit
+        if limit and scheduled >= limit:
+            raise PublishUnavailable(
+                f"Buffer's queue is full ({scheduled} of {limit} scheduled posts), so nothing was generated. "
+                "Free a slot in Buffer or let the queued posts go out."
+            )
+
+    def _blocked_before_generation(self, run_id: str, exc: PublishUnavailable) -> dict[str, Any]:
+        logger.warning("::warning::[Pipeline %s] publishing blocked before generation: %s", run_id, exc)
+        package: dict[str, Any] = {
+            "run_id": run_id,
+            "publish": {
+                "provider": self.publisher.name,
+                "status": "blocked_publish",
+                "published_id": "",
+                "metadata": {"reasons": [str(exc)]},
+            },
+            "fallbacks": [],
+        }
+        self.notifier.send_failure(
+            subject="AI Content Agent: publishing blocked, nothing generated",
+            body=f"Run: {run_id}\n{exc}",
+            metadata={"run_id": run_id, "color": 15158332},
+        )
+        return package
+
+    @staticmethod
+    def _headline(caption: str, limit: int = 110) -> str:
+        """First non-empty line of the caption, cut at a word boundary."""
+        first = next((line.strip() for line in caption.splitlines() if line.strip()), "")
+        if len(first) <= limit:
+            return first
+        return first[:limit].rsplit(" ", 1)[0].rstrip(" ,;:-") + "\u2026"
 
     def _choose_experiment_arm(self) -> None:
         """Pick the arm for this post before it is written, so the creator can actually apply it."""
@@ -131,13 +185,16 @@ class ContentPipeline:
             creator_results = self._run_creator(planner_results, self._creator_guidance(avoid))
             similar = find_similar_caption(
                 self.database, creator_results["caption"], self.settings.duplicate_similarity_threshold
-            ) or find_similar_reference(creator_results["caption"], strategy_examples("brain/strategy.md"))
+            ) or find_similar_reference(creator_results["caption"], strategy_examples("brain/strategy.md")) or (
+                find_similar_reference(
+                    creator_results["caption"], self._external_texts, self.settings.duplicate_similarity_threshold
+                )
+            )
             if similar is None:
                 return creator_results, self._persist_creator_output(planner_id, creator_results), None
             logger.warning(
-                "::warning::Draft is %.0f%% similar to an earlier caption (creator output %s)",
+                "::warning::Draft is %.0f%% similar to an earlier post, a queued Buffer post or a strategy example",
                 similar.score * 100,
-                similar.creator_output_id,
             )
             avoid.append(similar.caption)
             if creator_results.get("source") == "procedural_fallback":
@@ -188,6 +245,10 @@ class ContentPipeline:
         set_run_id(run_id)
         logger.info("Pipeline run %s starting", run_id)
         try:
+            try:
+                self._preflight_publisher()
+            except PublishUnavailable as exc:
+                return self._blocked_before_generation(run_id, exc)
             package = self._produce_content(run_id)
             self._save_package(package, package.get("package_path"))
             publish_status = (package.get("publish") or {}).get("status")
@@ -261,8 +322,8 @@ class ContentPipeline:
         
         if duplicate is not None:
             reasons = [
-                f"Caption is {duplicate.score * 100:.0f}% similar to an earlier post (creator output "
-                f"{duplicate.creator_output_id}) and regeneration did not fix it.",
+                f"Caption is {duplicate.score * 100:.0f}% similar to an earlier post or one already in Buffer "
+                "and regeneration did not fix it.",
                 "Nothing was published to avoid repetitive content. Check the LLM provider if this is template output.",
             ]
             logger.warning("::warning::[Pipeline %s] duplicate content blocked", run_id)
@@ -639,6 +700,7 @@ class ContentPipeline:
             prompt=creator_output["image_prompt"],
             brand_style="clean",
             aspect_ratio="1:1",
+            headline=self._headline(str(creator_output.get("caption", ""))),
         )
         started = time.monotonic()
         provider_name = getattr(self.image_provider, "name", None)
