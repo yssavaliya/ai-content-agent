@@ -1,0 +1,167 @@
+{
+  "run_id": "e1d7b823",
+  "research": {
+    "recommended_topic": "Cricket and Anime: Uniting Indian Fans Through AI-Generated Art",
+    "audience_problem": "Indian fans struggle to find unique and engaging content that combines their love for cricket and anime",
+    "why_now": "The Indian cricket season is in full swing, and anime fans are looking for new and exciting content to share with their friends and family",
+    "hook": "Get ready to bowl over your friends with these stunning AI-generated cricket anime art pieces!",
+    "supporting_points": [
+      "AI-generated art is becoming increasingly popular in India",
+      "Cricket is a beloved sport in India, with a huge following",
+      "Anime fans in India are always looking for new and unique content to share"
+    ],
+    "trend_signals": [
+      "Indian cricket season",
+      "AI-generated art trend",
+      "Anime popularity in India"
+    ],
+    "candidate_topics": [
+      "AI for Entrepreneurship",
+      "Anime and Cricket: A Unique Combination",
+      "Diwali-themed Anime Art"
+    ],
+    "confidence": 0.8,
+    "reasoning": "The combination of cricket and anime is a unique and engaging topic that has not been covered recently, and the use of AI-generated art adds a fresh and exciting element to the content",
+    "timestamp": "2026-11-03T19:40:24.975760Z",
+    "research_id": 46
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Create a Reel showcasing AI-generated cricket anime art, with a caption in Hinglish that says \"Cricket aur anime ka mashup, kaam ki baat hai! \ud83c\udfcf\ud83c\udfa8\" and asks viewers to share their favorite cricket anime art pieces",
+        "educational_score": 0.6,
+        "originality_score": 0.8,
+        "engagement_score": 0.9,
+        "relevance_score": 0.9,
+        "reasoning": "This idea combines the trending topics of cricket, anime, and AI-generated art, with a relatable and engaging caption that encourages viewer interaction"
+      },
+      {
+        "idea": "Share a carousel post highlighting the process of creating AI-generated cricket anime art, with captions in English and Hinglish that explain the technology and artistry behind it",
+        "educational_score": 0.8,
+        "originality_score": 0.7,
+        "engagement_score": 0.7,
+        "relevance_score": 0.8,
+        "reasoning": "This idea educates the audience about the process of creating AI-generated art, while also showcasing the unique combination of cricket and anime"
+      },
+      {
+        "idea": "Host a \"Cricket Anime Art Challenge\" where followers can share their own AI-generated cricket anime art pieces, with a hashtag and a prize for the best submission",
+        "educational_score": 0.5,
+        "originality_score": 0.9,
+        "engagement_score": 0.95,
+        "relevance_score": 0.9,
+        "reasoning": "This idea encourages audience participation and engagement, while also showcasing the creativity and talent of Indian fans"
+      }
+    ],
+    "selected_idea": {
+      "idea": "Create a Reel showcasing AI-generated cricket anime art, with a caption in Hinglish that says \"Cricket aur anime ka mashup, kaam ki baat hai! \ud83c\udfcf\ud83c\udfa8\" and asks viewers to share their favorite cricket anime art pieces",
+      "educational_score": 0.6,
+      "originality_score": 0.8,
+      "engagement_score": 0.9,
+      "relevance_score": 0.9,
+      "total_score": 3.2,
+      "reasoning": "This idea combines the trending topics of cricket, anime, and AI-generated art, with a relatable and engaging caption that encourages viewer interaction, making it the strongest idea overall"
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Introduction to Cricket Anime Art",
+      "Examples of AI-Generated Art",
+      "Call to Action for Viewers"
+    ],
+    "caption": "Cricket aur anime ka mashup, kaam ki baat hai! \ud83c\udfcf\ud83c\udfa8 Share apne favorite cricket anime art pieces humein! \ud83d\udc47",
+    "cta": "Share your favorite cricket anime art pieces in the comments below",
+    "hashtags": [
+      "#CricketAnime",
+      "#AIGeneratedArt",
+      "#IndianInstagram",
+      "#ReelsIndia",
+      "#InstaGood"
+    ],
+    "image_prompt": "Generate an image of a cricket player in an anime style, with a mix of Indian and Japanese elements, using bold and vibrant colors",
+    "alt_text": "An anime-style image of a cricket player with Indian and Japanese elements"
+  },
+  "review": {
+    "status": "PASS",
+    "reasons": [
+      "The caption is written in Hinglish, making it relatable to the Indian audience",
+      "The use of emojis is moderate, with 3 emojis used in the caption",
+      "The tone is enthusiastic and practical, aligning with the brand's tone",
+      "The hashtags used are a mix of broad English tags and niche Hinglish tags, making it relevant to the Indian market",
+      "The caption is skimmable, with short lines and one idea per line",
+      "The brand's mission to make AI feel approachable and anime feel shareable is reflected in the content"
+    ],
+    "timestamp": "2026-11-03T19:40:57.461978Z"
+  },
+  "prediction": {
+    "virality_score": 82,
+    "virality_label": "HIGH",
+    "virality_probability": 0.85,
+    "key_factors": [
+      "Relatable topic of cricket and anime for Indian audience",
+      "Use of AI-generated art for uniqueness",
+      "Timely post during Indian cricket season",
+      "Engaging caption with Hinglish and emojis",
+      "Relevant hashtags for discovery"
+    ],
+    "risks": [
+      "Overcrowding of cricket and anime content",
+      "Lack of engagement due to low recent post performance",
+      "Limited appeal to non-cricket or anime fans"
+    ],
+    "reasoning": "The post combines a unique topic of cricket and anime, which is relatable to the Indian audience, with the use of AI-generated art, making it timely and engaging. The caption is well-written in Hinglish with moderate use of emojis, and the hashtags are relevant for discovery. However, there is a risk of overcrowding in the cricket and anime content space, and the recent post performance has been low, which may impact engagement. Additionally, the post may not appeal to non-cricket or anime fans.",
+    "timestamp": "2026-11-03T19:41:05.780854Z"
+  },
+  "image": {
+    "provider": "cloudflare",
+    "prompt": "Generate an image of a cricket player in an anime style, with a mix of Indian and Japanese elements, using bold and vibrant colors",
+    "file_path": "images/2026/11/03/cloudflare_flux_194107_513353.jpg",
+    "metadata": {
+      "provider": "cloudflare",
+      "model": "@cf/black-forest-labs/flux-1-schnell",
+      "steps": 4,
+      "width": 1024,
+      "height": 1024,
+      "dimensions": "1024x1024",
+      "format": "JPEG",
+      "watermark": false,
+      "created_at": "2026-11-03T19:41:07Z",
+      "chain_tried": []
+    },
+    "media_url": "https://raw.githubusercontent.com/yssavaliya/ai-content-agent/main/images/e1d7b823/e1d7b823.jpg"
+  },
+  "publish": {
+    "provider": "buffer",
+    "status": "sent",
+    "published_id": "6aea38d55fa3d509fa3c70a1",
+    "metadata": {
+      "post_id": "6aea38d55fa3d509fa3c70a1",
+      "update_id": "6aea38d55fa3d509fa3c70a1",
+      "channel_id": "6ae249e62f1f5ed6480116ab",
+      "profile_id": "6ae249e62f1f5ed6480116ab",
+      "first_comment": null,
+      "due_at": null,
+      "status": "sent",
+      "published_at": "2026-11-03T19:41:20.159578Z"
+    },
+    "post_id": 5,
+    "experiment_id": 1
+  },
+  "fallbacks": [],
+  "revisions": 0,
+  "experiment": {
+    "id": 1,
+    "arm": "control",
+    "variable": "hook-style"
+  },
+  "package_path": "posts/publish_package_e1d7b823.json",
+  "timing": {
+    "research_ms": 7842,
+    "planner_ms": 15652,
+    "creator_ms": 6100,
+    "reviewer_ms": 10730,
+    "predictor_ms": 8317,
+    "image_ms": 1736,
+    "publish_ms": 12644,
+    "total_ms": 63021
+  }
+}
