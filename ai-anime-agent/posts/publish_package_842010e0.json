@@ -1,0 +1,168 @@
+{
+  "run_id": "842010e0",
+  "research": {
+    "recommended_topic": "AI for Career Growth in India",
+    "audience_problem": "Indian students and professionals seeking to enhance their career prospects",
+    "why_now": "With the increasing focus on education and career development in India, especially during the exam season and job placement interviews, AI can play a significant role in enhancing skills and knowledge",
+    "hook": "Unlock your career potential with AI!",
+    "supporting_points": [
+      "AI can help improve resume building and interview preparation",
+      "AI-powered tools can enhance skills in data analysis, programming, and digital marketing",
+      "AI can provide personalized career guidance and mentorship"
+    ],
+    "trend_signals": [
+      "exam season in India",
+      "job placement interviews",
+      "growing demand for AI and digital skills"
+    ],
+    "candidate_topics": [
+      "Anime and Cricket: A Cultural Fusion",
+      "AI in Healthcare: Transforming Medical Diagnosis",
+      "The Impact of AI on Indian Economy"
+    ],
+    "confidence": 0.8,
+    "reasoning": "The recommended topic aligns with the brand's mission to make AI approachable and relevant to the Indian audience, particularly in the context of career growth and development. The topic is timely, given the current exam season and job placement interviews in India, and has a strong potential for engagement and virality on Instagram",
+    "timestamp": "2026-11-04T19:56:04.421505Z",
+    "research_id": 47
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Create a Reel showcasing how AI can help Indian students and professionals enhance their resume building and interview preparation, using a mix of Hinglish and English captions, and referencing the current exam season and job placement interviews.",
+        "educational_score": 0.8,
+        "originality_score": 0.6,
+        "engagement_score": 0.7,
+        "relevance_score": 0.9,
+        "reasoning": "This idea aligns with the research output's recommended topic and supporting points, and is relevant to the Indian audience's current concerns during exam season and job placement interviews."
+      },
+      {
+        "idea": "Develop a carousel post providing tips and checklists on how to improve skills in data analysis, programming, and digital marketing using AI-powered tools, with a Hinglish caption and hashtags referencing the growing demand for AI and digital skills in India.",
+        "educational_score": 0.9,
+        "originality_score": 0.5,
+        "engagement_score": 0.6,
+        "relevance_score": 0.8,
+        "reasoning": "This idea leverages the research output's supporting points and trend signals, and is tailored to the Indian audience's preference for value-first content and skimmable captions."
+      },
+      {
+        "idea": "Produce a Reel featuring a relatable scenario of an Indian student or professional struggling to find the right career path, and how AI can provide personalized career guidance and mentorship, using a mix of Hinglish and English dialogue and captions.",
+        "educational_score": 0.7,
+        "originality_score": 0.8,
+        "engagement_score": 0.8,
+        "relevance_score": 0.9,
+        "reasoning": "This idea rides the trend signal of the growing demand for AI and digital skills, and is grounded in the research output's recommended topic and supporting points, with a strong potential for engagement and virality on Instagram."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Create a Reel showcasing how AI can help Indian students and professionals enhance their resume building and interview preparation, using a mix of Hinglish and English captions, and referencing the current exam season and job placement interviews.",
+      "educational_score": 0.8,
+      "originality_score": 0.6,
+      "engagement_score": 0.7,
+      "relevance_score": 0.9,
+      "total_score": 3.0,
+      "reasoning": "This idea has the highest total score, and aligns with the research output's recommended topic and supporting points, while also being relevant to the Indian audience's current concerns and preferences on Instagram."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Introduction to AI-powered resume building",
+      "Tips for interview preparation using AI",
+      "Benefits of AI in career development"
+    ],
+    "caption": "Kya aapki resume ai se banayi ja sakti hai? \nLearn how AI can help you build a strong resume and ace your job interviews! \ud83d\udcbc\ud83d\udcdd #aimagix #careergoals",
+    "cta": "Comment below with your favorite AI tool for resume building!",
+    "hashtags": [
+      "#reelsindia",
+      "#instagood",
+      "#aimagix",
+      "#careertips",
+      "#aijobs",
+      "#resumebuilding",
+      "#interviewpreparation"
+    ],
+    "image_prompt": "Generate a bold, colorful illustration of a person sitting in front of a laptop with a thought bubble containing a resume and a robot arm extending a pen, set against a deep blue background with neon green accents",
+    "alt_text": "Illustration of a person with a laptop and a robot arm, representing AI-powered resume building"
+  },
+  "review": {
+    "status": "PASS",
+    "reasons": [
+      "The caption is written in Hinglish, making it relatable to the Indian audience",
+      "The use of emojis is moderate, with 2 emojis used, which can increase engagement on Indian feeds",
+      "The hashtags used are a mix of broad English tags and niche Hinglish tags, which can help with local reach",
+      "The tone of the caption is enthusiastic but practical, aligning with the brand tone",
+      "The content is relevant to the Indian market context, discussing AI-powered resume building and job interviews",
+      "The language used is simple and easy to understand, avoiding technical jargon"
+    ],
+    "timestamp": "2026-11-04T19:56:38.598834Z"
+  },
+  "prediction": {
+    "virality_score": 72,
+    "virality_label": "HIGH",
+    "virality_probability": 0.8,
+    "key_factors": [
+      "Relatable topic of AI-powered resume building for Indian audience",
+      "Use of Hinglish in the caption",
+      "Moderate use of emojis",
+      "Relevant hashtags for local reach",
+      "Timely topic during exam season and job placement interviews"
+    ],
+    "risks": [
+      "Limited engagement with previous posts on similar topics",
+      "Crowded topic of AI and career development"
+    ],
+    "reasoning": "The post's relatable topic, use of Hinglish, and moderate emojis increase its chances of going viral. The timely topic during exam season and job placement interviews also contributes to its virality. However, the limited engagement with previous posts on similar topics and the crowded topic of AI and career development are risks that could impact its performance.",
+    "timestamp": "2026-11-04T19:56:46.403327Z"
+  },
+  "image": {
+    "provider": "cloudflare",
+    "prompt": "Generate a bold, colorful illustration of a person sitting in front of a laptop with a thought bubble containing a resume and a robot arm extending a pen, set against a deep blue background with neon green accents",
+    "file_path": "images/2026/11/04/cloudflare_flux_195648_294267.jpg",
+    "metadata": {
+      "provider": "cloudflare",
+      "model": "@cf/black-forest-labs/flux-1-schnell",
+      "steps": 4,
+      "width": 1024,
+      "height": 1024,
+      "dimensions": "1024x1024",
+      "format": "JPEG",
+      "watermark": false,
+      "created_at": "2026-11-04T19:56:48Z",
+      "chain_tried": []
+    },
+    "media_url": "https://raw.githubusercontent.com/yssavaliya/ai-content-agent/main/images/842010e0/842010e0.jpg"
+  },
+  "publish": {
+    "provider": "buffer",
+    "status": "sent",
+    "published_id": "6aeb8e0260e67ef1d1cb445b",
+    "metadata": {
+      "post_id": "6aeb8e0260e67ef1d1cb445b",
+      "update_id": "6aeb8e0260e67ef1d1cb445b",
+      "channel_id": "6ae249e62f1f5ed6480116ab",
+      "profile_id": "6ae249e62f1f5ed6480116ab",
+      "first_comment": null,
+      "due_at": null,
+      "status": "sent",
+      "published_at": "2026-11-04T19:57:00.814739Z"
+    },
+    "post_id": 6,
+    "experiment_id": 1
+  },
+  "fallbacks": [],
+  "revisions": 0,
+  "experiment": {
+    "id": 1,
+    "arm": "variant",
+    "variable": "hook-style"
+  },
+  "package_path": "posts/publish_package_842010e0.json",
+  "timing": {
+    "research_ms": 8318,
+    "planner_ms": 15818,
+    "creator_ms": 11193,
+    "reviewer_ms": 7163,
+    "predictor_ms": 7803,
+    "image_ms": 1893,
+    "publish_ms": 12520,
+    "total_ms": 64708
+  }
+}
