@@ -1,0 +1,167 @@
+{
+  "run_id": "39426c7d",
+  "research": {
+    "recommended_topic": "AI-generated Anime Art for Indian Festivals",
+    "audience_problem": "Lack of unique and engaging content for Indian festivals",
+    "why_now": "Today is a significant day for Indian festivals, and AI-generated anime art can provide a fresh perspective",
+    "hook": "Get ready to celebrate Indian festivals like never before with AI-generated anime art!",
+    "supporting_points": [
+      "AI-generated anime art can add a unique touch to Indian festivals",
+      "It can help creators stand out from the crowd",
+      "It can be used to create engaging and shareable content"
+    ],
+    "trend_signals": [
+      "Indian festival season is ongoing",
+      "AI-generated art is trending on Instagram",
+      "Anime art is popular among Indian audiences"
+    ],
+    "candidate_topics": [
+      "AI for Career Growth in India",
+      "Cricket and Anime: Uniting Indian Fans Through AI-Generated Art",
+      "AI-generated Anime Art for Indian Festivals"
+    ],
+    "confidence": 0.8,
+    "reasoning": "The recommended topic is chosen based on the current Indian festival season and the popularity of AI-generated art and anime among Indian audiences. The topic is unique and has not been covered recently, making it a fresh and engaging option for the audience.",
+    "timestamp": "2026-11-05T20:09:43.388449Z",
+    "research_id": 48
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Create a Reel showcasing AI-generated anime art for Diwali, with a hook like 'Diwali ki shuruaat ho gayi hai, aur humne banaya hai ek zabardast anime art, jo aapko celebratory mood mein daal dega!'",
+        "educational_score": 0.6,
+        "originality_score": 0.8,
+        "engagement_score": 0.9,
+        "relevance_score": 0.9,
+        "reasoning": "This idea rides the trend signal of Indian festival season and uses AI-generated anime art to create unique and engaging content."
+      },
+      {
+        "idea": "Share a carousel post highlighting the benefits of using AI-generated anime art for Indian festivals, with captions in Hinglish and relevant hashtags like #diwali #animeart #indianfestivals",
+        "educational_score": 0.8,
+        "originality_score": 0.6,
+        "engagement_score": 0.7,
+        "relevance_score": 0.8,
+        "reasoning": "This idea provides educational value by highlighting the benefits of AI-generated anime art and uses relevant hashtags to increase engagement."
+      },
+      {
+        "idea": "Collaborate with a popular Indian creator to create a Reel showcasing AI-generated anime art for a specific Indian festival, with a hook like 'Aaiye, humne banaya hai ek special anime art for Navratri, jo aapko garba mood mein daal dega!'",
+        "educational_score": 0.5,
+        "originality_score": 0.9,
+        "engagement_score": 0.95,
+        "relevance_score": 0.9,
+        "reasoning": "This idea rides the trend signal of Indian festival season and collaborates with a popular creator to increase engagement."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Create a Reel showcasing AI-generated anime art for Diwali, with a hook like 'Diwali ki shuruaat ho gayi hai, aur humne banaya hai ek zabardast anime art, jo aapko celebratory mood mein daal dega!'",
+      "educational_score": 0.6,
+      "originality_score": 0.8,
+      "engagement_score": 0.9,
+      "relevance_score": 0.9,
+      "total_score": 3.2,
+      "reasoning": "This idea rides the trend signal of Indian festival season and uses AI-generated anime art to create unique and engaging content, making it the strongest idea."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Diwali ki shuruaat ho gayi hai!",
+      "AI-generated anime art",
+      "Celebratory mood"
+    ],
+    "caption": "Diwali ki shuruaat ho gayi hai, aur humne banaya hai ek zabardast anime art, jo aapko celebratory mood mein daal dega! \ud83c\udfa8\ud83d\udd6f\ufe0f",
+    "cta": "Save and share with friends!",
+    "hashtags": [
+      "#DiwaliVibes",
+      "#AnimeArt",
+      "#AIgenerated",
+      "#IndianFestivals",
+      "#ReelsIndia",
+      "#InstaGood"
+    ],
+    "image_prompt": "Generate an anime-style illustration of a Diwali scene with vibrant colors and bold lines, featuring a lone hero silhouette in the foreground and a deep, atmospheric background with fireworks and diyas.",
+    "alt_text": "Anime-style illustration of a Diwali scene with a lone hero silhouette and vibrant colors"
+  },
+  "review": {
+    "status": "PASS",
+    "reasons": [
+      "The caption is written in Hinglish, making it relatable to the Indian audience.",
+      "The use of emojis is moderate, with 2 emojis used, which is suitable for Indian Instagram feeds.",
+      "The tone is enthusiastic and practical, aligning with the brand's tone guidelines.",
+      "The hashtags are a mix of broad English tags and niche Hinglish tags, which is suitable for local reach.",
+      "The content is relevant to the Indian festival calendar, specifically Diwali, making it timely and engaging."
+    ],
+    "timestamp": "2026-11-05T20:10:14.811361Z"
+  },
+  "prediction": {
+    "virality_score": 82,
+    "virality_label": "HIGH",
+    "virality_probability": 0.85,
+    "key_factors": [
+      "Timely Diwali theme",
+      "Relatable Hinglish caption",
+      "Unique AI-generated anime art",
+      "Strong emotional trigger of celebratory mood",
+      "Relevant hashtags for Indian audience"
+    ],
+    "risks": [
+      "Limited engagement history of recent posts",
+      "Potential oversaturation of Diwali content",
+      "Dependence on audience's interest in anime art"
+    ],
+    "reasoning": "The post effectively combines a timely Diwali theme with unique AI-generated anime art, relatable Hinglish caption, and strong emotional triggers, increasing its chances of going viral among the Indian audience.",
+    "timestamp": "2026-11-05T20:10:20.118782Z"
+  },
+  "image": {
+    "provider": "cloudflare",
+    "prompt": "Generate an anime-style illustration of a Diwali scene with vibrant colors and bold lines, featuring a lone hero silhouette in the foreground and a deep, atmospheric background with fireworks and diyas.",
+    "file_path": "images/2026/11/05/cloudflare_flux_201022_668313.jpg",
+    "metadata": {
+      "provider": "cloudflare",
+      "model": "@cf/black-forest-labs/flux-1-schnell",
+      "steps": 4,
+      "width": 1024,
+      "height": 1024,
+      "dimensions": "1024x1024",
+      "format": "JPEG",
+      "watermark": false,
+      "created_at": "2026-11-05T20:10:22Z",
+      "chain_tried": []
+    },
+    "media_url": "https://raw.githubusercontent.com/yssavaliya/ai-content-agent/main/images/39426c7d/39426c7d.jpg"
+  },
+  "publish": {
+    "provider": "buffer",
+    "status": "sent",
+    "published_id": "6aece2b1518b77a52495a3ed",
+    "metadata": {
+      "post_id": "6aece2b1518b77a52495a3ed",
+      "update_id": "6aece2b1518b77a52495a3ed",
+      "channel_id": "6ae249e62f1f5ed6480116ab",
+      "profile_id": "6ae249e62f1f5ed6480116ab",
+      "first_comment": null,
+      "due_at": null,
+      "status": "sent",
+      "published_at": "2026-11-05T20:10:33.856137Z"
+    },
+    "post_id": 7,
+    "experiment_id": 1
+  },
+  "fallbacks": [],
+  "revisions": 0,
+  "experiment": {
+    "id": 1,
+    "arm": "control",
+    "variable": "hook-style"
+  },
+  "package_path": "posts/publish_package_39426c7d.json",
+  "timing": {
+    "research_ms": 10841,
+    "planner_ms": 18830,
+    "creator_ms": 5762,
+    "reviewer_ms": 6827,
+    "predictor_ms": 5305,
+    "image_ms": 2553,
+    "publish_ms": 11188,
+    "total_ms": 61306
+  }
+}
