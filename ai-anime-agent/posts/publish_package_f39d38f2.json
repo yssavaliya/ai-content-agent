@@ -1,0 +1,164 @@
+{
+  "run_id": "f39d38f2",
+  "research": {
+    "recommended_topic": "AI for Exam Preparation in India",
+    "audience_problem": "Indian students struggle with exam preparation and need effective tools to improve their performance",
+    "why_now": "As the exam season approaches in India, students are looking for ways to improve their preparation and performance",
+    "hook": "Unlock your full potential with AI-powered exam prep tools!",
+    "supporting_points": [
+      "AI can help with personalized learning plans",
+      "AI-powered tools can analyze student performance and provide feedback",
+      "AI can assist with practice tests and quizzes"
+    ],
+    "trend_signals": [
+      "Exam season is approaching in India",
+      "AI is increasingly being used in education",
+      "Indian students are actively looking for effective exam preparation tools"
+    ],
+    "candidate_topics": [
+      "AI for Career Growth in India",
+      "AI-generated Anime Art for Indian Festivals",
+      "Cricket and Anime: Uniting Indian Fans Through AI-Generated Art"
+    ],
+    "confidence": 0.8,
+    "reasoning": "The recommended topic is chosen based on the current exam season in India and the increasing use of AI in education. The hook is designed to grab the attention of Indian students who are looking for effective exam preparation tools. The supporting points highlight the benefits of using AI-powered tools for exam preparation.",
+    "timestamp": "2026-11-06T19:36:09.852711Z",
+    "research_id": 49
+  },
+  "planning": {
+    "ideas": [
+      {
+        "idea": "Create a Reel showcasing how AI-powered exam prep tools can help Indian students unlock their full potential, using a mix of Hinglish and English in the caption and highlighting the benefits of personalized learning plans.",
+        "educational_score": 0.8,
+        "originality_score": 0.6,
+        "engagement_score": 0.7,
+        "relevance_score": 0.9,
+        "reasoning": "This idea rides the trend signal of the approaching exam season in India and uses a hook that resonates with the target audience, while also highlighting the benefits of AI-powered exam prep tools."
+      },
+      {
+        "idea": "Develop a carousel post that provides tips and checklists for Indian students on how to use AI-powered tools to improve their exam performance, using Hinglish captions and referencing familiar daily scenarios.",
+        "educational_score": 0.9,
+        "originality_score": 0.5,
+        "engagement_score": 0.6,
+        "relevance_score": 0.8,
+        "reasoning": "This idea provides value to the target audience by offering practical tips and checklists, while also using a format that works well for value content on Indian Instagram."
+      },
+      {
+        "idea": "Create a series of Reels that showcase how AI can assist with practice tests and quizzes, using a mix of Hindi, Hinglish, and English in the captions and referencing the upcoming cricket season as a timely hook.",
+        "educational_score": 0.7,
+        "originality_score": 0.8,
+        "engagement_score": 0.8,
+        "relevance_score": 0.7,
+        "reasoning": "This idea uses a timely hook to grab the attention of the target audience, while also highlighting the benefits of AI-powered tools for practice tests and quizzes."
+      }
+    ],
+    "selected_idea": {
+      "idea": "Create a Reel showcasing how AI-powered exam prep tools can help Indian students unlock their full potential, using a mix of Hinglish and English in the caption and highlighting the benefits of personalized learning plans.",
+      "educational_score": 0.8,
+      "originality_score": 0.6,
+      "engagement_score": 0.7,
+      "relevance_score": 0.9,
+      "total_score": 3.0,
+      "reasoning": "This idea rides the trend signal of the approaching exam season in India and uses a hook that resonates with the target audience, while also highlighting the benefits of AI-powered exam prep tools."
+    }
+  },
+  "creation": {
+    "carousel_outline": [
+      "Introduction to AI-powered exam prep",
+      "Benefits of personalized learning plans",
+      "How AI helps unlock full potential"
+    ],
+    "caption": "Kya AI aapke exams ko crack karne mein madad kar sakta hai? \nAI-powered exam prep tools help you unlock your full potential! \ud83d\ude80\n#AIEducation #ExamPrep",
+    "cta": "Learn more about AI-powered exam prep in the comments below!",
+    "hashtags": [
+      "#reelsindia",
+      "#AIEducation",
+      "#ExamPrep",
+      "#instagood",
+      "#educationmatters"
+    ],
+    "image_prompt": "A colorful illustration of a student studying with a laptop and a book, surrounded by AI-powered exam prep tools and anime-inspired elements.",
+    "alt_text": "A student studying with AI-powered exam prep tools and anime-inspired elements"
+  },
+  "review": {
+    "status": "PASS",
+    "reasons": [
+      "The caption is written in Hinglish, making it relatable to the Indian audience",
+      "The use of emojis is moderate, with only one emoji used, which is suitable for Indian Instagram feeds",
+      "The hashtags used are a mix of broad English tags and niche Hinglish tags, which is in line with the market context",
+      "The tone of the caption is enthusiastic and practical, aligning with the brand tone",
+      "The content is relevant to the Indian market, with a focus on exam prep, which is a significant concern for Indian students"
+    ],
+    "timestamp": "2026-11-06T19:36:40.623194Z"
+  },
+  "prediction": {
+    "virality_score": 72,
+    "virality_label": "HIGH",
+    "virality_probability": 0.8,
+    "key_factors": [
+      "Relatable topic of exam preparation for Indian students",
+      "Use of Hinglish in the caption",
+      "Relevant hashtags such as #AIEducation and #ExamPrep",
+      "Timely post with exam season approaching in India"
+    ],
+    "risks": [
+      "Limited engagement with recent posts",
+      "High competition in the education and AI niches"
+    ],
+    "reasoning": "The post is well-timed with the exam season approaching in India, and the use of Hinglish in the caption makes it relatable to the Indian audience. The hashtags used are relevant and have a good mix of broad and niche tags. However, the recent posts have limited engagement, and the education and AI niches are highly competitive.",
+    "timestamp": "2026-11-06T19:36:47.175155Z"
+  },
+  "image": {
+    "provider": "cloudflare",
+    "prompt": "A colorful illustration of a student studying with a laptop and a book, surrounded by AI-powered exam prep tools and anime-inspired elements.",
+    "file_path": "images/2026/11/06/cloudflare_flux_193648_534175.jpg",
+    "metadata": {
+      "provider": "cloudflare",
+      "model": "@cf/black-forest-labs/flux-1-schnell",
+      "steps": 4,
+      "width": 1024,
+      "height": 1024,
+      "dimensions": "1024x1024",
+      "format": "JPEG",
+      "watermark": false,
+      "created_at": "2026-11-06T19:36:48Z",
+      "chain_tried": []
+    },
+    "media_url": "https://raw.githubusercontent.com/yssavaliya/ai-content-agent/main/images/f39d38f2/f39d38f2.jpg"
+  },
+  "publish": {
+    "provider": "buffer",
+    "status": "sent",
+    "published_id": "6aee2c53d6bbae6fa1423793",
+    "metadata": {
+      "post_id": "6aee2c53d6bbae6fa1423793",
+      "update_id": "6aee2c53d6bbae6fa1423793",
+      "channel_id": "6ae249e62f1f5ed6480116ab",
+      "profile_id": "6ae249e62f1f5ed6480116ab",
+      "first_comment": null,
+      "due_at": null,
+      "status": "sent",
+      "published_at": "2026-11-06T19:37:00.095515Z"
+    },
+    "post_id": 8,
+    "experiment_id": 1
+  },
+  "fallbacks": [],
+  "revisions": 0,
+  "experiment": {
+    "id": 1,
+    "arm": "variant",
+    "variable": "hook-style"
+  },
+  "package_path": "posts/publish_package_f39d38f2.json",
+  "timing": {
+    "research_ms": 8191,
+    "planner_ms": 18970,
+    "creator_ms": 7397,
+    "reviewer_ms": 4398,
+    "predictor_ms": 6550,
+    "image_ms": 1361,
+    "publish_ms": 11561,
+    "total_ms": 58428
+  }
+}
