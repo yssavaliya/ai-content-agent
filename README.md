@@ -59,6 +59,7 @@ Supported environment variables (see `.env.example`):
 - `INSTAGRAM_ACCESS_TOKEN` / `INSTAGRAM_ACCOUNT_ID` — Instagram Business account credentials
 - `INSTAGRAM_API_VERSION` — Graph API version (default `21.0`)
 - `INSTAGRAM_PUBLISH_ENABLED` — set `true` to publish for real; otherwise publishing falls back to dry-run
+- `HUMAN_APPROVAL_REQUIRED` — defaults to `false` for unattended publishing; set `true` only to force post-kit review instead of live Instagram/Buffer publishing
 - `INSTAGRAM_ANALYTICS_ENABLED` — set `true` to collect insights
 - `ANALYTICS_MAX_AGE_DAYS` — only posts newer than this are re-measured each run (default 30)
 - `BUFFER_ACCESS_TOKEN` / `BUFFER_PROFILE_ID` — optional Buffer publishing and analytics (see costs table)

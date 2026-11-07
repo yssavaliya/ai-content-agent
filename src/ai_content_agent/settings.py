@@ -76,6 +76,8 @@ class Settings:
     instagram_account_id: str | None = None
     instagram_api_version: str = "21.0"
     instagram_publish_enabled: bool = False
+    # Emergency opt-in to manual review. False keeps the scheduled pipeline autonomous.
+    human_approval_required: bool = False
     buffer_access_token: str | None = None
     buffer_profile_id: str | None = None
     buffer_schedule_time_utc: str | None = None
@@ -255,6 +257,9 @@ def load_settings(env: dict[str, str] | None = None, env_file: str | Path | None
         buffer_schedule_time_utc=get("BUFFER_SCHEDULE_TIME_UTC"),
         instagram_publish_enabled=_parse_bool(
             get("INSTAGRAM_PUBLISH_ENABLED") or "false", "INSTAGRAM_PUBLISH_ENABLED"
+        ),
+        human_approval_required=_parse_bool(
+            get("HUMAN_APPROVAL_REQUIRED") or "false", "HUMAN_APPROVAL_REQUIRED"
         ),
         instagram_analytics_enabled=_parse_bool(
             get("INSTAGRAM_ANALYTICS_ENABLED") or "false", "INSTAGRAM_ANALYTICS_ENABLED"

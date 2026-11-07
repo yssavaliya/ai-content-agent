@@ -2,29 +2,29 @@
 
 ## Brand
 
-`@aimagix.studio` (AI Magix Studio) is an autonomous AI visual storytelling and concept art studio creating cinematic anime masterpieces, visual philosophies, and discipline/craft motivation.
+`@aimagix.studio` is an independent AI-assisted creative studio. It develops original visual concepts and short-form product advertising for Indian small businesses and direct-to-consumer brands. Every portfolio advertisement is clearly presented as a concept unless a real client has approved it.
 
 ## Audience
 
-- Anime and manga enthusiasts across India and globally (Shonen, Seinen, Solo Leveling, Jujutsu Kaisen, Demon Slayer fans)
-- Digital artists, designers, and creative storytellers
-- Ambitious builders, creators, and students dedicated to quiet mastery, deep work, and discipline
-- Visual seekers drawn to dark aesthetic wallpapers, ethereal color palettes, and cinematic key visuals
+- Indian founders and small brand teams who need affordable, distinctive product visuals.
+- Creators and designers interested in practical AI-assisted creative workflows.
+- Viewers who enjoy cinematic, anime-influenced visual storytelling.
 
 ## Mission
 
-Stop the infinite scroll with museum-grade cinematic AI visuals and deep philosophical hooks that provoke thought, inspire relentless focus, and earn massive saves and shares.
+Show how a product brief can become an original visual idea, a polished ad, and a repeatable creative process. Earn attention by showing the work and its choices, not by posting generic AI images or unsupported performance claims.
 
 ## Tone
 
-- **Cinematic & Stoic**: High-gravitas, evocative, disciplined, and visionary.
-- **Philosophical & Grounded**: Focused on craft, quiet hours in the shadows, overcoming adversity, and personal transformation.
-- **Approachable & Community-Driven**: Encourages interaction through low-friction micro-commitments (emojis, questions, reflections).
-- **Zero Corporate Fluff**: Never sounds like a marketing agency or generic SaaS tool; speaks directly to the soul of an ambitious creator or anime fan.
+- Clear, curious, and visually literate.
+- Practical about what AI can and cannot do.
+- Friendly to Indian small businesses; use natural English or Hinglish when it suits the audience.
+- Never claim client results, sales lifts, endorsements, or production time savings without evidence.
 
-## Visual Style
+## Visual direction
 
-- **Format**: 1:1 square (1080x1080) optimized for feed prominence.
-- **Aesthetic**: Hyper-detailed key visual art inspired by modern high-end studio sakuga (Ufotable, Makoto Shinkai, MAPPA).
-- **Lighting & Palette**: High-contrast neon glows against obsidian/deep indigo shadows, celestial moons, stardust particles, and dynamic rim lighting.
-- **Rule**: Pure standalone artwork. Never overlay pagination numbers, carousel swipe arrows, or distracting bullet-point boxes on the image.
+- Prefer vertical 9:16 motion for Reels; use 4:5 or square stills only when the idea benefits from a static format.
+- Use original products, fictional labels, or client assets with permission.
+- Treat anime as a visual influence, not a license to reproduce franchise characters or identifiable artist styles.
+- Keep typography legible and sparse. Add type in editing software rather than asking image models to render exact copy.
+- Use a consistent Aimagix mark, restrained cyan/violet accents, and a recognizable end card.

@@ -21,6 +21,10 @@ class PublishRegistry:
 
             settings = current_settings()
 
+        if settings.human_approval_required:
+            logger.info("Human approval is required; generating a post kit instead of publishing")
+            return DryRunPublisher()
+
         if settings.buffer_access_token and settings.buffer_profile_id:
             logger.info("Buffer publishing enabled (profile_id=%s)", settings.buffer_profile_id)
             return BufferPublisher(

@@ -1,35 +1,24 @@
-# Indian Market Context
+# Market context
 
-## Audience
+This document contains hypotheses for content development, not verified audience research. Validate them against Instagram Insights and conversations with actual small-business owners.
 
-- Primary: Indian Instagram users aged 18-34, across Tier 1 (metro), Tier 2, and Tier 3 cities.
-- Mix of Hindi, Hinglish, and English speakers. Hinglish (Hindi+English mix) is the highest-engagement content language on Indian Instagram.
-- Audiences are mobile-first, data-light users: fast scroll, strong preference for relatable, value-first content.
-- Large "creator economy" and small-business audience: dropshippers, D2C brands, local sellers, freelancers, students.
+## Audience questions to answer
 
-## Language
+- What product categories do nearby founders most want to advertise?
+- Do viewers respond more to finished transformations, process breakdowns, or original visual stories?
+- Which language mix (English, Hindi, Hinglish, Gujarati) earns meaningful replies from the intended audience?
+- What makes a viewer visit the profile, follow, or ask about a service?
 
-- Captions should be written in Hinglish (Roman script) by default, or English with Hinglish flavor, unless the strategy says otherwise.
-- Keep emojis moderate (2-5 per caption). Emojis increase engagement on Indian feeds.
-- Avoid heavy English slang; prefer phrases used in daily Indian life (e.g., "kaam ki baat", "zabardast", "struggle real hai").
+## Useful creative principles
 
-## Trends & Moments
+- Make the first frame understandable without sound and show the product or transformation immediately.
+- Keep one core idea per Reel. Use motion, framing, or a before/after change to reward continued viewing.
+- Make process content specific enough to save: prompt choices, art direction, editing decisions, or a limitation and its fix.
+- Make a spec ad honest: fictional concept or “not affiliated” where a real brand is referenced; never imply client approval.
+- Captions should state what the viewer is seeing and why the creative choice was made. Ask one relevant question or give one low-friction next step.
 
-- Follow the Indian festival calendar: Diwali, Holi, Navratri, Dussehra, Eid, Pongal, Onam, Raksha Bandhan, Independence Day, Republic Day, New Year, Valentine's Week.
-- Seasonal moments: wedding season (Oct-Mar), exam season (Feb-Mar boards, Apr-May finals), cricket season (IPL Apr-May, international tours), monsoon (Jun-Sep), startup/IPO news, budget day, cricket/bollywood events.
-- Trending audio, reels formats, and meme formats spread fast on Indian Instagram; hooks should reference familiar daily scenarios (metro commute, chai breaks, hostel life, family WhatsApp groups).
+## Measurement caveats
 
-## Platforms & Format
-
-- Instagram Reels are the dominant format; carousels work well for value content (tips, checklists, tutorials).
-- Hashtags: mix of broad English tags (#instagood, #reelsindia) and niche Hinglish tags (#kaamkibaatein), with location tags for local reach.
-- Best posting windows (IST): 12-2pm lunch scroll, 6-9pm evening peak, 10-11pm night scroll.
-
-## Do's and Don'ts
-
-- DO reference Indian daily life, price sensitivity (value for money), family dynamics, and local humor.
-- DO use Indian festivals and cricket as timely hooks.
-- DO keep captions skimmable: short lines, bullets, one idea per line.
-- DON'T copy Western references that do not translate (e.g., Thanksgiving, prom season).
-- DON'T use formal/bureaucratic tone; it reads as corporate spam.
-- DON'T ignore regional diversity; avoid assuming all India is one culture or language.
+- Views, reach, and viewer counts are different measures. Use the metric names shown by Instagram for the selected date range.
+- Ranking signals and recommendation eligibility are not inferred from a single metric. Check Account Status and evaluate the account's own data.
+- Small account samples swing sharply. Avoid declaring a topic or posting hour successful from one post.

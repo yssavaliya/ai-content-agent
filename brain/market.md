@@ -1,38 +1,24 @@
-# Market Context & Virality Dynamics
+# Market context
 
-## Audience Demographics & Behavioral Triggers
+This document contains hypotheses for content development, not verified audience research. Validate them against Instagram Insights and conversations with actual small-business owners.
 
-- **Primary**: Anime, gaming, digital art, and self-mastery communities aged 18–32 across India and global hubs.
-- **Scroll Behavior**: Ultra-fast feed skimmers (0.7-second retention window). Posts must visually arrest attention before they scroll past.
-- **Save Triggers**:
-  1. *Wallpaper Worthiness*: Stunning artwork that users immediately save to use as phone/lock screen wallpapers.
-  2. *Mindset Anchor*: A perspective on craft, focus, or perseverance that users want to reference during low-energy moments.
-- **Share Triggers**:
-  1. Posts that express an unspoken truth about the grind ("silent work beats loud talent").
-  2. High-aesthetic concept art that friends tag each other in because it reminds them of favorite anime or themes.
+## Audience questions to answer
 
-## Algorithmic Ranking Signals on Instagram
+- What product categories do nearby founders most want to advertise?
+- Do viewers respond more to finished transformations, process breakdowns, or original visual stories?
+- Which language mix (English, Hindi, Hinglish, Gujarati) earns meaningful replies from the intended audience?
+- What makes a viewer visit the profile, follow, or ask about a service?
 
-1. **Saves (> 5% of Reach)**: The single strongest Explore Page amplifier. Saves signal high long-term perceived value to Instagram's recommendation graph.
-2. **DM Shares (> 3% of Reach)**: Propels posts into recommendation circles of lookalike accounts.
-3. **First 90-Minute Velocity**: Fast engagement within 90 minutes of posting dictates whether Instagram pushes content from follower feeds into the Explore feed.
-4. **Clean Dwell Time**: Users pausing to admire intricate visual details increases dwell time, signaling exceptional quality to the feed ranking model.
+## Useful creative principles
 
-## Peak Engagement Windows (IST)
+- Make the first frame understandable without sound and show the product or transformation immediately.
+- Keep one core idea per Reel. Use motion, framing, or a before/after change to reward continued viewing.
+- Make process content specific enough to save: prompt choices, art direction, editing decisions, or a limitation and its fix.
+- Make a spec ad honest: fictional concept or “not affiliated” where a real brand is referenced; never imply client approval.
+- Captions should state what the viewer is seeing and why the creative choice was made. Ask one relevant question or give one low-friction next step.
 
-- **Prime Evening Peak**: 6:00 PM – 9:00 PM IST (post-work, post-college relaxation window — prime exploration time).
-- **Secondary Lunch Window**: 1:00 PM – 2:30 PM IST.
-- **Late Night Focus**: 10:30 PM – 11:30 PM IST.
+## Measurement caveats
 
-## Content Pillars & Themes for Virality
-
-1. **The Training Arc / Silent Grind**: The psychological cost and reward of relentless craft discipline (Solo Leveling / Berserk archetypes).
-2. **The Awakening Moment**: Breaking through mental barriers, shedding self-doubt, stepping into sovereign focus.
-3. **Aesthetic Philosophy**: Juxtaposing beautiful, ethereal worlds (Makoto Shinkai skies, neon cyberpunk streets) with timeless truths about time, destiny, and human resilience.
-4. **Cinematic Character Concepts**: Unveiling original wanderers, guardians, and swordsmen with evocative micro-backstories.
-
-## Hashtag Discovery Matrix
-
-- **Broad Tier (Reach)**: `#anime`, `#animeart`, `#digitalart`, `#conceptart`, `#aesthetic`
-- **Niche Tier (Intent)**: `#animephilosophy`, `#visualstorytelling`, `#sololeveling`, `#darkaesthetic`, `#aimagix`
-- **Format / Community**: `#keyvisual`, `#animeaesthetic`, `#creativecommunity`
+- Views, reach, and viewer counts are different measures. Use the metric names shown by Instagram for the selected date range.
+- Ranking signals and recommendation eligibility are not inferred from a single metric. Check Account Status and evaluate the account's own data.
+- Small account samples swing sharply. Avoid declaring a topic or posting hour successful from one post.
