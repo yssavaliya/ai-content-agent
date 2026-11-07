@@ -21,7 +21,7 @@ class PublishRegistry:
 
             settings = current_settings()
 
-        if settings.human_approval_required:
+        if settings.human_approval_required is True:
             logger.info("Human approval is required; generating a post kit instead of publishing")
             return DryRunPublisher()
 

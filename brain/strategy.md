@@ -23,6 +23,7 @@ Make Aimagix the account that turns familiar Indian products into short, origina
 - Do not publish an image just because it is attractive. Show what the studio made, why the choice works, or how a viewer can use the idea.
 - Use original fictional packaging or client-provided assets. Label spec ads as “concept / not affiliated” in the caption when a real brand is referenced.
 - Avoid unsupported claims, generic motivational aphorisms, repetitive lone-hero scenes, fake testimonials, and invented campaign results.
+- Avoid the stock line *"The world only celebrates the awakening. They never see the ten thousand hours in the shadows."* Treat it as copy to avoid, not as a caption pattern.
 - Use 3–5 specific hashtags at most; include searchable product/category terms in the spoken or on-screen wording and caption.
 - Never ask a model to draw a logo or exact text. Render typography and logos as editable overlays after image generation.
 

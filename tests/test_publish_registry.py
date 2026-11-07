@@ -1,6 +1,7 @@
 import unittest
 
 from ai_content_agent.publish.instagram import InstagramPublisher
+from ai_content_agent.publish.buffer import BufferPublisher
 from ai_content_agent.publish.providers.dry_run import DryRunPublisher
 from ai_content_agent.publish.registry import PublishRegistry
 from ai_content_agent.settings import Settings
@@ -21,6 +22,22 @@ def make_settings(**overrides) -> Settings:
 class PublishRegistryTests(unittest.TestCase):
     def test_returns_dry_run_when_not_enabled(self):
         publisher = PublishRegistry.build_publisher(make_settings())
+        self.assertIsInstance(publisher, DryRunPublisher)
+
+    def test_buffer_is_selected_when_configured(self):
+        publisher = PublishRegistry.build_publisher(
+            make_settings(buffer_access_token="buffer-token", buffer_profile_id="profile-1")
+        )
+        self.assertIsInstance(publisher, BufferPublisher)
+
+    def test_explicit_approval_override_forces_dry_run(self):
+        publisher = PublishRegistry.build_publisher(
+            make_settings(
+                human_approval_required=True,
+                buffer_access_token="buffer-token",
+                buffer_profile_id="profile-1",
+            )
+        )
         self.assertIsInstance(publisher, DryRunPublisher)
 
     def test_returns_instagram_when_configured(self):
